@@ -1,12 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Enemy : MonoBehaviour
+public class Enemy :MonoBehaviour
 {
     NavMeshAgent nav;
     [SerializeField] GameObject target;
+    [SerializeField] int hp;
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
@@ -14,5 +13,14 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         nav.destination = target.transform.position;
+    }
+
+    public void TakeDamage(int damage)
+    {
+        hp -= damage;
+        if (hp <= 0)
+        {
+            Destroy(gameObject);
+        }
     }
 }
