@@ -4,6 +4,7 @@ public class Bullet :MonoBehaviour
 {
     Enemy enemy;
     Rigidbody rb;
+    [SerializeField] int damage;
 
     private void Awake()
     {
@@ -20,7 +21,7 @@ public class Bullet :MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             enemy = other.gameObject.GetComponent<Enemy>();
-            enemy.TakeDamage(1);
+            enemy.TakeDamage(damage);
             Destroy(gameObject);
         }
     }

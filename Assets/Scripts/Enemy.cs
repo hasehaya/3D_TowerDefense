@@ -9,12 +9,13 @@ public class Enemy :MonoBehaviour
     void Start()
     {
         nav = GetComponent<NavMeshAgent>();
-    }
-    void Update()
-    {
-        nav.destination = target.transform.position;
+        SetDestination(GameManager.Instance.GetBase().transform);
     }
 
+    public void SetDestination(Transform destination)
+    {
+        nav.destination = destination.position;
+    }
     public void TakeDamage(int damage)
     {
         hp -= damage;

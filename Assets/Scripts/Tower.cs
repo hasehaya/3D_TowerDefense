@@ -2,16 +2,10 @@ using UnityEngine;
 
 public class Tower :MonoBehaviour
 {
-    Collider collider;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] Transform muzzleTransform;
     [SerializeField] float ct;
     float coolTimeCounter;
-
-    private void Start()
-    {
-        collider = GetComponent<Collider>();
-    }
 
     private void OnTriggerStay(Collider other)
     {
