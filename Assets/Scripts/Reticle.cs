@@ -1,0 +1,31 @@
+using UnityEngine;
+
+public class Reticle :MonoBehaviour
+{
+    private static Reticle instance;
+    public static Reticle Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<Reticle>();
+            }
+            return instance;
+        }
+    }
+
+    public Tower GetTower()
+    {
+        RaycastHit hit;
+        int layerToTarget = 7;
+        LayerMask layerMask = 1 << layerToTarget;
+        Vector3 direction = transform.position - Camera.main.transform.position;
+        Physics.Raycast(Camera.main.transform.position, direction, out hit, Mathf.Infinity, layerMask);
+        if (hit.collider != null)
+        {
+            return hit.collider.GetComponent<Tower>();
+        }
+        return null;
+    }
+}

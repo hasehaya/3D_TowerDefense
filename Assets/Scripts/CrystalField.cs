@@ -7,7 +7,7 @@ public class CrystalField :MonoBehaviour
     [SerializeField] SpriteRenderer sr;
 
     private float vibrationStrength = 0.3f; //U•
-    private float vibrationOffset = 1f; //’†S
+    private float vibrationOffset = 2f; //’†S
     private float vibrationSpeed = 3f; //üŠú
 
     private void Start()
@@ -29,10 +29,10 @@ public class CrystalField :MonoBehaviour
             transform.position.z);
     }
 
-    public void SetCrystal(Crystal crystal, Sprite sprite)
+    public void SetCrystal(Crystal crystal)
     {
         this.crystal = crystal;
-        sr.sprite = sprite;
+        sr.sprite = crystal.sprite;
     }
 
     private void OnTriggerEnter(Collider other)

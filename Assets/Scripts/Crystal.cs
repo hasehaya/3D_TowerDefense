@@ -1,17 +1,26 @@
 using UnityEngine;
 
-public class Crystal 
+[System.Serializable]
+public class Crystal
 {
+    // set number of types
     public enum Type
     {
-        Water,
-        Fire,
-        Wind,
-        Sunder,
-        Ice,
-        Wood,
-        Stone,
-
+        None = 0,
+        Water = 1,
+        Fire = 2,
+        Wind = 3,
+        Thunder = 4,
+        Ice = 5,
+        Wood = 6,
+        Stone = 7,
+        Mist = 8,
+        Cloud = 9,
+        ThunderCloud = 10,
+        RainCloud = 11,
+        SnowCloud = 12,
+        ThunderStorm = 13,
+        Typhoon = 14,
     }
 
     public Type type;

@@ -1,4 +1,4 @@
-#if UNITY_EDITOR
+﻿#if UNITY_EDITOR
 using UnityEditor;
 using UnityEditor.SceneManagement;
 
@@ -10,18 +10,15 @@ public class AutoSave
 {
     static AutoSave()
     {
-        EditorApplication.playModeStateChanged += SaveCurrentScene;
-        EditorSceneManager.SaveOpenScenes();
-        AssetDatabase.SaveAssets();
-        Debug.Log("AutoSaved");
+        EditorApplication.playModeStateChanged += SaveScene;
     }
 
-    private static void SaveCurrentScene(PlayModeStateChange state)
+    private static void SaveScene(PlayModeStateChange state)
     {
         if (state == PlayModeStateChange.ExitingEditMode)
         {
             EditorSceneManager.SaveOpenScenes();
-            AssetDatabase.SaveAssets();
+            Debug.Log("saved (⁎ᵕᴗᵕ⁎)");
         }
     }
 }

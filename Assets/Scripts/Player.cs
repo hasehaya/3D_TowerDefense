@@ -2,6 +2,18 @@ using UnityEngine;
 
 public class Player :MonoBehaviour
 {
+    private static Player instance;
+    public static Player Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<Player>();
+            }
+            return instance;
+        }
+    }
     [SerializeField] Transform cameraTransform;
     Animator animator;
     Quaternion targetRotation = Quaternion.identity;

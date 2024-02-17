@@ -10,8 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 6926795072219727705}
   - component: {fileID: 5131387000521061532}
+  - component: {fileID: 6383757256610174791}
   - component: {fileID: 5476862203193430129}
-  m_Layer: 5
+  - component: {fileID: 4395503722728072700}
+  m_Layer: 8
   m_Name: CrystalItem
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +47,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2490313054547468994}
   m_CullTransparentMesh: 1
+--- !u!114 &6383757256610174791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490313054547468994}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59ded3ce063c6f84198d7104f541aff1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  crystal:
+    type: 0
+    sprite: {fileID: 0}
+  image: {fileID: 5476862203193430129}
+  type: 0
 --- !u!114 &5476862203193430129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65,8 +84,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9750f0f9a64b875498b1bf99dce17b45, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 0}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -75,6 +94,18 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!210 &4395503722728072700
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2490313054547468994}
+  m_Enabled: 1
+  m_SortingLayerID: 1297718545
+  m_SortingLayer: 2
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
 --- !u!1 &6894482409048783989
 GameObject:
   m_ObjectHideFlags: 0
@@ -87,7 +118,8 @@ GameObject:
   - component: {fileID: 1546721479526773682}
   - component: {fileID: 3901776878182477603}
   - component: {fileID: 6722703421546728028}
-  m_Layer: 5
+  - component: {fileID: 3915223215065399016}
+  m_Layer: 7
   m_Name: Crystalframe
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -164,3 +196,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!210 &3915223215065399016
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6894482409048783989}
+  m_Enabled: 1
+  m_SortingLayerID: 1083053525
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0

@@ -28,6 +28,7 @@ public class Bullet :MonoBehaviour
 
     void Update()
     {
+        if (enemy == null) return;
         rb.velocity = (enemy.transform.position - transform.position).normalized * 10;
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "CrystalListEntity", menuName = "CrystalListEntity")]
+[CreateAssetMenu]
 public class CrystalListEntity :ScriptableObject
 {
     public List<Crystal> crystals = new List<Crystal>();

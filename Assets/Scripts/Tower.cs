@@ -2,25 +2,27 @@ using UnityEngine;
 
 public class Tower :MonoBehaviour
 {
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] Transform muzzleTransform;
-    [SerializeField] float ct;
-    float coolTimeCounter;
+    [SerializeField] Transform topPos;
+    [SerializeField] Transform lowerPos;
 
-    private void OnTriggerStay(Collider other)
+    public void WarpTowerToTower()
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        Player.Instance.transform.position = topPos.position;
+    }
+
+    public void WarpToTop()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (ct <= coolTimeCounter)
-            {
-                var bullet = Instantiate(bulletPrefab, muzzleTransform.position, Quaternion.identity);
-                bullet.GetComponent<Bullet>().SetEnemy(other.gameObject.GetComponent<Enemy>());
-                coolTimeCounter = 0;
-            }
-            else
-            {
-                coolTimeCounter += Time.deltaTime;
-            }
+            Player.Instance.transform.position = topPos.position;
+        }
+    }
+
+    public void WarpToLower()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Player.Instance.transform.position = lowerPos.position;
         }
     }
 }
