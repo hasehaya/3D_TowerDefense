@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3714393622379625735}
   - component: {fileID: 2444422199964329265}
   - component: {fileID: 2556444698150416941}
-  m_Layer: 11
+  m_Layer: 9
   m_Name: Collider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 8978848956591368418}
   - component: {fileID: 5791389597666519647}
   - component: {fileID: 7604013537144844731}
-  m_Layer: 9
+  m_Layer: 0
   m_Name: Canon
   m_TagString: Untagged
   m_Icon: {fileID: 0}

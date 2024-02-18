@@ -14,6 +14,7 @@ public class Canon :MonoBehaviour
     {
         mr = GetComponent<MeshRenderer>();
         col.isTrigger = true;
+        onTrigger = false;
         originColor = mr.material.color;
     }
 
@@ -25,6 +26,8 @@ public class Canon :MonoBehaviour
         if (groundPos != default)
         {
             transform.position = groundPos;
+            if (onTrigger)
+                return;
             if (Input.GetKeyDown(KeyCode.E))
             {
                 isInstalled = true;

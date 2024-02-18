@@ -21,7 +21,7 @@ public class CanonCollider :MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
         if (canon.isInstalled)
             return;
