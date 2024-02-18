@@ -2,25 +2,46 @@ using UnityEngine;
 
 public class Canon :MonoBehaviour
 {
-    [SerializeField] GameObject bulletPrefab;
-    [SerializeField] Transform muzzleTransform;
-    [SerializeField] float ct;
-    float coolTimeCounter;
+    [SerializeField] Collider col;
+    [SerializeField] Rigidbody rb;
+    MeshRenderer mr;
+    Color originColor;
+    public bool isInstalled;
+    public bool onTrigger;
 
-    private void OnTriggerStay(Collider other)
+
+    private void Start()
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        mr = GetComponent<MeshRenderer>();
+        col.isTrigger = true;
+        originColor = mr.material.color;
+    }
+
+    private void Update()
+    {
+        if (isInstalled)
+            return;
+        var groundPos = Reticle.Instance.GetTansform();
+        if (groundPos != default)
         {
-            if (ct <= coolTimeCounter)
+            transform.position = groundPos;
+            if (Input.GetKeyDown(KeyCode.E))
             {
-                var bullet = Instantiate(bulletPrefab, muzzleTransform.position, Quaternion.identity);
-                bullet.GetComponent<Bullet>().SetEnemy(other.gameObject.GetComponent<Enemy>());
-                coolTimeCounter = 0;
-            }
-            else
-            {
-                coolTimeCounter += Time.deltaTime;
+                isInstalled = true;
+                col.isTrigger = false;
+                Destroy(rb);
+                mr.material.color = originColor;
             }
         }
+    }
+
+    public void ChangeColorRed()
+    {
+        mr.material.color = new Color(1.0f, originColor.g / 3, originColor.b / 3, 0.9f);
+    }
+
+    public void ChangeColorGreen()
+    {
+        mr.material.color = new Color(originColor.r / 3, 1.0f, originColor.b / 3, 0.9f);
     }
 }

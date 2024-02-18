@@ -5,6 +5,7 @@ public class Bullet :MonoBehaviour
     Enemy enemy;
     Rigidbody rb;
     [SerializeField] int damage;
+    [SerializeField] float speed;
 
     private void Awake()
     {
@@ -28,7 +29,8 @@ public class Bullet :MonoBehaviour
 
     void Update()
     {
-        if (enemy == null) return;
-        rb.velocity = (enemy.transform.position - transform.position).normalized * 10;
+        if (enemy == null)
+            return;
+        rb.velocity = (enemy.transform.position - transform.position).normalized * speed;
     }
 }
