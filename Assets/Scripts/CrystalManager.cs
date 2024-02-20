@@ -16,6 +16,7 @@ public class CrystalManager :MonoBehaviour
     }
     [SerializeField] GameObject crystalPrefab;
     [SerializeField] CrystalListEntity crystalListEntity;
+    [SerializeField] CrystalCombinationList crystalCombinationList;
     [SerializeField] GameObject crystalPositionParent;
     Transform[] crystalPositions;
 
@@ -62,5 +63,26 @@ public class CrystalManager :MonoBehaviour
             }
         }
         return null;
+    }
+
+    public Crystal.Type GetSynthesizedCrystal(Crystal.Type sorceCrystal1, Crystal.Type sorceCrystal2)
+    {
+        foreach (var combination in crystalCombinationList.crystalCombinations)
+        {
+            if (combination.synthesisSourceCrystals.Length != 2)
+            {
+                continue;
+            }
+            if (combination.synthesisSourceCrystals[0] != sorceCrystal1 && combination.synthesisSourceCrystals[1] != sorceCrystal1)
+            {
+                continue;
+            }
+            if (combination.synthesisSourceCrystals[0] != sorceCrystal2 && combination.synthesisSourceCrystals[1] != sorceCrystal2)
+            {
+                continue;
+            }
+            return combination.synthesizedCrystal;
+        }
+        return Crystal.Type.None;
     }
 }

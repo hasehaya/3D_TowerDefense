@@ -10,7 +10,6 @@ public class CrystalItem :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHan
     public Crystal.Type type;
 
     Transform originalParent;
-    CrystalItem draggedItem;
 
     private void Awake()
     {
@@ -18,6 +17,13 @@ public class CrystalItem :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHan
         crystal = null;
         image.sprite = null;
         type = Crystal.Type.None;
+    }
+
+    public void DeleteCrystal()
+    {
+        crystal = null;
+        type = Crystal.Type.None;
+        image.sprite = null;
     }
 
     public void SetCrystal(Crystal crystal)
@@ -52,12 +58,24 @@ public class CrystalItem :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHan
 
     public void OnDrop(PointerEventData pointerEventData)
     {
-        if (CrystalBox.Instance.draggedCrystal != null)
+        var draggedCrystal = CrystalBox.Instance.draggedCrystal;
+        if (draggedCrystal != null)
         {
-            // Swap the crystals
-            Crystal tempCrystal = CrystalBox.Instance.draggedCrystal.crystal;
-            CrystalBox.Instance.draggedCrystal.SetCrystal(this.crystal);
-            this.SetCrystal(tempCrystal);
+            var synthesizedCrystal = CrystalManager.Instance.GetSynthesizedCrystal(draggedCrystal.type, this.crystal.type);
+            if (synthesizedCrystal == Crystal.Type.None)
+            {
+
+                Crystal tempCrystal = CrystalBox.Instance.draggedCrystal.crystal;
+                draggedCrystal.SetCrystal(this.crystal);
+                this.SetCrystal(tempCrystal);
+            }
+            else
+            {
+                DeleteCrystal();
+                draggedCrystal.DeleteCrystal();
+                var crystalItem = CrystalManager.Instance.Init(synthesizedCrystal);
+                SetCrystal(crystalItem);
+            }
         }
     }
 }

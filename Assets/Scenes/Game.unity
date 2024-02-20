@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2003931976}
-  m_IndirectSpecularColor: {r: 0.3851593, g: 0.4724939, b: 0.6185859, a: 1}
+  m_IndirectSpecularColor: {r: 0.38515973, g: 0.47249496, b: 0.61858815, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -423,6 +423,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   crystalPrefab: {fileID: 5269257059872387529, guid: 5e1e6841a63299e438d955bd813791c4, type: 3}
   crystalListEntity: {fileID: 11400000, guid: 35597fef1b1ad484fbfc85f35bfac232, type: 2}
+  crystalCombinationList: {fileID: 11400000, guid: f9b09ed5bf50d554bb6076c89a53a7f2, type: 2}
   crystalPositionParent: {fileID: 1137295428}
 --- !u!1 &163458042
 GameObject:
@@ -1430,7 +1431,7 @@ Transform:
   m_GameObject: {fileID: 646344181}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 290.6524, y: 5.52923, z: 170.64}
+  m_LocalPosition: {x: 290.21976, y: 5.52923, z: 170.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3594,7 +3595,7 @@ Transform:
   m_GameObject: {fileID: 2130230527}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 290.6524, y: 5.52923, z: 170.64}
+  m_LocalPosition: {x: 290.21976, y: 5.52923, z: 170.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -3732,7 +3733,7 @@ SceneRoots:
   - {fileID: 1392885825}
   - {fileID: 1519029880}
   - {fileID: 1137295429}
-  - {fileID: 1662354993}
   - {fileID: 2832361168092458788}
   - {fileID: 1175068698}
   - {fileID: 1772663372}
+  - {fileID: 1662354993}
