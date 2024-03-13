@@ -1,14 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-
 using UnityEngine;
 
 public class Muzzle :MonoBehaviour
 {
-    [SerializeField] Canon canon;
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float ct;
+
+    Canon canon;
     float coolTimeCounter;
+
+
+    private void Start()
+    {
+        canon = GetComponentInParent<Canon>();
+    }
 
     private void OnTriggerStay(Collider other)
     {

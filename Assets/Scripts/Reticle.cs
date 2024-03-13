@@ -42,4 +42,18 @@ public class Reticle :MonoBehaviour
         }
         return Vector3.zero;
     }
+
+    public Facility GetFacility()
+    {
+        RaycastHit hit;
+        int layerToTarget = 9;
+        LayerMask layerMask = 1 << layerToTarget;
+        Vector3 direction = transform.position - Camera.main.transform.position;
+        Physics.Raycast(Camera.main.transform.position, direction, out hit, Mathf.Infinity, layerMask);
+        if (hit.collider != null)
+        {
+            return hit.collider.GetComponentInParent<Facility>();
+        }
+        return null;
+    }
 }

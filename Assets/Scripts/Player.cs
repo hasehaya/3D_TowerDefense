@@ -26,6 +26,11 @@ public class Player :MonoBehaviour
 
     void Update()
     {
+        Move();
+    }
+
+    void Move()
+    {
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
         var horizontalRotation = Quaternion.AngleAxis(cameraTransform.eulerAngles.y, Vector3.up);
