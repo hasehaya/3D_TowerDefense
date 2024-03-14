@@ -17,7 +17,7 @@ public class Facility :MonoBehaviour
     List<Collider> childrenCols = new List<Collider>();
 
 
-    private void Start()
+    protected void Start()
     {
         originColor = mr.material.color;
         faciltyInstallCol = GetComponentInChildren<FacilityInstallCollider>();
@@ -29,7 +29,7 @@ public class Facility :MonoBehaviour
         faciltyInstallCol.SetChildrenCols(childrenCols);
     }
 
-    private void Update()
+    protected void Update()
     {
         if (isInstalled)
             return;

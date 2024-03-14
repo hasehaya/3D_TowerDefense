@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Tower :MonoBehaviour
+public class Tower :Facility
 {
     [SerializeField] Transform topPos;
     [SerializeField] Transform lowerPos;

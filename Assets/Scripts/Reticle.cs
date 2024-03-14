@@ -18,13 +18,17 @@ public class Reticle :MonoBehaviour
     public Tower GetTower()
     {
         RaycastHit hit;
-        int layerToTarget = 7;
+        int layerToTarget = 9;
         LayerMask layerMask = 1 << layerToTarget;
         Vector3 direction = transform.position - Camera.main.transform.position;
         Physics.Raycast(Camera.main.transform.position, direction, out hit, Mathf.Infinity, layerMask);
         if (hit.collider != null)
         {
-            return hit.collider.GetComponent<Tower>();
+            var tower = hit.collider.GetComponent<Tower>();
+            if (tower != null)
+            {
+                return tower;
+            }
         }
         return null;
     }

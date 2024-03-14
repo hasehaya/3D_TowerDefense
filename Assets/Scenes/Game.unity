@@ -4096,18 +4096,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 936172529135552950, guid: 793e7fe12d976a344b55c6d1ea6dcbbf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1301299477879755588, guid: 793e7fe12d976a344b55c6d1ea6dcbbf, type: 3}
-      propertyPath: tower
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 4543710960129042533, guid: 793e7fe12d976a344b55c6d1ea6dcbbf, type: 3}
-      propertyPath: tower
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 8376146595402214016, guid: 793e7fe12d976a344b55c6d1ea6dcbbf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 283.4
@@ -4151,14 +4139,6 @@ PrefabInstance:
     - target: {fileID: 8462219497033946798, guid: 793e7fe12d976a344b55c6d1ea6dcbbf, type: 3}
       propertyPath: m_Name
       value: Tower
-      objectReference: {fileID: 0}
-    - target: {fileID: 8788390987749636909, guid: 793e7fe12d976a344b55c6d1ea6dcbbf, type: 3}
-      propertyPath: m_Height
-      value: 15.55
-      objectReference: {fileID: 0}
-    - target: {fileID: 8788390987749636909, guid: 793e7fe12d976a344b55c6d1ea6dcbbf, type: 3}
-      propertyPath: m_Radius
-      value: 5.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

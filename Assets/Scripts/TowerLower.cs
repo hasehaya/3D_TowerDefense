@@ -2,7 +2,13 @@ using UnityEngine;
 
 public class TowerLower :MonoBehaviour
 {
-    [SerializeField] Tower tower;
+    Tower tower;
+
+    private void Start()
+    {
+        tower = GetComponentInParent<Tower>();
+    }
+
     private void OnTriggerStay(Collider other)
     {
         if (!other.CompareTag("Player"))
