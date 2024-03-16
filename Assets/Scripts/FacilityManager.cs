@@ -28,15 +28,19 @@ public class FacilityManager :MonoBehaviour
         {
             if (previousTargetFacility != null)
             {
-                previousTargetFacility.SetActiveOutLine(false);
+                previousTargetFacility.isSelected = false;
+                previousTargetFacility.HandleSelection(false);
                 previousTargetFacility = null;
+                UIManager.Instance.HideSynthesizeNotice();
             }
             return;
         }
         if (previousTargetFacility == null)
         {
             previousTargetFacility = targetFacility;
-            targetFacility.SetActiveOutLine(true);
+            targetFacility.isSelected = true;
+            targetFacility.HandleSelection(true);
+            UIManager.Instance.ShowSynthesizeNotice();
         }
     }
 

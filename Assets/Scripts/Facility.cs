@@ -8,6 +8,7 @@ public class Facility :MonoBehaviour
     public bool isInstalled = true;
     public bool isTouchingOtherObj = true;
     public bool isInRange = false;
+    public bool isSelected = false;
 
     [SerializeField] MeshRenderer mr;
 
@@ -29,7 +30,19 @@ public class Facility :MonoBehaviour
         faciltyInstallCol.SetChildrenCols(childrenCols);
     }
 
-    protected void Update()
+    protected virtual void Update()
+    {
+        InstallFacility();
+        if (isSelected)
+        {
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+
+            }
+        }
+    }
+
+    void InstallFacility()
     {
         if (isInstalled)
             return;
@@ -58,8 +71,8 @@ public class Facility :MonoBehaviour
         mr.material.color = new Color(originColor.r / 3, 1.0f, originColor.b / 3, 0.9f);
     }
 
-    public void SetActiveOutLine(bool b)
+    public virtual void HandleSelection(bool isSelected)
     {
-        outline.enabled = b;
+        outline.enabled = isSelected;
     }
 }
