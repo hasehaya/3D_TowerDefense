@@ -3,7 +3,6 @@ using UnityEngine;
 [System.Serializable]
 public class Crystal
 {
-    // set number of types
     public enum Type
     {
         None = 0,
@@ -23,7 +22,15 @@ public class Crystal
         Typhoon = 14,
     }
 
+    public enum Facility
+    {
+        None = 0,
+        Tower = 1,
+        Canon = 2,
+    }
+
     public Type type;
+    public Facility[] facility;
     public Sprite sprite;
 
     public Crystal(Type type, Sprite sprite)

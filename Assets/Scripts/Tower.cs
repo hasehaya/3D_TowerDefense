@@ -26,7 +26,7 @@ public class Tower :Facility
         }
         else
         {
-            UIManager.Instance.HideTowerDescendNotice();
+            UIManager.Instance.HideTowerClimbNotice();
         }
     }
 
