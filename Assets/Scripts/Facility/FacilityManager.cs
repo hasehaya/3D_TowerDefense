@@ -42,6 +42,10 @@ public class FacilityManager :MonoBehaviour
             targetFacility.HandleSelection(true);
             UIManager.Instance.ShowSynthesizeNotice();
         }
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+
+        }
     }
 
     public void AddFacility(Facility facility)

@@ -22,15 +22,7 @@ public class Crystal
         Typhoon = 14,
     }
 
-    public enum Facility
-    {
-        None = 0,
-        Tower = 1,
-        Canon = 2,
-    }
-
     public Type type;
-    public Facility[] facility;
     public Sprite sprite;
 
     public Crystal(Type type, Sprite sprite)

@@ -13,9 +13,10 @@ public class CrystalAttack
 {
     public Crystal.Type type;
     public Material material;
-    public float attack;
-    public float attackRate;
+    public float attackPower;
     public float attackSpeed;
+    public float attackRate;
     public bool isAreaAttack;
     public float attackRange;
+    public float attackArea;
 }

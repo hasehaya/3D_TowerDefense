@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CrystalBox :MonoBehaviour
 {
@@ -18,11 +19,11 @@ public class CrystalBox :MonoBehaviour
         }
     }
     [SerializeField] GameObject crystalFramePrefab;
-    List<CrystalItem> crystalItems = new List<CrystalItem>();
+    [SerializeField] GameObject crystalItemPrefab;
+    [SerializeField] Transform crystalFrameParent;
+    List<CrystalFrame> crystalFrames = new List<CrystalFrame>();
     List<Crystal> crystals = new List<Crystal>();
     int maxCrystals = 4;
-
-    public CrystalItem draggedCrystal = null;
 
     private void Start()
     {
@@ -30,9 +31,9 @@ public class CrystalBox :MonoBehaviour
         var water = CrystalManager.Instance.Init(Crystal.Type.Water);
         for (int i = 0; i < maxCrystals; i++)
         {
-            var crystalFrame = Instantiate(crystalFramePrefab, transform);
+            Instantiate(crystalFramePrefab, crystalFrameParent);
         }
-        crystalItems = GetComponentsInChildren<CrystalItem>().ToList();
+        crystalFrames = GetComponentsInChildren<CrystalFrame>().ToList();
         AddCrystal(fire);
         AddCrystal(water);
     }
@@ -40,11 +41,13 @@ public class CrystalBox :MonoBehaviour
     public void AddCrystal(Crystal crystal)
     {
         crystals.Add(crystal);
-        for (int i = 0; i < crystalItems.Count; i++)
+        for (int i = 0; i < crystalFrames.Count; i++)
         {
-            if (crystalItems[i].type == Crystal.Type.None)
+            if (crystalFrames[i].GetCrystal() == null)
             {
-                crystalItems[i].SetCrystal(crystal);
+                var crystalItem = Instantiate(crystalItemPrefab, transform);
+                var crystalImage = crystalItem.GetComponentInChildren<Image>();
+                crystalFrames[i].SetFrame(crystal, crystalImage);
                 return;
             }
         }
@@ -58,5 +61,19 @@ public class CrystalBox :MonoBehaviour
     public void SetMaxCrystals(int maxCrystals)
     {
         this.maxCrystals = maxCrystals;
+    }
+
+    public void AttachState(Facility.Category category)
+    {
+        if (category == Facility.Category.Attack)
+        {
+            foreach (var crystal in crystals)
+            {
+                if (CrystalManager.Instance.GetCrystalAttack(crystal.type) != null)
+                {
+
+                }
+            }
+        }
     }
 }

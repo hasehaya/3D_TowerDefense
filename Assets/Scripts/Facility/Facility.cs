@@ -10,13 +10,19 @@ public class Facility :MonoBehaviour
     public bool isInRange = false;
     public bool isSelected = false;
 
+    public enum Category
+    {
+        Attack,
+        Weather,
+    }
+    public Category category;
     [SerializeField] MeshRenderer mr;
 
     Color originColor;
     FacilityInstallCollider faciltyInstallCol;
     Outline outline;
     List<Collider> childrenCols = new List<Collider>();
-
+    Crystal attachedCrystal;
 
     protected void Start()
     {
@@ -59,6 +65,11 @@ public class Facility :MonoBehaviour
                 faciltyInstallCol.InstallFacility();
             }
         }
+    }
+
+    public void AttachCrystal(Crystal crystal)
+    {
+
     }
 
     public void ChangeColorRed()
