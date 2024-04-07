@@ -3,7 +3,9 @@ root = true
 
 # C# ファイル
 [*.cs]
+end_of_line = lf
 charset = utf-8-bom
+insert_final_newline = true
 
 #### コア EditorConfig オプション ####
 
