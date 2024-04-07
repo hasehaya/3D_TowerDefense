@@ -22,11 +22,11 @@ public class Tower :Facility
         base.HandleSelection(isSelected);
         if (isSelected)
         {
-            UIManager.Instance.ShowTowerClimbNotice();
+
         }
         else
         {
-            UIManager.Instance.HideTowerClimbNotice();
+
         }
     }
 

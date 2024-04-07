@@ -23,7 +23,7 @@ public class FacilityManager :MonoBehaviour
     private void Update()
     {
         var targetFacility = Reticle.Instance.GetFacility();
-        //�����{�݂��Ȃ����A�{�݂��͈͊O�Ȃ�A�O�̎{�݂�OutLine���\���ɂ���
+
         if (targetFacility == null || !targetFacility.isInRange)
         {
             if (previousTargetFacility != null)
@@ -31,7 +31,7 @@ public class FacilityManager :MonoBehaviour
                 previousTargetFacility.isSelected = false;
                 previousTargetFacility.HandleSelection(false);
                 previousTargetFacility = null;
-                UIManager.Instance.HideSynthesizeNotice();
+                NoticeManager.Instance.HideNotice();
             }
             return;
         }
@@ -40,12 +40,14 @@ public class FacilityManager :MonoBehaviour
             previousTargetFacility = targetFacility;
             targetFacility.isSelected = true;
             targetFacility.HandleSelection(true);
-            UIManager.Instance.ShowSynthesizeNotice();
+            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Synthesize);
+            NoticeManager.Instance.SetEvent(NoticeManager.NoticeType.Synthesize, Synthesize);
         }
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
+    }
 
-        }
+    void Synthesize()
+    {
+
     }
 
     public void AddFacility(Facility facility)
