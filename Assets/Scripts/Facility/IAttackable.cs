@@ -1,5 +1,5 @@
 ﻿/// <summary>
-/// �U���\�Ȏ{��
+/// 攻撃可能な施設に実装するインターフェース
 /// </summary>
 public interface IAttackable
 {

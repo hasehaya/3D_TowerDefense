@@ -26,7 +26,7 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
     }
 
     /// <summary>
-    /// �ꂩ��N���X�^���𐶐�����ۂɎg�p
+    /// 一から生成するときに使用
     /// </summary>
     /// <param name="crystal"></param>
     /// <param name="image"></param>
@@ -38,12 +38,11 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
     }
 
     /// <summary>
-    /// �h���b�O���h���b�v�̍ۂɎg�p
+    /// 入れ替えるときに使用
     /// </summary>
     /// <param name="frame"></param>
     public void SetFrame(CrystalFrame frame)
     {
-        //��������
         bool isNull = frame.GetCrystal() == null || frame.GetImage() == null;
         if (isNull)
         {
@@ -77,7 +76,7 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
 
     public void OnDrag(PointerEventData pointerEventData)
     {
-        //�őO��ɕ\��
+        //最前列に表示
         crystalImage.transform.SetAsLastSibling();
         crystalImage.transform.position = pointerEventData.position;
     }

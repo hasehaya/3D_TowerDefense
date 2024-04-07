@@ -35,7 +35,7 @@ public class FacilityInstallCollider :MonoBehaviour
     }
 
     /// <summary>
-    /// Col��Rb�͕s�v�ɂȂ�̂ō폜
+    /// 設置後RigidBodyとColliderを削除
     /// </summary>
     public void InstallFacility()
     {

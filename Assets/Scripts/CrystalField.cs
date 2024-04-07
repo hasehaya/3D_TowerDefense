@@ -6,9 +6,9 @@ public class CrystalField :MonoBehaviour
     [SerializeField] GameObject spriteObj;
     [SerializeField] SpriteRenderer sr;
 
-    private float vibrationStrength = 0.3f; //�U��
-    private float vibrationOffset = 2f; //���S
-    private float vibrationSpeed = 3f; //����
+    private float vibrationStrength = 0.3f; //振れ幅
+    private float vibrationOffset = 2f; //初期値
+    private float vibrationFrequency = 3f; //周波数
 
     private void Start()
     {
@@ -22,10 +22,10 @@ public class CrystalField :MonoBehaviour
     private void Update()
     {
         spriteObj.transform.LookAt(Camera.main.transform.position);
-        //y = ���S + �U�� * sin(2��t/����)
+        //y = 初期値 + 振れ幅 * sin(2π * 時間 / 周波数)
         transform.position = new Vector3(
             transform.position.x,
-            vibrationOffset + vibrationStrength * Mathf.Sin(2 * Mathf.PI * Time.time / vibrationSpeed),
+            vibrationOffset + vibrationStrength * Mathf.Sin(2 * Mathf.PI * Time.time / vibrationFrequency),
             transform.position.z);
     }
 
