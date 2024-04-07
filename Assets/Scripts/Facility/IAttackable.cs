@@ -1,5 +1,5 @@
-/// <summary>
-/// UŒ‚‰Â”\‚È{İ
+ï»¿/// <summary>
+/// ï¿½Uï¿½ï¿½ï¿½Â”\ï¿½È{ï¿½ï¿½
 /// </summary>
 public interface IAttackable
 {

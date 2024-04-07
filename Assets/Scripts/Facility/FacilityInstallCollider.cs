@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -35,7 +35,7 @@ public class FacilityInstallCollider :MonoBehaviour
     }
 
     /// <summary>
-    /// Col��Rb�͕s�v�ɂȂ�̂ō폜
+    /// Col��Rb�͕s�v�ɂȂ�̂ō폜
     /// </summary>
     public void InstallFacility()
     {

@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+ï»¿using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -23,7 +23,7 @@ public class FacilityManager :MonoBehaviour
     private void Update()
     {
         var targetFacility = Reticle.Instance.GetFacility();
-        //‚à‚µ{İ‚ª‚È‚¢‚©A{İ‚ª”ÍˆÍŠO‚È‚çA‘O‚Ì{İ‚ÌOutLine‚ğ”ñ•\¦‚É‚·‚é
+        //ï¿½ï¿½ï¿½ï¿½ï¿½{ï¿½İ‚ï¿½ï¿½È‚ï¿½ï¿½ï¿½ï¿½Aï¿½{ï¿½İ‚ï¿½ï¿½ÍˆÍŠOï¿½È‚ï¿½Aï¿½Oï¿½Ì{ï¿½İ‚ï¿½OutLineï¿½ï¿½ï¿½\ï¿½ï¿½ï¿½É‚ï¿½ï¿½ï¿½
         if (targetFacility == null || !targetFacility.isInRange)
         {
             if (previousTargetFacility != null)

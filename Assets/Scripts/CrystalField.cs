@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class CrystalField :MonoBehaviour
 {
@@ -6,9 +6,9 @@ public class CrystalField :MonoBehaviour
     [SerializeField] GameObject spriteObj;
     [SerializeField] SpriteRenderer sr;
 
-    private float vibrationStrength = 0.3f; //U•
-    private float vibrationOffset = 2f; //’†S
-    private float vibrationSpeed = 3f; //üŠú
+    private float vibrationStrength = 0.3f; //ï¿½Uï¿½ï¿½
+    private float vibrationOffset = 2f; //ï¿½ï¿½ï¿½S
+    private float vibrationSpeed = 3f; //ï¿½ï¿½ï¿½ï¿½
 
     private void Start()
     {
@@ -22,7 +22,7 @@ public class CrystalField :MonoBehaviour
     private void Update()
     {
         spriteObj.transform.LookAt(Camera.main.transform.position);
-        //y = ’†S + U• * sin(2ƒÎt/üŠú)
+        //y = ï¿½ï¿½ï¿½S + ï¿½Uï¿½ï¿½ * sin(2ï¿½ï¿½t/ï¿½ï¿½ï¿½ï¿½)
         transform.position = new Vector3(
             transform.position.x,
             vibrationOffset + vibrationStrength * Mathf.Sin(2 * Mathf.PI * Time.time / vibrationSpeed),

@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
@@ -26,7 +26,7 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
     }
 
     /// <summary>
-    /// ˆê‚©‚çƒNƒŠƒXƒ^ƒ‹‚ğ¶¬‚·‚éÛ‚Ég—p
+    /// ï¿½ê‚©ï¿½ï¿½Nï¿½ï¿½ï¿½Xï¿½^ï¿½ï¿½ï¿½ğ¶ï¿½ï¿½ï¿½ï¿½ï¿½Û‚Égï¿½p
     /// </summary>
     /// <param name="crystal"></param>
     /// <param name="image"></param>
@@ -38,12 +38,12 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
     }
 
     /// <summary>
-    /// ƒhƒ‰ƒbƒO•ƒhƒƒbƒv‚ÌÛ‚Ég—p
+    /// ï¿½hï¿½ï¿½ï¿½bï¿½Oï¿½ï¿½ï¿½hï¿½ï¿½ï¿½bï¿½vï¿½ÌÛ‚Égï¿½p
     /// </summary>
     /// <param name="frame"></param>
     public void SetFrame(CrystalFrame frame)
     {
-        //‚±‚±‚©‚ç
+        //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         bool isNull = frame.GetCrystal() == null || frame.GetImage() == null;
         if (isNull)
         {
@@ -77,7 +77,7 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
 
     public void OnDrag(PointerEventData pointerEventData)
     {
-        //Å‘O—ñ‚É•\¦
+        //ï¿½Å‘Oï¿½ï¿½É•\ï¿½ï¿½
         crystalImage.transform.SetAsLastSibling();
         crystalImage.transform.position = pointerEventData.position;
     }
