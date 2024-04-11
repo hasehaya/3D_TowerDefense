@@ -10,19 +10,25 @@ public class Facility :MonoBehaviour
     public bool isInRange = false;
     public bool isSelected = false;
 
+    //クリスタルアタッチ用
     public enum Category
     {
         Attack,
         Weather,
     }
     public Category category;
-    [SerializeField] MeshRenderer mr;
 
+    [SerializeField] MeshRenderer mr;
+    //元の色を保持
     Color originColor;
+    //設置用のコライダー
     FacilityInstallCollider faciltyInstallCol;
-    Outline outline;
+    //輪郭
+    protected Outline outline;
+    //設置時の判定用に取得
     List<Collider> childrenCols = new List<Collider>();
     Crystal attachedCrystal;
+    protected List<NoticeManager.NoticeType> noticeTypes = new List<NoticeManager.NoticeType>();
 
     protected void Start()
     {
@@ -34,21 +40,15 @@ public class Facility :MonoBehaviour
 
         childrenCols = GetComponentsInChildren<Collider>().ToList();
         faciltyInstallCol.SetChildrenCols(childrenCols);
+        AddNoticeTypes();
     }
 
     protected virtual void Update()
     {
-        InstallFacility();
-        if (isSelected)
-        {
-            if (Input.GetKeyDown(KeyCode.Q))
-            {
-
-            }
-        }
+        InstallingFacility();
     }
 
-    void InstallFacility()
+    void InstallingFacility()
     {
         if (isInstalled)
             return;
@@ -56,14 +56,35 @@ public class Facility :MonoBehaviour
         if (groundPos != default)
         {
             transform.position = groundPos;
-            if (isTouchingOtherObj)
-                return;
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                isInstalled = true;
-                mr.material.color = originColor;
-                faciltyInstallCol.InstallFacility();
-            }
+            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Install, InstallFacility);
+        }
+    }
+
+    public void InstallFacility()
+    {
+        if (isTouchingOtherObj)
+            return;
+        if (isInstalled)
+            return;
+        isInstalled = true;
+        mr.material.color = originColor;
+        faciltyInstallCol.InstallFacility();
+    }
+
+    /// <summary>
+    /// それぞれの施設のNoticeを追加する関数
+    /// </summary>
+    protected virtual void AddNoticeTypes()
+    {
+        noticeTypes.Add(NoticeManager.NoticeType.Install);
+        noticeTypes.Add(NoticeManager.NoticeType.Synthesize);
+    }
+
+    public void HideNotice()
+    {
+        foreach (var type in noticeTypes)
+        {
+            NoticeManager.Instance.HideNotice(type);
         }
     }
 
@@ -72,6 +93,11 @@ public class Facility :MonoBehaviour
 
     }
 
+
+    public void Synthesize()
+    {
+
+    }
     public void ChangeColorRed()
     {
         mr.material.color = new Color(1.0f, originColor.g / 3, originColor.b / 3, 0.9f);
@@ -82,8 +108,16 @@ public class Facility :MonoBehaviour
         mr.material.color = new Color(originColor.r / 3, 1.0f, originColor.b / 3, 0.9f);
     }
 
+    /// <summary>
+    /// 対象として選択、非選択されたときの関数
+    /// </summary>
+    /// <param name="isSelected"></param>
     public virtual void HandleSelection(bool isSelected)
     {
+        if (!isSelected)
+        {
+            HideNotice();
+        }
         outline.enabled = isSelected;
     }
 }

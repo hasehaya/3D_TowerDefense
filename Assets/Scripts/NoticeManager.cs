@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.Events;
@@ -30,30 +29,38 @@ public class NoticeManager :MonoBehaviour
         Synthesize = 1,
         Climb = 2,
         Descend = 3,
-        CancelInstall = 4,
+        Install = 4,
+        CancelInstall = 5,
+        Warp = 6,
     }
     // 現在表示中のNotice
     List<NoticeType> currentNotices = new List<NoticeType>();
     // イベントの設定
-    [NonSerialized] public UnityEvent synthesizeEvent;
-    [NonSerialized] public UnityEvent climbEvent;
-    [NonSerialized] public UnityEvent descendEvent;
-    [NonSerialized] public UnityEvent cancelInstallEvent;
+    UnityEvent synthesizeEvent = new UnityEvent();
+    UnityEvent climbEvent = new UnityEvent();
+    UnityEvent descendEvent = new UnityEvent();
+    UnityEvent installEvent = new UnityEvent();
+    UnityEvent cancelInstallEvent = new UnityEvent();
+    UnityEvent warpEvent = new UnityEvent();
     // Typeから呼び出せるよう紐づけ
     Dictionary<NoticeType, UnityEvent> noticeEvents = new Dictionary<NoticeType, UnityEvent>();
     // キーの設定
-    Dictionary<NoticeType, string> noticeKey = new Dictionary<NoticeType, string>();
+    Dictionary<NoticeType, KeyCode> noticeKey = new Dictionary<NoticeType, KeyCode>();
 
-    private void Start()
+    private void Awake()
     {
         noticeEvents.Add(NoticeType.Synthesize, synthesizeEvent);
         noticeEvents.Add(NoticeType.Climb, climbEvent);
         noticeEvents.Add(NoticeType.Descend, descendEvent);
+        noticeEvents.Add(NoticeType.Install, installEvent);
         noticeEvents.Add(NoticeType.CancelInstall, cancelInstallEvent);
-        noticeKey.Add(NoticeType.Synthesize, "Q");
-        noticeKey.Add(NoticeType.Climb, "E");
-        noticeKey.Add(NoticeType.Descend, "E");
-        noticeKey.Add(NoticeType.CancelInstall, "1");
+        noticeEvents.Add(NoticeType.Warp, warpEvent);
+        noticeKey.Add(NoticeType.Synthesize, KeyCode.Z);
+        noticeKey.Add(NoticeType.Climb, KeyCode.Q);
+        noticeKey.Add(NoticeType.Descend, KeyCode.Tab);
+        noticeKey.Add(NoticeType.Install, KeyCode.E);
+        noticeKey.Add(NoticeType.CancelInstall, KeyCode.R);
+        noticeKey.Add(NoticeType.Warp, KeyCode.F);
     }
 
     private void Update()
@@ -70,17 +77,6 @@ public class NoticeManager :MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// イベントを登録するための関数
-    /// </summary>
-    /// <param name="noticeType"></param>
-    /// <param name="action"></param>
-    public void SetEvent(NoticeType noticeType, UnityAction action)
-    {
-        noticeEvents[noticeType].RemoveAllListeners();
-        noticeEvents[noticeType].AddListener(action);
-    }
-
     string GetNoticeText(NoticeType noticeType)
     {
         switch (noticeType)
@@ -91,43 +87,64 @@ public class NoticeManager :MonoBehaviour
             return "登る";
             case NoticeType.Descend:
             return "降りる";
+            case NoticeType.Install:
+            return "設置";
             case NoticeType.CancelInstall:
             return "キャンセル";
+            case NoticeType.Warp:
+            return "ワープ";
             default:
             return "";
         }
     }
 
     /// <summary>
-    /// 一つのNoticeを表示するための関数
+    /// イベントを登録するための関数
     /// </summary>
     /// <param name="noticeType"></param>
-    public void ShowNotice(NoticeType noticeType)
+    /// <param name="action"></param>
+    void SetEvent(NoticeType noticeType, UnityAction action)
     {
-        currentNotices.Clear();
-        currentNotices.Add(noticeType);
-        var notice = Instantiate(noticePrefab, noticeParent.transform);
-        var text = notice.GetComponentInChildren<Text>();
-        text.text = GetNoticeText(noticeType) + ":" + noticeKey[noticeType];
+        noticeEvents[noticeType].RemoveAllListeners();
+        noticeEvents[noticeType].AddListener(action);
     }
 
     /// <summary>
-    /// 複数のNoticeを表示するための関数
+    /// 一つのNoticeを表示するための関数
     /// </summary>
-    /// <param name="noticeTypes"></param>
-    public void ShowNotices(NoticeType[] noticeTypes = null)
+    /// <param name="noticeType"></param>
+    public void ShowNotice(NoticeType noticeType, UnityAction action)
     {
-        currentNotices.Clear();
-        foreach (var type in noticeTypes)
+        //すでに表示中のNoticeは表示しない、毎回明示的に消す処理が必要
+        if (currentNotices.Contains(noticeType))
         {
-            currentNotices.Add(type);
-            var notice = Instantiate(noticePrefab, noticeParent.transform);
-            var text = notice.GetComponentInChildren<Text>();
-            text.text = GetNoticeText(type) + ":" + noticeKey[type];
+            return;
+        }
+        currentNotices.Add(noticeType);
+        // Noticeの生成
+        var notice = Instantiate(noticePrefab, noticeParent.transform);
+        var text = notice.GetComponentInChildren<Text>();
+        text.text = GetNoticeText(noticeType) + ":" + noticeKey[noticeType];
+        // イベントの登録
+        SetEvent(noticeType, action);
+    }
+
+    public void HideNotice(NoticeType noticeType)
+    {
+        if (!currentNotices.Contains(noticeType))
+            return;
+        currentNotices.Remove(noticeType);
+        var text = GetNoticeText(noticeType) + ":" + noticeKey[noticeType];
+        foreach (Transform child in noticeParent.transform)
+        {
+            if (child.GetComponentInChildren<Text>().text.Contains(text))
+            {
+                Destroy(child.gameObject);
+            }
         }
     }
 
-    public void HideNotice()
+    public void HideAllNotice()
     {
         currentNotices.Clear();
         foreach (Transform child in noticeParent.transform)

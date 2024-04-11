@@ -5,16 +5,11 @@ public class Tower :Facility
     [SerializeField] Transform topPos;
     [SerializeField] Transform lowerPos;
 
-    protected override void Update()
+    protected override void AddNoticeTypes()
     {
-        base.Update();
-        if (isSelected)
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                WarpToTop();
-            }
-        }
+        base.AddNoticeTypes();
+        noticeTypes.Add(NoticeManager.NoticeType.Climb);
+        noticeTypes.Add(NoticeManager.NoticeType.Descend);
     }
 
     public override void HandleSelection(bool isSelected)
@@ -22,32 +17,38 @@ public class Tower :Facility
         base.HandleSelection(isSelected);
         if (isSelected)
         {
-
+            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Climb, WarpToTop);
         }
         else
         {
-
+            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Descend, WarpToLower);
         }
     }
 
-    public void WarpTowerToTower()
+    /// <summary>
+    /// ワープの対象を選んだ時輪郭を黄色にするよう
+    /// </summary>
+    /// <param name="isSelected"></param>
+    public void WarpSelection(bool isSelected)
     {
-        Player.Instance.transform.position = topPos.position;
+        outline.enabled = isSelected;
+        if (isSelected)
+        {
+            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Warp, WarpToTop);
+        }
+        else
+        {
+            NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Warp);
+        }
     }
 
     public void WarpToTop()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Player.Instance.transform.position = topPos.position;
-        }
+        Player.Instance.transform.position = topPos.position;
     }
 
     public void WarpToLower()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Player.Instance.transform.position = lowerPos.position;
-        }
+        Player.Instance.transform.position = lowerPos.position;
     }
 }

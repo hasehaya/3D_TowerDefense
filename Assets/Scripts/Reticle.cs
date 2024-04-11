@@ -24,7 +24,7 @@ public class Reticle :MonoBehaviour
         Physics.Raycast(Camera.main.transform.position, direction, out hit, Mathf.Infinity, layerMask);
         if (hit.collider != null)
         {
-            var tower = hit.collider.GetComponent<Tower>();
+            var tower = hit.collider.GetComponentInParent<Tower>();
             if (tower != null)
             {
                 return tower;
@@ -53,7 +53,7 @@ public class Reticle :MonoBehaviour
         int layerToTarget = 9;
         LayerMask layerMask = 1 << layerToTarget;
         Vector3 direction = transform.position - Camera.main.transform.position;
-        Physics.Raycast(Camera.main.transform.position, direction, out hit, Mathf.Infinity, layerMask);
+        Physics.Raycast(Camera.main.transform.position, direction, out hit, 30, layerMask);
         if (hit.collider != null)
         {
             return hit.collider.GetComponentInParent<Facility>();

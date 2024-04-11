@@ -31,23 +31,17 @@ public class FacilityManager :MonoBehaviour
                 previousTargetFacility.isSelected = false;
                 previousTargetFacility.HandleSelection(false);
                 previousTargetFacility = null;
-                NoticeManager.Instance.HideNotice();
             }
             return;
         }
         if (previousTargetFacility == null)
         {
+
             previousTargetFacility = targetFacility;
             targetFacility.isSelected = true;
             targetFacility.HandleSelection(true);
-            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Synthesize);
-            NoticeManager.Instance.SetEvent(NoticeManager.NoticeType.Synthesize, Synthesize);
+            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Synthesize, targetFacility.Synthesize);
         }
-    }
-
-    void Synthesize()
-    {
-
     }
 
     public void AddFacility(Facility facility)
