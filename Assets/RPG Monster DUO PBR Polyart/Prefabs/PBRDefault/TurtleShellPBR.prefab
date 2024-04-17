@@ -578,6 +578,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   hp: 15
+  hpBar: {fileID: 7733529088918627409, guid: d544f208ac22f4a2197ccd9e26f8e1bd, type: 3}
 --- !u!195 &4588953403970008663
 NavMeshAgent:
   m_ObjectHideFlags: 0
