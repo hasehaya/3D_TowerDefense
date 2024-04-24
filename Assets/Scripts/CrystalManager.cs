@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Linq;
 
 public class CrystalManager :MonoBehaviour
 {
@@ -74,13 +75,21 @@ public class CrystalManager :MonoBehaviour
             {
                 continue;
             }
-            if (combination.synthesisSourceCrystals[0] != sorceCrystal1 && combination.synthesisSourceCrystals[1] != sorceCrystal1)
+            if (!combination.synthesisSourceCrystals.Contains(sorceCrystal1))
             {
                 continue;
             }
-            if (combination.synthesisSourceCrystals[0] != sorceCrystal2 && combination.synthesisSourceCrystals[1] != sorceCrystal2)
+            if (!combination.synthesisSourceCrystals.Contains(sorceCrystal2))
             {
                 continue;
+            }
+            //合成するクリスタルが一緒の種類かつリストのクリスタルの組み合わせが異なるならスキップ
+            if (sorceCrystal1 == sorceCrystal2)
+            {
+                if (combination.synthesisSourceCrystals[0] != combination.synthesisSourceCrystals[1])
+                {
+                    continue;
+                }
             }
             return combination.synthesizedCrystal;
         }

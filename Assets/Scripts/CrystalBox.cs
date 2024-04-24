@@ -20,7 +20,7 @@ public class CrystalBox :MonoBehaviour
     }
     [SerializeField] GameObject crystalFramePrefab;
     [SerializeField] GameObject crystalItemPrefab;
-    [SerializeField] Transform crystalFrameParent;
+    [SerializeField] RectTransform crystalFrameParent;
     List<CrystalFrame> crystalFrames = new List<CrystalFrame>();
     List<Crystal> crystals = new List<Crystal>();
     int maxCrystals = 4;
@@ -33,6 +33,7 @@ public class CrystalBox :MonoBehaviour
         {
             Instantiate(crystalFramePrefab, crystalFrameParent);
         }
+        LayoutRebuilder.ForceRebuildLayoutImmediate(crystalFrameParent);
         crystalFrames = GetComponentsInChildren<CrystalFrame>().ToList();
         AddCrystal(fire);
         AddCrystal(water);
