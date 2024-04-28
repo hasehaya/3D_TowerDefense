@@ -25,6 +25,12 @@ public class Crystal
     public Type type;
     public Sprite sprite;
 
+    public Crystal()
+    {
+        type = Type.None;
+        sprite = null;
+    }
+
     public Crystal(Type type, Sprite sprite)
     {
         this.type = type;
