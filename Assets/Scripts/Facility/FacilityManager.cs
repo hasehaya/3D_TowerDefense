@@ -40,7 +40,7 @@ public class FacilityManager :MonoBehaviour
             previousTargetFacility = targetFacility;
             targetFacility.isSelected = true;
             targetFacility.HandleSelection(true);
-            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Synthesize, targetFacility.Synthesize);
+            NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Synthesize, targetFacility.Synthesize, CrystalBox.Instance.selectedCrystal);
         }
     }
 

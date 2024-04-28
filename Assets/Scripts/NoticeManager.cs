@@ -26,6 +26,9 @@ public class NoticeManager :MonoBehaviour
     public enum NoticeType
     {
         None = 0,
+        /// <summary>
+        /// 引数あり
+        /// </summary>
         Synthesize = 1,
         Climb = 2,
         Descend = 3,
@@ -36,7 +39,7 @@ public class NoticeManager :MonoBehaviour
     // 現在表示中のNotice
     List<NoticeType> currentNotices = new List<NoticeType>();
     // イベントの設定
-    UnityEvent synthesizeEvent = new UnityEvent();
+    UnityEvent<object> synthesizeEvent = new UnityEvent<object>();
     UnityEvent climbEvent = new UnityEvent();
     UnityEvent descendEvent = new UnityEvent();
     UnityEvent installEvent = new UnityEvent();
@@ -44,17 +47,22 @@ public class NoticeManager :MonoBehaviour
     UnityEvent warpEvent = new UnityEvent();
     // Typeから呼び出せるよう紐づけ
     Dictionary<NoticeType, UnityEvent> noticeEvents = new Dictionary<NoticeType, UnityEvent>();
+    Dictionary<NoticeType, UnityEvent<object>> noticeArgEvents = new Dictionary<NoticeType, UnityEvent<object>>();
+    Dictionary<NoticeType, object> noticeArgments = new Dictionary<NoticeType, object>();
     // キーの設定
     Dictionary<NoticeType, KeyCode> noticeKey = new Dictionary<NoticeType, KeyCode>();
 
     private void Awake()
     {
-        noticeEvents.Add(NoticeType.Synthesize, synthesizeEvent);
+        // 引数ありのイベントを登録
+        noticeArgEvents.Add(NoticeType.Synthesize, synthesizeEvent);
+        // 引数なしのイベントを登録
         noticeEvents.Add(NoticeType.Climb, climbEvent);
         noticeEvents.Add(NoticeType.Descend, descendEvent);
         noticeEvents.Add(NoticeType.Install, installEvent);
         noticeEvents.Add(NoticeType.CancelInstall, cancelInstallEvent);
         noticeEvents.Add(NoticeType.Warp, warpEvent);
+        // キーの登録
         noticeKey.Add(NoticeType.Synthesize, KeyCode.Z);
         noticeKey.Add(NoticeType.Climb, KeyCode.Q);
         noticeKey.Add(NoticeType.Descend, KeyCode.Tab);
@@ -71,8 +79,18 @@ public class NoticeManager :MonoBehaviour
         {
             if (Input.GetKeyDown(noticeKey[noticeType]))
             {
-                // イベントがNullでなければ実行
-                noticeEvents[noticeType]?.Invoke();
+                if (noticeEvents.ContainsKey(noticeType))
+                {
+                    noticeEvents[noticeType]?.Invoke();
+                }
+                else if (noticeArgEvents.ContainsKey(noticeType))
+                {
+                    if (!noticeArgments.ContainsKey(noticeType))
+                    {
+                        continue;
+                    }
+                    noticeArgEvents[noticeType]?.Invoke(noticeArgments[noticeType]);
+                }
             }
         }
     }
@@ -98,21 +116,24 @@ public class NoticeManager :MonoBehaviour
         }
     }
 
-    /// <summary>
-    /// イベントを登録するための関数
-    /// </summary>
-    /// <param name="noticeType"></param>
-    /// <param name="action"></param>
+    // イベントを登録するための関数
     void SetEvent(NoticeType noticeType, UnityAction action)
     {
         noticeEvents[noticeType].RemoveAllListeners();
         noticeEvents[noticeType].AddListener(action);
     }
 
+    // 引数ありのイベントを登録するための関数
+    void SetArgEvent<T>(NoticeType noticeType, UnityAction<T> action, T arg)
+    {
+        noticeArgments[noticeType] = arg;
+        noticeArgEvents[noticeType].RemoveAllListeners();
+        noticeArgEvents[noticeType].AddListener(new UnityAction<object>(obj => action((T)obj)));
+    }
+
     /// <summary>
-    /// 一つのNoticeを表示するための関数
+    /// Noticeを表示するための関数
     /// </summary>
-    /// <param name="noticeType"></param>
     public void ShowNotice(NoticeType noticeType, UnityAction action)
     {
         //すでに表示中のNoticeは表示しない、毎回明示的に消す処理が必要
@@ -127,6 +148,22 @@ public class NoticeManager :MonoBehaviour
         text.text = GetNoticeText(noticeType) + ":" + noticeKey[noticeType];
         // イベントの登録
         SetEvent(noticeType, action);
+    }
+
+    /// <summary>
+    /// 引数ありのNoticeを表示するための関数
+    /// </summary>
+    public void ShowArgNotice<T>(NoticeType noticeType, UnityAction<T> action, T arg)
+    {
+        if (currentNotices.Contains(noticeType))
+        {
+            return;
+        }
+        currentNotices.Add(noticeType);
+        var notice = Instantiate(noticePrefab, noticeParent.transform);
+        var text = notice.GetComponentInChildren<Text>();
+        text.text = GetNoticeText(noticeType) + ":" + noticeKey[noticeType];
+        SetArgEvent(noticeType, action, arg);
     }
 
     public void HideNotice(NoticeType noticeType)

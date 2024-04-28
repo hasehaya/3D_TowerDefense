@@ -24,11 +24,13 @@ public class CrystalBox :MonoBehaviour
     List<CrystalFrame> crystalFrames = new List<CrystalFrame>();
     List<Crystal> crystals = new List<Crystal>();
     int maxCrystals = 4;
+    public Crystal selectedCrystal = null;
 
     private void Start()
     {
         var fire = CrystalManager.Instance.Init(Crystal.Type.Fire);
         var water = CrystalManager.Instance.Init(Crystal.Type.Water);
+        selectedCrystal = new Crystal(Crystal.Type.Water, null);
         for (int i = 0; i < maxCrystals; i++)
         {
             Instantiate(crystalFramePrefab, crystalFrameParent);
