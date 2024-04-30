@@ -82,6 +82,12 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
         selectFrame.enabled = false;
     }
 
+    public void OnClickFrame()
+    {
+        if (crystalImage == null) return;
+
+    }
+
     public void OnDrag(PointerEventData pointerEventData)
     {
         //最前列に表示
