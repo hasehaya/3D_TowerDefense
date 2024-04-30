@@ -67,12 +67,9 @@ public class NoticeManager :MonoBehaviour
         noticeEvents.Add(NoticeType.Install, installEvent);
         noticeEvents.Add(NoticeType.CancelInstall, cancelInstallEvent);
         noticeEvents.Add(NoticeType.Warp, warpEvent);
-<<<<<<< HEAD
         noticeEvents.Add(NoticeType.Purchase, purchase);
         noticeEvents.Add(NoticeType.PurchaseCancel, purchaseCancel);
-=======
         // キーの登録
->>>>>>> a80d9b91206656f6caf4729ed9719b1587f2977c
         noticeKey.Add(NoticeType.Synthesize, KeyCode.Z);
         noticeKey.Add(NoticeType.Climb, KeyCode.Q);
         noticeKey.Add(NoticeType.Descend, KeyCode.Tab);
