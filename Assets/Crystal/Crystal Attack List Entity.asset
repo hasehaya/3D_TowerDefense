@@ -125,3 +125,11 @@ MonoBehaviour:
     isAreaAttack: 1
     attackRange: 0
     attackArea: 0
+  - type: 14
+    material: {fileID: 0}
+    attackPower: 0
+    attackSpeed: 0
+    attackRate: 0
+    isAreaAttack: 1
+    attackRange: 0
+    attackArea: 0

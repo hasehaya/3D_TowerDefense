@@ -9,16 +9,41 @@ using UnityEditor;
 #endif
 
 [CreateAssetMenu]
-public class CrystalAttackListEntity :ListEntityBase<CrystalAttack>
+public class CrystalAttackListEntity :ScriptableObject
 {
-    protected override string spreadSheetURL()
+    public CrystalAttack[] lists;
+    string spreadSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?gid=281634285&single=true&output=csv";
+
+
+#if UNITY_EDITOR
+    //スプレットシートの情報をsheetDataRecordに反映させるメソッド
+    public void LoadSheetData()
     {
-        return "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?gid=281634285&single=true&output=csv";
+        // urlからCSV形式の文字列をダウンロードする
+        using UnityWebRequest request = UnityWebRequest.Get(spreadSheetURL);
+        request.SendWebRequest();
+        while (request.isDone == false)
+        {
+            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+            {
+                Debug.LogError(request.error);
+            }
+        }
+
+        // ダウンロードしたCSVをデシリアライズ(SerializeFieldに入力)する
+        lists = CSVSerializer.Deserialize<CrystalAttack>(request.downloadHandler.text);
+
+        // データの更新が完了したら、ScriptableObjectを保存する
+        EditorUtility.SetDirty(this);
+        AssetDatabase.SaveAssets();
+
+        Debug.Log(" データの更新を完了しました");
     }
+#endif
 }
 
 #if UNITY_EDITOR
-// CrystalAttackListEntityのインスペクタにデータ更新ボタンを表示するクラス
+// CrystalListEntity のインスペクタにデータ更新ボタンを表示するクラス
 [CustomEditor(typeof(CrystalAttackListEntity))]
 public class CrystalAttackListEntityEditor :Editor
 {

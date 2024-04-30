@@ -422,9 +422,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   crystalPrefab: {fileID: 5269257059872387529, guid: 5e1e6841a63299e438d955bd813791c4, type: 3}
-  crystalListEntity: {fileID: 11400000, guid: 35597fef1b1ad484fbfc85f35bfac232, type: 2}
+  crystalListEntity: {fileID: 11400000, guid: af29d5f85186c2143907266299892063, type: 2}
   crystalCombinationList: {fileID: 11400000, guid: f9b09ed5bf50d554bb6076c89a53a7f2, type: 2}
-  crystalAttackList: {fileID: 11400000, guid: e60d65ed45207cd48bcb6464f163a998, type: 2}
+  crystalAttackList: {fileID: 11400000, guid: bc53128e6a46213469d3d95bfdadebf3, type: 2}
   crystalPositionParent: {fileID: 1137295428}
 --- !u!1 &160991728
 GameObject:
@@ -2872,6 +2872,9 @@ MonoBehaviour:
   crystalFramePrefab: {fileID: 6894482409048783989, guid: 63121a78ec2d51140956f24958842f4e, type: 3}
   crystalItemPrefab: {fileID: 6044616366467824558, guid: 1471ac1d59ad0e643ab4f366141618ba, type: 3}
   crystalFrameParent: {fileID: 1218270837}
+  selectedCrystal:
+    type: 0
+    sprite: {fileID: 0}
 --- !u!1 &1392885821
 GameObject:
   m_ObjectHideFlags: 0
