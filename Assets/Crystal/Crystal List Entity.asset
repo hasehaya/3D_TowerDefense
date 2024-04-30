@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 614029cb9aedf89478eb8078f3bfd846, type: 3}
-  m_Name: CrystalListEntity
-  m_EditorClassIdentifier: 
-  crystals:
+  m_Script: {fileID: 0}
+  m_Name: Crystal List Entity
+  m_EditorClassIdentifier: Assembly-CSharp::CrystalListEntity
+  lists:
   - type: 0
     sprite: {fileID: 21300000, guid: fa2e0f998992b094584c7ab476a1f509, type: 3}
   - type: 1

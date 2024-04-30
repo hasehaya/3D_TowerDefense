@@ -33,7 +33,7 @@ public class CrystalManager :MonoBehaviour
 
     public Crystal Init(Crystal.Type type)
     {
-        foreach (var crystal in crystalListEntity.crystals)
+        foreach (var crystal in crystalListEntity.lists)
         {
             if (crystal.type == type)
             {
@@ -45,7 +45,7 @@ public class CrystalManager :MonoBehaviour
 
     public void Spawn(Crystal.Type type, Vector3 position)
     {
-        foreach (var crystal in crystalListEntity.crystals)
+        foreach (var crystal in crystalListEntity.lists)
         {
             if (crystal.type == type)
             {
@@ -57,7 +57,7 @@ public class CrystalManager :MonoBehaviour
 
     public Sprite GetSprite(Crystal.Type type)
     {
-        foreach (var crystal in crystalListEntity.crystals)
+        foreach (var crystal in crystalListEntity.lists)
         {
             if (crystal.type == type)
             {
@@ -98,7 +98,7 @@ public class CrystalManager :MonoBehaviour
 
     public CrystalAttack GetCrystalAttack(Crystal.Type type)
     {
-        foreach (var attack in crystalAttackList.crystalAttacks)
+        foreach (var attack in crystalAttackList.lists)
         {
             if (attack.type == type)
             {

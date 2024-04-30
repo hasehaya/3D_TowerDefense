@@ -47,42 +47,18 @@ public class Crystal
 }
 
 [CreateAssetMenu]
-public class CrystalListEntity :ScriptableObject
+public class CrystalListEntity :ListEntityBase<Crystal>
 {
-    public Crystal[] crystals;
-    const string spreadSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?output=csv";
-
-#if UNITY_EDITOR
-    //スプレットシートの情報をsheetDataRecordに反映させるメソッド
-    public void LoadSheetData()
+    protected override string spreadSheetURL()
     {
-        // urlからCSV形式の文字列をダウンロードする
-        using UnityWebRequest request = UnityWebRequest.Get(spreadSheetURL);
-        request.SendWebRequest();
-        while (request.isDone == false)
-        {
-            if (request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogError(request.error);
-            }
-        }
-
-        // ダウンロードしたCSVをデシリアライズ(SerializeFieldに入力)する
-        crystals = CSVSerializer.Deserialize<Crystal>(request.downloadHandler.text);
-
-        // データの更新が完了したら、ScriptableObjectを保存する
-        EditorUtility.SetDirty(this);
-        AssetDatabase.SaveAssets();
-
-        Debug.Log(" データの更新を完了しました");
+        return "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?output=csv";
     }
-#endif
 }
 
-//SheetDataのインスペクタにLoadSheetData()を呼び出すボタンを表示するクラス
 #if UNITY_EDITOR
+// CrystalListEntity のインスペクタにデータ更新ボタンを表示するクラス
 [CustomEditor(typeof(CrystalListEntity))]
-public class SheetDataEditor :Editor
+public class CrystalListEntityEditor :Editor
 {
     public override void OnInspectorGUI()
     {
