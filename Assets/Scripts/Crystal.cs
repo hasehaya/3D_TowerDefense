@@ -24,16 +24,37 @@ public class Crystal
 
     public Type type;
     public Sprite sprite;
+    public Material material;
+    public float attackPower;
+    public float attackSpeed;
+    public float attackRate;
+    public bool isAreaAttack;
+    public float attackRange;
+    public float attackArea;
 
     public Crystal()
     {
         type = Type.None;
         sprite = null;
+        material = null;
+        attackPower = 0;
+        attackSpeed = 0;
+        attackRate = 0;
+        isAreaAttack = false;
+        attackRange = 0;
+        attackArea = 0;
     }
 
     public Crystal(Type type, Sprite sprite)
     {
         this.type = type;
         this.sprite = sprite;
+        this.material = null;
+        this.attackPower = 0;
+        this.attackSpeed = 0;
+        this.attackRate = 0;
+        this.isAreaAttack = false;
+        this.attackRange = 0;
+        this.attackArea = 0;
     }
 }
