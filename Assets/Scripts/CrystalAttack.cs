@@ -38,7 +38,7 @@ public class CrystalAttackListEntity :ListEntityBase<CrystalAttack>
 {
     protected override string spreadSheetURL()
     {
-        return "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?output=csv";
+        return "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?gid=281634285&single=true&output=csv";
     }
 }
 
