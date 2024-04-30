@@ -13,8 +13,9 @@ public class Facility :MonoBehaviour
     //クリスタルアタッチ用
     public enum Category
     {
-        Attack,
-        Weather,
+        None = -1,
+        Attack = 0,
+        Weather = 1,
     }
     public Category category;
 
@@ -87,12 +88,6 @@ public class Facility :MonoBehaviour
             NoticeManager.Instance.HideNotice(type);
         }
     }
-
-    public void AttachCrystal(Crystal crystal)
-    {
-
-    }
-
 
     public void Synthesize(Crystal crystal)
     {

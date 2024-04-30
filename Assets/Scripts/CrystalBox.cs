@@ -25,6 +25,7 @@ public class CrystalBox :MonoBehaviour
     List<Crystal> crystals = new List<Crystal>();
     int maxCrystals = 4;
     public Crystal selectedCrystal = null;
+    Facility.Category attachType;
 
     private void Start()
     {
