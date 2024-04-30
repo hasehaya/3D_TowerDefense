@@ -2,12 +2,6 @@
 
 using UnityEngine;
 
-[CreateAssetMenu]
-public class CrystalAttackListEntity :ScriptableObject
-{
-    public List<CrystalAttack> crystalAttacks = new List<CrystalAttack>();
-}
-
 [System.Serializable]
 public class CrystalAttack
 {
@@ -19,4 +13,10 @@ public class CrystalAttack
     public bool isAreaAttack;
     public float attackRange;
     public float attackArea;
+}
+
+[CreateAssetMenu]
+public class CrystalAttackListEntity :ScriptableObject
+{
+    public List<CrystalAttack> crystalAttacks = new List<CrystalAttack>();
 }

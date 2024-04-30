@@ -84,7 +84,7 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
 
     public void OnDrag(PointerEventData pointerEventData)
     {
-        //???O?????\??
+        //最前列に表示
         crystalImage.transform.SetAsLastSibling();
         crystalImage.transform.position = pointerEventData.position;
     }
