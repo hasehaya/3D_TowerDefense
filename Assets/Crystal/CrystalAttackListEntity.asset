@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2fd88c91c896fd045a07bc92840cf3cd, type: 3}
+  m_Name: CrystalAttackListEntity
+  m_EditorClassIdentifier: 
+  crystalAttacks:
+  - type: 2
+    material: {fileID: 2100000, guid: 3b531af024b231f45aeac6dd2f5c69b1, type: 2}
+    attack: 20
+    attackRate: 10
+    attackSpeed: 10
+    isAreaAttack: 0
+    attackRange: 0

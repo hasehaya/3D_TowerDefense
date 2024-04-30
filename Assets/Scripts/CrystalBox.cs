@@ -73,7 +73,10 @@ public class CrystalBox :MonoBehaviour
         {
             foreach (var crystal in crystals)
             {
+                if (CrystalManager.Instance.GetCrystalAttack(crystal.type) != null)
+                {
 
+                }
             }
         }
     }
