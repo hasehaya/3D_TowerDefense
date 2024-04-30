@@ -18,7 +18,6 @@ public class CrystalManager :MonoBehaviour
     [SerializeField] GameObject crystalPrefab;
     [SerializeField] CrystalListEntity crystalListEntity;
     [SerializeField] CrystalCombinationListEntity crystalCombinationList;
-    [SerializeField] CrystalAttackListEntity crystalAttackList;
     [SerializeField] GameObject crystalPositionParent;
     Transform[] crystalPositions;
 
@@ -94,17 +93,5 @@ public class CrystalManager :MonoBehaviour
             return combination.synthesizedCrystal;
         }
         return Crystal.Type.None;
-    }
-
-    public CrystalAttack GetCrystalAttack(Crystal.Type type)
-    {
-        foreach (var attack in crystalAttackList.crystalAttacks)
-        {
-            if (attack.type == type)
-            {
-                return attack;
-            }
-        }
-        return null;
     }
 }
