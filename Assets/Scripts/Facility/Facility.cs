@@ -94,9 +94,9 @@ public class Facility :MonoBehaviour
     }
 
 
-    public void Synthesize()
+    public void Synthesize(Crystal crystal)
     {
-
+        print("a");
     }
     public void ChangeColorRed()
     {

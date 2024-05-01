@@ -26,7 +26,7 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
     }
 
     /// <summary>
-    /// 一から生成するときに使用
+    /// ???????N???X?^?????????????????g?p
     /// </summary>
     /// <param name="crystal"></param>
     /// <param name="image"></param>
@@ -35,14 +35,16 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
         this.crystal = crystal;
         crystalImage = image;
         crystalImage.sprite = crystal.sprite ?? default;
+        crystalImage.transform.localPosition = transform.localPosition;
     }
 
     /// <summary>
-    /// 入れ替えるときに使用
+    /// ?h???b?O???h???b?v???????g?p
     /// </summary>
     /// <param name="frame"></param>
     public void SetFrame(CrystalFrame frame)
     {
+        //????????
         bool isNull = frame.GetCrystal() == null || frame.GetImage() == null;
         if (isNull)
         {
@@ -53,14 +55,20 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
         {
             crystal = frame.GetCrystal();
             crystalImage = frame.GetImage();
-            crystalImage.transform.position = transform.position;
+            crystalImage.transform.localPosition = transform.localPosition;
         }
+    }
+
+    public void RemoveCrystal()
+    {
+        crystal = null;
+        crystalImage = null;
     }
 
     public void DeleteCrystal()
     {
-        crystal = null;
         Destroy(crystalImage.gameObject);
+        crystal = null;
         crystalImage = null;
     }
 
@@ -83,19 +91,33 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
 
     public void OnEndDrag(PointerEventData pointerEventData)
     {
-        crystalImage.transform.position = transform.position;
+        if (crystalImage == null)
+            return;
+        crystalImage.transform.localPosition = transform.localPosition;
     }
 
     public void OnDrop(PointerEventData pointerEventData)
     {
         var draggedFrame = pointerEventData.pointerDrag.GetComponent<CrystalFrame>();
         var draggedCrystal = draggedFrame.GetCrystal();
+        //ドラッグしているCrystalがNullなら
+        if (draggedCrystal == null)
+        {
+            return;
+        }
+        //ドロップしたCrystalがNullなら
+        if (crystal == null)
+        {
+            SetFrame(draggedFrame);
+            draggedFrame.RemoveCrystal();
+            return;
+        }
         var synthesizedCrystal = CrystalManager.Instance.GetSynthesizedCrystal(draggedCrystal.type, crystal.type);
         if (synthesizedCrystal == Crystal.Type.None)
         {
-            CrystalFrame tempCrystal = draggedFrame;
+            CrystalFrame tempFrame = draggedFrame;
             draggedFrame.SetFrame(this);
-            SetFrame(tempCrystal);
+            SetFrame(tempFrame);
         }
         else
         {
