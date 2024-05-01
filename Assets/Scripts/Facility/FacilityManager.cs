@@ -19,7 +19,13 @@ public class FacilityManager :MonoBehaviour
 
     List<Facility> facilities = new List<Facility>();
     Facility previousTargetFacility;
+    [SerializeField] GameObject facilityPrefab;
+    GameObject purchaseFacility;
 
+    private void Start()
+    {
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, createFacility);
+    }
     private void Update()
     {
         var targetFacility = Reticle.Instance.GetFacility();
@@ -52,5 +58,23 @@ public class FacilityManager :MonoBehaviour
     public void RemoveFacility(Facility facility)
     {
         facilities.Remove(facility);
+    }
+
+    public void createFacility()
+    {
+        GameObject createFacility = Instantiate(facilityPrefab);
+        purchaseFacility = createFacility;
+        var facility = purchaseFacility.GetComponent<Facility>();
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.PurchaseCancel, Purchasecancel);
+        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Purchase);
+        AddFacility(facility);
+    }
+    public void Purchasecancel()
+    {
+        Destroy(purchaseFacility);
+        var facility = purchaseFacility.GetComponent<Facility>();
+        RemoveFacility(facility);
+        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, createFacility);
     }
 }

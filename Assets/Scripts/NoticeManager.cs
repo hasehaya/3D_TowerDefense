@@ -32,6 +32,8 @@ public class NoticeManager :MonoBehaviour
         Install = 4,
         CancelInstall = 5,
         Warp = 6,
+        Purchase = 7,
+        PurchaseCancel = 8,
     }
     // 現在表示中のNotice
     List<NoticeType> currentNotices = new List<NoticeType>();
@@ -42,6 +44,9 @@ public class NoticeManager :MonoBehaviour
     UnityEvent installEvent = new UnityEvent();
     UnityEvent cancelInstallEvent = new UnityEvent();
     UnityEvent warpEvent = new UnityEvent();
+    UnityEvent purchase = new UnityEvent();
+    UnityEvent purchaseCancel = new UnityEvent();
+
     // Typeから呼び出せるよう紐づけ
     Dictionary<NoticeType, UnityEvent> noticeEvents = new Dictionary<NoticeType, UnityEvent>();
     // キーの設定
@@ -55,12 +60,16 @@ public class NoticeManager :MonoBehaviour
         noticeEvents.Add(NoticeType.Install, installEvent);
         noticeEvents.Add(NoticeType.CancelInstall, cancelInstallEvent);
         noticeEvents.Add(NoticeType.Warp, warpEvent);
+        noticeEvents.Add(NoticeType.Purchase, purchase);
+        noticeEvents.Add(NoticeType.PurchaseCancel, purchaseCancel);
         noticeKey.Add(NoticeType.Synthesize, KeyCode.Z);
         noticeKey.Add(NoticeType.Climb, KeyCode.Q);
         noticeKey.Add(NoticeType.Descend, KeyCode.Tab);
         noticeKey.Add(NoticeType.Install, KeyCode.E);
         noticeKey.Add(NoticeType.CancelInstall, KeyCode.R);
         noticeKey.Add(NoticeType.Warp, KeyCode.F);
+        noticeKey.Add(NoticeType.Purchase, KeyCode.V);
+        noticeKey.Add(NoticeType.PurchaseCancel, KeyCode.X);
     }
 
     private void Update()
@@ -93,6 +102,10 @@ public class NoticeManager :MonoBehaviour
             return "キャンセル";
             case NoticeType.Warp:
             return "ワープ";
+            case NoticeType.Purchase:
+            return "購入";
+            case NoticeType.PurchaseCancel:
+            return "購入キャンセル";
             default:
             return "";
         }
