@@ -86,20 +86,22 @@ public class NoticeManager :MonoBehaviour
             return;
         foreach (var noticeType in currentNotices)
         {
-            if (Input.GetKeyDown(noticeKey[noticeType]))
+            if (!Input.GetKeyDown(noticeKey[noticeType]))
             {
-                if (noticeEvents.ContainsKey(noticeType))
+                continue;
+            }
+
+            if (noticeEvents.ContainsKey(noticeType))
+            {
+                noticeEvents[noticeType]?.Invoke();
+            }
+            else if (noticeArgEvents.ContainsKey(noticeType))
+            {
+                if (!noticeArgments.ContainsKey(noticeType))
                 {
-                    noticeEvents[noticeType]?.Invoke();
+                    continue;
                 }
-                else if (noticeArgEvents.ContainsKey(noticeType))
-                {
-                    if (!noticeArgments.ContainsKey(noticeType))
-                    {
-                        continue;
-                    }
-                    noticeArgEvents[noticeType]?.Invoke(noticeArgments[noticeType]);
-                }
+                noticeArgEvents[noticeType]?.Invoke(noticeArgments[noticeType]);
             }
         }
     }
