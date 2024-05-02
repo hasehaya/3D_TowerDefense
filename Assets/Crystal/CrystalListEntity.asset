@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
-  m_Name: Crystal List Entity
+  m_Script: {fileID: 11500000, guid: 25cd35e21d8c64a958d4ec6360ff1f34, type: 3}
+  m_Name: CrystalListEntity
   m_EditorClassIdentifier: Assembly-CSharp::CrystalListEntity
   lists:
   - type: 0
