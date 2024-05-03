@@ -24,6 +24,7 @@ public class CrystalBox :MonoBehaviour
     List<CrystalFrame> crystalFrames = new List<CrystalFrame>();
     List<Crystal> crystals = new List<Crystal>();
     int maxCrystals = 4;
+    CrystalFrame selectedCrystalFrame = null;
     public Crystal selectedCrystal = null;
 
     private void Start()
@@ -64,6 +65,22 @@ public class CrystalBox :MonoBehaviour
     public void SetMaxCrystals(int maxCrystals)
     {
         this.maxCrystals = maxCrystals;
+    }
+
+    public void SelectCrystalFrame(CrystalFrame frame)
+    {
+        if (selectedCrystalFrame != null)
+        {
+            selectedCrystalFrame.SetSelected(false);
+        }
+        selectedCrystalFrame = frame;
+        selectedCrystalFrame.SetSelected(true);
+    }
+
+    public void ReleaseSelectedCrystalFrame(CrystalFrame frame)
+    {
+        selectedCrystalFrame = null;
+        frame.SetSelected(false);
     }
 
     public void AttachState(Facility.Category category)

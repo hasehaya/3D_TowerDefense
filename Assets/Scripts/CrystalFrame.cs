@@ -5,14 +5,19 @@ using UnityEngine.UI;
 public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHandler
 {
     Crystal crystal;
-    Image selectFrame;
     Image crystalImage;
+    [SerializeField] Image selectFrame;
 
     private void Awake()
     {
         crystal = null;
-        selectFrame = GetComponent<Image>();
         crystalImage = null;
+        selectFrame.enabled = false;
+    }
+
+    bool HasCrystal()
+    {
+        return crystal != null && crystalImage != null;
     }
 
     public Crystal GetCrystal()
@@ -26,10 +31,8 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
     }
 
     /// <summary>
-    /// ???????N???X?^?????????????????g?p
+    /// 0の状態からセットする際に使用
     /// </summary>
-    /// <param name="crystal"></param>
-    /// <param name="image"></param>
     public void SetFrame(Crystal crystal, Image image)
     {
         this.crystal = crystal;
@@ -39,12 +42,10 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
     }
 
     /// <summary>
-    /// ?h???b?O???h???b?v???????g?p
+    /// 中身を交換する際に使用
     /// </summary>
-    /// <param name="frame"></param>
     public void SetFrame(CrystalFrame frame)
     {
-        //????????
         bool isNull = frame.GetCrystal() == null || frame.GetImage() == null;
         if (isNull)
         {
@@ -72,24 +73,24 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
         crystalImage = null;
     }
 
-    public void EnableSelect()
+    public void SetSelected(bool isSelected)
     {
-        selectFrame.enabled = true;
-    }
-
-    public void DisableSelect()
-    {
-        selectFrame.enabled = false;
+        selectFrame.enabled = isSelected;
     }
 
     public void OnClickFrame()
     {
-        if (crystalImage == null) return;
-
+        if (crystalImage == null)
+            return;
+        CrystalBox.Instance.SelectCrystalFrame(this);
     }
 
     public void OnDrag(PointerEventData pointerEventData)
     {
+        if (!HasCrystal())
+        {
+            return;
+        }
         //最前列に表示
         crystalImage.transform.SetAsLastSibling();
         crystalImage.transform.position = pointerEventData.position;
@@ -106,11 +107,12 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
     {
         var draggedFrame = pointerEventData.pointerDrag.GetComponent<CrystalFrame>();
         var draggedCrystal = draggedFrame.GetCrystal();
-        //ドラッグしているCrystalがNullなら
+        //ドラッグしているCrystalがNullなら何も起こさない
         if (draggedCrystal == null)
         {
             return;
         }
+        CrystalBox.Instance.ReleaseSelectedCrystalFrame(draggedFrame);
         //ドロップしたCrystalがNullなら
         if (crystal == null)
         {
