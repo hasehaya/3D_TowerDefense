@@ -60,21 +60,20 @@ public class FacilityManager :MonoBehaviour
         facilities.Remove(facility);
     }
 
-    public void createFacility()
+    public void CreateFacility()
     {
         GameObject createFacility = Instantiate(facilityPrefab);
         purchaseFacility = createFacility;
         var facility = purchaseFacility.GetComponent<Facility>();
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.PurchaseCancel, Purchasecancel);
-        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Purchase);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
         AddFacility(facility);
     }
-    public void Purchasecancel()
+
+    public void PurchaseCancel()
     {
         Destroy(purchaseFacility);
         var facility = purchaseFacility.GetComponent<Facility>();
         RemoveFacility(facility);
-        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, createFacility);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, CreateFacility);
     }
 }
