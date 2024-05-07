@@ -71,7 +71,7 @@ public class NoticeManager :MonoBehaviour
         noticeEvents.Add(NoticeType.Warp, warpEvent);
         noticeEvents.Add(NoticeType.Purchase, purchase);
         noticeEvents.Add(NoticeType.PurchaseCancel, purchaseCancel);
-        // 実行の際自動で削除しないNoticeを登録（明示的にNoticeを削除する必要がある）
+        // 実行の際自動で削除しないNoticeを登録（明示的に削除する必要があるNoticeをここに記入）
         notNeedAutoDeleteNotices = new NoticeType[]
         {
 
@@ -88,6 +88,11 @@ public class NoticeManager :MonoBehaviour
     }
 
     private void Update()
+    {
+        ExcuteNotice();
+    }
+
+    void ExcuteNotice()
     {
         if (currentNotices.Count == 0)
             return;
@@ -155,21 +160,6 @@ public class NoticeManager :MonoBehaviour
         }
     }
 
-    // イベントを登録するための関数
-    void SetEvent(NoticeType noticeType, UnityAction action)
-    {
-        noticeEvents[noticeType].RemoveAllListeners();
-        noticeEvents[noticeType].AddListener(action);
-    }
-
-    // 引数ありのイベントを登録するための関数
-    void SetArgEvent<T>(NoticeType noticeType, UnityAction<T> action, T arg)
-    {
-        noticeArgments[noticeType] = arg;
-        noticeArgEvents[noticeType].RemoveAllListeners();
-        noticeArgEvents[noticeType].AddListener(new UnityAction<object>(obj => action((T)obj)));
-    }
-
     /// <summary>
     /// Noticeを表示するための関数
     /// </summary>
@@ -189,6 +179,13 @@ public class NoticeManager :MonoBehaviour
         SetEvent(noticeType, action);
     }
 
+    // イベントを登録するための関数
+    void SetEvent(NoticeType noticeType, UnityAction action)
+    {
+        noticeEvents[noticeType].RemoveAllListeners();
+        noticeEvents[noticeType].AddListener(action);
+    }
+
     /// <summary>
     /// 引数ありのNoticeを表示するための関数
     /// </summary>
@@ -203,6 +200,14 @@ public class NoticeManager :MonoBehaviour
         var text = notice.GetComponentInChildren<Text>();
         text.text = GetNoticeText(noticeType) + ":" + noticeKey[noticeType];
         SetArgEvent(noticeType, action, arg);
+    }
+
+    // 引数ありのイベントを登録するための関数
+    void SetArgEvent<T>(NoticeType noticeType, UnityAction<T> action, T arg)
+    {
+        noticeArgments[noticeType] = arg;
+        noticeArgEvents[noticeType].RemoveAllListeners();
+        noticeArgEvents[noticeType].AddListener(new UnityAction<object>(obj => action((T)obj)));
     }
 
     public void HideNotice(NoticeType noticeType)

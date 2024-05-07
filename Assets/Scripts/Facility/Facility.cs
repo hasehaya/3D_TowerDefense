@@ -70,6 +70,7 @@ public class Facility :MonoBehaviour
         mr.material.color = originColor;
         faciltyInstallCol.InstallFacility();
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, FacilityManager.Instance.CreateFacility);
     }
 
     /// <summary>
