@@ -9,6 +9,4 @@ public interface IAttackable
     public bool IsAreaAttack { get; set; }
     public float AttackRange { get; set; }
     public float AttackArea { get; set; }
-    public AttackType Type { get; set; }
-    public enum AttackType { Ground, Sky, GroundAndSky }
 }

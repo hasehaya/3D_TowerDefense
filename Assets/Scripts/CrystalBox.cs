@@ -29,9 +29,9 @@ public class CrystalBox :MonoBehaviour
 
     private void Start()
     {
+        selectedCrystal = null;
         var fire = CrystalManager.Instance.Init(Crystal.Type.Fire);
         var water = CrystalManager.Instance.Init(Crystal.Type.Water);
-        selectedCrystal = new Crystal(Crystal.Type.Water, null);
         for (int i = 0; i < maxCrystals; i++)
         {
             Instantiate(crystalFramePrefab, crystalFrameParent);
@@ -57,9 +57,11 @@ public class CrystalBox :MonoBehaviour
         }
     }
 
-    public void RemoveCrystal(Crystal crystal)
+    public void SynthesizeCrystal(Crystal crystal)
     {
         crystals.Remove(crystal);
+        selectedCrystalFrame.DeleteCrystal();
+        ReleaseSelectedCrystalFrame(selectedCrystalFrame);
     }
 
     public void SetMaxCrystals(int maxCrystals)
@@ -75,25 +77,26 @@ public class CrystalBox :MonoBehaviour
         }
         selectedCrystalFrame = frame;
         selectedCrystalFrame.SetSelected(true);
+        selectedCrystal = selectedCrystalFrame.GetCrystal();
+    }
+
+    public void OnClickNullCrystalFrame()
+    {
+        if (selectedCrystalFrame == null)
+        {
+            return;
+        }
+        selectedCrystalFrame.SetSelected(false);
+        selectedCrystalFrame = null;
+        selectedCrystal = null;
     }
 
     public void ReleaseSelectedCrystalFrame(CrystalFrame frame)
     {
+        selectedCrystalFrame.SetSelected(false);
         selectedCrystalFrame = null;
+        selectedCrystal = null;
         frame.SetSelected(false);
     }
 
-    public void AttachState(Facility.Category category)
-    {
-        if (category == Facility.Category.Attack)
-        {
-            foreach (var crystal in crystals)
-            {
-                if (CrystalManager.Instance.GetCrystalAttack(crystal.type) != null)
-                {
-
-                }
-            }
-        }
-    }
 }

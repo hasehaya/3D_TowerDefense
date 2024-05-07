@@ -5,13 +5,13 @@ public class Muzzle :MonoBehaviour
     [SerializeField] GameObject bulletPrefab;
     [SerializeField] float ct;
 
-    Canon canon;
+    FacilityAttack canon;
     float coolTimeCounter;
 
 
     private void Start()
     {
-        canon = GetComponentInParent<Canon>();
+        canon = GetComponentInParent<FacilityAttack>();
     }
 
     private void OnTriggerStay(Collider other)

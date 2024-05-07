@@ -24,8 +24,9 @@ public class FacilityManager :MonoBehaviour
 
     private void Start()
     {
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, createFacility);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, CreateFacility);
     }
+
     private void Update()
     {
         var targetFacility = Reticle.Instance.GetFacility();
@@ -42,10 +43,17 @@ public class FacilityManager :MonoBehaviour
         }
         if (previousTargetFacility == null)
         {
-
             previousTargetFacility = targetFacility;
             targetFacility.isSelected = true;
             targetFacility.HandleSelection(true);
+        }
+
+        if (CrystalBox.Instance.selectedCrystal == null)
+        {
+            NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Synthesize);
+        }
+        else
+        {
             NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Synthesize, targetFacility.Synthesize, CrystalBox.Instance.selectedCrystal);
         }
     }

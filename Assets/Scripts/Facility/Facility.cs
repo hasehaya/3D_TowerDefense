@@ -69,6 +69,7 @@ public class Facility :MonoBehaviour
         isInstalled = true;
         mr.material.color = originColor;
         faciltyInstallCol.InstallFacility();
+        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
     }
 
     /// <summary>
@@ -88,15 +89,9 @@ public class Facility :MonoBehaviour
         }
     }
 
-    public void AttachCrystal(Crystal crystal)
+    public virtual void Synthesize(Crystal crystal)
     {
-
-    }
-
-
-    public void Synthesize(Crystal crystal)
-    {
-        print("a");
+        CrystalBox.Instance.SynthesizeCrystal(crystal);
     }
     public void ChangeColorRed()
     {

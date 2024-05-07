@@ -80,9 +80,14 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
 
     public void OnClickFrame()
     {
-        if (crystalImage == null)
-            return;
-        CrystalBox.Instance.SelectCrystalFrame(this);
+        if (HasCrystal())
+        {
+            CrystalBox.Instance.SelectCrystalFrame(this);
+        }
+        else
+        {
+            CrystalBox.Instance.OnClickNullCrystalFrame();
+        }
     }
 
     public void OnDrag(PointerEventData pointerEventData)
@@ -98,7 +103,7 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
 
     public void OnEndDrag(PointerEventData pointerEventData)
     {
-        if (crystalImage == null)
+        if (!HasCrystal())
             return;
         crystalImage.transform.localPosition = transform.localPosition;
     }
