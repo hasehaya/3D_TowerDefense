@@ -41,6 +41,7 @@ public class NoticeManager :MonoBehaviour
     }
     // 現在表示中のNotice
     List<NoticeType> currentNotices = new List<NoticeType>();
+    // 自動で削除しないNotice（明示的に削除する必要があるNotice）
     NoticeType[] notNeedAutoDeleteNotices = null;
     // イベントの設定
     UnityEvent<object> synthesizeEvent = new UnityEvent<object>();
@@ -51,7 +52,6 @@ public class NoticeManager :MonoBehaviour
     UnityEvent warpEvent = new UnityEvent();
     UnityEvent purchase = new UnityEvent();
     UnityEvent purchaseCancel = new UnityEvent();
-
     // Typeから呼び出せるよう紐づけ
     Dictionary<NoticeType, UnityEvent> noticeEvents = new Dictionary<NoticeType, UnityEvent>();
     Dictionary<NoticeType, UnityEvent<object>> noticeArgEvents = new Dictionary<NoticeType, UnityEvent<object>>();
