@@ -58,6 +58,7 @@ public class Facility :MonoBehaviour
             transform.position = groundPos;
             NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Install, InstallFacility);
         }
+    
     }
 
     public void InstallFacility()
@@ -69,6 +70,10 @@ public class Facility :MonoBehaviour
         isInstalled = true;
         mr.material.color = originColor;
         faciltyInstallCol.InstallFacility();
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, FacilityManager.Instance.createFacility);
+        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
+        HideNotice();
+
     }
 
     /// <summary>
@@ -86,6 +91,7 @@ public class Facility :MonoBehaviour
         {
             NoticeManager.Instance.HideNotice(type);
         }
+       
     }
 
     public void AttachCrystal(Crystal crystal)

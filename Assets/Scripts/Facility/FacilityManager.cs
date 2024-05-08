@@ -76,5 +76,6 @@ public class FacilityManager :MonoBehaviour
         RemoveFacility(facility);
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, createFacility);
+        facility.HideNotice();
     }
 }
