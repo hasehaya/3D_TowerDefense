@@ -4,12 +4,18 @@ using static IAttackable;
 
 public class FacilityAttack :Facility
 {
-    float attackPower;
-    float attackSpeed;
-    float attackRate;
-    bool isAreaAttack;
-    float attackRange;
-    float attackArea;
+    public float AttackPower => attackPower;
+    private float attackPower;
+    public float AttackSpeed => attackSpeed;
+    private float attackSpeed;
+    public float AttackRate => attackRate;
+    private float attackRate;
+    public bool IsAreaAttack => isAreaAttack;
+    private bool isAreaAttack;
+    public float AttackRange => attackRange;
+    private float attackRange;
+    public float AttackArea => attackArea;
+    private float attackArea;
 
     public AttackType type;
     public enum AttackType
