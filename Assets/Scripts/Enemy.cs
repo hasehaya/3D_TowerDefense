@@ -4,25 +4,42 @@ using UnityEngine.UI;
 
 public class Enemy :MonoBehaviour
 {
+    // 破壊された際に呼ばれるイベント
     public delegate void EnemyDestroyed(Enemy enemy);
     public static event EnemyDestroyed OnEnemyDestroyed;
 
     NavMeshAgent nav;
+    // HP関係
     Slider slider;
-    [SerializeField] GameObject target;
-    [SerializeField] float hp;
     [SerializeField] GameObject hpBar;
+    // ステータス
+    float hp = 10;
+    float speed = 1.0f;
+    float attackPower = 1.0f;
+    float attackSpeed = 1.0f;
+    float attackRange = 1.0f;
+    Attribute attribute = Attribute.None;
+
     void Start()
+    {
+        SetNavigation();
+        SetHpSlider();
+    }
+
+    void SetNavigation()
     {
         nav = GetComponent<NavMeshAgent>();
         SetDestination(GameManager.Instance.GetBase().transform);
-        var parent = this.transform;
-        var sliderObj = Instantiate(hpBar, parent);
+    }
+
+    void SetHpSlider()
+    {
+        var sliderObj = Instantiate(hpBar, transform);
         Vector3 pos = sliderObj.transform.position;
-        float height = gameObject.GetComponent<BoxCollider>().size.y;
+        float height = GetComponent<BoxCollider>().size.y;
         pos.y += height + 1;
-        sliderObj.transform.position = new Vector3(pos.x, pos.y, pos.z);
-;       slider = sliderObj.GetComponentInChildren<Slider>();
+        sliderObj.transform.position = pos;
+        slider = sliderObj.GetComponentInChildren<Slider>();
         slider.maxValue = hp;
         slider.value = hp;
     }
@@ -31,6 +48,7 @@ public class Enemy :MonoBehaviour
     {
         nav.destination = destination.position;
     }
+
     public void TakeDamage(float damage)
     {
         hp -= damage;
