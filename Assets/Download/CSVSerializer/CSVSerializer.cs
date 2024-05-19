@@ -117,6 +117,8 @@ public class CSVSerializer
 #endif
         else if (fieldinfo.FieldType == typeof(string))
             fieldinfo.SetValue(v, value);
+        else if (fieldinfo.FieldType == typeof(float))
+            fieldinfo.SetValue(v, float.Parse(value));
         else
             fieldinfo.SetValue(v, Convert.ChangeType(value, fieldinfo.FieldType));
     }

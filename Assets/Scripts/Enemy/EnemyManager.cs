@@ -30,4 +30,22 @@ public class EnemyManager :MonoBehaviour
         }
         return null;
     }
+
+    public GameObject GetEnemyPrefab(Enemy.EnemyType enemyType)
+    {
+        foreach (var enemyStatus in enemyStatusListEntity.lists)
+        {
+            if (enemyStatus.enemyType == enemyType)
+            {
+                return enemyStatus.enemyPrefab;
+            }
+        }
+        return null;
+    }
+
+    public void SpawnEnemy(Enemy.EnemyType enemyType, Transform pos)
+    {
+        var enemyPrefab = GetEnemyPrefab(enemyType);
+        Instantiate(enemyPrefab, pos);
+    }
 }
