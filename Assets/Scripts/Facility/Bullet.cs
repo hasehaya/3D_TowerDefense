@@ -14,7 +14,7 @@ public class Bullet :MonoBehaviour
         mr = GetComponent<MeshRenderer>();
     }
 
-    public void Initialize(FacilityAttack facilityAttack,Enemy enemy)
+    public void Initialize(FacilityAttack facilityAttack, Enemy enemy)
     {
         damage = facilityAttack.AttackPower;
         speed = facilityAttack.AttackSpeed;
