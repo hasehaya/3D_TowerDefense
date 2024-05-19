@@ -24,7 +24,7 @@ MonoBehaviour:
   - type: 1
     material: {fileID: 0}
     attackPower: 1
-    attackSpeed: 3
+    attackSpeed: 6
     attackRate: 3
     isAreaAttack: 1
     attackRange: 4
@@ -32,7 +32,7 @@ MonoBehaviour:
   - type: 2
     material: {fileID: 0}
     attackPower: 2
-    attackSpeed: 2
+    attackSpeed: 8
     attackRate: 2
     isAreaAttack: 1
     attackRange: 4
@@ -40,7 +40,7 @@ MonoBehaviour:
   - type: 3
     material: {fileID: 0}
     attackPower: 3
-    attackSpeed: 3
+    attackSpeed: 9
     attackRate: 3
     isAreaAttack: 1
     attackRange: 3
@@ -48,7 +48,7 @@ MonoBehaviour:
   - type: 5
     material: {fileID: 0}
     attackPower: 4
-    attackSpeed: 4
+    attackSpeed: 8
     attackRate: 2
     isAreaAttack: 0
     attackRange: 4
@@ -56,7 +56,7 @@ MonoBehaviour:
   - type: 4
     material: {fileID: 0}
     attackPower: 3
-    attackSpeed: 3
+    attackSpeed: 7
     attackRate: 3
     isAreaAttack: 1
     attackRange: 4
@@ -64,7 +64,7 @@ MonoBehaviour:
   - type: 6
     material: {fileID: 0}
     attackPower: 2
-    attackSpeed: 2
+    attackSpeed: 9
     attackRate: 2
     isAreaAttack: 0
     attackRange: 3
@@ -72,7 +72,7 @@ MonoBehaviour:
   - type: 7
     material: {fileID: 0}
     attackPower: 0
-    attackSpeed: 0
+    attackSpeed: 8.2
     attackRate: 0
     isAreaAttack: 1
     attackRange: 0
@@ -80,7 +80,7 @@ MonoBehaviour:
   - type: 8
     material: {fileID: 0}
     attackPower: 0
-    attackSpeed: 0
+    attackSpeed: 8.2
     attackRate: 0
     isAreaAttack: 1
     attackRange: 0
@@ -88,7 +88,7 @@ MonoBehaviour:
   - type: 9
     material: {fileID: 0}
     attackPower: 0
-    attackSpeed: 0
+    attackSpeed: 8.2
     attackRate: 0
     isAreaAttack: 1
     attackRange: 0
@@ -96,7 +96,7 @@ MonoBehaviour:
   - type: 10
     material: {fileID: 0}
     attackPower: 0
-    attackSpeed: 0
+    attackSpeed: 8.2
     attackRate: 0
     isAreaAttack: 1
     attackRange: 0
@@ -104,7 +104,7 @@ MonoBehaviour:
   - type: 11
     material: {fileID: 0}
     attackPower: 0
-    attackSpeed: 0
+    attackSpeed: 8.2
     attackRate: 0
     isAreaAttack: 1
     attackRange: 0
@@ -112,7 +112,7 @@ MonoBehaviour:
   - type: 12
     material: {fileID: 0}
     attackPower: 0
-    attackSpeed: 0
+    attackSpeed: 8.2
     attackRate: 0
     isAreaAttack: 1
     attackRange: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   - type: 13
     material: {fileID: 0}
     attackPower: 0
-    attackSpeed: 0
+    attackSpeed: 8.2
     attackRate: 0
     isAreaAttack: 1
     attackRange: 0
@@ -128,7 +128,7 @@ MonoBehaviour:
   - type: 14
     material: {fileID: 0}
     attackPower: 0
-    attackSpeed: 0
+    attackSpeed: 8.2
     attackRate: 0
     isAreaAttack: 1
     attackRange: 0

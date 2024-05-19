@@ -6,7 +6,7 @@ public class Muzzle :MonoBehaviour
 {
     [SerializeField] GameObject bulletPrefab;
 
-    FacilityAttack facility;
+    FacilityAttack facilityAttack;
     float coolTimeCounter;
     List<Enemy> enemies = new List<Enemy>();
     Enemy targetEnemy;
@@ -14,7 +14,13 @@ public class Muzzle :MonoBehaviour
 
     private void Start()
     {
-        facility = GetComponentInParent<FacilityAttack>();
+        facilityAttack = GetComponentInParent<FacilityAttack>();
+        Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
+    }
+
+    private void OnDestroy()
+    {
+        Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
     }
 
     private void Update()
@@ -24,7 +30,7 @@ public class Muzzle :MonoBehaviour
 
     void Attack()
     {
-        if (!facility.isInstalled)
+        if (!facilityAttack.isInstalled)
         {
             return;
         }
@@ -32,17 +38,17 @@ public class Muzzle :MonoBehaviour
         {
             return;
         }
-
+        print(enemies.Count);
         if (targetEnemy == null)
         {
             targetEnemy = GetMostNearEnemy();
         }
 
-        if (facility.AttackRate <= coolTimeCounter)
+        if (10/facilityAttack.AttackRate <= coolTimeCounter)
         {
             coolTimeCounter = 0;
             var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            bullet.GetComponent<Bullet>().SetEnemy(targetEnemy);
+            bullet.GetComponent<Bullet>().Initialize(facilityAttack,targetEnemy);
         }
         else
         {
@@ -53,8 +59,14 @@ public class Muzzle :MonoBehaviour
     Enemy GetMostNearEnemy()
     {
         Enemy mostNearEnemy = null;
-        foreach (var enemy in enemies)
+        var tempEnemies = new List<Enemy>(enemies);
+        foreach (var enemy in tempEnemies)
         {
+            if(enemy == null)
+            {
+                enemies.Remove(enemy);
+            }
+
             if (mostNearEnemy == null)
             {
                 mostNearEnemy = enemy;
@@ -67,9 +79,9 @@ public class Muzzle :MonoBehaviour
         return mostNearEnemy;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (!facility.isInstalled)
+        if (!facilityAttack.isInstalled)
         {
             return;
         }
@@ -91,7 +103,7 @@ public class Muzzle :MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (!facility.isInstalled)
+        if (!facilityAttack.isInstalled)
         {
             return;
         }
@@ -108,6 +120,19 @@ public class Muzzle :MonoBehaviour
         if (enemies.Contains(enemy))
         {
             enemies.Remove(enemy);
+        }
+    }
+
+    void HandleEnemyDestroyed(Enemy destroyedEnemy)
+    {
+        if (!enemies.Contains(destroyedEnemy))
+        {
+            return;
+        }
+        enemies.Remove(destroyedEnemy);
+        if (destroyedEnemy == targetEnemy)
+        {
+            targetEnemy = null;
         }
     }
 }

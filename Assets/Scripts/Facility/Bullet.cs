@@ -4,27 +4,33 @@ public class Bullet :MonoBehaviour
 {
     Enemy enemy;
     Rigidbody rb;
-    [SerializeField] int damage;
-    [SerializeField] float speed;
+    MeshRenderer mr;
+    float damage;
+    float speed;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        mr = GetComponent<MeshRenderer>();
     }
 
-    public void SetEnemy(Enemy enemy)
+    public void Initialize(FacilityAttack facilityAttack,Enemy enemy)
     {
+        damage = facilityAttack.AttackPower;
+        speed = facilityAttack.AttackSpeed;
+        mr.material = facilityAttack.Material;
         this.enemy = enemy;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Enemy")
+        if (!other.gameObject.CompareTag("Enemy"))
         {
-            enemy = other.gameObject.GetComponent<Enemy>();
-            enemy.TakeDamage(damage);
-            Destroy(gameObject);
+            return;
         }
+        enemy = other.gameObject.GetComponent<Enemy>();
+        enemy.TakeDamage(damage);
+        Destroy(gameObject);
     }
 
     void Update()

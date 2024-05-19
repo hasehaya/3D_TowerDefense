@@ -4,10 +4,13 @@ using UnityEngine.UI;
 
 public class Enemy :MonoBehaviour
 {
+    public delegate void EnemyDestroyed(Enemy enemy);
+    public static event EnemyDestroyed OnEnemyDestroyed;
+
     NavMeshAgent nav;
     Slider slider;
     [SerializeField] GameObject target;
-    [SerializeField] int hp;
+    [SerializeField] float hp;
     [SerializeField] GameObject hpBar;
     void Start()
     {
@@ -28,12 +31,13 @@ public class Enemy :MonoBehaviour
     {
         nav.destination = destination.position;
     }
-    public void TakeDamage(int damage)
+    public void TakeDamage(float damage)
     {
         hp -= damage;
         slider.value -= damage;
         if (hp <= 0)
         {
+            OnEnemyDestroyed?.Invoke(this);
             Destroy(gameObject);
         }
     }
