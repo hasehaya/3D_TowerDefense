@@ -20,4 +20,22 @@ public class GameManager :MonoBehaviour
     {
         return playerBase;
     }
+
+    public void SpeedDown()
+    {
+        if (Time.timeScale > 0.1f)
+        {
+            Time.timeScale -= 0.1f;
+        }
+    }
+
+    public void NomalSpeed()
+    {
+        Time.timeScale = 1.0f;
+    }
+
+    public void SpeedUp()
+    {
+        Time.timeScale += 0.1f;
+    }
 }
