@@ -7,7 +7,6 @@ public class Facility :MonoBehaviour
 {
     public bool isInstalled = true;
     public bool isTouchingOtherObj = true;
-    public bool isInRange = false;
     public bool isSelected = false;
 
     //クリスタルアタッチ用

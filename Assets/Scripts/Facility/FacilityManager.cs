@@ -31,7 +31,7 @@ public class FacilityManager :MonoBehaviour
     {
         var targetFacility = Reticle.Instance.GetFacility();
 
-        if (targetFacility == null || !targetFacility.isInRange)
+        if (targetFacility == null)
         {
             if (previousTargetFacility != null)
             {
