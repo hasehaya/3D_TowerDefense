@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Linq;
+using System;
+using System.Collections.Generic;
 
 public class CrystalManager :MonoBehaviour
 {
@@ -25,9 +27,16 @@ public class CrystalManager :MonoBehaviour
     private void Start()
     {
         crystalPositions = crystalPositionParent.GetComponentsInChildren<Transform>();
-        foreach (var crystalPosition in crystalPositions)
+
+        int max = crystalPositions.Count();
+        int count = 5;
+        for (int i = 0; i < count; i++)
         {
-            Spawn(Crystal.Type.Fire, crystalPosition.position);
+            int index = UnityEngine.Random.Range(0, max);
+            int crystalType = UnityEngine.Random.Range(1, crystalListEntity.lists.Count());
+
+            Spawn((Crystal.Type)crystalType, crystalPositions[index].position);
+
         }
     }
 

@@ -57,6 +57,7 @@ public class Facility :MonoBehaviour
             transform.position = groundPos;
             NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Install, InstallFacility);
         }
+
     }
 
     public void InstallFacility()
@@ -87,6 +88,7 @@ public class Facility :MonoBehaviour
         {
             NoticeManager.Instance.HideNotice(type);
         }
+
     }
 
     public virtual void Synthesize(Crystal crystal)

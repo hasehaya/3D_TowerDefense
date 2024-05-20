@@ -3,6 +3,7 @@
 [System.Serializable]
 public class Crystal
 {
+
     public enum Type
     {
         None = 0,
@@ -29,11 +30,17 @@ public class Crystal
     {
         type = Type.None;
         sprite = null;
+        
     }
 
     public Crystal(Type type, Sprite sprite)
     {
         this.type = type;
         this.sprite = sprite;
+    }
+
+    public int getEnumCount()
+    {
+        return System.Enum.GetNames(typeof(Type)).Length;
     }
 }

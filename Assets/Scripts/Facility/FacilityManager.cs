@@ -83,5 +83,6 @@ public class FacilityManager :MonoBehaviour
         var facility = purchaseFacility.GetComponent<Facility>();
         RemoveFacility(facility);
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, CreateFacility);
+        facility.HideNotice();
     }
 }
