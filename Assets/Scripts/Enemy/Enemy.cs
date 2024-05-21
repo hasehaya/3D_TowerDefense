@@ -36,6 +36,7 @@ public class Enemy :MonoBehaviour
         SetNavigation();
         SetHpSlider();
         AddRigidBody();
+        gameObject.tag = "Enemy";
     }
 
     void SetStatus()

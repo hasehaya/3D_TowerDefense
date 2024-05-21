@@ -4,18 +4,33 @@ using UnityEngine;
 
 public class Muzzle :MonoBehaviour
 {
-    [SerializeField] GameObject bulletPrefab;
+    GameObject bulletPrefab;
 
     FacilityAttack facilityAttack;
+    // あたり判定
+    CapsuleCollider capsuleCollider;
+    // クールタイムを数える変数
     float coolTimeCounter;
+    // 敵のリスト
     List<Enemy> enemies = new List<Enemy>();
     Enemy targetEnemy;
 
 
     private void Start()
     {
-        facilityAttack = GetComponentInParent<FacilityAttack>();
         Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
+        facilityAttack = GetComponentInParent<FacilityAttack>();
+        bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
+        gameObject.layer = LayerMask.NameToLayer("Muzzle");
+        SetCapsuleCollider();
+    }
+
+    void SetCapsuleCollider()
+    {
+        capsuleCollider = gameObject.AddComponent<CapsuleCollider>();
+        capsuleCollider.isTrigger = true;
+        capsuleCollider.radius = facilityAttack.AttackRange;
+        capsuleCollider.height = 100;
     }
 
     private void OnDestroy()
@@ -38,17 +53,17 @@ public class Muzzle :MonoBehaviour
         {
             return;
         }
-        print(enemies.Count);
+
         if (targetEnemy == null)
         {
             targetEnemy = GetMostNearEnemy();
         }
 
-        if (10/facilityAttack.AttackRate <= coolTimeCounter)
+        if (facilityAttack.AttackRate <= coolTimeCounter)
         {
             coolTimeCounter = 0;
             var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            bullet.GetComponent<Bullet>().Initialize(facilityAttack,targetEnemy);
+            bullet.GetComponent<Bullet>().Initialize(facilityAttack, targetEnemy);
         }
         else
         {
@@ -62,7 +77,7 @@ public class Muzzle :MonoBehaviour
         var tempEnemies = new List<Enemy>(enemies);
         foreach (var enemy in tempEnemies)
         {
-            if(enemy == null)
+            if (enemy == null)
             {
                 enemies.Remove(enemy);
             }
