@@ -17,10 +17,13 @@ public class FacilityManager :MonoBehaviour
         }
     }
 
+    [SerializeField] GameObject facilityPrefab;
+    [SerializeField] FacilityAttackStatusListEntity attackStatusListEntity;
+
     List<Facility> facilities = new List<Facility>();
     Facility previousTargetFacility;
-    [SerializeField] GameObject facilityPrefab;
     GameObject purchaseFacility;
+
 
     private void Start()
     {
@@ -84,5 +87,17 @@ public class FacilityManager :MonoBehaviour
         RemoveFacility(facility);
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, CreateFacility);
         facility.HideNotice();
+    }
+
+    public FacilityAttackStatus GetFacilityAttackStatus(FacilityAttack.Type type)
+    {
+        foreach (var status in attackStatusListEntity.lists)
+        {
+            if (status.type == type)
+            {
+                return status;
+            }
+        }
+        return null;
     }
 }

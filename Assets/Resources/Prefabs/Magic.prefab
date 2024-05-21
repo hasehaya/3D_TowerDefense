@@ -79,7 +79,7 @@ GameObject:
   - component: {fileID: 3821832761259143439}
   - component: {fileID: 1108480814588786336}
   m_Layer: 0
-  m_Name: Canon
+  m_Name: Magic
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -117,10 +117,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isInstalled: 0
   isTouchingOtherObj: 0
-  isInRange: 0
   isSelected: 0
   category: 0
-  mr: {fileID: 6700990555598240429}
   type: 2
 --- !u!1 &6798824829025071593
 GameObject:
@@ -132,7 +130,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1388407240358758779}
   - component: {fileID: 7009123810520512320}
-  - component: {fileID: 8598980253928982715}
   m_Layer: 10
   m_Name: Muzzle
   m_TagString: Muzzle
@@ -167,30 +164,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e0bbcf39f9d07da49993ac6908bf11eb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 1785883392271641063, guid: c79c5688ee006f94fb06643d5b9a4e34, type: 3}
---- !u!136 &8598980253928982715
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6798824829025071593}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 25.44
-  m_Height: 100
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &8291307172281819605
 GameObject:
   m_ObjectHideFlags: 0

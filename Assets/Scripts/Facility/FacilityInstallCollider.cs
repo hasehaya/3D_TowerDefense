@@ -16,9 +16,12 @@ public class FacilityInstallCollider :MonoBehaviour
         rb = gameObject.AddComponent<Rigidbody>();
 
         installCol.isTrigger = true;
+
         rb.mass = 0.00001f;
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
+
+        gameObject.layer = LayerMask.NameToLayer("Install");
     }
     private void Update()
     {

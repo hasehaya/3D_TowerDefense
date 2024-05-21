@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Unity.VisualScripting;
+
+using UnityEngine;
 
 using static IAttackable;
 
@@ -28,6 +30,19 @@ public class FacilityAttack :Facility
     private float attackArea = 0;
     public Material Material => material;
     private Material material = null;
+
+    private void Awake()
+    {
+        var status = FacilityManager.Instance.GetFacilityAttackStatus(type);
+        _attackType = status.attackType;
+        attackPower = status.attackPower;
+        attackSpeed = status.attackSpeed;
+        attackRate = status.attackRate;
+        isAreaAttack = status.isAreaAttack;
+        attackRange = status.attackRange;
+        attackArea = status.attackArea;
+        material = status.material;
+    }
 
     public override void Synthesize(Crystal crystal)
     {
