@@ -12,13 +12,14 @@ public class Facility :MonoBehaviour
         Tower = 2,
     }
 
-    //クリスタルアタッチ用
     public enum Category
     {
         Attack,
         Weather,
     }
-    public Category category;
+
+    public FacilityInfo facilityInfo;
+
     public bool isInstalled = true;
     public bool isTouchingOtherObj = true;
     public bool isSelected = false;
@@ -145,6 +146,7 @@ public class Facility :MonoBehaviour
 public class FacilityInfo
 {
     public Facility.Type type;
+    public Facility.Category category;
     public string name;
     public Sprite icon;
     public int price;
@@ -152,6 +154,7 @@ public class FacilityInfo
     public FacilityInfo()
     {
         type = Facility.Type.Canon;
+        category = Facility.Category.Attack;
         name = "";
         icon = null;
         price = 0;

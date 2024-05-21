@@ -819,10 +819,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802cf39e9ca43a24db8ad5e755f55267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  facilityInfo:
+    type: 0
+    category: 0
+    name: 
+    icon: {fileID: 0}
+    price: 0
   isInstalled: 0
   isTouchingOtherObj: 0
   isSelected: 0
-  category: 0
   type: 1
 --- !u!4 &133637515
 Transform:

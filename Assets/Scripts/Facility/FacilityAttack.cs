@@ -65,7 +65,7 @@ public class FacilityAttack :Facility
 [System.Serializable]
 public class FacilityAttackStatus
 {
-    public FacilityAttack.Type type;
+    public Facility.Type type;
     public FacilityAttack.AttackType attackType;
     public float attackPower;
     public float attackSpeed;
@@ -77,7 +77,7 @@ public class FacilityAttackStatus
 
     public FacilityAttackStatus()
     {
-        type = FacilityAttack.Type.None;
+        type = Facility.Type.Canon;
         attackType = FacilityAttack.AttackType.None;
         attackPower = 0;
         attackSpeed = 0;
