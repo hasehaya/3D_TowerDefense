@@ -5,9 +5,12 @@ using UnityEngine;
 
 public class Facility :MonoBehaviour
 {
-    public bool isInstalled = true;
-    public bool isTouchingOtherObj = true;
-    public bool isSelected = false;
+    public enum Type
+    {
+        Canon = 0,
+        Magic = 1,
+        Tower = 2,
+    }
 
     //クリスタルアタッチ用
     public enum Category
@@ -16,6 +19,10 @@ public class Facility :MonoBehaviour
         Weather,
     }
     public Category category;
+    public bool isInstalled = true;
+    public bool isTouchingOtherObj = true;
+    public bool isSelected = false;
+
 
     [SerializeField] MeshRenderer mr;
     //元の色を保持
@@ -116,5 +123,22 @@ public class Facility :MonoBehaviour
             HideNotice();
         }
         outline.enabled = isSelected;
+    }
+}
+
+[System.Serializable]
+public class FacilityInfo
+{
+    public Facility.Type type;
+    public string name;
+    public Sprite icon;
+    public int price;
+
+    public FacilityInfo()
+    {
+        type = Facility.Type.Canon;
+        name = "";
+        icon = null;
+        price = 0;
     }
 }

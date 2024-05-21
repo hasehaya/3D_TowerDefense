@@ -4,12 +4,6 @@ using static IAttackable;
 
 public class FacilityAttack :Facility
 {
-    public enum Type
-    {
-        None = 0,
-        Canon = 1,
-        Magic = 2,
-    }
     public enum AttackType
     {
         None = 0,
