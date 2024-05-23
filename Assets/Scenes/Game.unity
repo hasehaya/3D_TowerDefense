@@ -3422,7 +3422,7 @@ GameObject:
   - component: {fileID: 1124994015}
   m_Layer: 0
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: Home
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3525,6 +3525,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36b5180ea0d3d3b44aae7ff56c02fc16, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  hp: 100
+  hpBar: {fileID: 7733529088918627409, guid: d544f208ac22f4a2197ccd9e26f8e1bd, type: 3}
 --- !u!1 &1135635092
 GameObject:
   m_ObjectHideFlags: 0
