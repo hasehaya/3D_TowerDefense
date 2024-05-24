@@ -19,6 +19,12 @@ public class Enemy :MonoBehaviour
         None = 0,
         Slime = 1,
         Turtle = 2,
+        Quick = 3,
+        Healer = 4,
+        Tank = 5,
+        Summon = 6,
+        Boss = 7,
+
     }
     [SerializeField] EnemyType enemyType;
     // ステータス
@@ -89,7 +95,7 @@ public class Enemy :MonoBehaviour
         {
             OnEnemyDestroyed?.Invoke(this);
             MoneyManager.Instance.getMoney(1);
-            Destroy(gameObject);
+            Destroy(this.gameObject);
         }
     }
 }

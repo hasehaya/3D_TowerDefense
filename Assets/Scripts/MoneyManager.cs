@@ -22,13 +22,21 @@ public class MoneyManager : MonoBehaviour
     void Start()
     {
         money = 0;
-        moneyText.text = money.ToString();
+        if(moneyText != null)
+        {
+            moneyText.text = money.ToString();
+        }
+       
     }
 
     public void  getMoney(int plus)
     {
         money += plus;
-        moneyText.text = money.ToString();
+        if(moneyText != null)
+        {
+            moneyText.text = money.ToString();
+        }
+       
     }
     
 }

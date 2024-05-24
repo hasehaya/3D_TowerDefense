@@ -13,14 +13,6 @@ MonoBehaviour:
   m_Name: EnemyStatusListEntity
   m_EditorClassIdentifier: 
   lists:
-  - enemyType: 0
-    enemyPrefab: {fileID: 0}
-    hp: 0
-    speed: 0
-    attackPower: 0
-    attackSpeed: 0
-    attackRange: 0
-    attribute: 0
   - enemyType: 1
     enemyPrefab: {fileID: 1931298151966786, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
     hp: 10
@@ -36,4 +28,44 @@ MonoBehaviour:
     attackPower: 1
     attackSpeed: 3
     attackRange: 1
+    attribute: 0
+  - enemyType: 3
+    enemyPrefab: {fileID: 1931298151966786, guid: 77fd34f4ce6f14fb4ba528616fd284ba, type: 3}
+    hp: 8
+    speed: 8
+    attackPower: 1
+    attackSpeed: 3
+    attackRange: 1
+    attribute: 0
+  - enemyType: 4
+    enemyPrefab: {fileID: 1524411113276028, guid: d665ef4f535f54361861263a3ce009d1, type: 3}
+    hp: 30
+    speed: 1
+    attackPower: 2
+    attackSpeed: 3
+    attackRange: 1
+    attribute: 0
+  - enemyType: 5
+    enemyPrefab: {fileID: 1931298151966786, guid: 4d8697087ba794183b08defe7c8778e0, type: 3}
+    hp: 50
+    speed: 2
+    attackPower: 1
+    attackSpeed: 2
+    attackRange: 1
+    attribute: 0
+  - enemyType: 6
+    enemyPrefab: {fileID: 1524411113276028, guid: 1d8b5e6a5634b42349d3cac9cb1f7b59, type: 3}
+    hp: 25
+    speed: 1
+    attackPower: 1
+    attackSpeed: 3
+    attackRange: 1
+    attribute: 0
+  - enemyType: 7
+    enemyPrefab: {fileID: 1931298151966786, guid: e472e13482344490193161b85e1627b7, type: 3}
+    hp: 100
+    speed: 3
+    attackPower: 3
+    attackSpeed: 3
+    attackRange: 3
     attribute: 0
