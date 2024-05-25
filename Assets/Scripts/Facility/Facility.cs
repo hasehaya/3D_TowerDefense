@@ -51,8 +51,6 @@ public class Facility :MonoBehaviour
         childrenCols = GetComponentsInChildren<Collider>().ToList();
         faciltyInstallCol.SetChildrenCols(childrenCols);
 
-        gameObject.layer = LayerMask.NameToLayer("Facility");
-
         AddNoticeTypes();
     }
 
