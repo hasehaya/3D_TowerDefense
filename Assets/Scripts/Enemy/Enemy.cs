@@ -79,7 +79,10 @@ public class Enemy :MonoBehaviour
 
     void AddRigidBody()
     {
-        gameObject.AddComponent<Rigidbody>();
+        var rb = gameObject.AddComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.useGravity = true;
+        rb.freezeRotation = true;
     }
 
     public void SetDestination(Transform destination)
