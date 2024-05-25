@@ -37,6 +37,7 @@ public class Enemy :MonoBehaviour
         SetHpSlider();
         AddRigidBody();
         gameObject.tag = "Enemy";
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
     }
 
     void SetStatus()
