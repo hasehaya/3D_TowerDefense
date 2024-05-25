@@ -17,14 +17,24 @@ public class FacilityManager :MonoBehaviour
         }
     }
 
+    [SerializeField] GameObject facilityPrefab;
+    [SerializeField] FacilityAttackStatusListEntity attackStatusListEntity;
+
     List<Facility> facilities = new List<Facility>();
     Facility previousTargetFacility;
+    GameObject purchaseFacility;
+
+
+    private void Start()
+    {
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, CreateFacility);
+    }
 
     private void Update()
     {
         var targetFacility = Reticle.Instance.GetFacility();
 
-        if (targetFacility == null || !targetFacility.isInRange)
+        if (targetFacility == null)
         {
             if (previousTargetFacility != null)
             {
@@ -36,11 +46,18 @@ public class FacilityManager :MonoBehaviour
         }
         if (previousTargetFacility == null)
         {
-
             previousTargetFacility = targetFacility;
             targetFacility.isSelected = true;
             targetFacility.HandleSelection(true);
-            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Synthesize, targetFacility.Synthesize);
+        }
+
+        if (CrystalBox.Instance.selectedCrystal == null)
+        {
+            NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Synthesize);
+        }
+        else
+        {
+            NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Synthesize, targetFacility.Synthesize, CrystalBox.Instance.selectedCrystal);
         }
     }
 
@@ -52,5 +69,35 @@ public class FacilityManager :MonoBehaviour
     public void RemoveFacility(Facility facility)
     {
         facilities.Remove(facility);
+    }
+
+    public void CreateFacility()
+    {
+        GameObject createFacility = Instantiate(facilityPrefab);
+        purchaseFacility = createFacility;
+        var facility = purchaseFacility.GetComponent<Facility>();
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
+        AddFacility(facility);
+    }
+
+    public void PurchaseCancel()
+    {
+        Destroy(purchaseFacility);
+        var facility = purchaseFacility.GetComponent<Facility>();
+        RemoveFacility(facility);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, CreateFacility);
+        facility.HideNotice();
+    }
+
+    public FacilityAttackStatus GetFacilityAttackStatus(FacilityAttack.Type type)
+    {
+        foreach (var status in attackStatusListEntity.lists)
+        {
+            if (status.type == type)
+            {
+                return status;
+            }
+        }
+        return null;
     }
 }

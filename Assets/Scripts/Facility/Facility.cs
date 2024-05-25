@@ -5,22 +5,28 @@ using UnityEngine;
 
 public class Facility :MonoBehaviour
 {
-    public bool isInstalled = true;
-    public bool isTouchingOtherObj = true;
-    public bool isInRange = false;
-    public bool isSelected = false;
+    public enum Type
+    {
+        Canon = 0,
+        Magic = 1,
+        Tower = 2,
+    }
 
-    //クリスタルアタッチ用
     public enum Category
     {
         Attack,
         Weather,
     }
-    public Category category;
 
-    [SerializeField] MeshRenderer mr;
-    //元の色を保持
-    Color originColor;
+    public FacilityInfo facilityInfo;
+
+    public bool isInstalled = true;
+    public bool isTouchingOtherObj = true;
+    public bool isSelected = false;
+
+
+    //メッシュ
+    Dictionary<MeshRenderer, Color> mrAndColors = new Dictionary<MeshRenderer, Color>();
     //設置用のコライダー
     FacilityInstallCollider faciltyInstallCol;
     //輪郭
@@ -30,9 +36,13 @@ public class Facility :MonoBehaviour
     Crystal attachedCrystal;
     protected List<NoticeManager.NoticeType> noticeTypes = new List<NoticeManager.NoticeType>();
 
-    protected void Start()
+    protected virtual void Start()
     {
-        originColor = mr.material.color;
+        var mrs = GetComponentsInChildren<MeshRenderer>();
+        foreach (var mr in mrs)
+        {
+            mrAndColors.Add(mr, mr.material.color);
+        }
         faciltyInstallCol = GetComponentInChildren<FacilityInstallCollider>();
 
         outline = GetComponentInChildren<Outline>();
@@ -40,6 +50,9 @@ public class Facility :MonoBehaviour
 
         childrenCols = GetComponentsInChildren<Collider>().ToList();
         faciltyInstallCol.SetChildrenCols(childrenCols);
+
+        gameObject.layer = LayerMask.NameToLayer("Facility");
+
         AddNoticeTypes();
     }
 
@@ -58,6 +71,7 @@ public class Facility :MonoBehaviour
             transform.position = groundPos;
             NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Install, InstallFacility);
         }
+
     }
 
     public void InstallFacility()
@@ -67,8 +81,13 @@ public class Facility :MonoBehaviour
         if (isInstalled)
             return;
         isInstalled = true;
-        mr.material.color = originColor;
+        foreach (var mr in mrAndColors)
+        {
+            mr.Key.material.color = mr.Value;
+        }
         faciltyInstallCol.InstallFacility();
+        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, FacilityManager.Instance.CreateFacility);
     }
 
     /// <summary>
@@ -86,26 +105,27 @@ public class Facility :MonoBehaviour
         {
             NoticeManager.Instance.HideNotice(type);
         }
-    }
-
-    public void AttachCrystal(Crystal crystal)
-    {
 
     }
 
-
-    public void Synthesize()
+    public virtual void Synthesize(Crystal crystal)
     {
-
+        CrystalBox.Instance.SynthesizeCrystal(crystal);
     }
     public void ChangeColorRed()
     {
-        mr.material.color = new Color(1.0f, originColor.g / 3, originColor.b / 3, 0.9f);
+        foreach (var mr in mrAndColors)
+        {
+            mr.Key.material.color = new Color(1.0f, mr.Value.g / 3, mr.Value.b / 3, 0.9f);
+        }
     }
 
     public void ChangeColorGreen()
     {
-        mr.material.color = new Color(originColor.r / 3, 1.0f, originColor.b / 3, 0.9f);
+        foreach (var mr in mrAndColors)
+        {
+            mr.Key.material.color = new Color(mr.Value.r / 3, 1.0f, mr.Value.b / 3, 0.9f);
+        }
     }
 
     /// <summary>
@@ -119,5 +139,24 @@ public class Facility :MonoBehaviour
             HideNotice();
         }
         outline.enabled = isSelected;
+    }
+}
+
+[System.Serializable]
+public class FacilityInfo
+{
+    public Facility.Type type;
+    public Facility.Category category;
+    public string name;
+    public Sprite icon;
+    public int price;
+
+    public FacilityInfo()
+    {
+        type = Facility.Type.Canon;
+        category = Facility.Category.Attack;
+        name = "";
+        icon = null;
+        price = 0;
     }
 }

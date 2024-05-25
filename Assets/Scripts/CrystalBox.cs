@@ -20,19 +20,23 @@ public class CrystalBox :MonoBehaviour
     }
     [SerializeField] GameObject crystalFramePrefab;
     [SerializeField] GameObject crystalItemPrefab;
-    [SerializeField] Transform crystalFrameParent;
+    [SerializeField] RectTransform crystalFrameParent;
     List<CrystalFrame> crystalFrames = new List<CrystalFrame>();
     List<Crystal> crystals = new List<Crystal>();
     int maxCrystals = 4;
+    CrystalFrame selectedCrystalFrame = null;
+    public Crystal selectedCrystal = null;
 
     private void Start()
     {
+        selectedCrystal = null;
         var fire = CrystalManager.Instance.Init(Crystal.Type.Fire);
         var water = CrystalManager.Instance.Init(Crystal.Type.Water);
         for (int i = 0; i < maxCrystals; i++)
         {
             Instantiate(crystalFramePrefab, crystalFrameParent);
         }
+        LayoutRebuilder.ForceRebuildLayoutImmediate(crystalFrameParent);
         crystalFrames = GetComponentsInChildren<CrystalFrame>().ToList();
         AddCrystal(fire);
         AddCrystal(water);
@@ -53,9 +57,11 @@ public class CrystalBox :MonoBehaviour
         }
     }
 
-    public void RemoveCrystal(Crystal crystal)
+    public void SynthesizeCrystal(Crystal crystal)
     {
         crystals.Remove(crystal);
+        selectedCrystalFrame.DeleteCrystal();
+        ReleaseSelectedCrystalFrame(selectedCrystalFrame);
     }
 
     public void SetMaxCrystals(int maxCrystals)
@@ -63,17 +69,34 @@ public class CrystalBox :MonoBehaviour
         this.maxCrystals = maxCrystals;
     }
 
-    public void AttachState(Facility.Category category)
+    public void SelectCrystalFrame(CrystalFrame frame)
     {
-        if (category == Facility.Category.Attack)
+        if (selectedCrystalFrame != null)
         {
-            foreach (var crystal in crystals)
-            {
-                if (CrystalManager.Instance.GetCrystalAttack(crystal.type) != null)
-                {
-
-                }
-            }
+            selectedCrystalFrame.SetSelected(false);
         }
+        selectedCrystalFrame = frame;
+        selectedCrystalFrame.SetSelected(true);
+        selectedCrystal = selectedCrystalFrame.GetCrystal();
     }
+
+    public void OnClickNullCrystalFrame()
+    {
+        if (selectedCrystalFrame == null)
+        {
+            return;
+        }
+        selectedCrystalFrame.SetSelected(false);
+        selectedCrystalFrame = null;
+        selectedCrystal = null;
+    }
+
+    public void ReleaseSelectedCrystalFrame(CrystalFrame frame)
+    {
+        selectedCrystalFrame.SetSelected(false);
+        selectedCrystalFrame = null;
+        selectedCrystal = null;
+        frame.SetSelected(false);
+    }
+
 }

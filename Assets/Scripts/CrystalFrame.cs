@@ -5,14 +5,19 @@ using UnityEngine.UI;
 public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHandler
 {
     Crystal crystal;
-    Image selectFrame;
     Image crystalImage;
+    [SerializeField] Image selectFrame;
 
     private void Awake()
     {
         crystal = null;
-        selectFrame = GetComponent<Image>();
         crystalImage = null;
+        selectFrame.enabled = false;
+    }
+
+    bool HasCrystal()
+    {
+        return crystal != null && crystalImage != null;
     }
 
     public Crystal GetCrystal()
@@ -26,21 +31,19 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
     }
 
     /// <summary>
-    /// 一から生成するときに使用
+    /// 0の状態からセットする際に使用
     /// </summary>
-    /// <param name="crystal"></param>
-    /// <param name="image"></param>
     public void SetFrame(Crystal crystal, Image image)
     {
         this.crystal = crystal;
         crystalImage = image;
         crystalImage.sprite = crystal.sprite ?? default;
+        crystalImage.transform.localPosition = transform.localPosition;
     }
 
     /// <summary>
-    /// 入れ替えるときに使用
+    /// 中身を交換する際に使用
     /// </summary>
-    /// <param name="frame"></param>
     public void SetFrame(CrystalFrame frame)
     {
         bool isNull = frame.GetCrystal() == null || frame.GetImage() == null;
@@ -53,29 +56,46 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
         {
             crystal = frame.GetCrystal();
             crystalImage = frame.GetImage();
-            crystalImage.transform.position = transform.position;
+            crystalImage.transform.localPosition = transform.localPosition;
         }
+    }
+
+    public void RemoveCrystal()
+    {
+        crystal = null;
+        crystalImage = null;
     }
 
     public void DeleteCrystal()
     {
-        crystal = null;
         Destroy(crystalImage.gameObject);
+        crystal = null;
         crystalImage = null;
     }
 
-    public void EnableSelect()
+    public void SetSelected(bool isSelected)
     {
-        selectFrame.enabled = true;
+        selectFrame.enabled = isSelected;
     }
 
-    public void DisableSelect()
+    public void OnClickFrame()
     {
-        selectFrame.enabled = false;
+        if (HasCrystal())
+        {
+            CrystalBox.Instance.SelectCrystalFrame(this);
+        }
+        else
+        {
+            CrystalBox.Instance.OnClickNullCrystalFrame();
+        }
     }
 
     public void OnDrag(PointerEventData pointerEventData)
     {
+        if (!HasCrystal())
+        {
+            return;
+        }
         //最前列に表示
         crystalImage.transform.SetAsLastSibling();
         crystalImage.transform.position = pointerEventData.position;
@@ -83,19 +103,34 @@ public class CrystalFrame :MonoBehaviour, IDragHandler, IEndDragHandler, IDropHa
 
     public void OnEndDrag(PointerEventData pointerEventData)
     {
-        crystalImage.transform.position = transform.position;
+        if (!HasCrystal())
+            return;
+        crystalImage.transform.localPosition = transform.localPosition;
     }
 
     public void OnDrop(PointerEventData pointerEventData)
     {
         var draggedFrame = pointerEventData.pointerDrag.GetComponent<CrystalFrame>();
         var draggedCrystal = draggedFrame.GetCrystal();
+        //ドラッグしているCrystalがNullなら何も起こさない
+        if (draggedCrystal == null)
+        {
+            return;
+        }
+        CrystalBox.Instance.ReleaseSelectedCrystalFrame(draggedFrame);
+        //ドロップしたCrystalがNullなら
+        if (crystal == null)
+        {
+            SetFrame(draggedFrame);
+            draggedFrame.RemoveCrystal();
+            return;
+        }
         var synthesizedCrystal = CrystalManager.Instance.GetSynthesizedCrystal(draggedCrystal.type, crystal.type);
         if (synthesizedCrystal == Crystal.Type.None)
         {
-            CrystalFrame tempCrystal = draggedFrame;
+            CrystalFrame tempFrame = draggedFrame;
             draggedFrame.SetFrame(this);
-            SetFrame(tempCrystal);
+            SetFrame(tempFrame);
         }
         else
         {
