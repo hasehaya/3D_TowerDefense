@@ -87,6 +87,7 @@ public class Enemy :MonoBehaviour
         if (hp <= 0)
         {
             OnEnemyDestroyed?.Invoke(this);
+            MoneyManager.Instance.getMoney(1);
             Destroy(gameObject);
         }
     }
