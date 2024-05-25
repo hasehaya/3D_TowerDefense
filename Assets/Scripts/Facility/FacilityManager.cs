@@ -19,6 +19,7 @@ public class FacilityManager :MonoBehaviour
 
     [SerializeField] GameObject facilityPrefab;
     [SerializeField] FacilityAttackStatusListEntity attackStatusListEntity;
+    [SerializeField] FacilityInfoListEntity facilityInfoListEntity;
 
     List<Facility> facilities = new List<Facility>();
     Facility previousTargetFacility;
@@ -99,5 +100,10 @@ public class FacilityManager :MonoBehaviour
             }
         }
         return null;
+    }
+
+    public FacilityInfo[] GetFacilityInfos()
+    {
+        return facilityInfoListEntity.lists;
     }
 }

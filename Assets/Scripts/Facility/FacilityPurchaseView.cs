@@ -11,6 +11,14 @@ public class FacilityPurchaseView :MonoBehaviour
     [SerializeField] Text priceText;
     [SerializeField] Button parchaseButton;
 
+
+    public void SetFacilityInfo(FacilityInfo facilityInfo)
+    {
+        SetIcon(facilityInfo.icon);
+        SetName(facilityInfo.name);
+        SetPrice(facilityInfo.price);
+    }
+
     public void SetIcon(Sprite sprite)
     {
         icon.sprite = sprite;
@@ -21,8 +29,21 @@ public class FacilityPurchaseView :MonoBehaviour
         nameText.text = name;
     }
 
-    public void SetPrice(string price)
+    public void SetPrice(int price)
     {
-        priceText.text = price;
+        priceText.text = price.ToString();
+    }
+
+    /// <summary>
+    /// True：白色、False：赤色
+    /// </summary>
+    public void SetPriceColor(bool canPurchase)
+    {
+        priceText.color = canPurchase ? Color.white : Color.red;
+    }
+
+    public void SetButtonAction(System.Action action)
+    {
+        parchaseButton.onClick.AddListener(() => action());
     }
 }
