@@ -19,6 +19,12 @@ public class Enemy :MonoBehaviour
         None = 0,
         Slime = 1,
         Turtle = 2,
+        Quick = 3,
+        Healer = 4,
+        Tank = 5,
+        Summon = 6,
+        Boss = 7,
+
     }
     [SerializeField] EnemyType enemyType;
     // ステータス
@@ -37,6 +43,7 @@ public class Enemy :MonoBehaviour
         SetHpSlider();
         AddRigidBody();
         gameObject.tag = "Enemy";
+        gameObject.layer = LayerMask.NameToLayer("Enemy");
     }
 
     void SetStatus()
@@ -72,7 +79,10 @@ public class Enemy :MonoBehaviour
 
     void AddRigidBody()
     {
-        gameObject.AddComponent<Rigidbody>();
+        var rb = gameObject.AddComponent<Rigidbody>();
+        rb.isKinematic = true;
+        rb.useGravity = true;
+        rb.freezeRotation = true;
     }
 
     public void SetDestination(Transform destination)
@@ -87,7 +97,8 @@ public class Enemy :MonoBehaviour
         if (hp <= 0)
         {
             OnEnemyDestroyed?.Invoke(this);
-            Destroy(gameObject);
+            MoneyManager.Instance.getMoney(1);
+            Destroy(this.gameObject);
         }
     }
 }

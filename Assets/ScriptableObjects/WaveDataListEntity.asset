@@ -45,3 +45,11 @@ MonoBehaviour:
     spawnTime: 28
     enemyType: 2
     enemyBaseIndex: 0
+  - index: 8
+    spawnTime: 0
+    enemyType: 3
+    enemyBaseIndex: 0
+  - index: 9
+    spawnTime: 2
+    enemyType: 7
+    enemyBaseIndex: 0
