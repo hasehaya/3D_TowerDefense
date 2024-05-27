@@ -8,6 +8,7 @@ TagManager:
   - Enemy
   - Muzzle
   - Ground
+  - Home
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - Muzzle
   - Install
   - Range
-  - 
+  - Enemy
   - 
   - 
   - 

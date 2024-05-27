@@ -89,7 +89,7 @@ public class Facility :MonoBehaviour
         }
         faciltyInstallCol.InstallFacility();
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, FacilityManager.Instance.CreateFacility);
+        NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Purchase, FacilityManager.Instance.CreateFacility, Type.Canon);
     }
 
     /// <summary>
@@ -141,6 +141,11 @@ public class Facility :MonoBehaviour
             HideNotice();
         }
         outline.enabled = isSelected;
+    }
+
+    public GameObject GetPrefab()
+    {
+        return _facilityParameter.prefab;
     }
 }
 

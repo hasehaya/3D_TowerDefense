@@ -27,9 +27,6 @@ public class NoticeManager :MonoBehaviour
     public enum NoticeType
     {
         None = 0,
-        /// <summary>
-        /// 引数あり
-        /// </summary>
         Synthesize = 1,
         Climb = 2,
         Descend = 3,
@@ -45,12 +42,12 @@ public class NoticeManager :MonoBehaviour
     NoticeType[] notNeedAutoDeleteNotices = null;
     // イベントの設定
     UnityEvent<object> synthesizeEvent = new UnityEvent<object>();
+    UnityEvent<object> purchase = new UnityEvent<object>();
     UnityEvent climbEvent = new UnityEvent();
     UnityEvent descendEvent = new UnityEvent();
     UnityEvent installEvent = new UnityEvent();
     UnityEvent cancelInstallEvent = new UnityEvent();
     UnityEvent warpEvent = new UnityEvent();
-    UnityEvent purchase = new UnityEvent();
     UnityEvent purchaseCancel = new UnityEvent();
     // Typeから呼び出せるよう紐づけ
     Dictionary<NoticeType, UnityEvent> noticeEvents = new Dictionary<NoticeType, UnityEvent>();
@@ -63,13 +60,13 @@ public class NoticeManager :MonoBehaviour
     {
         // 引数ありのイベントを登録
         noticeArgEvents.Add(NoticeType.Synthesize, synthesizeEvent);
+        noticeArgEvents.Add(NoticeType.Purchase, purchase);
         // 引数なしのイベントを登録
         noticeEvents.Add(NoticeType.Climb, climbEvent);
         noticeEvents.Add(NoticeType.Descend, descendEvent);
         noticeEvents.Add(NoticeType.Install, installEvent);
         noticeEvents.Add(NoticeType.CancelInstall, cancelInstallEvent);
         noticeEvents.Add(NoticeType.Warp, warpEvent);
-        noticeEvents.Add(NoticeType.Purchase, purchase);
         noticeEvents.Add(NoticeType.PurchaseCancel, purchaseCancel);
         // 実行の際自動で削除しないNoticeを登録（明示的に削除する必要があるNoticeをここに記入）
         notNeedAutoDeleteNotices = new NoticeType[]

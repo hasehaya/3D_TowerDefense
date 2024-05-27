@@ -28,7 +28,7 @@ public class FacilityManager :MonoBehaviour
 
     private void Start()
     {
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, CreateFacility);
+        NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Purchase, FacilityManager.Instance.CreateFacility, Facility.Type.Canon);
     }
 
     private void Update()
@@ -72,10 +72,20 @@ public class FacilityManager :MonoBehaviour
         facilities.Remove(facility);
     }
 
-    public void CreateFacility()
+    public void CreateFacility(Facility.Type type)
     {
         GameObject createFacility = Instantiate(facilityPrefab);
         purchaseFacility = createFacility;
+        var facility = purchaseFacility.GetComponent<Facility>();
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
+        AddFacility(facility);
+    }
+
+    public void CreateFacilityAttack(Facility.Type type)
+    {
+        var facilityAttack = FacilityAttack.Init(type);
+        var facilityAttackObject = Instantiate(facilityAttack.GetPrefab());
+        purchaseFacility = facilityAttackObject;
         var facility = purchaseFacility.GetComponent<Facility>();
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
         AddFacility(facility);
@@ -86,17 +96,17 @@ public class FacilityManager :MonoBehaviour
         Destroy(purchaseFacility);
         var facility = purchaseFacility.GetComponent<Facility>();
         RemoveFacility(facility);
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Purchase, CreateFacility);
+        NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Purchase, CreateFacility, Facility.Type.Canon);
         facility.HideNotice();
     }
 
     public FacilityAttackParameter GetFacilityAttackParameter(FacilityAttack.Type type)
     {
-        foreach (var status in attackParameterListEntity.lists)
+        foreach (var parameter in attackParameterListEntity.lists)
         {
-            if (status.type == type)
+            if (parameter.type == type)
             {
-                return status;
+                return parameter;
             }
         }
         return null;

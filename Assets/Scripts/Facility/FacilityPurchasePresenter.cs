@@ -22,7 +22,13 @@ public class FacilityPurchasePresenter :MonoBehaviour
 
     private void OnClickPurchaseButton(FacilityParameter facilityInfo)
     {
-
+        var canPurchase = MoneyManager.Instance.CanPurchase(facilityInfo.price);
+        if (!canPurchase)
+        {
+            return;
+        }
+        MoneyManager.Instance.Pay(facilityInfo.price);
+        FacilityManager.Instance.CreateFacility(facilityInfo.type);
     }
 
     void ReloadPriceColor()

@@ -28,6 +28,14 @@ public class FacilityAttack :Facility
         _attackParamater = status;
     }
 
+    public static FacilityAttack Init(Type type)
+    {
+        var facilityAttack = new FacilityAttack();
+        var parameter = FacilityManager.Instance.GetFacilityAttackParameter(type);
+        facilityAttack._attackParamater = parameter;
+        return facilityAttack;
+    }
+
     public override void Synthesize(Crystal crystal)
     {
         base.Synthesize(crystal);
