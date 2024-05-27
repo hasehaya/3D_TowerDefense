@@ -10,19 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f6a8f84d2bb7b6a489c60840146bf072, type: 3}
-  m_Name: FacilityAttackStatusListEntity
+  m_Name: FacilityAttackParameterListEntity
   m_EditorClassIdentifier: 
   lists:
   - type: 0
-    attackType: 0
-    attackPower: 0
-    attackSpeed: 0
-    attackRate: 0
-    isAreaAttack: 0
-    attackRange: 0
-    attackArea: 0
-    material: {fileID: 0}
-  - type: 1
     attackType: 1
     attackPower: 3
     attackSpeed: 5
@@ -30,8 +21,8 @@ MonoBehaviour:
     isAreaAttack: 0
     attackRange: 20
     attackArea: 0
-    material: {fileID: 0}
-  - type: 2
+    bullet: {fileID: 0}
+  - type: 1
     attackType: 3
     attackPower: 5
     attackSpeed: 7
@@ -39,4 +30,4 @@ MonoBehaviour:
     isAreaAttack: 0
     attackRange: 30
     attackArea: 0
-    material: {fileID: 0}
+    bullet: {fileID: 0}

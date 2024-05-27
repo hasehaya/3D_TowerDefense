@@ -18,8 +18,8 @@ public class FacilityManager :MonoBehaviour
     }
 
     [SerializeField] GameObject facilityPrefab;
-    [SerializeField] FacilityAttackStatusListEntity attackStatusListEntity;
-    [SerializeField] FacilityInfoListEntity facilityInfoListEntity;
+    [SerializeField] FacilityAttackParameterListEntity attackStatusListEntity;
+    [SerializeField] FacilityParameterListEntity facilityInfoListEntity;
 
     List<Facility> facilities = new List<Facility>();
     Facility previousTargetFacility;
@@ -90,7 +90,7 @@ public class FacilityManager :MonoBehaviour
         facility.HideNotice();
     }
 
-    public FacilityAttackStatus GetFacilityAttackStatus(FacilityAttack.Type type)
+    public FacilityAttackParameter GetFacilityAttackParameter(FacilityAttack.Type type)
     {
         foreach (var status in attackStatusListEntity.lists)
         {
@@ -102,7 +102,7 @@ public class FacilityManager :MonoBehaviour
         return null;
     }
 
-    public FacilityInfo[] GetFacilityInfos()
+    public FacilityParameter[] GetFacilityParameters()
     {
         return facilityInfoListEntity.lists;
     }

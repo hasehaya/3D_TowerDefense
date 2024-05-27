@@ -16,9 +16,9 @@ public class Bullet :MonoBehaviour
 
     public void Initialize(FacilityAttack facilityAttack, Enemy enemy)
     {
-        damage = facilityAttack.AttackPower;
-        speed = facilityAttack.AttackSpeed;
-        mr.material = facilityAttack.Material;
+        damage = facilityAttack.GetAttackPower();
+        speed = facilityAttack.GetAttackSpeed();
+        mr.material = facilityAttack.GetMaterial();
         this.enemy = enemy;
     }
 

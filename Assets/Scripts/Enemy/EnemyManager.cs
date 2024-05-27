@@ -17,9 +17,9 @@ public class EnemyManager :MonoBehaviour
             return instance;
         }
     }
-    [SerializeField] EnemyStatusListEntity enemyStatusListEntity;
+    [SerializeField] EnemyParameterListEntity enemyStatusListEntity;
 
-    public EnemyStatus GetEnemyStatus(Enemy.EnemyType enemyType)
+    public EnemyParameter GetEnemyStatus(Enemy.EnemyType enemyType)
     {
         foreach (var enemyStatus in enemyStatusListEntity.lists)
         {

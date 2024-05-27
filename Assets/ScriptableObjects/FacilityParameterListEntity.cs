@@ -9,10 +9,10 @@ using UnityEditor;
 #endif
 
 [CreateAssetMenu]
-public class FacilityAttackStatusListEntity :ScriptableObject
+public class FacilityParameterListEntity :ScriptableObject
 {
-    public FacilityAttackStatus[] lists;
-    string spreadSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?gid=1699913722&single=true&output=csv";
+    public FacilityParameter[] lists;
+    string spreadSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?gid=391855727&single=true&output=csv";
 
 #if UNITY_EDITOR
     //スプレットシートの情報をsheetDataRecordに反映させるメソッド
@@ -30,7 +30,7 @@ public class FacilityAttackStatusListEntity :ScriptableObject
         }
 
         // ダウンロードしたCSVをデシリアライズ(SerializeFieldに入力)する
-        lists = CSVSerializer.Deserialize<FacilityAttackStatus>(request.downloadHandler.text);
+        lists = CSVSerializer.Deserialize<FacilityParameter>(request.downloadHandler.text);
 
         // データの更新が完了したら、ScriptableObjectを保存する
         EditorUtility.SetDirty(this);
@@ -43,8 +43,8 @@ public class FacilityAttackStatusListEntity :ScriptableObject
 
 #if UNITY_EDITOR
 // CrystalListEntity のインスペクタにデータ更新ボタンを表示するクラス
-[CustomEditor(typeof(FacilityAttackStatusListEntity))]
-public class FacilityAttackStatusListEntityEditor :Editor
+[CustomEditor(typeof(FacilityParameterListEntity))]
+public class FacilityParameterListEntityEditor :Editor
 {
     public override void OnInspectorGUI()
     {
@@ -54,7 +54,7 @@ public class FacilityAttackStatusListEntityEditor :Editor
         // データ更新ボタンを表示
         if (GUILayout.Button("データ更新"))
         {
-            ((FacilityAttackStatusListEntity)target).LoadSheetData();
+            ((FacilityParameterListEntity)target).LoadSheetData();
         }
     }
 }

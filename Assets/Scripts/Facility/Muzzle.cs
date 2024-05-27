@@ -29,7 +29,7 @@ public class Muzzle :MonoBehaviour
     {
         capsuleCollider = gameObject.AddComponent<CapsuleCollider>();
         capsuleCollider.isTrigger = true;
-        capsuleCollider.radius = facilityAttack.AttackRange;
+        capsuleCollider.radius = facilityAttack.GetAttackRange();
         capsuleCollider.height = 100;
     }
 
@@ -59,7 +59,7 @@ public class Muzzle :MonoBehaviour
             targetEnemy = GetMostNearEnemy();
         }
 
-        if (facilityAttack.AttackRate <= coolTimeCounter)
+        if (facilityAttack.GetAttackRate() <= coolTimeCounter)
         {
             coolTimeCounter = 0;
             var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);

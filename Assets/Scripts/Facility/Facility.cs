@@ -18,7 +18,11 @@ public class Facility :MonoBehaviour
         Weather,
     }
 
-    public FacilityInfo facilityInfo;
+    public Type type;
+    FacilityParameter _facilityParameter;
+    public int Level => _level;
+    private int _level;
+
 
     public bool isInstalled = true;
     public bool isTouchingOtherObj = true;
@@ -141,18 +145,20 @@ public class Facility :MonoBehaviour
 }
 
 [System.Serializable]
-public class FacilityInfo
+public class FacilityParameter
 {
     public Facility.Type type;
     public Facility.Category category;
+    public GameObject prefab;
     public string name;
     public Sprite icon;
     public int price;
 
-    public FacilityInfo()
+    public FacilityParameter()
     {
         type = Facility.Type.Canon;
         category = Facility.Category.Attack;
+        prefab = null;
         name = "";
         icon = null;
         price = 0;

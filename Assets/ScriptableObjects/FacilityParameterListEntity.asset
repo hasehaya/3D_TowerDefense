@@ -10,21 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0556563f5c52cdd43ae1991d8204922f, type: 3}
-  m_Name: FacilityInfoListEntity
+  m_Name: FacilityParameterListEntity
   m_EditorClassIdentifier: 
   lists:
   - type: 0
     category: 0
+    prefab: {fileID: 0}
     name: "\u5927\u7832"
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: cebe099f9cc7ede48a0ef84217f18bce, type: 3}
     price: 100
   - type: 1
     category: 0
+    prefab: {fileID: 4678763362316988633, guid: e277af740ce46ad499b9c6cabb2f3229, type: 3}
     name: "\u9B54\u6CD5"
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: e57b7221681c0db4fa8179c3c852f6de, type: 3}
     price: 200
   - type: 2
     category: 1
+    prefab: {fileID: 8462219497033946798, guid: 793e7fe12d976a344b55c6d1ea6dcbbf, type: 3}
     name: "\u30BF\u30EF\u30FC"
-    icon: {fileID: 0}
+    icon: {fileID: 21300000, guid: f1851e27c0d385046b77bdc4936ec6d8, type: 3}
     price: 100

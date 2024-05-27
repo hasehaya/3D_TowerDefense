@@ -97,7 +97,7 @@ public class Enemy :MonoBehaviour
         if (hp <= 0)
         {
             OnEnemyDestroyed?.Invoke(this);
-            MoneyManager.Instance.getMoney(1);
+            MoneyManager.Instance.GetMoney(1);
             Destroy(this.gameObject);
         }
     }
@@ -105,7 +105,7 @@ public class Enemy :MonoBehaviour
 
 
 [System.Serializable]
-public class EnemyStatus
+public class EnemyParameter
 {
     public Enemy.EnemyType enemyType;
     public GameObject enemyPrefab;
@@ -116,7 +116,7 @@ public class EnemyStatus
     public float attackRange;
     public Attribute attribute;
 
-    public EnemyStatus()
+    public EnemyParameter()
     {
         enemyType = Enemy.EnemyType.None;
         enemyPrefab = null;

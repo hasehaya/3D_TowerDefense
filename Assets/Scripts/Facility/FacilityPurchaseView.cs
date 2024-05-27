@@ -12,11 +12,11 @@ public class FacilityPurchaseView :MonoBehaviour
     [SerializeField] Button parchaseButton;
 
 
-    public void SetFacilityInfo(FacilityInfo facilityInfo)
+    public void SetFacilityInfo(FacilityParameter facilityParameter)
     {
-        SetIcon(facilityInfo.icon);
-        SetName(facilityInfo.name);
-        SetPrice(facilityInfo.price);
+        SetIcon(facilityParameter.icon);
+        SetName(facilityParameter.name);
+        SetPrice(facilityParameter.price);
     }
 
     public void SetIcon(Sprite sprite)

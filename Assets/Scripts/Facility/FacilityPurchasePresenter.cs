@@ -11,7 +11,7 @@ public class FacilityPurchasePresenter :MonoBehaviour
 
     private void Start()
     {
-        var facilityInfos = FacilityManager.Instance.GetFacilityInfos();
+        var facilityInfos = FacilityManager.Instance.GetFacilityParameters();
         foreach (var facilityInfo in facilityInfos)
         {
             var facilityPurchaseView = Instantiate(this.facilityPurchaseView, content.transform);
@@ -20,17 +20,17 @@ public class FacilityPurchasePresenter :MonoBehaviour
         }
     }
 
-    private void OnClickPurchaseButton(FacilityInfo facilityInfo)
+    private void OnClickPurchaseButton(FacilityParameter facilityInfo)
     {
 
     }
 
     void ReloadPriceColor()
     {
-        var facilityInfos = FacilityManager.Instance.GetFacilityInfos();
+        var facilityInfos = FacilityManager.Instance.GetFacilityParameters();
         for (int i = 0; i < facilityInfos.Length; i++)
         {
-            facilityPurchaseViews[i].SetPriceColor(FacilityManager.Instance.CanPurchase(facilityInfos[i]));
+            facilityPurchaseViews[i].SetPriceColor(MoneyManager.Instance.CanPurchase(facilityInfos[i].price));
         }
     }
 }
