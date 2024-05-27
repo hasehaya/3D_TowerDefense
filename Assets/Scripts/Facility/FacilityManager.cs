@@ -18,7 +18,7 @@ public class FacilityManager :MonoBehaviour
     }
 
     [SerializeField] GameObject facilityPrefab;
-    [SerializeField] FacilityAttackParameterListEntity attackStatusListEntity;
+    [SerializeField] FacilityAttackParameterListEntity attackParameterListEntity;
     [SerializeField] FacilityParameterListEntity facilityInfoListEntity;
 
     List<Facility> facilities = new List<Facility>();
@@ -92,7 +92,7 @@ public class FacilityManager :MonoBehaviour
 
     public FacilityAttackParameter GetFacilityAttackParameter(FacilityAttack.Type type)
     {
-        foreach (var status in attackStatusListEntity.lists)
+        foreach (var status in attackParameterListEntity.lists)
         {
             if (status.type == type)
             {
