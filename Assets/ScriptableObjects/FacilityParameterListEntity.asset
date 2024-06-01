@@ -15,7 +15,7 @@ MonoBehaviour:
   lists:
   - type: 0
     category: 0
-    prefab: {fileID: 0}
+    prefab: {fileID: 300406717549008637, guid: 1faf55212dd32e145a9aadb591b25c6c, type: 3}
     name: "\u5927\u7832"
     icon: {fileID: 21300000, guid: cebe099f9cc7ede48a0ef84217f18bce, type: 3}
     price: 100

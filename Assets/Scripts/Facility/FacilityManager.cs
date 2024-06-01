@@ -19,17 +19,11 @@ public class FacilityManager :MonoBehaviour
 
     [SerializeField] GameObject facilityPrefab;
     [SerializeField] FacilityAttackParameterListEntity attackParameterListEntity;
-    [SerializeField] FacilityParameterListEntity facilityInfoListEntity;
+    [SerializeField] FacilityParameterListEntity facilityParameterListEntity;
 
     List<Facility> facilities = new List<Facility>();
     Facility previousTargetFacility;
-    GameObject purchaseFacility;
-
-
-    private void Start()
-    {
-        NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Purchase, FacilityManager.Instance.CreateFacility, Facility.Type.Canon);
-    }
+    GameObject purchasingFacilityObj;
 
     private void Update()
     {
@@ -72,35 +66,60 @@ public class FacilityManager :MonoBehaviour
         facilities.Remove(facility);
     }
 
-    public void CreateFacility(Facility.Type type)
+    /// <summary>
+    /// 建物を購入する関数、各FacilityクラスのParameterも自動で設定する
+    /// </summary>
+    public void PurchaseFacility(Facility.Type type)
     {
-        GameObject createFacility = Instantiate(facilityPrefab);
-        purchaseFacility = createFacility;
-        var facility = purchaseFacility.GetComponent<Facility>();
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
-        AddFacility(facility);
-    }
-
-    public void CreateFacilityAttack(Facility.Type type)
-    {
-        var facilityAttack = FacilityAttack.Init(type);
-        var facilityAttackObject = Instantiate(facilityAttack.GetPrefab());
-        purchaseFacility = facilityAttackObject;
-        var facility = purchaseFacility.GetComponent<Facility>();
+        GameObject facilityObj;
+        if (IsFacilityAttackExist(type))
+        {
+            facilityObj = FacilityAttack.GenerateFacilityAttack(type);
+        }
+        else
+        {
+            facilityObj = Facility.GenerateFacility(type);
+        }
+        purchasingFacilityObj = facilityObj;
+        var facility = facilityObj.GetComponent<Facility>();
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
         AddFacility(facility);
     }
 
     public void PurchaseCancel()
     {
-        Destroy(purchaseFacility);
-        var facility = purchaseFacility.GetComponent<Facility>();
+        Destroy(purchasingFacilityObj);
+        var facility = purchasingFacilityObj.GetComponent<Facility>();
         RemoveFacility(facility);
-        NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Purchase, CreateFacility, Facility.Type.Canon);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase, UIManager.Instance.facilityPurchasePresenter.OpenFacilityPurchase);
         facility.HideNotice();
     }
 
-    public FacilityAttackParameter GetFacilityAttackParameter(FacilityAttack.Type type)
+    public bool IsFacilityAttackExist(Facility.Type type)
+    {
+        foreach (var facility in facilities)
+        {
+            if (facility.type == type)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public FacilityParameter GetFacilityParameter(Facility.Type type)
+    {
+        foreach (var parameter in facilityParameterListEntity.lists)
+        {
+            if (parameter.type == type)
+            {
+                return parameter;
+            }
+        }
+        return null;
+    }
+
+    public FacilityAttackParameter GetFacilityAttackParameter(Facility.Type type)
     {
         foreach (var parameter in attackParameterListEntity.lists)
         {
@@ -114,6 +133,6 @@ public class FacilityManager :MonoBehaviour
 
     public FacilityParameter[] GetFacilityParameters()
     {
-        return facilityInfoListEntity.lists;
+        return facilityParameterListEntity.lists;
     }
 }

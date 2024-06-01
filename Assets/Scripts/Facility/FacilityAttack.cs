@@ -26,19 +26,29 @@ public class FacilityAttack :Facility
     {
         var status = FacilityManager.Instance.GetFacilityAttackParameter(type);
         _attackParamater = status;
+        _attackPower = status.attackPower;
+        _attackSpeed = status.attackSpeed;
+        _attackRate = status.attackRate;
+        _isAreaAttack = status.isAreaAttack;
+        _attackRange = status.attackRange;
+        _attackArea = status.attackArea;
     }
 
-    public static FacilityAttack Init(Type type)
+    /// <summary>
+    /// FacilityAttackのGameObjectをParameterを付けて返す関数
+    /// </summary>
+    /// <returns>GameObject</returns>
+    public static GameObject GenerateFacilityAttack(Type type)
     {
-        var facilityAttack = new FacilityAttack();
-        var parameter = FacilityManager.Instance.GetFacilityAttackParameter(type);
-        facilityAttack._attackParamater = parameter;
-        return facilityAttack;
+        var facility = GenerateFacility(type);
+        var facilityAttack = facility.AddComponent<FacilityAttack>();
+        var facilityAttackParameter = FacilityManager.Instance.GetFacilityAttackParameter(type);
+        facilityAttack._attackParamater = facilityAttackParameter;
+        return facility;
     }
 
     public override void Synthesize(Crystal crystal)
     {
-        base.Synthesize(crystal);
         var crystalAttack = CrystalManager.Instance.GetCrystalAttack(crystal.type);
         if (crystalAttack == null)
         {
@@ -51,6 +61,7 @@ public class FacilityAttack :Facility
         _attackRange += crystalAttack.attackRange;
         _attackArea += crystalAttack.attackArea;
         _material = crystalAttack.material;
+        base.Synthesize(crystal);
     }
 
     public float GetAttackPower()

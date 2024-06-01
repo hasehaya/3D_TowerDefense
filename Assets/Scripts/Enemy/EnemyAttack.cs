@@ -1,8 +1,9 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-public class EnemyAttack : MonoBehaviour
+public class EnemyAttack :MonoBehaviour
 {
     Base home;
     Rigidbody rb;
@@ -42,8 +43,14 @@ public class EnemyAttack : MonoBehaviour
 
     void Update()
     {
-        if (home == null)
+        if (!home)
+        {
             return;
+        }
+        if (!rb)
+        {
+            return;
+        }
         rb.velocity = (home.transform.position - transform.position).normalized * speed;
     }
 }

@@ -33,7 +33,7 @@ public class NoticeManager :MonoBehaviour
         Install = 4,
         CancelInstall = 5,
         Warp = 6,
-        Purchase = 7,
+        OpenFacilityPurchase = 7,
         PurchaseCancel = 8,
     }
     // 現在表示中のNotice
@@ -42,12 +42,12 @@ public class NoticeManager :MonoBehaviour
     NoticeType[] notNeedAutoDeleteNotices = null;
     // イベントの設定
     UnityEvent<object> synthesizeEvent = new UnityEvent<object>();
-    UnityEvent<object> purchase = new UnityEvent<object>();
     UnityEvent climbEvent = new UnityEvent();
     UnityEvent descendEvent = new UnityEvent();
     UnityEvent installEvent = new UnityEvent();
     UnityEvent cancelInstallEvent = new UnityEvent();
     UnityEvent warpEvent = new UnityEvent();
+    UnityEvent openFacilityPurchase = new UnityEvent();
     UnityEvent purchaseCancel = new UnityEvent();
     // Typeから呼び出せるよう紐づけ
     Dictionary<NoticeType, UnityEvent> noticeEvents = new Dictionary<NoticeType, UnityEvent>();
@@ -55,18 +55,20 @@ public class NoticeManager :MonoBehaviour
     Dictionary<NoticeType, object> noticeArgments = new Dictionary<NoticeType, object>();
     // キーの設定
     Dictionary<NoticeType, KeyCode> noticeKey = new Dictionary<NoticeType, KeyCode>();
+    // テキストの設定
+    Dictionary<NoticeType, string> noticeText = new Dictionary<NoticeType, string>();
 
     private void Awake()
     {
         // 引数ありのイベントを登録
         noticeArgEvents.Add(NoticeType.Synthesize, synthesizeEvent);
-        noticeArgEvents.Add(NoticeType.Purchase, purchase);
         // 引数なしのイベントを登録
         noticeEvents.Add(NoticeType.Climb, climbEvent);
         noticeEvents.Add(NoticeType.Descend, descendEvent);
         noticeEvents.Add(NoticeType.Install, installEvent);
         noticeEvents.Add(NoticeType.CancelInstall, cancelInstallEvent);
         noticeEvents.Add(NoticeType.Warp, warpEvent);
+        noticeEvents.Add(NoticeType.OpenFacilityPurchase, openFacilityPurchase);
         noticeEvents.Add(NoticeType.PurchaseCancel, purchaseCancel);
         // 実行の際自動で削除しないNoticeを登録（明示的に削除する必要があるNoticeをここに記入）
         notNeedAutoDeleteNotices = new NoticeType[]
@@ -80,8 +82,17 @@ public class NoticeManager :MonoBehaviour
         noticeKey.Add(NoticeType.Install, KeyCode.E);
         noticeKey.Add(NoticeType.CancelInstall, KeyCode.R);
         noticeKey.Add(NoticeType.Warp, KeyCode.F);
-        noticeKey.Add(NoticeType.Purchase, KeyCode.V);
+        noticeKey.Add(NoticeType.OpenFacilityPurchase, KeyCode.V);
         noticeKey.Add(NoticeType.PurchaseCancel, KeyCode.X);
+        // テキストの登録
+        noticeText.Add(NoticeType.Synthesize, "水晶合成");
+        noticeText.Add(NoticeType.Climb, "登る");
+        noticeText.Add(NoticeType.Descend, "降りる");
+        noticeText.Add(NoticeType.Install, "設置");
+        noticeText.Add(NoticeType.CancelInstall, "キャンセル");
+        noticeText.Add(NoticeType.Warp, "ワープ");
+        noticeText.Add(NoticeType.OpenFacilityPurchase, "建物購入");
+        noticeText.Add(NoticeType.PurchaseCancel, "購入キャンセル");
     }
 
     private void Update()
@@ -132,31 +143,6 @@ public class NoticeManager :MonoBehaviour
         }
     }
 
-    string GetNoticeText(NoticeType noticeType)
-    {
-        switch (noticeType)
-        {
-            case NoticeType.Synthesize:
-            return "水晶合成";
-            case NoticeType.Climb:
-            return "登る";
-            case NoticeType.Descend:
-            return "降りる";
-            case NoticeType.Install:
-            return "設置";
-            case NoticeType.CancelInstall:
-            return "キャンセル";
-            case NoticeType.Warp:
-            return "ワープ";
-            case NoticeType.Purchase:
-            return "購入";
-            case NoticeType.PurchaseCancel:
-            return "購入キャンセル";
-            default:
-            return "";
-        }
-    }
-
     /// <summary>
     /// Noticeを表示するための関数
     /// </summary>
@@ -171,7 +157,7 @@ public class NoticeManager :MonoBehaviour
         // Noticeの生成
         var notice = Instantiate(noticePrefab, noticeParent.transform);
         var text = notice.GetComponentInChildren<Text>();
-        text.text = GetNoticeText(noticeType) + ":" + noticeKey[noticeType];
+        text.text = noticeText[noticeType] + ":" + noticeKey[noticeType];
         // イベントの登録
         SetEvent(noticeType, action);
     }
@@ -195,7 +181,7 @@ public class NoticeManager :MonoBehaviour
         currentNotices.Add(noticeType);
         var notice = Instantiate(noticePrefab, noticeParent.transform);
         var text = notice.GetComponentInChildren<Text>();
-        text.text = GetNoticeText(noticeType) + ":" + noticeKey[noticeType];
+        text.text = noticeText[noticeType] + ":" + noticeKey[noticeType];
         SetArgEvent(noticeType, action, arg);
     }
 
@@ -218,7 +204,7 @@ public class NoticeManager :MonoBehaviour
             noticeArgments.Remove(noticeType);
         }
         currentNotices.Remove(noticeType);
-        var text = GetNoticeText(noticeType) + ":" + noticeKey[noticeType];
+        var text = noticeText[noticeType] + ":" + noticeKey[noticeType];
         foreach (Transform child in noticeParent.transform)
         {
             if (child.GetComponentInChildren<Text>().text.Contains(text))

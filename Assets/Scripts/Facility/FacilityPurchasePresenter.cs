@@ -1,42 +1,63 @@
-﻿using System.Collections;
+﻿using DG.Tweening;
+
+using System.Collections;
 using System.Collections.Generic;
+
+using Unity.VisualScripting;
 
 using UnityEngine;
 
 public class FacilityPurchasePresenter :MonoBehaviour
 {
     [SerializeField] GameObject content;
-    [SerializeField] FacilityPurchaseView facilityPurchaseView;
-    FacilityPurchaseView[] facilityPurchaseViews;
+    [SerializeField] GameObject facilityPurchaseViewPrefab;
+    List<FacilityPurchaseView> facilityPurchaseViews = new List<FacilityPurchaseView>();
 
     private void Start()
     {
-        var facilityInfos = FacilityManager.Instance.GetFacilityParameters();
-        foreach (var facilityInfo in facilityInfos)
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase, OpenFacilityPurchase);
+
+        var facilityParameters = FacilityManager.Instance.GetFacilityParameters();
+        foreach (var facilityParameter in facilityParameters)
         {
-            var facilityPurchaseView = Instantiate(this.facilityPurchaseView, content.transform);
-            facilityPurchaseView.SetFacilityInfo(facilityInfo);
-            facilityPurchaseView.SetButtonAction(() => OnClickPurchaseButton(facilityInfo));
+            var purchaseObj = Instantiate(facilityPurchaseViewPrefab, content.transform);
+            var facilityPurchaseView = purchaseObj.GetComponent<FacilityPurchaseView>();
+            facilityPurchaseView.SetFacilityParameter(facilityParameter);
+            facilityPurchaseView.SetButtonAction(() => OnClickPurchaseButton(facilityParameter));
+            facilityPurchaseViews.Add(facilityPurchaseView);
         }
+        MoneyManager.OnMoneyChenged += ReloadPriceColor;
+        ReloadPriceColor();
     }
 
-    private void OnClickPurchaseButton(FacilityParameter facilityInfo)
+    private void OnClickPurchaseButton(FacilityParameter facilityParameter)
     {
-        var canPurchase = MoneyManager.Instance.CanPurchase(facilityInfo.price);
+        var canPurchase = MoneyManager.Instance.CanPurchase(facilityParameter.price);
         if (!canPurchase)
         {
             return;
         }
-        MoneyManager.Instance.Pay(facilityInfo.price);
-        FacilityManager.Instance.CreateFacility(facilityInfo.type);
+        MoneyManager.Instance.Pay(facilityParameter.price);
+        FacilityManager.Instance.PurchaseFacility(facilityParameter.type);
     }
 
     void ReloadPriceColor()
     {
-        var facilityInfos = FacilityManager.Instance.GetFacilityParameters();
-        for (int i = 0; i < facilityInfos.Length; i++)
+        var facilityParameters = FacilityManager.Instance.GetFacilityParameters();
+        for (int i = 0; i < facilityParameters.Length; i++)
         {
-            facilityPurchaseViews[i].SetPriceColor(MoneyManager.Instance.CanPurchase(facilityInfos[i].price));
+            facilityPurchaseViews[i].SetPriceColor(MoneyManager.Instance.CanPurchase(facilityParameters[i].price));
         }
+    }
+
+    public void OnClickCloseBtn()
+    {
+        transform.DOMoveX(680, 1);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase, OpenFacilityPurchase);
+    }
+
+    public void OpenFacilityPurchase()
+    {
+        transform.DOMoveX(0, 1);
     }
 }

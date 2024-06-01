@@ -31,6 +31,7 @@ public class Muzzle :MonoBehaviour
         capsuleCollider.isTrigger = true;
         capsuleCollider.radius = facilityAttack.GetAttackRange();
         capsuleCollider.height = 100;
+        Facility.OnFaicilitySynthesized += HandleFacilitySynthesized;
     }
 
     private void OnDestroy()
@@ -149,5 +150,14 @@ public class Muzzle :MonoBehaviour
         {
             targetEnemy = null;
         }
+    }
+
+    void HandleFacilitySynthesized(Facility facility)
+    {
+        if (facility != facilityAttack)
+        {
+            return;
+        }
+        capsuleCollider.radius = facilityAttack.GetAttackRange();
     }
 }

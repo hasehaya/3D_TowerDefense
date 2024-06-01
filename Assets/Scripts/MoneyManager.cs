@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 using UnityEngine.UI;
 
 public class MoneyManager :MonoBehaviour
 {
+    // 合成された際に呼ばれるイベント
+    public delegate void MoneyChenged();
+    public static event MoneyChenged OnMoneyChenged;
+
     private static MoneyManager instance;
     public static MoneyManager Instance
     {
@@ -17,16 +22,17 @@ public class MoneyManager :MonoBehaviour
             return instance;
         }
     }
+    public int Money => money;
     int money;
     [SerializeField] Text moneyText;
+
     void Start()
     {
-        money = 0;
+        money = 1000;
         if (moneyText != null)
         {
             moneyText.text = money.ToString();
         }
-
     }
 
     public void Pay(int price)
@@ -36,15 +42,17 @@ public class MoneyManager :MonoBehaviour
         {
             moneyText.text = money.ToString();
         }
+        OnMoneyChenged?.Invoke();
     }
 
-    public void GetMoney(int plus)
+    public void AddMoney(int plus)
     {
         money += plus;
         if (moneyText != null)
         {
             moneyText.text = money.ToString();
         }
+        OnMoneyChenged?.Invoke();
     }
 
     public bool CanPurchase(int price)

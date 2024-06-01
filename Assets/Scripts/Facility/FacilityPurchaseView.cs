@@ -12,19 +12,19 @@ public class FacilityPurchaseView :MonoBehaviour
     [SerializeField] Button parchaseButton;
 
 
-    public void SetFacilityInfo(FacilityParameter facilityParameter)
+    public void SetFacilityParameter(FacilityParameter facilityParameter)
     {
         SetIcon(facilityParameter.icon);
         SetName(facilityParameter.name);
         SetPrice(facilityParameter.price);
     }
 
-    public void SetIcon(Sprite sprite)
+    void SetIcon(Sprite sprite)
     {
         icon.sprite = sprite;
     }
 
-    public void SetName(string name)
+    void SetName(string name)
     {
         nameText.text = name;
     }
@@ -39,7 +39,7 @@ public class FacilityPurchaseView :MonoBehaviour
     /// </summary>
     public void SetPriceColor(bool canPurchase)
     {
-        priceText.color = canPurchase ? Color.white : Color.red;
+        priceText.color = canPurchase ? Color.black : Color.red;
     }
 
     public void SetButtonAction(System.Action action)

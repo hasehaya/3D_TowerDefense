@@ -1,10 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using Asset.Outline;
+
+using System.Collections.Generic;
 using System.Linq;
 
 using UnityEngine;
 
 public class Facility :MonoBehaviour
 {
+    // 合成された際に呼ばれるイベント
+    public delegate void FacilitySynthesized(Facility facility);
+    public static event FacilitySynthesized OnFaicilitySynthesized;
     public enum Type
     {
         Canon = 0,
@@ -40,6 +45,7 @@ public class Facility :MonoBehaviour
     Crystal attachedCrystal;
     protected List<NoticeManager.NoticeType> noticeTypes = new List<NoticeManager.NoticeType>();
 
+
     protected virtual void Start()
     {
         var mrs = GetComponentsInChildren<MeshRenderer>();
@@ -61,6 +67,19 @@ public class Facility :MonoBehaviour
     protected virtual void Update()
     {
         InstallingFacility();
+    }
+
+    /// <summary>
+    /// FacilityのGameObjectをParameterを付けて返す関数
+    /// </summary>
+    /// <returns>GameObject</returns>
+    public static GameObject GenerateFacility(Type type)
+    {
+        var parameter = FacilityManager.Instance.GetFacilityParameter(type);
+        var facilityObj = Instantiate(parameter.prefab);
+        var facility = facilityObj.GetComponent<Facility>();
+        facility._facilityParameter = parameter;
+        return facilityObj;
     }
 
     void InstallingFacility()
@@ -89,7 +108,7 @@ public class Facility :MonoBehaviour
         }
         faciltyInstallCol.InstallFacility();
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
-        NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Purchase, FacilityManager.Instance.CreateFacility, Type.Canon);
+        NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.OpenFacilityPurchase, FacilityManager.Instance.PurchaseFacility, Type.Canon);
     }
 
     /// <summary>
@@ -113,6 +132,7 @@ public class Facility :MonoBehaviour
     public virtual void Synthesize(Crystal crystal)
     {
         CrystalBox.Instance.SynthesizeCrystal(crystal);
+        OnFaicilitySynthesized?.Invoke(this);
     }
     public void ChangeColorRed()
     {
