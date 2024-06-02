@@ -90,7 +90,7 @@ public class Facility :MonoBehaviour
         if (groundPos != default)
         {
             transform.position = groundPos;
-            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Install, InstallFacility);
+            NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Install, InstallFacility);
         }
 
     }
@@ -108,7 +108,7 @@ public class Facility :MonoBehaviour
         }
         faciltyInstallCol.InstallFacility();
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
-        NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.OpenFacilityPurchase, FacilityManager.Instance.PurchaseFacility, Type.Canon);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
     }
 
     /// <summary>

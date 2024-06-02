@@ -40,12 +40,13 @@ public class NoticeManager :MonoBehaviour
     List<NoticeType> currentNotices = new List<NoticeType>();
     // 自動で削除しないNotice（明示的に削除する必要があるNotice）
     NoticeType[] notNeedAutoDeleteNotices = null;
+    // 関数が決まっているNoticeのイベント
+    NoticeType[] fixedNotices = null;
     // イベントの設定
     UnityEvent<object> synthesizeEvent = new UnityEvent<object>();
     UnityEvent climbEvent = new UnityEvent();
     UnityEvent descendEvent = new UnityEvent();
     UnityEvent installEvent = new UnityEvent();
-    UnityEvent cancelInstallEvent = new UnityEvent();
     UnityEvent warpEvent = new UnityEvent();
     UnityEvent openFacilityPurchase = new UnityEvent();
     UnityEvent purchaseCancel = new UnityEvent();
@@ -66,7 +67,6 @@ public class NoticeManager :MonoBehaviour
         noticeEvents.Add(NoticeType.Climb, climbEvent);
         noticeEvents.Add(NoticeType.Descend, descendEvent);
         noticeEvents.Add(NoticeType.Install, installEvent);
-        noticeEvents.Add(NoticeType.CancelInstall, cancelInstallEvent);
         noticeEvents.Add(NoticeType.Warp, warpEvent);
         noticeEvents.Add(NoticeType.OpenFacilityPurchase, openFacilityPurchase);
         noticeEvents.Add(NoticeType.PurchaseCancel, purchaseCancel);
@@ -75,12 +75,18 @@ public class NoticeManager :MonoBehaviour
         {
 
         };
+        // 関数が決まっているNoticeを登録
+        fixedNotices = new NoticeType[]
+        {
+            NoticeType.OpenFacilityPurchase,
+        };
+        // 関数が決まっている関数を登録
+        openFacilityPurchase.AddListener(() => UIManager.Instance.facilityPurchasePresenter.OpenFacilityPurchase());
         // キーの登録
         noticeKey.Add(NoticeType.Synthesize, KeyCode.Z);
         noticeKey.Add(NoticeType.Climb, KeyCode.Q);
         noticeKey.Add(NoticeType.Descend, KeyCode.Tab);
         noticeKey.Add(NoticeType.Install, KeyCode.E);
-        noticeKey.Add(NoticeType.CancelInstall, KeyCode.R);
         noticeKey.Add(NoticeType.Warp, KeyCode.F);
         noticeKey.Add(NoticeType.OpenFacilityPurchase, KeyCode.V);
         noticeKey.Add(NoticeType.PurchaseCancel, KeyCode.X);
@@ -89,7 +95,6 @@ public class NoticeManager :MonoBehaviour
         noticeText.Add(NoticeType.Climb, "登る");
         noticeText.Add(NoticeType.Descend, "降りる");
         noticeText.Add(NoticeType.Install, "設置");
-        noticeText.Add(NoticeType.CancelInstall, "キャンセル");
         noticeText.Add(NoticeType.Warp, "ワープ");
         noticeText.Add(NoticeType.OpenFacilityPurchase, "建物購入");
         noticeText.Add(NoticeType.PurchaseCancel, "購入キャンセル");
@@ -146,10 +151,35 @@ public class NoticeManager :MonoBehaviour
     /// <summary>
     /// Noticeを表示するための関数
     /// </summary>
-    public void ShowNotice(NoticeType noticeType, UnityAction action)
+    public void ShowNotice(NoticeType noticeType)
     {
-        //すでに表示中のNoticeは表示しない、毎回明示的に消す処理が必要
         if (currentNotices.Contains(noticeType))
+        {
+            return;
+        }
+        // 関数を必要とするNoticeは表示しない
+        if (!fixedNotices.Contains(noticeType))
+        {
+            return;
+        }
+        currentNotices.Add(noticeType);
+        var notice = Instantiate(noticePrefab, noticeParent.transform);
+        var text = notice.GetComponentInChildren<Text>();
+        text.text = noticeText[noticeType] + ":" + noticeKey[noticeType];
+    }
+
+    /// <summary>
+    /// 関数を指定するNoticeを表示するための関数
+    /// </summary>
+    public void ShowFuncNotice(NoticeType noticeType, UnityAction action)
+    {
+        //すでに表示中のNoticeは表示しない
+        if (currentNotices.Contains(noticeType))
+        {
+            return;
+        }
+        // 関数が決まっているNoticeは表示しない
+        if (fixedNotices.Contains(noticeType))
         {
             return;
         }
@@ -175,6 +205,11 @@ public class NoticeManager :MonoBehaviour
     public void ShowArgNotice<T>(NoticeType noticeType, UnityAction<T> action, T arg)
     {
         if (currentNotices.Contains(noticeType))
+        {
+            return;
+        }
+        // 関数が決まっているNoticeは表示しない
+        if (fixedNotices.Contains(noticeType))
         {
             return;
         }

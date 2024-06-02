@@ -15,7 +15,7 @@ public class FacilityPurchasePresenter :MonoBehaviour
 
     private void Start()
     {
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase, OpenFacilityPurchase);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
 
         var facilityParameters = FacilityManager.Instance.GetFacilityParameters();
         foreach (var facilityParameter in facilityParameters)
@@ -53,7 +53,7 @@ public class FacilityPurchasePresenter :MonoBehaviour
     public void OnClickCloseBtn()
     {
         transform.DOMoveX(680, 1);
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase, OpenFacilityPurchase);
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
     }
 
     public void OpenFacilityPurchase()

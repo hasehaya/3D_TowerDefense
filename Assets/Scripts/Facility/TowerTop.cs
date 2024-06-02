@@ -16,7 +16,7 @@ public class TowerTop :MonoBehaviour
         if (!isShowNotice)
         {
             isShowNotice = true;
-            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Descend, tower.WarpToLower);
+            NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Descend, tower.WarpToLower);
         }
         var warpTower = Reticle.Instance.GetTower();
         if (warpTower != null)

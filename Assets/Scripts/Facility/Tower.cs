@@ -17,11 +17,11 @@ public class Tower :Facility
         base.HandleSelection(isSelected);
         if (isSelected)
         {
-            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Climb, WarpToTop);
+            NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Climb, WarpToTop);
         }
         else
         {
-            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Descend, WarpToLower);
+            NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Descend, WarpToLower);
         }
     }
 
@@ -34,7 +34,7 @@ public class Tower :Facility
         outline.enabled = isSelected;
         if (isSelected)
         {
-            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.Warp, WarpToTop);
+            NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Warp, WarpToTop);
         }
         else
         {

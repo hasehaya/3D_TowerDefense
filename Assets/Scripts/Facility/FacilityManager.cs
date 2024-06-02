@@ -82,16 +82,17 @@ public class FacilityManager :MonoBehaviour
         }
         purchasingFacilityObj = facilityObj;
         var facility = facilityObj.GetComponent<Facility>();
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
+        NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
         AddFacility(facility);
     }
 
     public void PurchaseCancel()
     {
-        Destroy(purchasingFacilityObj);
         var facility = purchasingFacilityObj.GetComponent<Facility>();
         RemoveFacility(facility);
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase, UIManager.Instance.facilityPurchasePresenter.OpenFacilityPurchase);
+        Destroy(purchasingFacilityObj);
+        purchasingFacilityObj = null;
+        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
         facility.HideNotice();
     }
 
