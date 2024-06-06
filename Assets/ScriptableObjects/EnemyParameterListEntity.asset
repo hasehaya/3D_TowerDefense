@@ -21,6 +21,7 @@ MonoBehaviour:
     attackSpeed: 3
     attackRange: 1
     skillCoolTime: 3
+    skillRange: 5
     attribute: 1
   - enemyType: 2
     enemyPrefab: {fileID: 1524411113276028, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
@@ -30,6 +31,7 @@ MonoBehaviour:
     attackSpeed: 3
     attackRange: 1
     skillCoolTime: 3
+    skillRange: 5
     attribute: 0
   - enemyType: 3
     enemyPrefab: {fileID: 1931298151966786, guid: 77fd34f4ce6f14fb4ba528616fd284ba, type: 3}
@@ -39,6 +41,7 @@ MonoBehaviour:
     attackSpeed: 3
     attackRange: 1
     skillCoolTime: 3
+    skillRange: 5
     attribute: 0
   - enemyType: 4
     enemyPrefab: {fileID: 1524411113276028, guid: d665ef4f535f54361861263a3ce009d1, type: 3}
@@ -48,6 +51,7 @@ MonoBehaviour:
     attackSpeed: 3
     attackRange: 1
     skillCoolTime: 3
+    skillRange: 5
     attribute: 0
   - enemyType: 5
     enemyPrefab: {fileID: 1931298151966786, guid: 4d8697087ba794183b08defe7c8778e0, type: 3}
@@ -57,6 +61,7 @@ MonoBehaviour:
     attackSpeed: 2
     attackRange: 1
     skillCoolTime: 3
+    skillRange: 5
     attribute: 0
   - enemyType: 6
     enemyPrefab: {fileID: 1524411113276028, guid: 1d8b5e6a5634b42349d3cac9cb1f7b59, type: 3}
@@ -66,6 +71,7 @@ MonoBehaviour:
     attackSpeed: 3
     attackRange: 1
     skillCoolTime: 3
+    skillRange: 5
     attribute: 0
   - enemyType: 7
     enemyPrefab: {fileID: 1931298151966786, guid: 0ad89ae8b5343864a8d8ca82490c7677, type: 3}
@@ -75,4 +81,5 @@ MonoBehaviour:
     attackSpeed: 3
     attackRange: 3
     skillCoolTime: 3
+    skillRange: 5
     attribute: 0

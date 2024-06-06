@@ -35,6 +35,7 @@ public class Enemy :MonoBehaviour
     float attackSpeed = 1.0f;
     float attackRange = 1.0f;
     float skillCoolTime = 1.0f;
+    float skillRange = 1.0f;
     Attribute attribute = Attribute.None;
 
     void Start()
@@ -122,6 +123,7 @@ public class EnemyParameter
     public float attackSpeed;
     public float attackRange;
     public float skillCoolTime;
+    public float skillRange;
     public Attribute attribute;
 
     public EnemyParameter()
@@ -134,6 +136,7 @@ public class EnemyParameter
         attackSpeed = 0;
         attackRange = 0;
         skillCoolTime = 0;
+        skillRange = 0;
         attribute = Attribute.None;
     }
 }
