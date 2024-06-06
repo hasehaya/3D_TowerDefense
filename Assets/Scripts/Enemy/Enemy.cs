@@ -34,6 +34,7 @@ public class Enemy :MonoBehaviour
     float attackPower = 1.0f;
     float attackSpeed = 1.0f;
     float attackRange = 1.0f;
+    float skillCoolTime = 1.0f;
     Attribute attribute = Attribute.None;
 
     void Start()
@@ -101,6 +102,12 @@ public class Enemy :MonoBehaviour
             Destroy(this.gameObject);
         }
     }
+
+    protected virtual void Ability()
+    {
+
+    }
+
 }
 
 
@@ -114,6 +121,7 @@ public class EnemyParameter
     public float attackPower;
     public float attackSpeed;
     public float attackRange;
+    public float skillCoolTime;
     public Attribute attribute;
 
     public EnemyParameter()
@@ -125,6 +133,7 @@ public class EnemyParameter
         attackPower = 0;
         attackSpeed = 0;
         attackRange = 0;
+        skillCoolTime = 0;
         attribute = Attribute.None;
     }
 }
