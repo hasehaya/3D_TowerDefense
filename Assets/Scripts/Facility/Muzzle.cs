@@ -81,6 +81,7 @@ public class Muzzle :MonoBehaviour
             if (enemy == null)
             {
                 enemies.Remove(enemy);
+                continue;
             }
 
             if (mostNearEnemy == null)
