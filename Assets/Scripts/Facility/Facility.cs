@@ -10,6 +10,9 @@ public class Facility :MonoBehaviour
     // 合成された際に呼ばれるイベント
     public delegate void FacilitySynthesized(Facility facility);
     public static event FacilitySynthesized OnFaicilitySynthesized;
+    // 設置された際に呼ばれるイベント
+    public delegate void FacilityInstalled(Facility facility);
+    public static event FacilityInstalled OnFacilityInstalled;
     public enum Type
     {
         Canon = 0,
@@ -109,6 +112,7 @@ public class Facility :MonoBehaviour
         faciltyInstallCol.InstallFacility();
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
+        OnFacilityInstalled?.Invoke(this);
     }
 
     /// <summary>

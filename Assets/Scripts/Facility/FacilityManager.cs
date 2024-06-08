@@ -56,6 +56,21 @@ public class FacilityManager :MonoBehaviour
         }
     }
 
+    public GameObject GetPurchasingFacility()
+    {
+        return purchasingFacilityObj;
+    }
+
+    void ReleasePurchasingFacility(Facility facility)
+    {
+        Facility.OnFacilityInstalled -= ReleasePurchasingFacility;
+        var purchasingFacility = purchasingFacilityObj.GetComponent<Facility>();
+        if (purchasingFacility == facility)
+        {
+            purchasingFacilityObj = null;
+        }
+    }
+
     public void AddFacility(Facility facility)
     {
         facilities.Add(facility);
@@ -84,6 +99,8 @@ public class FacilityManager :MonoBehaviour
         var facility = facilityObj.GetComponent<Facility>();
         NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
         AddFacility(facility);
+
+        Facility.OnFacilityInstalled += ReleasePurchasingFacility;
     }
 
     public void PurchaseCancel()
@@ -94,6 +111,8 @@ public class FacilityManager :MonoBehaviour
         purchasingFacilityObj = null;
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
         facility.HideNotice();
+
+        Facility.OnFacilityInstalled -= ReleasePurchasingFacility;
     }
 
     public bool IsFacilityAttackExist(Facility.Type type)

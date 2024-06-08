@@ -37,6 +37,11 @@ public class FacilityPurchasePresenter :MonoBehaviour
         {
             return;
         }
+        var purchasingFacility = FacilityManager.Instance.GetPurchasingFacility();
+        if (purchasingFacility != null)
+        {
+            return;
+        }
         MoneyManager.Instance.Pay(facilityParameter.price);
         FacilityManager.Instance.PurchaseFacility(facilityParameter.type);
     }
