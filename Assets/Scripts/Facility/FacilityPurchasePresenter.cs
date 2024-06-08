@@ -53,21 +53,13 @@ public class FacilityPurchasePresenter :MonoBehaviour
     public void OnClickCloseBtn()
     {
         transform.DOMoveX(680, 1);
-        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
     }
 
     public void OpenFacilityPurchase()
     {
         transform.DOMoveX(0, 1);
-        Cursor.visible = true;
-        SetCursorToCenter();
-    }
-
-    private void SetCursorToCenter()
-    {
         Cursor.lockState = CursorLockMode.None;
-        Vector2 screenCenter = new Vector2(Screen.width / 2, Screen.height / 2);
-        Cursor.SetCursor(null, screenCenter, CursorMode.Auto);
     }
 }
