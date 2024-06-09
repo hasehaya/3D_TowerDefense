@@ -19,10 +19,6 @@ public class Tower :Facility
         {
             NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Climb, WarpToTop);
         }
-        else
-        {
-            NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Descend, WarpToLower);
-        }
     }
 
     /// <summary>
@@ -44,11 +40,11 @@ public class Tower :Facility
 
     public void WarpToTop()
     {
-        Player.Instance.transform.position = topPos.position;
+        Player.Instance.WarpTo(topPos.position);
     }
 
     public void WarpToLower()
     {
-        Player.Instance.transform.position = lowerPos.position;
+        Player.Instance.WarpTo(lowerPos.position);
     }
 }
