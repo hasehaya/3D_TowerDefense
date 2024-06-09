@@ -58,6 +58,7 @@ public class NoticeManager :MonoBehaviour
     Dictionary<NoticeType, KeyCode> noticeKey = new Dictionary<NoticeType, KeyCode>();
     // テキストの設定
     Dictionary<NoticeType, string> noticeText = new Dictionary<NoticeType, string>();
+    private Dictionary<NoticeType, bool> noticeInputFlags = new Dictionary<NoticeType, bool>();
 
     private void Awake()
     {
@@ -98,9 +99,26 @@ public class NoticeManager :MonoBehaviour
         noticeText.Add(NoticeType.Warp, "ワープ");
         noticeText.Add(NoticeType.OpenFacilityPurchase, "建物購入");
         noticeText.Add(NoticeType.PurchaseCancel, "購入キャンセル");
+        noticeInputFlags = noticeKey.ToDictionary(x => x.Key, x => false);
     }
 
     private void Update()
+    {
+        CheckInput();
+    }
+
+    void CheckInput()
+    {
+        foreach (var noticeType in currentNotices)
+        {
+            if (Input.GetKeyDown(noticeKey[noticeType]))
+            {
+                noticeInputFlags[noticeType] = true;
+            }
+        }
+    }
+
+    private void FixedUpdate()
     {
         ExcuteNotice();
     }
@@ -116,7 +134,7 @@ public class NoticeManager :MonoBehaviour
         var tempArgments = new Dictionary<NoticeType, object>(noticeArgments);
         foreach (var noticeType in tempNotices)
         {
-            if (!Input.GetKeyDown(noticeKey[noticeType]))
+            if (!noticeInputFlags[noticeType])
             {
                 continue;
             }
@@ -239,6 +257,7 @@ public class NoticeManager :MonoBehaviour
             noticeArgments.Remove(noticeType);
         }
         currentNotices.Remove(noticeType);
+        noticeInputFlags[noticeType] = false;
         var text = noticeText[noticeType] + ":" + noticeKey[noticeType];
         foreach (Transform child in noticeParent.transform)
         {
@@ -252,6 +271,11 @@ public class NoticeManager :MonoBehaviour
     public void HideAllNotice()
     {
         currentNotices.Clear();
+        var keys = noticeInputFlags.Keys.ToList();
+        foreach (var key in keys)
+        {
+            noticeInputFlags[key] = false;
+        }
         foreach (Transform child in noticeParent.transform)
         {
             Destroy(child.gameObject);
