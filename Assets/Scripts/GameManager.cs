@@ -16,6 +16,11 @@ public class GameManager :MonoBehaviour
     }
     [SerializeField] Base playerBase;
 
+    private void Start()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
     public Base GetBase()
     {
         return playerBase;
