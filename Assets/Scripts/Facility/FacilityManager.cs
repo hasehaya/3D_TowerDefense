@@ -39,6 +39,7 @@ public class FacilityManager :MonoBehaviour
             }
             return;
         }
+
         if (previousTargetFacility == null)
         {
             previousTargetFacility = targetFacility;
@@ -50,7 +51,7 @@ public class FacilityManager :MonoBehaviour
         {
             NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Synthesize);
         }
-        else
+        else if (targetFacility.FacilityParameter.canAttachCrystal)
         {
             NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Synthesize, targetFacility.Synthesize, CrystalBox.Instance.selectedCrystal);
         }

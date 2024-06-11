@@ -20,6 +20,7 @@ MonoBehaviour:
     name: "\u5927\u7832"
     icon: {fileID: 21300000, guid: cebe099f9cc7ede48a0ef84217f18bce, type: 3}
     price: 100
+    canAttachCrystal: 1
   - type: 1
     category: 0
     installType: 0
@@ -27,6 +28,7 @@ MonoBehaviour:
     name: "\u9B54\u6CD5"
     icon: {fileID: 21300000, guid: e57b7221681c0db4fa8179c3c852f6de, type: 3}
     price: 200
+    canAttachCrystal: 1
   - type: 2
     category: 1
     installType: 0
@@ -34,6 +36,7 @@ MonoBehaviour:
     name: "\u30BF\u30EF\u30FC"
     icon: {fileID: 21300000, guid: f1851e27c0d385046b77bdc4936ec6d8, type: 3}
     price: 100
+    canAttachCrystal: 1
   - type: 3
     category: 0
     installType: 1
@@ -41,3 +44,4 @@ MonoBehaviour:
     name: "\u5730\u96F7"
     icon: {fileID: 21300000, guid: ce727e1102f378e408c138fb1191adcd, type: 3}
     price: 50
+    canAttachCrystal: 0
