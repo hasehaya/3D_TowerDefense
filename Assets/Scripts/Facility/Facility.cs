@@ -35,9 +35,8 @@ public class Facility :MonoBehaviour
     }
 
     public Type type;
-    FacilityParameter _facilityParameter;
-    public int Level => _level;
-    private int _level;
+    FacilityParameter facilityParameter;
+    public int Level { get; private set; }
 
 
     public bool isInstalled = false;
@@ -89,7 +88,7 @@ public class Facility :MonoBehaviour
         var parameter = FacilityManager.Instance.GetFacilityParameter(type);
         var facilityObj = Instantiate(parameter.prefab);
         var facility = facilityObj.GetComponent<Facility>();
-        facility._facilityParameter = parameter;
+        facility.facilityParameter = parameter;
         return facilityObj;
     }
 
@@ -175,12 +174,12 @@ public class Facility :MonoBehaviour
 
     public GameObject GetPrefab()
     {
-        return _facilityParameter.prefab;
+        return facilityParameter.prefab;
     }
 
     public InstallType GetInstallType()
     {
-        return _facilityParameter.installType;
+        return facilityParameter.installType;
     }
 }
 
