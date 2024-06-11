@@ -58,6 +58,7 @@ public class NoticeManager :MonoBehaviour
     Dictionary<NoticeType, KeyCode> noticeKey = new Dictionary<NoticeType, KeyCode>();
     // テキストの設定
     Dictionary<NoticeType, string> noticeText = new Dictionary<NoticeType, string>();
+    // キー入力のフラグ
     private Dictionary<NoticeType, bool> noticeInputFlags = new Dictionary<NoticeType, bool>();
 
     private void Awake()
@@ -99,6 +100,7 @@ public class NoticeManager :MonoBehaviour
         noticeText.Add(NoticeType.Warp, "ワープ");
         noticeText.Add(NoticeType.OpenFacilityPurchase, "建物購入");
         noticeText.Add(NoticeType.PurchaseCancel, "購入キャンセル");
+        // キー入力のフラグを初期化
         noticeInputFlags = noticeKey.ToDictionary(x => x.Key, x => false);
     }
 

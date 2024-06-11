@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8014404442834494444}
   - component: {fileID: 6946689260717279114}
   - component: {fileID: 9083994415141724647}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: InstallCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -115,16 +115,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 802cf39e9ca43a24db8ad5e755f55267, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  facilityInfo:
-    type: 0
-    category: 0
-    name: 
-    icon: {fileID: 0}
-    price: 0
+  type: 1
   isInstalled: 0
   isTouchingOtherObj: 0
   isSelected: 0
-  type: 1
 --- !u!1 &6798824829025071593
 GameObject:
   m_ObjectHideFlags: 0

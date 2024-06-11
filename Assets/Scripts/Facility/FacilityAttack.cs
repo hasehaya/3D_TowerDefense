@@ -41,7 +41,7 @@ public class FacilityAttack :Facility
     public static GameObject GenerateFacilityAttack(Type type)
     {
         var facility = GenerateFacility(type);
-        var facilityAttack = facility.AddComponent<FacilityAttack>();
+        var facilityAttack = facility.GetComponent<FacilityAttack>();
         var facilityAttackParameter = FacilityManager.Instance.GetFacilityAttackParameter(type);
         facilityAttack._attackParamater = facilityAttackParameter;
         return facility;

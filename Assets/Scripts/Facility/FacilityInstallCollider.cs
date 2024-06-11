@@ -2,12 +2,14 @@
 
 using UnityEngine;
 
+// layerのInstallについてDefaultとRoadのみにあたるようにしている
 public class FacilityInstallCollider :MonoBehaviour
 {
     Facility facility;
     Collider installCol;
     Rigidbody rb;
     List<Collider> childrenCols = new List<Collider>();
+    List<Collider> touchingObjs = new List<Collider>();
 
     private void Start()
     {
@@ -20,21 +22,54 @@ public class FacilityInstallCollider :MonoBehaviour
         rb.mass = 0.00001f;
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
-
-        gameObject.layer = LayerMask.NameToLayer("Install");
     }
     private void Update()
     {
         if (facility.isInstalled)
             return;
-        if (facility.isTouchingOtherObj)
+        switch (facility.GetInstallType())
         {
-            facility.ChangeColorRed();
+            case Facility.InstallType.Side:
+            if (touchingObjs.Count == 0)
+            {
+                facility.canInstall = true;
+            }
+            else
+            {
+                facility.canInstall = false;
+            }
+            break;
+            case Facility.InstallType.Road:
+            if (IsTouchingObj("Road"))
+            {
+                facility.canInstall = true;
+            }
+            else
+            {
+                facility.canInstall = false;
+            }
+            break;
         }
-        else
+        if (facility.canInstall)
         {
             facility.ChangeColorGreen();
         }
+        else
+        {
+            facility.ChangeColorRed();
+        }
+    }
+
+    bool IsTouchingObj(string tag)
+    {
+        foreach (var touchingObj in touchingObjs)
+        {
+            if (touchingObj.CompareTag(tag))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 
     /// <summary>
@@ -57,7 +92,9 @@ public class FacilityInstallCollider :MonoBehaviour
             return;
         if (childrenCols.Contains(other))
             return;
-        facility.isTouchingOtherObj = true;
+        if (touchingObjs.Contains(other))
+            return;
+        touchingObjs.Add(other);
     }
 
     private void OnTriggerExit(Collider other)
@@ -66,6 +103,8 @@ public class FacilityInstallCollider :MonoBehaviour
             return;
         if (childrenCols.Contains(other))
             return;
-        facility.isTouchingOtherObj = false;
+        if (!touchingObjs.Contains(other))
+            return;
+        touchingObjs.Remove(other);
     }
 }

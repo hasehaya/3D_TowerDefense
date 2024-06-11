@@ -18,12 +18,20 @@ public class Facility :MonoBehaviour
         Canon = 0,
         Magic = 1,
         Tower = 2,
+        Mine = 3,
     }
 
     public enum Category
     {
-        Attack,
-        Weather,
+        Attack = 0,
+        Weather = 1,
+        Mine = 2,
+    }
+
+    public enum InstallType
+    {
+        Side = 0,
+        Road = 1,
     }
 
     public Type type;
@@ -32,8 +40,8 @@ public class Facility :MonoBehaviour
     private int _level;
 
 
-    public bool isInstalled = true;
-    public bool isTouchingOtherObj = true;
+    public bool isInstalled = false;
+    public bool canInstall = false;
     public bool isSelected = false;
 
 
@@ -95,12 +103,11 @@ public class Facility :MonoBehaviour
             transform.position = groundPos;
             NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Install, InstallFacility);
         }
-
     }
 
     public void InstallFacility()
     {
-        if (isTouchingOtherObj)
+        if (!canInstall)
             return;
         if (isInstalled)
             return;
@@ -130,7 +137,6 @@ public class Facility :MonoBehaviour
         {
             NoticeManager.Instance.HideNotice(type);
         }
-
     }
 
     public virtual void Synthesize(Crystal crystal)
@@ -171,6 +177,11 @@ public class Facility :MonoBehaviour
     {
         return _facilityParameter.prefab;
     }
+
+    public InstallType GetInstallType()
+    {
+        return _facilityParameter.installType;
+    }
 }
 
 [System.Serializable]
@@ -178,6 +189,7 @@ public class FacilityParameter
 {
     public Facility.Type type;
     public Facility.Category category;
+    public Facility.InstallType installType;
     public GameObject prefab;
     public string name;
     public Sprite icon;
@@ -187,6 +199,7 @@ public class FacilityParameter
     {
         type = Facility.Type.Canon;
         category = Facility.Category.Attack;
+        installType = Facility.InstallType.Side;
         prefab = null;
         name = "";
         icon = null;

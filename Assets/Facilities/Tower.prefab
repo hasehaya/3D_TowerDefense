@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3284148959653266554}
   - component: {fileID: 2658141103686180250}
   - component: {fileID: 2925063256980554036}
-  m_Layer: 11
+  m_Layer: 15
   m_Name: InstallCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

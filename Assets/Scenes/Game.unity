@@ -732,7 +732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a08cad72a74b2a4db0c5966a7037eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyText: {fileID: 1262966372}
 --- !u!1 &185862705
 GameObject:
   m_ObjectHideFlags: 0
@@ -1851,7 +1850,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a08cad72a74b2a4db0c5966a7037eae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moneyText: {fileID: 0}
 --- !u!1 &560567186
 GameObject:
   m_ObjectHideFlags: 0
@@ -2558,7 +2556,7 @@ GameObject:
   - component: {fileID: 727304443}
   m_Layer: 0
   m_Name: Road
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -2812,7 +2810,7 @@ GameObject:
   - component: {fileID: 738923121}
   m_Layer: 0
   m_Name: Roads
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4302,17 +4300,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6786704362002572844, guid: 7e7fe63bb2a18e94e890f67993f72646, type: 3}
   m_PrefabInstance: {fileID: 1262966370}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1262966372 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8598631742854911536, guid: 7e7fe63bb2a18e94e890f67993f72646, type: 3}
-  m_PrefabInstance: {fileID: 1262966370}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1301606181
 GameObject:
   m_ObjectHideFlags: 0
@@ -4437,7 +4424,7 @@ GameObject:
   - component: {fileID: 1368022306}
   m_Layer: 0
   m_Name: Road
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647
@@ -5002,7 +4989,7 @@ GameObject:
   - component: {fileID: 1572124427}
   m_Layer: 0
   m_Name: Road
-  m_TagString: Untagged
+  m_TagString: Road
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 2147483647

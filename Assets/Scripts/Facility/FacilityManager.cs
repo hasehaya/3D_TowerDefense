@@ -117,7 +117,7 @@ public class FacilityManager :MonoBehaviour
 
     public bool IsFacilityAttackExist(Facility.Type type)
     {
-        foreach (var facility in facilities)
+        foreach (var facility in attackParameterListEntity.lists)
         {
             if (facility.type == type)
             {
