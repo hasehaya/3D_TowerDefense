@@ -24,7 +24,6 @@ public class Enemy :MonoBehaviour
         Tank = 5,
         Summon = 6,
         Boss = 7,
-
     }
     [SerializeField] EnemyType enemyType;
     // ステータス
@@ -35,6 +34,11 @@ public class Enemy :MonoBehaviour
     float attackSpeed = 1.0f;
     float attackRange = 1.0f;
     Attribute attribute = Attribute.None;
+    //状態異常
+    //フリーズから抜けてから何秒間継続するか
+    float freezeTimeCounter = 0;
+    //フリーズの強度
+    float freezeRate = 0;
 
     void Start()
     {
@@ -99,6 +103,18 @@ public class Enemy :MonoBehaviour
             OnEnemyDestroyed?.Invoke(this);
             MoneyManager.Instance.AddMoney(1);
             Destroy(this.gameObject);
+        }
+    }
+
+    /// <summary>
+    /// フリーズさせる関数
+    /// </summary>
+    public void SetFreezeTimeCounter(float freezeTime,float freezeRate)
+    {
+        freezeTimeCounter = freezeTime;
+        if(freezeRate > this.freezeRate)
+        {
+            this.freezeRate = freezeRate;
         }
     }
 }

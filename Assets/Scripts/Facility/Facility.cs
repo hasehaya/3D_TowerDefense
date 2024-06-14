@@ -19,6 +19,7 @@ public class Facility :MonoBehaviour
         Magic = 1,
         Tower = 2,
         Mine = 3,
+        Freeze = 4,
     }
 
     public enum Category

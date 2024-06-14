@@ -10,12 +10,6 @@ public class Mine :MonoBehaviour
     FacilityAttack facilityAttack;
     // あたり判定
     CapsuleCollider capsuleCollider;
-    // クールタイムを数える変数
-    float coolTimeCounter;
-    // 敵のリスト
-    List<Enemy> enemies = new List<Enemy>();
-    Enemy targetEnemy;
-
 
     private void Start()
     {
@@ -44,14 +38,6 @@ public class Mine :MonoBehaviour
             return;
         }
 
-        var enemy = other.gameObject.GetComponent<Enemy>();
-        if (targetEnemy == null)
-        {
-            targetEnemy = enemy;
-        }
-        if (!enemies.Contains(enemy))
-        {
-            enemies.Add(enemy);
-        }
+        
     }
 }
