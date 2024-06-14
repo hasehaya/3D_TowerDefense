@@ -19,6 +19,13 @@ public class EnemyManager :MonoBehaviour
     }
     [SerializeField] EnemyParameterListEntity enemyStatusListEntity;
 
+    private List<Enemy> enemyList = new List<Enemy>();
+
+    private void Start()
+    {
+        Enemy.OnEnemyDestroyed += RemoveEnemy;
+    }
+
     public EnemyParameter GetEnemyStatus(Enemy.EnemyType enemyType)
     {
         foreach (var enemyStatus in enemyStatusListEntity.lists)
@@ -46,6 +53,19 @@ public class EnemyManager :MonoBehaviour
     public void SpawnEnemy(Enemy.EnemyType enemyType, Transform pos)
     {
         var enemyPrefab = GetEnemyPrefab(enemyType);
-        Instantiate(enemyPrefab, pos);
+        var enemyObj = Instantiate(enemyPrefab, pos);
+        var enemy = enemyObj.GetComponent<Enemy>();
+        enemyList.Add(enemy);
+
+    }
+
+    void RemoveEnemy(Enemy enemy)
+    {
+        enemyList.Remove(enemy);
+    }
+
+    public List<Enemy> getEnemyList()
+    {
+        return enemyList;
     }
 }

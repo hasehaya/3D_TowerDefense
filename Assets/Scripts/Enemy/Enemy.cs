@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class Enemy :MonoBehaviour
@@ -8,6 +9,7 @@ public class Enemy :MonoBehaviour
     // 破壊された際に呼ばれるイベント
     public delegate void EnemyDestroyed(Enemy enemy);
     public static event EnemyDestroyed OnEnemyDestroyed;
+
     // ナビゲーション
     NavMeshAgent nav;
     // HP関係
@@ -36,9 +38,13 @@ public class Enemy :MonoBehaviour
     float attackRange = 1.0f;
     float skillCoolTime = 1.0f;
     float skillRange = 1.0f;
+    float maxHp = 10;
     Attribute attribute = Attribute.None;
 
-    void Start()
+    //アビリティーリスト
+    protected List<IAbility> abilityList = new List<IAbility>();
+
+    protected virtual void Start()
     {
         SetStatus();
         SetNavigation();
@@ -48,11 +54,25 @@ public class Enemy :MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Enemy");
     }
 
+    private void Update()
+    {
+        foreach(var ability in abilityList)
+        {
+            ability.counter += Time.deltaTime;
+            if(ability.counter >= ability.coolTime)
+            {
+                ability.Excute();
+                ability.counter = 0;
+            }
+        }
+    }
+
     void SetStatus()
     {
         var status = EnemyManager.Instance.GetEnemyStatus(enemyType);
         enemyPrefab = status.enemyPrefab;
         hp = status.hp;
+        maxHp = hp;
         speed = status.speed;
         attackPower = status.attackPower;
         attackSpeed = status.attackSpeed;
@@ -96,17 +116,16 @@ public class Enemy :MonoBehaviour
     {
         hp -= damage;
         slider.value -= damage;
+        if(hp >= maxHp)
+        {
+            hp = maxHp;
+        }
         if (hp <= 0)
         {
             OnEnemyDestroyed?.Invoke(this);
             MoneyManager.Instance.AddMoney(1);
             Destroy(this.gameObject);
         }
-    }
-
-    protected virtual void Ability()
-    {
-
     }
 
 }

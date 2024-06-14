@@ -515,9 +515,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4544219117696442}
   - component: {fileID: 95706204029656638}
-  - component: {fileID: 1069031013939335740}
   - component: {fileID: 4588953403970008663}
   - component: {fileID: 2249383346012774612}
+  - component: {fileID: -1741562306070254693}
   m_Layer: 0
   m_Name: Healer
   m_TagString: Enemy
@@ -564,20 +564,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1069031013939335740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524411113276028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c983d0ac0787a45a893a13d53f172e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hpBar: {fileID: 7733529088918627409, guid: d544f208ac22f4a2197ccd9e26f8e1bd, type: 3}
-  enemyType: 4
 --- !u!195 &4588953403970008663
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -621,6 +607,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0.58, z: 0}
+--- !u!114 &-1741562306070254693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524411113276028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b8cf457bfff34f279f73ee4f83efd79, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hpBar: {fileID: 7733529088918627409, guid: d544f208ac22f4a2197ccd9e26f8e1bd, type: 3}
+  enemyType: 4
+  healValue: 20
+  healRange: 30
+  coolTime: 3
 --- !u!1 &1532652994627396
 GameObject:
   m_ObjectHideFlags: 0
