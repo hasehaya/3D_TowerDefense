@@ -37,6 +37,11 @@ public class FacilityPurchasePresenter :MonoBehaviour
         {
             return;
         }
+        var purchasingFacility = FacilityManager.Instance.GetPurchasingFacility();
+        if (purchasingFacility != null)
+        {
+            return;
+        }
         MoneyManager.Instance.Pay(facilityParameter.price);
         FacilityManager.Instance.PurchaseFacility(facilityParameter.type);
     }
@@ -53,11 +58,13 @@ public class FacilityPurchasePresenter :MonoBehaviour
     public void OnClickCloseBtn()
     {
         transform.DOMoveX(680, 1);
+        Cursor.lockState = CursorLockMode.Locked;
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
     }
 
     public void OpenFacilityPurchase()
     {
         transform.DOMoveX(0, 1);
+        Cursor.lockState = CursorLockMode.None;
     }
 }

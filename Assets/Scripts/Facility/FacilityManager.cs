@@ -39,6 +39,7 @@ public class FacilityManager :MonoBehaviour
             }
             return;
         }
+
         if (previousTargetFacility == null)
         {
             previousTargetFacility = targetFacility;
@@ -50,9 +51,24 @@ public class FacilityManager :MonoBehaviour
         {
             NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Synthesize);
         }
-        else
+        else if (targetFacility.FacilityParameter.canAttachCrystal)
         {
             NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Synthesize, targetFacility.Synthesize, CrystalBox.Instance.selectedCrystal);
+        }
+    }
+
+    public GameObject GetPurchasingFacility()
+    {
+        return purchasingFacilityObj;
+    }
+
+    void ReleasePurchasingFacility(Facility facility)
+    {
+        Facility.OnFacilityInstalled -= ReleasePurchasingFacility;
+        var purchasingFacility = purchasingFacilityObj.GetComponent<Facility>();
+        if (purchasingFacility == facility)
+        {
+            purchasingFacilityObj = null;
         }
     }
 
@@ -84,6 +100,8 @@ public class FacilityManager :MonoBehaviour
         var facility = facilityObj.GetComponent<Facility>();
         NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
         AddFacility(facility);
+
+        Facility.OnFacilityInstalled += ReleasePurchasingFacility;
     }
 
     public void PurchaseCancel()
@@ -94,11 +112,13 @@ public class FacilityManager :MonoBehaviour
         purchasingFacilityObj = null;
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
         facility.HideNotice();
+
+        Facility.OnFacilityInstalled -= ReleasePurchasingFacility;
     }
 
     public bool IsFacilityAttackExist(Facility.Type type)
     {
-        foreach (var facility in facilities)
+        foreach (var facility in attackParameterListEntity.lists)
         {
             if (facility.type == type)
             {

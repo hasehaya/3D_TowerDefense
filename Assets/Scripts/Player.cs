@@ -24,7 +24,7 @@ public class Player :MonoBehaviour
         targetRotation = transform.rotation;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         Move();
     }
@@ -48,5 +48,10 @@ public class Player :MonoBehaviour
         animator.SetFloat("Speed", velocity.magnitude * speed, 0.1f, Time.deltaTime);
 
         transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed);
+    }
+
+    public void WarpTo(Vector3 position)
+    {
+        transform.position = position;
     }
 }

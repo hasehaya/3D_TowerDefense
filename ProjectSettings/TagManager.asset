@@ -9,6 +9,7 @@ TagManager:
   - Muzzle
   - Ground
   - Home
+  - Road
   layers:
   - Default
   - TransparentFX
@@ -21,11 +22,11 @@ TagManager:
   - Ground
   - Facility
   - Muzzle
-  - Install
-  - Range
+  - 
+  - 
   - Enemy
   - 
-  - 
+  - Install
   - 
   - 
   - 

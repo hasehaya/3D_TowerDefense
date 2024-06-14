@@ -13,25 +13,26 @@ public class FacilityAttack :Facility
         Sky = 2,
         GroundAndSky = 3,
     }
-    FacilityAttackParameter _attackParamater;
-    float _attackPower;
-    float _attackSpeed;
-    float _attackRate;
-    bool _isAreaAttack;
-    float _attackRange;
-    float _attackArea;
-    Material _material;
+
+    FacilityAttackParameter attackParameter;
+    float attackPower;
+    float attackSpeed;
+    float attackRate;
+    bool isAreaAttack;
+    float attackRange;
+    float attackArea;
+    Material material;
 
     private void Awake()
     {
-        var status = FacilityManager.Instance.GetFacilityAttackParameter(type);
-        _attackParamater = status;
-        _attackPower = status.attackPower;
-        _attackSpeed = status.attackSpeed;
-        _attackRate = status.attackRate;
-        _isAreaAttack = status.isAreaAttack;
-        _attackRange = status.attackRange;
-        _attackArea = status.attackArea;
+        var parameter = FacilityManager.Instance.GetFacilityAttackParameter(type);
+        attackParameter = parameter;
+        attackPower = parameter.attackPower;
+        attackSpeed = parameter.attackSpeed;
+        attackRate = parameter.attackRate;
+        isAreaAttack = parameter.isAreaAttack;
+        attackRange = parameter.attackRange;
+        attackArea = parameter.attackArea;
     }
 
     /// <summary>
@@ -41,9 +42,9 @@ public class FacilityAttack :Facility
     public static GameObject GenerateFacilityAttack(Type type)
     {
         var facility = GenerateFacility(type);
-        var facilityAttack = facility.AddComponent<FacilityAttack>();
+        var facilityAttack = facility.GetComponent<FacilityAttack>();
         var facilityAttackParameter = FacilityManager.Instance.GetFacilityAttackParameter(type);
-        facilityAttack._attackParamater = facilityAttackParameter;
+        facilityAttack.attackParameter = facilityAttackParameter;
         return facility;
     }
 
@@ -54,49 +55,49 @@ public class FacilityAttack :Facility
         {
             return;
         }
-        _attackPower += crystalAttack.attackPower;
-        _attackSpeed += crystalAttack.attackSpeed;
-        _attackRate += crystalAttack.attackRate;
-        _isAreaAttack = crystalAttack.isAreaAttack;
-        _attackRange += crystalAttack.attackRange;
-        _attackArea += crystalAttack.attackArea;
-        _material = crystalAttack.material;
+        attackPower += crystalAttack.attackPower;
+        attackSpeed += crystalAttack.attackSpeed;
+        attackRate += crystalAttack.attackRate;
+        isAreaAttack = crystalAttack.isAreaAttack;
+        attackRange += crystalAttack.attackRange;
+        attackArea += crystalAttack.attackArea;
+        material = crystalAttack.material;
         base.Synthesize(crystal);
     }
 
     public float GetAttackPower()
     {
-        return _attackPower;
+        return attackPower;
     }
 
     public float GetAttackSpeed()
     {
-        return _attackSpeed;
+        return attackSpeed;
     }
 
     public float GetAttackRate()
     {
-        return _attackRate;
+        return attackRate;
     }
 
     public bool IsAreaAttack()
     {
-        return _isAreaAttack;
+        return isAreaAttack;
     }
 
     public float GetAttackRange()
     {
-        return _attackRange;
+        return attackRange;
     }
 
     public float GetAttackArea()
     {
-        return _attackArea;
+        return attackArea;
     }
 
     public Material GetMaterial()
     {
-        return _material;
+        return material;
     }
 }
 

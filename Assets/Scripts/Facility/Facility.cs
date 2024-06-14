@@ -10,27 +10,37 @@ public class Facility :MonoBehaviour
     // 合成された際に呼ばれるイベント
     public delegate void FacilitySynthesized(Facility facility);
     public static event FacilitySynthesized OnFaicilitySynthesized;
+    // 設置された際に呼ばれるイベント
+    public delegate void FacilityInstalled(Facility facility);
+    public static event FacilityInstalled OnFacilityInstalled;
     public enum Type
     {
         Canon = 0,
         Magic = 1,
         Tower = 2,
+        Mine = 3,
     }
 
     public enum Category
     {
-        Attack,
-        Weather,
+        Attack = 0,
+        Weather = 1,
+        Mine = 2,
+    }
+
+    public enum InstallType
+    {
+        Side = 0,
+        Road = 1,
     }
 
     public Type type;
-    FacilityParameter _facilityParameter;
-    public int Level => _level;
-    private int _level;
+    public FacilityParameter FacilityParameter { get; private set; }
+    public int Level { get; private set; }
 
 
-    public bool isInstalled = true;
-    public bool isTouchingOtherObj = true;
+    public bool isInstalled = false;
+    public bool canInstall = false;
     public bool isSelected = false;
 
 
@@ -78,7 +88,7 @@ public class Facility :MonoBehaviour
         var parameter = FacilityManager.Instance.GetFacilityParameter(type);
         var facilityObj = Instantiate(parameter.prefab);
         var facility = facilityObj.GetComponent<Facility>();
-        facility._facilityParameter = parameter;
+        facility.FacilityParameter = parameter;
         return facilityObj;
     }
 
@@ -92,12 +102,11 @@ public class Facility :MonoBehaviour
             transform.position = groundPos;
             NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Install, InstallFacility);
         }
-
     }
 
     public void InstallFacility()
     {
-        if (isTouchingOtherObj)
+        if (!canInstall)
             return;
         if (isInstalled)
             return;
@@ -109,6 +118,7 @@ public class Facility :MonoBehaviour
         faciltyInstallCol.InstallFacility();
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
+        OnFacilityInstalled?.Invoke(this);
     }
 
     /// <summary>
@@ -126,7 +136,6 @@ public class Facility :MonoBehaviour
         {
             NoticeManager.Instance.HideNotice(type);
         }
-
     }
 
     public virtual void Synthesize(Crystal crystal)
@@ -165,7 +174,12 @@ public class Facility :MonoBehaviour
 
     public GameObject GetPrefab()
     {
-        return _facilityParameter.prefab;
+        return FacilityParameter.prefab;
+    }
+
+    public InstallType GetInstallType()
+    {
+        return FacilityParameter.installType;
     }
 }
 
@@ -174,18 +188,22 @@ public class FacilityParameter
 {
     public Facility.Type type;
     public Facility.Category category;
+    public Facility.InstallType installType;
     public GameObject prefab;
     public string name;
     public Sprite icon;
     public int price;
+    public bool canAttachCrystal;
 
     public FacilityParameter()
     {
         type = Facility.Type.Canon;
         category = Facility.Category.Attack;
+        installType = Facility.InstallType.Side;
         prefab = null;
         name = "";
         icon = null;
         price = 0;
+        canAttachCrystal = true;
     }
 }

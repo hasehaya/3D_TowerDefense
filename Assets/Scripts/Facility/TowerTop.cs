@@ -4,7 +4,6 @@ public class TowerTop :MonoBehaviour
 {
     Tower tower;
     Tower currentTower = null;
-    bool isShowNotice = false;
 
     private void Start()
     {
@@ -13,11 +12,7 @@ public class TowerTop :MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        if (!isShowNotice)
-        {
-            isShowNotice = true;
-            NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Descend, tower.WarpToLower);
-        }
+        NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Descend, tower.WarpToLower);
         var warpTower = Reticle.Instance.GetTower();
         if (warpTower != null)
         {
@@ -38,7 +33,8 @@ public class TowerTop :MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        isShowNotice = false;
         NoticeManager.Instance.HideAllNotice();
+        currentTower?.WarpSelection(false);
+        currentTower = null;
     }
 }

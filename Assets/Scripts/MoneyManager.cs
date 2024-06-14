@@ -24,34 +24,21 @@ public class MoneyManager :MonoBehaviour
     }
     public int Money => money;
     int money;
-    [SerializeField] Text moneyText;
 
     void Start()
     {
         money = 1000;
-        if (moneyText != null)
-        {
-            moneyText.text = money.ToString();
-        }
     }
 
     public void Pay(int price)
     {
         money -= price;
-        if (moneyText != null)
-        {
-            moneyText.text = money.ToString();
-        }
         OnMoneyChenged?.Invoke();
     }
 
     public void AddMoney(int plus)
     {
         money += plus;
-        if (moneyText != null)
-        {
-            moneyText.text = money.ToString();
-        }
         OnMoneyChenged?.Invoke();
     }
 
