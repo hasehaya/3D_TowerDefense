@@ -3,19 +3,16 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class Mine :MonoBehaviour
+public class Mine :Facility
 {
     ParticleSystem explosionEffect;
-
-    FacilityAttack facilityAttack;
-    // あたり判定
     CapsuleCollider capsuleCollider;
+    bool isExploded = false;
 
-    private void Start()
+    protected override void Start()
     {
-        facilityAttack = GetComponentInParent<FacilityAttack>();
-        explosionEffect = Resources.Load<ParticleSystem>("Prefabs/Bullet");
-        gameObject.layer = LayerMask.NameToLayer("Muzzle");
+        base.Start();
+        explosionEffect = Resources.Load<ParticleSystem>("Prefabs/Explosion");
         SetCapsuleCollider();
     }
 
@@ -23,13 +20,13 @@ public class Mine :MonoBehaviour
     {
         capsuleCollider = gameObject.AddComponent<CapsuleCollider>();
         capsuleCollider.isTrigger = true;
-        capsuleCollider.radius = facilityAttack.GetAttackRange();
+        capsuleCollider.radius = 5;
         capsuleCollider.height = 100;
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (!facilityAttack.isInstalled)
+        if (!isInstalled)
         {
             return;
         }
@@ -37,7 +34,13 @@ public class Mine :MonoBehaviour
         {
             return;
         }
-
-        
+        if (isExploded)
+        {
+            return;
+        }
+        isExploded = true;
+        AreaDamage.Create(transform.position, Form.Sphere, 20, 12, 1, 0);
+        Instantiate(explosionEffect, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

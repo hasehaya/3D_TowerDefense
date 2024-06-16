@@ -27,7 +27,7 @@ public class FacilityPurchasePresenter :MonoBehaviour
             facilityPurchaseViews.Add(facilityPurchaseView);
         }
         MoneyManager.OnMoneyChenged += ReloadPriceColor;
-        ReloadPriceColor();
+        ReloadPriceColor(MoneyManager.Instance.Money);
     }
 
     private void OnClickPurchaseButton(FacilityParameter facilityParameter)
@@ -42,16 +42,17 @@ public class FacilityPurchasePresenter :MonoBehaviour
         {
             return;
         }
-        MoneyManager.Instance.Pay(facilityParameter.price);
         FacilityManager.Instance.PurchaseFacility(facilityParameter.type);
     }
 
-    void ReloadPriceColor()
+    void ReloadPriceColor(int money)
     {
         var facilityParameters = FacilityManager.Instance.GetFacilityParameters();
         for (int i = 0; i < facilityParameters.Length; i++)
         {
-            facilityPurchaseViews[i].SetPriceColor(MoneyManager.Instance.CanPurchase(facilityParameters[i].price));
+            var price = facilityParameters[i].price;
+            var canPurchase = price <= money;
+            facilityPurchaseViews[i].SetPriceColor(canPurchase);
         }
     }
 

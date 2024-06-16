@@ -4300,6 +4300,17 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6786704362002572844, guid: 7e7fe63bb2a18e94e890f67993f72646, type: 3}
   m_PrefabInstance: {fileID: 1262966370}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1262966372 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2442708581425314328, guid: 7e7fe63bb2a18e94e890f67993f72646, type: 3}
+  m_PrefabInstance: {fileID: 1262966370}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95ce23a6186ef1e4b99f1b3b5964bb1d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1301606181
 GameObject:
   m_ObjectHideFlags: 0
@@ -5176,6 +5187,7 @@ GameObject:
   - component: {fileID: 1743804142}
   - component: {fileID: 1743804144}
   - component: {fileID: 1743804143}
+  - component: {fileID: 1743804145}
   m_Layer: 5
   m_Name: MoneyViewPresenter
   m_TagString: Untagged
@@ -5241,6 +5253,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1743804141}
   m_CullTransparentMesh: 1
+--- !u!114 &1743804145
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1743804141}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6db5cad9cfe53294d8ba3130473cbbe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moneyView: {fileID: 1262966372}
 --- !u!1 &1772663368
 GameObject:
   m_ObjectHideFlags: 0
