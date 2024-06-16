@@ -98,8 +98,9 @@ public class FacilityManager :MonoBehaviour
         }
         purchasingFacilityObj = facilityObj;
         var facility = facilityObj.GetComponent<Facility>();
-        NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
+        MoneyManager.Instance.Pay(facility.FacilityParameter.price);
         AddFacility(facility);
+        NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
 
         Facility.OnFacilityInstalled += ReleasePurchasingFacility;
     }
@@ -107,6 +108,7 @@ public class FacilityManager :MonoBehaviour
     public void PurchaseCancel()
     {
         var facility = purchasingFacilityObj.GetComponent<Facility>();
+        MoneyManager.Instance.AddMoney(facility.FacilityParameter.price);
         RemoveFacility(facility);
         Destroy(purchasingFacilityObj);
         purchasingFacilityObj = null;
