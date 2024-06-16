@@ -6049,10 +6049,6 @@ PrefabInstance:
       propertyPath: isInstalled
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3337598653160327560, guid: 793e7fe12d976a344b55c6d1ea6dcbbf, type: 3}
-      propertyPath: isTouchingOtherObj
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8376146595402214016, guid: 793e7fe12d976a344b55c6d1ea6dcbbf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 283.4

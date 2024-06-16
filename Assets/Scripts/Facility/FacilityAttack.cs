@@ -1,9 +1,6 @@
-﻿using Unity.VisualScripting;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using UnityEngine;
-
-using static IAttackable;
 
 public class FacilityAttack :Facility
 {
@@ -24,6 +21,13 @@ public class FacilityAttack :Facility
     float attackArea;
     Material material;
 
+    EnemyDetector enemyDetector;
+    List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
+
+    GameObject bulletPrefab;
+    float coolTimeCounter;
+    Enemy targetEnemy;
+
     private void Awake()
     {
         var parameter = FacilityManager.Instance.GetFacilityAttackParameter(type);
@@ -34,6 +38,54 @@ public class FacilityAttack :Facility
         isAreaAttack = parameter.isAreaAttack;
         attackRange = parameter.attackRange;
         attackArea = parameter.attackArea;
+
+
+        bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
+        gameObject.layer = LayerMask.NameToLayer("Muzzle");
+
+        enemyDetector = gameObject.AddComponent<EnemyDetector>();
+        enemyDetector.Initialize(Form.Capsule, attackRange);
+
+        Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
+    }
+
+    private void OnDestroy()
+    {
+        Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        Attack();
+    }
+
+    void Attack()
+    {
+        if (!isInstalled)
+        {
+            return;
+        }
+        if (enemies.Count == 0)
+        {
+            return;
+        }
+
+        if (targetEnemy == null)
+        {
+            targetEnemy = GetMostNearEnemy();
+        }
+
+        if (GetAttackRate() <= coolTimeCounter)
+        {
+            coolTimeCounter = 0;
+            var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            bullet.GetComponent<Bullet>().Initialize(this, targetEnemy);
+        }
+        else
+        {
+            coolTimeCounter += Time.deltaTime;
+        }
     }
 
     /// <summary>
@@ -101,91 +153,12 @@ public class FacilityAttack :Facility
         return material;
     }
 
-    GameObject bulletPrefab;
-
-    FacilityAttack facilityAttack;
-    // あたり判定
-    CapsuleCollider capsuleCollider;
-    // クールタイムを数える変数
-    float coolTimeCounter;
-    // 敵のリスト
-    List<Enemy> enemies = new List<Enemy>();
-    Enemy targetEnemy;
-
-
-    private void Start()
-    {
-        Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
-        facilityAttack = GetComponentInParent<FacilityAttack>();
-        bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
-        gameObject.layer = LayerMask.NameToLayer("Muzzle");
-        SetCapsuleCollider();
-    }
-
-    void SetCapsuleCollider()
-    {
-        capsuleCollider = gameObject.AddComponent<CapsuleCollider>();
-        capsuleCollider.isTrigger = true;
-        capsuleCollider.radius = facilityAttack.GetAttackRange();
-        capsuleCollider.height = 100;
-        Facility.OnFaicilitySynthesized += HandleFacilitySynthesized;
-    }
-
-    private void OnDestroy()
-    {
-        Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
-    }
-
-    private void Update()
-    {
-        Attack();
-    }
-
-    void Attack()
-    {
-        if (!facilityAttack.isInstalled)
-        {
-            return;
-        }
-        if (enemies.Count == 0)
-        {
-            return;
-        }
-
-        if (targetEnemy == null)
-        {
-            targetEnemy = GetMostNearEnemy();
-        }
-
-        if (facilityAttack.GetAttackRate() <= coolTimeCounter)
-        {
-            coolTimeCounter = 0;
-            var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
-            bullet.GetComponent<Bullet>().Initialize(facilityAttack, targetEnemy);
-        }
-        else
-        {
-            coolTimeCounter += Time.deltaTime;
-        }
-    }
-
     Enemy GetMostNearEnemy()
     {
         Enemy mostNearEnemy = null;
-        var tempEnemies = new List<Enemy>(enemies);
-        foreach (var enemy in tempEnemies)
+        foreach (var enemy in enemies)
         {
-            if (enemy == null)
-            {
-                enemies.Remove(enemy);
-                continue;
-            }
-
-            if (mostNearEnemy == null)
-            {
-                mostNearEnemy = enemy;
-            }
-            if (Vector3.Distance(transform.position, enemy.transform.position) < Vector3.Distance(transform.position, mostNearEnemy.transform.position))
+            if (mostNearEnemy == null || Vector3.Distance(transform.position, enemy.transform.position) < Vector3.Distance(transform.position, mostNearEnemy.transform.position))
             {
                 mostNearEnemy = enemy;
             }
@@ -193,73 +166,18 @@ public class FacilityAttack :Facility
         return mostNearEnemy;
     }
 
-    private void OnTriggerStay(Collider other)
-    {
-        if (!facilityAttack.isInstalled)
-        {
-            return;
-        }
-        if (!other.gameObject.CompareTag("Enemy"))
-        {
-            return;
-        }
-
-        var enemy = other.gameObject.GetComponent<Enemy>();
-        if (targetEnemy == null)
-        {
-            targetEnemy = enemy;
-        }
-        if (!enemies.Contains(enemy))
-        {
-            enemies.Add(enemy);
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (!facilityAttack.isInstalled)
-        {
-            return;
-        }
-        if (!other.gameObject.CompareTag("Enemy"))
-        {
-            return;
-        }
-
-        var enemy = other.gameObject.GetComponent<Enemy>();
-        if (enemy == targetEnemy)
-        {
-            targetEnemy = null;
-        }
-        if (enemies.Contains(enemy))
-        {
-            enemies.Remove(enemy);
-        }
-    }
-
     void HandleEnemyDestroyed(Enemy destroyedEnemy)
     {
-        if (!enemies.Contains(destroyedEnemy))
+        if (enemies.Contains(destroyedEnemy))
         {
-            return;
-        }
-        enemies.Remove(destroyedEnemy);
-        if (destroyedEnemy == targetEnemy)
-        {
-            targetEnemy = null;
+            if (destroyedEnemy == targetEnemy)
+            {
+                targetEnemy = null;
+            }
         }
     }
-
-    void HandleFacilitySynthesized(Facility facility)
-    {
-        if (facility != facilityAttack)
-        {
-            return;
-        }
-        capsuleCollider.radius = facilityAttack.GetAttackRange();
-    }
-
 }
+
 
 [System.Serializable]
 public class FacilityAttackParameter

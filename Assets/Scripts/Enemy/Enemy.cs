@@ -50,6 +50,11 @@ public class Enemy :MonoBehaviour
         gameObject.layer = LayerMask.NameToLayer("Enemy");
     }
 
+    private void OnDestroy()
+    {
+        OnEnemyDestroyed?.Invoke(this);
+    }
+
     void SetStatus()
     {
         var status = EnemyManager.Instance.GetEnemyStatus(enemyType);
@@ -100,21 +105,21 @@ public class Enemy :MonoBehaviour
         slider.value -= damage;
         if (hp <= 0)
         {
-            OnEnemyDestroyed?.Invoke(this);
             MoneyManager.Instance.AddMoney(1);
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 
     /// <summary>
     /// フリーズさせる関数
     /// </summary>
-    public void SetFreezeTimeCounter(float freezeTime,float freezeRate)
+    public void SetFreezeTimeCounter(float freezeTime, float freezeRate)
     {
         freezeTimeCounter = freezeTime;
-        if(freezeRate > this.freezeRate)
+        if (freezeRate > this.freezeRate)
         {
             this.freezeRate = freezeRate;
+            nav.speed = speed * freezeRate;
         }
     }
 }

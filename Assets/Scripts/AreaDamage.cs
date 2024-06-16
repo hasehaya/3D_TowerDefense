@@ -11,8 +11,8 @@ public class AreaDamage :MonoBehaviour
     public int durationCount;
     public float durationTime;
 
-    private EnemyDetector enemyDetector;
-    private float timer = -0.1f;
+    EnemyDetector enemyDetector;
+    float timer = -0.1f;
 
     void Initialize(Vector3 pos, Form form, float damage, float range, int durationCount, float durationTime)
     {

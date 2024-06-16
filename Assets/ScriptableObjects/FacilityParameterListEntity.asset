@@ -38,10 +38,18 @@ MonoBehaviour:
     price: 100
     canAttachCrystal: 1
   - type: 3
-    category: 0
+    category: 2
     installType: 1
     prefab: {fileID: 2473591852060194874, guid: 4a0c2f437c255f348b8c495f00e98e51, type: 3}
     name: "\u5730\u96F7"
     icon: {fileID: 21300000, guid: ce727e1102f378e408c138fb1191adcd, type: 3}
     price: 50
+    canAttachCrystal: 0
+  - type: 4
+    category: 0
+    installType: 0
+    prefab: {fileID: 7586937144729663403, guid: f0710d5c8e8174a488bc630ab59a604d, type: 3}
+    name: "\u30D5\u30EA\u30FC\u30BA"
+    icon: {fileID: 21300000, guid: 4c96f742852e1e44c8050df42646eaf6, type: 3}
+    price: 100
     canAttachCrystal: 0

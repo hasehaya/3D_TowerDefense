@@ -8,6 +8,7 @@ public class EnemyDetector :MonoBehaviour
 
     public void Initialize(Form form, float range)
     {
+        Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
         switch (form)
         {
             case Form.Sphere:
@@ -27,6 +28,20 @@ public class EnemyDetector :MonoBehaviour
             boxCollider.isTrigger = true;
             break;
         }
+    }
+
+    private void OnDestroy()
+    {
+        Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
+    }
+
+    void HandleEnemyDestroyed(Enemy destroyedEnemy)
+    {
+        if (!enemies.Contains(destroyedEnemy))
+        {
+            return;
+        }
+        enemies.Remove(destroyedEnemy);
     }
 
     public List<Enemy> GetEnemies()
