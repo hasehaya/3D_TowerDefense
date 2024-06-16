@@ -28,9 +28,9 @@ public class GameManager :MonoBehaviour
 
     public void SpeedDown()
     {
-        if (Time.timeScale > 0.1f)
+        if (Time.timeScale > 0.3f)
         {
-            Time.timeScale -= 0.1f;
+            Time.timeScale -= 0.3f;
         }
     }
 
@@ -41,6 +41,6 @@ public class GameManager :MonoBehaviour
 
     public void SpeedUp()
     {
-        Time.timeScale += 0.1f;
+        Time.timeScale += 0.3f;
     }
 }
