@@ -12,6 +12,8 @@ public class FacilityAttack :Facility
         GroundAndSky = 3,
     }
 
+    [SerializeField] Transform muzzlePos;
+
     FacilityAttackParameter attackParameter;
     float attackPower;
     float attackSpeed;
@@ -79,7 +81,7 @@ public class FacilityAttack :Facility
         if (GetAttackRate() <= coolTimeCounter)
         {
             coolTimeCounter = 0;
-            var bullet = Instantiate(bulletPrefab, transform.position, Quaternion.identity);
+            var bullet = Instantiate(bulletPrefab, muzzlePos.position, Quaternion.identity);
             bullet.GetComponent<Bullet>().Initialize(this, targetEnemy);
         }
         else

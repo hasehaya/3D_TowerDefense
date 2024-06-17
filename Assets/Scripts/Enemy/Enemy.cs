@@ -40,7 +40,7 @@ public class Enemy :MonoBehaviour
     //フリーズの強度
     float freezeRate = 0;
 
-    void Start()
+    protected virtual void Start()
     {
         SetStatus();
         SetNavigation();
@@ -48,6 +48,18 @@ public class Enemy :MonoBehaviour
         AddRigidBody();
         gameObject.tag = "Enemy";
         gameObject.layer = LayerMask.NameToLayer("Enemy");
+    }
+
+    protected virtual void Update()
+    {
+        if (freezeTimeCounter > 0)
+        {
+            freezeTimeCounter -= Time.deltaTime;
+            if (freezeTimeCounter <= 0)
+            {
+                nav.speed = speed;
+            }
+        }
     }
 
     private void OnDestroy()
