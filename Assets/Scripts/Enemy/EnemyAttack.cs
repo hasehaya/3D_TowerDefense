@@ -5,52 +5,45 @@ using UnityEngine;
 
 public class EnemyAttack :MonoBehaviour
 {
-    Base home;
-    Rigidbody rb;
-    [SerializeField] int damage;
-    [SerializeField] float speed;
-    [SerializeField] float ct;
+    Enemy enemy;
+    int damage;
+    float ct;
 
     float coolTimeCounter;
 
-    private void Awake()
+    public void Initialize(Enemy enemy)
     {
-        rb = GetComponent<Rigidbody>();
-    }
+        this.enemy = enemy;
+        damage = (int)enemy.attackPower;
+        ct = enemy.attackSpeed;
 
-    public void SetHome(Base home)
-    {
-        this.home = home;
+        var cylinderCol = gameObject.AddComponent<CylinderCollider>();
+        cylinderCol.Initialize(enemy.attackRange);
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.tag == "Home")
-        {
-            if (ct <= coolTimeCounter)
-            {
-                home = other.gameObject.GetComponent<Base>();
-                home.TakeDamage(damage);
-                coolTimeCounter = 0;
-            }
-            else
-            {
-                coolTimeCounter += Time.deltaTime;
-            }
-
-        }
-    }
-
-    void Update()
-    {
-        if (!home)
+        bool isDamageableObj = other.CompareTag("Home") || other.CompareTag("Shield");
+        if (!isDamageableObj)
         {
             return;
         }
-        if (!rb)
+
+        if (ct <= coolTimeCounter)
         {
-            return;
+            var damageable = other.gameObject.GetComponent<IDamageable>();
+            if (damageable == null)
+            {
+                return;
+            }
+            damageable.TakeDamage(damage);
+            coolTimeCounter = 0;
         }
-        rb.velocity = (home.transform.position - transform.position).normalized * speed;
+        else
+        {
+            coolTimeCounter += Time.deltaTime;
+        }
     }
+
+
 }

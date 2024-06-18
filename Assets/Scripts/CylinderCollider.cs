@@ -3,23 +3,25 @@
 // このスクリプトは、円柱形のカスタムコライダーを作成し、MeshColliderを使用して物理的な当たり判定を提供します。
 // また、Unityエディタ上で円柱の形状を緑色の線で表示します。
 
-[AddComponentMenu("Physics/Custom Cylinder Collider")]
-public class CustomCylinderCollider :MonoBehaviour
+[AddComponentMenu("Physics/Cylinder Collider")]
+public class CylinderCollider :MonoBehaviour
 {
     // 円柱の高さを設定する
     public float height = 2.0f;
     // 円柱の半径を設定する
     public float radius = 0.5f;
     // 円柱の周囲を構成するセグメント数を設定する
-    public int segments = 20;
+    public int segments = 24;
     // 円柱の位置オフセットを設定する
     public Vector3 offset = Vector3.zero;
 
     private Mesh mesh;
 
     // 初期化時に円柱を作成する
-    void Start()
+    public void Initialize(float radius, float height = 2)
     {
+        this.radius = radius;
+        this.height = height;
         CreateCylinder();
     }
 
@@ -97,6 +99,7 @@ public class CustomCylinderCollider :MonoBehaviour
 
         meshCollider.sharedMesh = mesh;
         meshCollider.convex = true;
+        meshCollider.isTrigger = true;
     }
 
     // Unityエディタ上で円柱の形状を描画するメソッド

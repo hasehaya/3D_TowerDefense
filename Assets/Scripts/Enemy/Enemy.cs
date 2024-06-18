@@ -10,9 +10,9 @@ public class Enemy :MonoBehaviour
     public static event EnemyDestroyed OnEnemyDestroyed;
     // ナビゲーション
     NavMeshAgent nav;
+    Transform currentDestination = null;
     // HP関係
-    Slider slider;
-    [SerializeField] GameObject hpBar;
+    Damageable damageable;
     // 敵の種類
     public enum EnemyType
     {
@@ -28,11 +28,11 @@ public class Enemy :MonoBehaviour
     [SerializeField] EnemyType enemyType;
     // ステータス
     GameObject enemyPrefab;
-    float hp = 10;
+    float hp => damageable.CurrentHp;
     float speed = 2f;
-    float attackPower = 1.0f;
-    float attackSpeed = 1.0f;
-    float attackRange = 1.0f;
+    public float attackPower = 1.0f;
+    public float attackSpeed = 1.0f;
+    public float attackRange = 1.0f;
     Attribute attribute = Attribute.None;
     //状態異常
     //フリーズから抜けてから何秒間継続するか
@@ -42,12 +42,14 @@ public class Enemy :MonoBehaviour
 
     protected virtual void Start()
     {
+        damageable = gameObject.AddComponent<Damageable>();
         SetStatus();
         SetNavigation();
-        SetHpSlider();
         AddRigidBody();
+        AddEnemyAttack();
         gameObject.tag = "Enemy";
         gameObject.layer = LayerMask.NameToLayer("Enemy");
+
     }
 
     protected virtual void Update()
@@ -65,13 +67,14 @@ public class Enemy :MonoBehaviour
     private void OnDestroy()
     {
         OnEnemyDestroyed?.Invoke(this);
+        MoneyManager.Instance.AddMoney(100);
     }
 
     void SetStatus()
     {
         var status = EnemyManager.Instance.GetEnemyStatus(enemyType);
         enemyPrefab = status.enemyPrefab;
-        hp = status.hp;
+        damageable.Initialize(status.hp);
         speed = status.speed;
         attackPower = status.attackPower;
         attackSpeed = status.attackSpeed;
@@ -86,18 +89,6 @@ public class Enemy :MonoBehaviour
         nav.speed = speed;
     }
 
-    void SetHpSlider()
-    {
-        var sliderObj = Instantiate(hpBar, transform);
-        Vector3 pos = sliderObj.transform.position;
-        float height = GetComponent<BoxCollider>().size.y;
-        pos.y += height + 1;
-        sliderObj.transform.position = pos;
-        slider = sliderObj.GetComponentInChildren<Slider>();
-        slider.maxValue = hp;
-        slider.value = hp;
-    }
-
     void AddRigidBody()
     {
         var rb = gameObject.AddComponent<Rigidbody>();
@@ -108,18 +99,26 @@ public class Enemy :MonoBehaviour
 
     public void SetDestination(Transform destination)
     {
+        if (currentDestination == destination)
+        {
+            return;
+        }
+        currentDestination = destination;
         nav.destination = destination.position;
+    }
+
+    void AddEnemyAttack()
+    {
+        var children = new GameObject("EnemyAttack");
+        children.transform.parent = transform;
+        children.transform.localPosition = Vector3.zero;
+        var enemyAttack = children.AddComponent<EnemyAttack>();
+        enemyAttack.Initialize(this);
     }
 
     public void TakeDamage(float damage)
     {
-        hp -= damage;
-        slider.value -= damage;
-        if (hp <= 0)
-        {
-            MoneyManager.Instance.AddMoney(1);
-            Destroy(gameObject);
-        }
+        damageable.TakeDamage(damage);
     }
 
     /// <summary>
