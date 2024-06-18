@@ -1,8 +1,6 @@
-﻿using Unity.VisualScripting;
+﻿using System.Collections.Generic;
 
 using UnityEngine;
-
-using static IAttackable;
 
 public class FacilityAttack :Facility
 {
@@ -14,6 +12,8 @@ public class FacilityAttack :Facility
         GroundAndSky = 3,
     }
 
+    [SerializeField] Transform muzzlePos;
+
     FacilityAttackParameter attackParameter;
     float attackPower;
     float attackSpeed;
@@ -22,6 +22,13 @@ public class FacilityAttack :Facility
     float attackRange;
     float attackArea;
     Material material;
+
+    EnemyDetector enemyDetector;
+    List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
+
+    GameObject bulletPrefab;
+    float coolTimeCounter;
+    Enemy targetEnemy;
 
     private void Awake()
     {
@@ -33,6 +40,54 @@ public class FacilityAttack :Facility
         isAreaAttack = parameter.isAreaAttack;
         attackRange = parameter.attackRange;
         attackArea = parameter.attackArea;
+
+
+        bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
+        gameObject.layer = LayerMask.NameToLayer("Muzzle");
+
+        enemyDetector = gameObject.AddComponent<EnemyDetector>();
+        enemyDetector.Initialize(Form.Capsule, attackRange);
+
+        Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
+    }
+
+    private void OnDestroy()
+    {
+        Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
+    }
+
+    protected override void Update()
+    {
+        base.Update();
+        Attack();
+    }
+
+    void Attack()
+    {
+        if (!isInstalled)
+        {
+            return;
+        }
+        if (enemies.Count == 0)
+        {
+            return;
+        }
+
+        if (targetEnemy == null)
+        {
+            targetEnemy = GetMostNearEnemy();
+        }
+
+        if (GetAttackRate() <= coolTimeCounter)
+        {
+            coolTimeCounter = 0;
+            var bullet = Instantiate(bulletPrefab, muzzlePos.position, Quaternion.identity);
+            bullet.GetComponent<Bullet>().Initialize(this, targetEnemy);
+        }
+        else
+        {
+            coolTimeCounter += Time.deltaTime;
+        }
     }
 
     /// <summary>
@@ -99,7 +154,32 @@ public class FacilityAttack :Facility
     {
         return material;
     }
+
+    Enemy GetMostNearEnemy()
+    {
+        Enemy mostNearEnemy = null;
+        foreach (var enemy in enemies)
+        {
+            if (mostNearEnemy == null || Vector3.Distance(transform.position, enemy.transform.position) < Vector3.Distance(transform.position, mostNearEnemy.transform.position))
+            {
+                mostNearEnemy = enemy;
+            }
+        }
+        return mostNearEnemy;
+    }
+
+    void HandleEnemyDestroyed(Enemy destroyedEnemy)
+    {
+        if (enemies.Contains(destroyedEnemy))
+        {
+            if (destroyedEnemy == targetEnemy)
+            {
+                targetEnemy = null;
+            }
+        }
+    }
 }
+
 
 [System.Serializable]
 public class FacilityAttackParameter

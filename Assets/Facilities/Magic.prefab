@@ -117,8 +117,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   isInstalled: 0
-  isTouchingOtherObj: 0
+  canInstall: 0
   isSelected: 0
+  muzzlePos: {fileID: 1388407240358758779}
 --- !u!1 &6798824829025071593
 GameObject:
   m_ObjectHideFlags: 0
@@ -128,7 +129,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1388407240358758779}
-  - component: {fileID: 7009123810520512320}
   m_Layer: 10
   m_Name: Muzzle
   m_TagString: Muzzle
@@ -151,18 +151,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 3821832761259143439}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &7009123810520512320
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6798824829025071593}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e0bbcf39f9d07da49993ac6908bf11eb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8291307172281819605
 GameObject:
   m_ObjectHideFlags: 0

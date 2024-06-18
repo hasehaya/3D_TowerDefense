@@ -340,9 +340,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9ae6ffb955f0324b8dfff8dadfbdc7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 2
   isInstalled: 0
-  isTouchingOtherObj: 0
+  canInstall: 0
   isSelected: 0
   topPos: {fileID: 176527192276727583}
   lowerPos: {fileID: 8318520239708029690}

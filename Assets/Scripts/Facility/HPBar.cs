@@ -1,16 +1,29 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
-public class HPBar : MonoBehaviour
+using UnityEngine;
+using UnityEngine.UI;
+
+public class HPBar :MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    Slider slider;
+
+    private void Awake()
     {
-        
+        slider = GetComponentInChildren<Slider>();
     }
 
-    // Update is called once per frame
+    public void SetMaxHp(float maxHp)
+    {
+        slider.maxValue = maxHp;
+        slider.value = maxHp;
+    }
+
+    public void SetHp(float hp)
+    {
+        slider.value = hp;
+    }
+
     void Update()
     {
         transform.rotation = Camera.main.transform.rotation;

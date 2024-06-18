@@ -1,7 +1,8 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+
+using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
-using System.Collections.Generic;
 
 [System.Serializable]
 public class Enemy :MonoBehaviour
@@ -12,9 +13,9 @@ public class Enemy :MonoBehaviour
 
     // ナビゲーション
     NavMeshAgent nav;
+    Transform currentDestination = null;
     // HP関係
-    Slider slider;
-    [SerializeField] GameObject hpBar;
+    Damageable damageable;
     // 敵の種類
     public enum EnemyType
     {
@@ -26,40 +27,54 @@ public class Enemy :MonoBehaviour
         Tank = 5,
         Summon = 6,
         Boss = 7,
-
     }
     [SerializeField] EnemyType enemyType;
     // ステータス
     GameObject enemyPrefab;
-    float hp = 10;
+    float hp => damageable.CurrentHp;
+    float maxHp = 10;
     float speed = 2f;
-    float attackPower = 1.0f;
-    float attackSpeed = 1.0f;
-    float attackRange = 1.0f;
+    public float attackPower = 1.0f;
+    public float attackSpeed = 1.0f;
+    public float attackRange = 1.0f;
     float skillCoolTime = 1.0f;
     float skillRange = 1.0f;
-    float maxHp = 10;
     Attribute attribute = Attribute.None;
 
     //アビリティーリスト
     protected List<IAbility> abilityList = new List<IAbility>();
+    //状態異常
+    //フリーズから抜けてから何秒間継続するか
+    float freezeTimeCounter = 0;
+    //フリーズの強度
+    float freezeRate = 0;
 
     protected virtual void Start()
     {
+        damageable = gameObject.AddComponent<Damageable>();
         SetStatus();
         SetNavigation();
-        SetHpSlider();
         AddRigidBody();
+        AddEnemyAttack();
         gameObject.tag = "Enemy";
         gameObject.layer = LayerMask.NameToLayer("Enemy");
+
     }
 
-    private void Update()
+    protected virtual void Update()
     {
-        foreach(var ability in abilityList)
+        if (freezeTimeCounter > 0)
+        {
+            freezeTimeCounter -= Time.deltaTime;
+            if (freezeTimeCounter <= 0)
+            {
+                nav.speed = speed;
+            }
+        }
+        foreach (var ability in abilityList)
         {
             ability.counter += Time.deltaTime;
-            if(ability.counter >= ability.coolTime)
+            if (ability.counter >= ability.coolTime)
             {
                 ability.Excute();
                 ability.counter = 0;
@@ -67,11 +82,17 @@ public class Enemy :MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        OnEnemyDestroyed?.Invoke(this);
+        MoneyManager.Instance.AddMoney(100);
+    }
+
     void SetStatus()
     {
         var status = EnemyManager.Instance.GetEnemyStatus(enemyType);
         enemyPrefab = status.enemyPrefab;
-        hp = status.hp;
+        damageable.Initialize(status.hp);
         maxHp = hp;
         speed = status.speed;
         attackPower = status.attackPower;
@@ -87,18 +108,6 @@ public class Enemy :MonoBehaviour
         nav.speed = speed;
     }
 
-    void SetHpSlider()
-    {
-        var sliderObj = Instantiate(hpBar, transform);
-        Vector3 pos = sliderObj.transform.position;
-        float height = GetComponent<BoxCollider>().size.y;
-        pos.y += height + 1;
-        sliderObj.transform.position = pos;
-        slider = sliderObj.GetComponentInChildren<Slider>();
-        slider.maxValue = hp;
-        slider.value = hp;
-    }
-
     void AddRigidBody()
     {
         var rb = gameObject.AddComponent<Rigidbody>();
@@ -109,22 +118,38 @@ public class Enemy :MonoBehaviour
 
     public void SetDestination(Transform destination)
     {
+        if (currentDestination == destination)
+        {
+            return;
+        }
+        currentDestination = destination;
         nav.destination = destination.position;
+    }
+
+    void AddEnemyAttack()
+    {
+        var children = new GameObject("EnemyAttack");
+        children.transform.parent = transform;
+        children.transform.localPosition = Vector3.zero;
+        var enemyAttack = children.AddComponent<EnemyAttack>();
+        enemyAttack.Initialize(this);
     }
 
     public void TakeDamage(float damage)
     {
-        hp -= damage;
-        slider.value -= damage;
-        if(hp >= maxHp)
+        damageable.TakeDamage(damage);
+    }
+
+    /// <summary>
+    /// フリーズさせる関数
+    /// </summary>
+    public void SetFreezeTimeCounter(float freezeTime, float freezeRate)
+    {
+        freezeTimeCounter = freezeTime;
+        if (freezeRate > this.freezeRate)
         {
-            hp = maxHp;
-        }
-        if (hp <= 0)
-        {
-            OnEnemyDestroyed?.Invoke(this);
-            MoneyManager.Instance.AddMoney(1);
-            Destroy(this.gameObject);
+            this.freezeRate = freezeRate;
+            nav.speed = speed * freezeRate;
         }
     }
 

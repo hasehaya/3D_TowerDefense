@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class MoneyManager :MonoBehaviour
 {
     // 合成された際に呼ばれるイベント
-    public delegate void MoneyChenged();
+    public delegate void MoneyChenged(int money);
     public static event MoneyChenged OnMoneyChenged;
 
     private static MoneyManager instance;
@@ -22,29 +22,28 @@ public class MoneyManager :MonoBehaviour
             return instance;
         }
     }
-    public int Money => money;
-    int money;
+    public int Money { get; private set; }
 
-    void Start()
+    private void Awake()
     {
-        money = 1000;
+        Money = 1000;
     }
 
     public void Pay(int price)
     {
-        money -= price;
-        OnMoneyChenged?.Invoke();
+        Money -= price;
+        OnMoneyChenged?.Invoke(Money);
     }
 
     public void AddMoney(int plus)
     {
-        money += plus;
-        OnMoneyChenged?.Invoke();
+        Money += plus;
+        OnMoneyChenged?.Invoke(Money);
     }
 
     public bool CanPurchase(int price)
     {
-        return money >= price;
+        return Money >= price;
     }
 
 }

@@ -540,7 +540,6 @@ Transform:
   m_Children:
   - {fileID: 4904020275497282}
   - {fileID: 4180181043874448}
-  - {fileID: 5045712428086977603}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!95 &95706204029656638
@@ -576,8 +575,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c983d0ac0787a45a893a13d53f172e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBar: {fileID: 7733529088918627409, guid: d544f208ac22f4a2197ccd9e26f8e1bd, type: 3}
   enemyType: 2
+  attackPower: 1
+  attackSpeed: 1
+  attackRange: 1
 --- !u!195 &4588953403970008663
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1190,72 +1191,3 @@ Transform:
   - {fileID: 4965861283332160}
   m_Father: {fileID: 4929338634301202}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &2678717711766554849
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 5045712428086977603}
-  - component: {fileID: 4508397506344553367}
-  - component: {fileID: 8873906754058547489}
-  m_Layer: 0
-  m_Name: EnemyAttack
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &5045712428086977603
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2678717711766554849}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 4544219117696442}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!65 &4508397506344553367
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2678717711766554849}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 5, y: 1, z: 5}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8873906754058547489
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2678717711766554849}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ffc2385120614483e9bfdf9fcceab1ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 5
-  speed: 1
-  ct: 1
