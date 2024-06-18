@@ -38,6 +38,10 @@ public class Damageable :MonoBehaviour
     public void TakeDamage(float damage)
     {
         CurrentHp -= damage;
+        if (CurrentHp > MaxHp)
+        {
+            CurrentHp = MaxHp;
+        }
         hpBar.SetHp(CurrentHp);
         if (CurrentHp <= 0)
         {

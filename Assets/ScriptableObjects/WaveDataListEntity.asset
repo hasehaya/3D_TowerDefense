@@ -43,7 +43,7 @@ MonoBehaviour:
     enemyBaseIndex: 0
   - index: 7
     spawnTime: 28
-    enemyType: 2
+    enemyType: 4
     enemyBaseIndex: 0
   - index: 8
     spawnTime: 0
