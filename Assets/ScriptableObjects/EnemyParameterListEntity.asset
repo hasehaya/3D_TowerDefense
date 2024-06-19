@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06ea37d683a65b14484614069c0f4347, type: 3}
-  m_Name: EnemyStatusListEntity
+  m_Name: EnemyParameterListEntity
   m_EditorClassIdentifier: 
   lists:
   - enemyType: 1
@@ -70,7 +70,7 @@ MonoBehaviour:
     attackPower: 1
     attackSpeed: 3
     attackRange: 1
-    skillCoolTime: 3
+    skillCoolTime: 5
     skillRange: 5
     attribute: 0
   - enemyType: 7

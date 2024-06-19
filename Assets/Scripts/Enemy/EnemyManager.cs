@@ -50,13 +50,12 @@ public class EnemyManager :MonoBehaviour
         return null;
     }
 
-    public void SpawnEnemy(Enemy.EnemyType enemyType, Transform pos)
+    public void SpawnEnemy(Enemy.EnemyType enemyType, Vector3 pos)
     {
         var enemyPrefab = GetEnemyPrefab(enemyType);
-        var enemyObj = Instantiate(enemyPrefab, pos);
+        var enemyObj = Instantiate(enemyPrefab, pos, new Quaternion());
         var enemy = enemyObj.GetComponent<Enemy>();
         enemyList.Add(enemy);
-
     }
 
     void RemoveEnemy(Enemy enemy)

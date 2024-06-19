@@ -14,7 +14,7 @@ public class WaveManager :MonoBehaviour
         while (index < waveDataListEntity.lists.Length && waveDataListEntity.lists[index].spawnTime <= spwanTime)
         {
             var waveData = waveDataListEntity.lists[index];
-            EnemyManager.Instance.SpawnEnemy(waveData.enemyType, GetEnemyBase(waveData.enemyBaseIndex));
+            EnemyManager.Instance.SpawnEnemy(waveData.enemyType, GetEnemyBase(waveData.enemyBaseIndex).position);
             index++;
         }
     }

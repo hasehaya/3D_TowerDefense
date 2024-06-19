@@ -514,8 +514,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4544219117696442}
+  - component: {fileID: 1152803081206539642}
   - component: {fileID: 95706204029656638}
-  - component: {fileID: 1069031013939335740}
   - component: {fileID: 4588953403970008663}
   - component: {fileID: 2249383346012774612}
   m_Layer: 0
@@ -542,6 +542,25 @@ Transform:
   - {fileID: 4180181043874448}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1152803081206539642
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1524411113276028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b034aea4730dd5c47b5819d3f46619be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 6
+  attackPower: 1
+  attackSpeed: 1
+  attackRange: 1
+  summonedEnemyType: 1
+  summonedCount: 3
+  coolTime: 3
 --- !u!95 &95706204029656638
 Animator:
   serializedVersion: 5
@@ -563,22 +582,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1069031013939335740
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1524411113276028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c983d0ac0787a45a893a13d53f172e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyType: 6
-  attackPower: 1
-  attackSpeed: 1
-  attackRange: 1
 --- !u!195 &4588953403970008663
 NavMeshAgent:
   m_ObjectHideFlags: 0
