@@ -77,3 +77,11 @@ MonoBehaviour:
     attackSpeed: 3
     attackRange: 1
     attribute: 0
+  - enemyType: 9
+    enemyPrefab: {fileID: 1931298151966786, guid: bed743a8eac5f1f4f868f4186776813c, type: 3}
+    hp: 50
+    speed: 1
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0

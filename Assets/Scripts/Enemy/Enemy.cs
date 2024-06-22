@@ -29,12 +29,13 @@ public class Enemy :MonoBehaviour
         Summon = 6,
         Boss = 7,
         Fly = 8,
+        Multiply = 9,
     }
     [SerializeField] EnemyType enemyType;
     // ステータス
     GameObject enemyPrefab;
-    float hp => damageable.CurrentHp;
-    float maxHp = 10;
+    protected float hp => damageable.CurrentHp;
+    protected float maxHp = 10;
     protected float speed = 2f;
     public float attackPower = 1.0f;
     public float attackSpeed = 1.0f;
@@ -91,7 +92,7 @@ public class Enemy :MonoBehaviour
         }
     }
 
-    private void OnDestroy()
+    protected virtual void OnDestroy()
     {
         OnEnemyDestroyed?.Invoke(this);
         MoneyManager.Instance.AddMoney(100);
