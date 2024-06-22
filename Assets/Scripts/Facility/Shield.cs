@@ -43,7 +43,7 @@ public class Shield :Facility, IDamageable
         }
         foreach (var enemy in enemies)
         {
-            if (enemy.GetEnemyType() == Enemy.EnemyType.Fly)
+            if (enemy is FlyEnemy)
             {
                 continue;
             }
