@@ -47,7 +47,7 @@ MonoBehaviour:
     attribute: 0
   - enemyType: 5
     enemyPrefab: {fileID: 1931298151966786, guid: 4d8697087ba794183b08defe7c8778e0, type: 3}
-    hp: 50
+    hp: 80
     speed: 2
     attackPower: 1
     attackSpeed: 2

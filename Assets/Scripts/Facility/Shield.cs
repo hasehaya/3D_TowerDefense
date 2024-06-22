@@ -10,7 +10,7 @@ public class Shield :Facility, IDamageable
     public Damageable damageable { get; set; }
     EnemyDetector enemyDetector;
     List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
-    Vector3 BasePos { get { return GameManager.Instance.GetBase().transform.position; } }
+    Vector3 BasePos { get { return StageManager.Instance.GetBase().transform.position; } }
 
     protected override void Start()
     {
@@ -31,7 +31,7 @@ public class Shield :Facility, IDamageable
     {
         foreach (var enemy in enemies)
         {
-            enemy.SetDestination(GameManager.Instance.GetBase().transform);
+            enemy.SetDestination(StageManager.Instance.GetBase().transform);
         }
     }
 

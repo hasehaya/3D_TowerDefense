@@ -9,10 +9,10 @@ using UnityEditor;
 #endif
 
 [CreateAssetMenu]
-public class WaveDataListEntity :ScriptableObject
+public class WaveEnemyDataListEntity :ScriptableObject
 {
-    public WaveData[] lists;
-    string spreadSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?gid=2109222210&single=true&output=csv";
+    public WaveEnemyData[] lists;
+    string spreadSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?gid=622284886&single=true&output=csv";
 
 #if UNITY_EDITOR
     //スプレットシートの情報をsheetDataRecordに反映させるメソッド
@@ -30,7 +30,7 @@ public class WaveDataListEntity :ScriptableObject
         }
 
         // ダウンロードしたCSVをデシリアライズ(SerializeFieldに入力)する
-        lists = CSVSerializer.Deserialize<WaveData>(request.downloadHandler.text);
+        lists = CSVSerializer.Deserialize<WaveEnemyData>(request.downloadHandler.text);
 
         // データの更新が完了したら、ScriptableObjectを保存する
         EditorUtility.SetDirty(this);
@@ -43,8 +43,8 @@ public class WaveDataListEntity :ScriptableObject
 
 #if UNITY_EDITOR
 // CrystalListEntity のインスペクタにデータ更新ボタンを表示するクラス
-[CustomEditor(typeof(WaveDataListEntity))]
-public class WaveDataListEntityEditor :Editor
+[CustomEditor(typeof(WaveEnemyDataListEntity))]
+public class WaveEnemyDataListEntityEditor :Editor
 {
     public override void OnInspectorGUI()
     {
@@ -54,7 +54,7 @@ public class WaveDataListEntityEditor :Editor
         // データ更新ボタンを表示
         if (GUILayout.Button("データ更新"))
         {
-            ((WaveDataListEntity)target).LoadSheetData();
+            ((WaveEnemyDataListEntity)target).LoadSheetData();
         }
     }
 }

@@ -114,7 +114,7 @@ public class Enemy :MonoBehaviour
     void SetNavigation()
     {
         nav = GetComponent<NavMeshAgent>();
-        SetDestination(GameManager.Instance.GetBase().transform);
+        SetDestination(StageManager.Instance.GetBase().transform);
         nav.speed = speed;
     }
 

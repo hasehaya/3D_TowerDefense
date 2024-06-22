@@ -11,7 +11,7 @@ public class FlyEnemy :Enemy
     protected override void Start()
     {
         base.Start();
-        basePosition = GameManager.Instance.GetBase().transform.position;
+        basePosition = StageManager.Instance.GetBase().transform.position;
     }
 
     protected override void Update()

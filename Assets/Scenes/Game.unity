@@ -778,7 +778,7 @@ GameObject:
   - component: {fileID: 189395385}
   - component: {fileID: 189395386}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: StageManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1046,7 +1046,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 680, y: 0}
   m_SizeDelta: {x: 600, y: 985}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &297597729
@@ -2270,7 +2270,8 @@ MonoBehaviour:
   - {fileID: 918800692}
   - {fileID: 717990329}
   enemyPrefab: {fileID: 1524411113276028, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
-  waveDataListEntity: {fileID: 11400000, guid: fd19b61689340ce418f0377871d3251e, type: 2}
+  waveDataListEntity: {fileID: 11400000, guid: 9977047a73ad1564fb77791ab965a978, type: 2}
+  waveEnemyDataListEntity: {fileID: 11400000, guid: fd19b61689340ce418f0377871d3251e, type: 2}
 --- !u!1 &625480827
 GameObject:
   m_ObjectHideFlags: 0
@@ -5503,8 +5504,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 189395385}
-  - {fileID: 525661272}
   - {fileID: 608559497}
+  - {fileID: 525661272}
   - {fileID: 160215451}
   - {fileID: 1197319232}
   - {fileID: 160991729}

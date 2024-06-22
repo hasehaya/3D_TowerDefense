@@ -1,20 +1,21 @@
 ﻿using UnityEngine;
 
-public class GameManager :MonoBehaviour
+public class StageManager :MonoBehaviour
 {
-    private static GameManager instance;
-    public static GameManager Instance
+    private static StageManager instance;
+    public static StageManager Instance
     {
         get
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<GameManager>();
+                instance = FindObjectOfType<StageManager>();
             }
             return instance;
         }
     }
     [SerializeField] Base playerBase;
+    public int stageNum { get; private set; } = 1;
 
     private void Start()
     {
@@ -42,5 +43,11 @@ public class GameManager :MonoBehaviour
     public void SpeedUp()
     {
         Time.timeScale += 0.3f;
+    }
+
+    public void StageClear()
+    {
+        Time.timeScale = 0.0f;
+        Debug.Log("Stage Clear");
     }
 }
