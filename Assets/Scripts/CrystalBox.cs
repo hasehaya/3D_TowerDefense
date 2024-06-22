@@ -93,6 +93,10 @@ public class CrystalBox :MonoBehaviour
 
     public void ReleaseSelectedCrystalFrame(CrystalFrame frame)
     {
+        if (selectedCrystalFrame == null)
+        {
+            return;
+        }
         selectedCrystalFrame.SetSelected(false);
         selectedCrystalFrame = null;
         selectedCrystal = null;

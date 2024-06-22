@@ -43,6 +43,10 @@ public class Shield :Facility, IDamageable
         }
         foreach (var enemy in enemies)
         {
+            if (enemy.GetEnemyType() == Enemy.EnemyType.Fly)
+            {
+                continue;
+            }
             Vector3 directionToShield = (transform.position - enemy.transform.position).normalized;
             float dotProduct = Vector3.Dot(directionToShield, enemy.transform.forward);
             // 敵が盾の方向を向いている場合（内積が正）

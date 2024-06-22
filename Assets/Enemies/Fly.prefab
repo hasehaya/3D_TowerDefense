@@ -275,7 +275,7 @@ SkinnedMeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d9c0226bd4324f01bc178cf4a515ef84, type: 2}
+  - {fileID: 2100000, guid: 5acba2ec20560d047a929040e6e83750, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -423,12 +423,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4047972025199878}
+  - component: {fileID: 5291023763276078837}
   - component: {fileID: 95457531584545886}
-  - component: {fileID: 1806037335439493682}
   - component: {fileID: 2303850949419004532}
   - component: {fileID: 1031443555888024680}
   m_Layer: 0
-  m_Name: Slime 1
+  m_Name: Fly
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -451,6 +451,22 @@ Transform:
   - {fileID: 4358697761044548}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5291023763276078837
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1931298151966786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8cc5c0ba07a245841b786a643d4da0d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyType: 8
+  attackPower: 1
+  attackSpeed: 1
+  attackRange: 1
 --- !u!95 &95457531584545886
 Animator:
   serializedVersion: 5
@@ -472,20 +488,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &1806037335439493682
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1931298151966786}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c983d0ac0787a45a893a13d53f172e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hpBar: {fileID: 7733529088918627409, guid: d544f208ac22f4a2197ccd9e26f8e1bd, type: 3}
-  enemyType: 1
 --- !u!195 &2303850949419004532
 NavMeshAgent:
   m_ObjectHideFlags: 0

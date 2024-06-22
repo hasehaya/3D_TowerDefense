@@ -53,3 +53,19 @@ MonoBehaviour:
     spawnTime: 30
     enemyType: 7
     enemyBaseIndex: 0
+  - index: 10
+    spawnTime: 30
+    enemyType: 8
+    enemyBaseIndex: 1
+  - index: 11
+    spawnTime: 31
+    enemyType: 8
+    enemyBaseIndex: 1
+  - index: 12
+    spawnTime: 32
+    enemyType: 8
+    enemyBaseIndex: 1
+  - index: 13
+    spawnTime: 33
+    enemyType: 8
+    enemyBaseIndex: 1

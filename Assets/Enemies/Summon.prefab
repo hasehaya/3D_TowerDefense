@@ -559,8 +559,8 @@ MonoBehaviour:
   attackSpeed: 1
   attackRange: 1
   summonedEnemyType: 1
-  summonedCount: 3
-  coolTime: 3
+  summonedCount: 1
+  coolTime: 10
 --- !u!95 &95706204029656638
 Animator:
   serializedVersion: 5

@@ -7,10 +7,9 @@ public class MoneyViewPresenter :MonoBehaviour
 {
     [SerializeField] MoneyView moneyView;
 
-    private void Start()
+    private void Awake()
     {
         MoneyManager.OnMoneyChenged += SetMoney;
-        SetMoney(MoneyManager.Instance.Money);
     }
 
     public void SetMoney(int money)

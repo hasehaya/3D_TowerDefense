@@ -12,8 +12,9 @@ public class Enemy :MonoBehaviour
     public static event EnemyDestroyed OnEnemyDestroyed;
 
     // ナビゲーション
-    NavMeshAgent nav;
+    protected NavMeshAgent nav;
     Transform currentDestination = null;
+    protected Rigidbody rb;
     // HP関係
     Damageable damageable;
     // 敵の種類
@@ -27,18 +28,17 @@ public class Enemy :MonoBehaviour
         Tank = 5,
         Summon = 6,
         Boss = 7,
+        Fly = 8,
     }
     [SerializeField] EnemyType enemyType;
     // ステータス
     GameObject enemyPrefab;
     float hp => damageable.CurrentHp;
     float maxHp = 10;
-    float speed = 2f;
+    protected float speed = 2f;
     public float attackPower = 1.0f;
     public float attackSpeed = 1.0f;
     public float attackRange = 1.0f;
-    float skillCoolTime = 1.0f;
-    float skillRange = 1.0f;
     Attribute attribute = Attribute.None;
 
     //アビリティーリスト
@@ -58,10 +58,15 @@ public class Enemy :MonoBehaviour
         AddEnemyAttack();
         gameObject.tag = "Enemy";
         gameObject.layer = LayerMask.NameToLayer("Enemy");
-
     }
 
     protected virtual void Update()
+    {
+        Freeze();
+        ExcuteAbilities();
+    }
+
+    void Freeze()
     {
         if (freezeTimeCounter > 0)
         {
@@ -71,6 +76,10 @@ public class Enemy :MonoBehaviour
                 nav.speed = speed;
             }
         }
+    }
+
+    void ExcuteAbilities()
+    {
         foreach (var ability in abilityList)
         {
             ability.counter += Time.deltaTime;
@@ -110,7 +119,7 @@ public class Enemy :MonoBehaviour
 
     void AddRigidBody()
     {
-        var rb = gameObject.AddComponent<Rigidbody>();
+        rb = gameObject.AddComponent<Rigidbody>();
         rb.isKinematic = true;
         rb.useGravity = true;
         rb.freezeRotation = true;
@@ -153,6 +162,10 @@ public class Enemy :MonoBehaviour
         }
     }
 
+    public EnemyType GetEnemyType()
+    {
+        return enemyType;
+    }
 }
 
 
@@ -166,8 +179,6 @@ public class EnemyParameter
     public float attackPower;
     public float attackSpeed;
     public float attackRange;
-    public float skillCoolTime;
-    public float skillRange;
     public Attribute attribute;
 
     public EnemyParameter()
@@ -179,8 +190,6 @@ public class EnemyParameter
         attackPower = 0;
         attackSpeed = 0;
         attackRange = 0;
-        skillCoolTime = 0;
-        skillRange = 0;
         attribute = Attribute.None;
     }
 }
