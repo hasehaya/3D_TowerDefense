@@ -177,7 +177,7 @@ MonoBehaviour:
   canInstall: 0
   isSelected: 0
   range: 10
-  freezeRate: 0.2
+  freezeRate: 0.75
 --- !u!1 &8969826335828142052
 GameObject:
   m_ObjectHideFlags: 0

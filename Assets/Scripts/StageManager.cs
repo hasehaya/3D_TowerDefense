@@ -47,7 +47,7 @@ public class StageManager :MonoBehaviour
 
     public void StageClear()
     {
-        Time.timeScale = 0.0f;
-        Debug.Log("Stage Clear");
+        UIManager.Instance.ShowStageClearText();
+        Time.timeScale = 0.1f;
     }
 }

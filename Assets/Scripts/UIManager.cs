@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 
 public class UIManager :MonoBehaviour
 {
@@ -16,4 +17,10 @@ public class UIManager :MonoBehaviour
     }
 
     public FacilityPurchasePresenter facilityPurchasePresenter;
+    [SerializeField] Text stageClearText;
+
+    public void ShowStageClearText()
+    {
+        stageClearText.gameObject.SetActive(true);
+    }
 }

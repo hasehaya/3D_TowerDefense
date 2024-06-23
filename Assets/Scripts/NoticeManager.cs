@@ -35,6 +35,7 @@ public class NoticeManager :MonoBehaviour
         Warp = 6,
         OpenFacilityPurchase = 7,
         PurchaseCancel = 8,
+        NextWave = 9,
     }
     // 現在表示中のNotice
     List<NoticeType> currentNotices = new List<NoticeType>();
@@ -50,6 +51,7 @@ public class NoticeManager :MonoBehaviour
     UnityEvent warpEvent = new UnityEvent();
     UnityEvent openFacilityPurchase = new UnityEvent();
     UnityEvent purchaseCancel = new UnityEvent();
+    UnityEvent nextWaveEvent = new UnityEvent();
     // Typeから呼び出せるよう紐づけ
     Dictionary<NoticeType, UnityEvent> noticeEvents = new Dictionary<NoticeType, UnityEvent>();
     Dictionary<NoticeType, UnityEvent<object>> noticeArgEvents = new Dictionary<NoticeType, UnityEvent<object>>();
@@ -72,6 +74,7 @@ public class NoticeManager :MonoBehaviour
         noticeEvents.Add(NoticeType.Warp, warpEvent);
         noticeEvents.Add(NoticeType.OpenFacilityPurchase, openFacilityPurchase);
         noticeEvents.Add(NoticeType.PurchaseCancel, purchaseCancel);
+        noticeEvents.Add(NoticeType.NextWave, nextWaveEvent);
         // 実行の際自動で削除しないNoticeを登録（明示的に削除する必要があるNoticeをここに記入）
         notNeedAutoDeleteNotices = new NoticeType[]
         {
@@ -81,9 +84,11 @@ public class NoticeManager :MonoBehaviour
         fixedNotices = new NoticeType[]
         {
             NoticeType.OpenFacilityPurchase,
+            NoticeType.NextWave,
         };
         // 関数が決まっている関数を登録
         openFacilityPurchase.AddListener(() => UIManager.Instance.facilityPurchasePresenter.OpenFacilityPurchase());
+        nextWaveEvent.AddListener(() => WaveManager.Instance.NextWave());
         // キーの登録
         noticeKey.Add(NoticeType.Synthesize, KeyCode.Z);
         noticeKey.Add(NoticeType.Climb, KeyCode.Q);
@@ -92,6 +97,7 @@ public class NoticeManager :MonoBehaviour
         noticeKey.Add(NoticeType.Warp, KeyCode.F);
         noticeKey.Add(NoticeType.OpenFacilityPurchase, KeyCode.V);
         noticeKey.Add(NoticeType.PurchaseCancel, KeyCode.X);
+        noticeKey.Add(NoticeType.NextWave, KeyCode.F);
         // テキストの登録
         noticeText.Add(NoticeType.Synthesize, "水晶合成");
         noticeText.Add(NoticeType.Climb, "登る");
@@ -100,6 +106,7 @@ public class NoticeManager :MonoBehaviour
         noticeText.Add(NoticeType.Warp, "ワープ");
         noticeText.Add(NoticeType.OpenFacilityPurchase, "建物購入");
         noticeText.Add(NoticeType.PurchaseCancel, "購入キャンセル");
+        noticeText.Add(NoticeType.NextWave, "次のWave");
         // キー入力のフラグを初期化
         noticeInputFlags = noticeKey.ToDictionary(x => x.Key, x => false);
     }
@@ -169,7 +176,7 @@ public class NoticeManager :MonoBehaviour
     }
 
     /// <summary>
-    /// Noticeを表示するための関数
+    /// 関数固定のNoticeを表示するための関数
     /// </summary>
     public void ShowNotice(NoticeType noticeType)
     {
@@ -189,7 +196,7 @@ public class NoticeManager :MonoBehaviour
     }
 
     /// <summary>
-    /// 関数を指定するNoticeを表示するための関数
+    /// 関数指定のNoticeを表示するための関数
     /// </summary>
     public void ShowFuncNotice(NoticeType noticeType, UnityAction action)
     {

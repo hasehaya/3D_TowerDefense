@@ -1,40 +1,116 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 
 using UnityEngine;
 
 public class WaveManager :MonoBehaviour
 {
+    private static WaveManager instance;
+    public static WaveManager Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<WaveManager>();
+            }
+            return instance;
+        }
+    }
     [SerializeField] Transform[] enemyBases;
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] WaveDataListEntity waveDataListEntity;
     WaveData[] waveDataList;
     [SerializeField] WaveEnemyDataListEntity waveEnemyDataListEntity;
-    WaveEnemyData[] waveEnemyDataList;
+    WaveEnemyData[] waveEnemyList;
 
     //　生成用
     float spwanTime = 0f;
-    int spawnIndex = 0;
+    int enemyIndex = 0;
+    int maxEnemyIndex { get { return waveEnemyList.Length; } }
 
     int waveIndex = 1;
+    int maxWaveIndex { get { return waveDataList.Length; } }
     bool isWaveEnd = false;
 
     private void Start()
     {
         var stage = StageManager.Instance.stageNum;
         waveDataList = waveDataListEntity.lists.Where(waveData => waveData.stage == stage).ToArray();
-        waveEnemyDataList = waveEnemyDataListEntity.lists.Where(waveEnemyData => waveEnemyData.stage == stage && waveEnemyData.wave == waveIndex).ToArray();
+        ReloadWaveEnemyList();
+
     }
 
     private void Update()
     {
+        EnemySpawn();
+        WaveEndProcess();
+        EnemyEliminatedProcess();
+    }
+
+    // 敵を出現させる
+    void EnemySpawn()
+    {
         spwanTime += Time.deltaTime;
-        while (spawnIndex < waveEnemyDataList.Length && waveEnemyDataList[spawnIndex].spawnTime <= spwanTime)
+        while (enemyIndex < waveEnemyList.Length && waveEnemyList[enemyIndex].spawnTime <= spwanTime)
         {
-            var waveData = waveEnemyDataList[spawnIndex];
+            var waveData = waveEnemyList[enemyIndex];
             EnemyManager.Instance.SpawnEnemy(waveData.enemyType, GetEnemyBase(waveData.enemyBaseIndex).position);
-            spawnIndex++;
+            enemyIndex++;
         }
+    }
+
+    /// <summary>
+    /// すべての敵を出現させたときの処理
+    /// </summary>
+    void WaveEndProcess()
+    {
+        if (isWaveEnd)
+        {
+            return;
+        }
+        if (enemyIndex < maxEnemyIndex)
+        {
+            return;
+        }
+
+        isWaveEnd = true;
+        // 道中
+        if (waveIndex < maxWaveIndex)
+        {
+            NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.NextWave);
+        }
+    }
+
+    /// <summary>
+    /// Waveの敵を全滅させたときの処理
+    /// </summary>
+    void EnemyEliminatedProcess()
+    {
+        if (!isWaveEnd)
+        {
+            return;
+        }
+        if (EnemyManager.Instance.GetEnemyCount() != 0)
+        {
+            return;
+        }
+
+        // 道中
+        if (waveIndex < maxWaveIndex)
+        {
+            MoneyManager.Instance.AddMoney(waveDataList[waveIndex].money);
+            NextWave();
+        }
+        // 最終Wave
+        else
+        {
+            StageManager.Instance.StageClear();
+        }
+    }
+
+    void ReloadWaveEnemyList()
+    {
+        waveEnemyList = waveEnemyDataListEntity.lists.Where(waveEnemyData => waveEnemyData.stage == StageManager.Instance.stageNum && waveEnemyData.wave == waveIndex).ToArray();
     }
 
     public Transform GetEnemyBase(int index)
@@ -42,16 +118,13 @@ public class WaveManager :MonoBehaviour
         return enemyBases[index];
     }
 
-    void NextWave()
+    public void NextWave()
     {
+        isWaveEnd = false;
         waveIndex++;
-        if (waveIndex >= waveDataList.Length)
-        {
-            isWaveEnd = true;
-            return;
-        }
         spwanTime = 0f;
-        spawnIndex = 0;
+        enemyIndex = 0;
+        ReloadWaveEnemyList();
     }
 }
 

@@ -39,7 +39,7 @@ public class Mine :Facility
             return;
         }
         isExploded = true;
-        AreaDamage.Create(transform.position, Form.Sphere, 20, 12, 1, 0);
+        AreaDamage.Create(transform.position, Form.Sphere, 8, 10, 1, 0);
         Instantiate(explosionEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

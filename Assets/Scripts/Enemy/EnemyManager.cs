@@ -63,8 +63,13 @@ public class EnemyManager :MonoBehaviour
         enemyList.Remove(enemy);
     }
 
-    public List<Enemy> getEnemyList()
+    public List<Enemy> GetEnemyList()
     {
         return enemyList;
+    }
+
+    public int GetEnemyCount()
+    {
+        return enemyList.Count;
     }
 }

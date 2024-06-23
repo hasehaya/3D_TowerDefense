@@ -24,9 +24,9 @@ public class MoneyManager :MonoBehaviour
     }
     public int Money { get; private set; }
 
-    private void Awake()
+    private void Start()
     {
-        Money = 1000;
+        Money = 300;
     }
 
     public void Pay(int price)

@@ -15,10 +15,10 @@ MonoBehaviour:
   lists:
   - stage: 1
     wave: 1
-    money: 500
+    money: 100
   - stage: 1
     wave: 2
-    money: 600
+    money: 150
   - stage: 1
     wave: 3
-    money: 700
+    money: 0

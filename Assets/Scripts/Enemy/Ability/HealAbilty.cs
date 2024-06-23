@@ -19,7 +19,7 @@ public class HealAbilty : IAbility
     }
     public void Excute()
     {
-        List<Enemy> enemyList = EnemyManager.Instance.getEnemyList();
+        List<Enemy> enemyList = EnemyManager.Instance.GetEnemyList();
         foreach(Enemy enemy in enemyList)
         {
             // 対象となるEnemyとの距離を調べ、近くだったら何らかの処理をする

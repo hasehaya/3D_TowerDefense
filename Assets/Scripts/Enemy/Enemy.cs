@@ -37,6 +37,7 @@ public class Enemy :MonoBehaviour
     protected float hp => damageable.CurrentHp;
     protected float maxHp = 10;
     protected float speed = 2f;
+    int money = 0;
     public float attackPower = 1.0f;
     public float attackSpeed = 1.0f;
     public float attackRange = 1.0f;
@@ -95,7 +96,7 @@ public class Enemy :MonoBehaviour
     protected virtual void OnDestroy()
     {
         OnEnemyDestroyed?.Invoke(this);
-        MoneyManager.Instance.AddMoney(100);
+        MoneyManager.Instance.AddMoney(money);
     }
 
     void SetStatus()
@@ -105,6 +106,7 @@ public class Enemy :MonoBehaviour
         damageable.Initialize(status.hp);
         maxHp = hp;
         speed = status.speed;
+        money = status.money;
         attackPower = status.attackPower;
         attackSpeed = status.attackSpeed;
         attackRange = status.attackRange;
@@ -177,6 +179,7 @@ public class EnemyParameter
     public GameObject enemyPrefab;
     public float hp;
     public float speed;
+    public int money;
     public float attackPower;
     public float attackSpeed;
     public float attackRange;
@@ -188,6 +191,7 @@ public class EnemyParameter
         enemyPrefab = null;
         hp = 0;
         speed = 0;
+        money = 0;
         attackPower = 0;
         attackSpeed = 0;
         attackRange = 0;

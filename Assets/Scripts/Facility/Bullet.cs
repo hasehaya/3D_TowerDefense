@@ -8,7 +8,7 @@ public class Bullet :MonoBehaviour
     float damage;
     float speed;
 
-    const int maxTurnAngle = 30;
+    const int maxTurnAngle = 50;
 
     private void Awake()
     {
@@ -30,7 +30,7 @@ public class Bullet :MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.CompareTag("Ground"))
+        if (other.gameObject.CompareTag("Ground"))
         {
             Destroy(gameObject);
         }

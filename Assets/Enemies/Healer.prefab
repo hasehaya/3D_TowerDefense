@@ -622,9 +622,9 @@ MonoBehaviour:
   attackPower: 1
   attackSpeed: 1
   attackRange: 1
-  healValue: 20
-  healRange: 30
-  coolTime: 3
+  healValue: 5
+  healRange: 10
+  coolTime: 5
 --- !u!1 &1532652994627396
 GameObject:
   m_ObjectHideFlags: 0
