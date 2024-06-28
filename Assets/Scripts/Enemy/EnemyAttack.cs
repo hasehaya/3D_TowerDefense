@@ -23,7 +23,7 @@ public class EnemyAttack :MonoBehaviour
 
     private void OnTriggerStay(Collider other)
     {
-        bool isDamageableObj = other.CompareTag("Home") || other.CompareTag("Shield");
+        bool isDamageableObj = other.CompareTag("Home") || other.CompareTag("Shield") || other.CompareTag("Tree");
         if (!isDamageableObj)
         {
             return;
