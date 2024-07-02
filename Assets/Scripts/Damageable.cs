@@ -10,7 +10,7 @@ public class Damageable :MonoBehaviour
     HPBar hpBar;
     public float CurrentHp { get; private set; }
     public float MaxHp { get; private set; }
-
+    GameObject hpBarInstance;
     public void Initialize(float maxHp)
     {
         CurrentHp = maxHp;
@@ -26,7 +26,7 @@ public class Damageable :MonoBehaviour
             Debug.LogError($"HPバーのプレハブが見つかりません");
             return;
         }
-        var hpBarInstance = Instantiate(hpBarPrefab, transform);
+        hpBarInstance = Instantiate(hpBarPrefab, transform);
         Vector3 position = hpBarInstance.transform.position;
         float height = GetComponent<Collider>().bounds.size.y;
         position.y += height + 1;
@@ -47,5 +47,10 @@ public class Damageable :MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public void SetHpBarPosition(Vector3 pos)
+    {
+        hpBarInstance.transform.position = pos;
     }
 }

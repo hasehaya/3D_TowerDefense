@@ -138,6 +138,11 @@ public class Enemy :MonoBehaviour
         nav.destination = destination.position;
     }
 
+    public void setNavPosition(Vector3 pos)
+    {
+        nav.destination = pos;
+    }
+
     void AddEnemyAttack()
     {
         var children = new GameObject("EnemyAttack");

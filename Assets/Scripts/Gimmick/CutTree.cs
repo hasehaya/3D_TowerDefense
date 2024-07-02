@@ -56,8 +56,11 @@ public class CutTree : MonoBehaviour,IDamageable
     {
         damageable = gameObject.AddComponent<Damageable>();
         damageable.Initialize(hp);
+        var hpBarPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1, gameObject.transform.position.z - 3);
+        ;
+        damageable.SetHpBarPosition(hpBarPos);
         enemyDetector = gameObject.AddComponent<EnemyDetector>();
-        enemyDetector.Initialize(Form.Capsule, range);
+        enemyDetector.Initialize(Form.Sphere, range);
         isInstalled = true;
     }
 
@@ -87,20 +90,19 @@ public class CutTree : MonoBehaviour,IDamageable
             {
                 continue;
             }
-            Vector3 directionToShield = (transform.position - enemy.transform.position).normalized;
-            float dotProduct = Vector3.Dot(directionToShield, enemy.transform.forward);
+            Vector3 directionToTree = (transform.position - enemy.transform.position).normalized;
+            float dotProduct = Vector3.Dot(directionToTree, enemy.transform.forward);
             // 敵が盾の方向を向いている場合（内積が正）
             if (dotProduct > 0)
             {
                 var basePos = StageManager.Instance.GetBase().transform.position;
-                float distanceToShield = Vector3.Distance(enemy.transform.position, transform.position);
+                float distanceToTree = Vector3.Distance(enemy.transform.position, transform.position);
                 float distanceToBase = Vector3.Distance(enemy.transform.position, basePos);
-                if (distanceToShield < distanceToBase)
+                if (distanceToTree < distanceToBase)
                 {
-                    var destinationPos = new Vector3(transform.position.x + 3, transform.position.y, transform.position.z + 3);
-                    var destinationTransForm = transform;
-                    destinationTransForm.position += destinationPos;
-                    enemy.SetDestination(destinationTransForm);
+                    var destinationPos = new Vector3(transform.position.x , transform.position.y , transform.position.z - 3);
+                    enemy.SetDestination(transform);
+                    enemy.setNavPosition(destinationPos);
                 }
             }
         }
