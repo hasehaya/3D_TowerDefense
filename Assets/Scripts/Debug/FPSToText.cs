@@ -21,15 +21,16 @@ public class FPSToText :MonoBehaviour
 
         // テキストを初期化
         text.text = "0 FPS";
-        DontDestroyOnLoad(gameObject);
+        var parent = transform.parent;
+        DontDestroyOnLoad(parent);
 #else
         Destroy(gameObject);
 #endif
     }
 
+#if UNITY_EDITOR || DEBUG
     void Update()
     {
-#if UNITY_EDITOR || DEBUG
         // Updateが呼ばれた回数を加算
         frameCount++;
 
@@ -49,6 +50,6 @@ public class FPSToText :MonoBehaviour
             frameCount = 0;
             oldTime = Time.realtimeSinceStartup;
         }
-#endif
     }
+#endif
 }

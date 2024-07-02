@@ -21,6 +21,6 @@ public class StageSelectPresenter :MonoBehaviour
 
     void OnClickStageButton(SceneLoader.SceneName sceneName)
     {
-        SceneLoader.Instance.LoadScene(sceneName);
+        StartCoroutine(SceneLoader.Instance.LoadScene(sceneName));
     }
 }
