@@ -18,10 +18,10 @@ MonoBehaviour:
     stageName: tutorial
     stageIcon: {fileID: 21300000, guid: 4f3250898de8b3645ad5fb4b06be1ec5, type: 3}
   - stageNum: 2
-    sceneName: 3
+    sceneName: 2
     stageName: FirstStage
     stageIcon: {fileID: 21300000, guid: 7448d4ca2a9061d4699390f0696337b7, type: 3}
   - stageNum: 3
-    sceneName: 4
+    sceneName: 2
     stageName: SecondStage
     stageIcon: {fileID: 21300000, guid: 9408e925fddc1e341b9f5e9b1453bd51, type: 3}

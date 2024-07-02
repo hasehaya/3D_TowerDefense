@@ -23,6 +23,7 @@ public class SceneLoader :MonoBehaviour
     {
         Home,
         StageSelect,
+        Game,
         Stage1,
         Stage2,
         Stage3,
