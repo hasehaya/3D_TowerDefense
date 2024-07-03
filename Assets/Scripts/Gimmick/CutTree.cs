@@ -56,9 +56,10 @@ public class CutTree : MonoBehaviour,IDamageable
     {
         damageable = gameObject.AddComponent<Damageable>();
         damageable.Initialize(hp);
-        var hpBarPos = new Vector3(gameObject.transform.position.x, gameObject.transform.position.y + 1, gameObject.transform.position.z - 3);
+        var child = transform.Find("Child").gameObject;
+        var worldPos = child.gameObject.transform.position;
         ;
-        damageable.SetHpBarPosition(hpBarPos);
+        damageable.SetHpBarPosition(worldPos);
         enemyDetector = gameObject.AddComponent<EnemyDetector>();
         enemyDetector.Initialize(Form.Sphere, range);
         isInstalled = true;
@@ -100,7 +101,9 @@ public class CutTree : MonoBehaviour,IDamageable
                 float distanceToBase = Vector3.Distance(enemy.transform.position, basePos);
                 if (distanceToTree < distanceToBase)
                 {
-                    var destinationPos = new Vector3(transform.position.x , transform.position.y , transform.position.z - 3);
+                    var child = transform.Find("Child").gameObject;
+                    var destinationPos = child.gameObject.transform.position;
+        
                     enemy.SetDestination(transform);
                     enemy.setNavPosition(destinationPos);
                 }

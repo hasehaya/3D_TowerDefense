@@ -51,6 +51,7 @@ public class Damageable :MonoBehaviour
 
     public void SetHpBarPosition(Vector3 pos)
     {
+        pos.y += 1;
         hpBarInstance.transform.position = pos;
     }
 }
