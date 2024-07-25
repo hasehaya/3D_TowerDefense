@@ -18,7 +18,6 @@ public class FacilityManager :MonoBehaviour
     }
 
     [SerializeField] GameObject facilityPrefab;
-    [SerializeField] FacilityAttackParameterListEntity attackParameterListEntity;
     [SerializeField] FacilityParameterListEntity facilityParameterListEntity;
 
     List<Facility> facilities = new List<Facility>();
@@ -88,14 +87,7 @@ public class FacilityManager :MonoBehaviour
     public void PurchaseFacility(Facility.Type type)
     {
         GameObject facilityObj;
-        if (IsFacilityAttackExist(type))
-        {
-            facilityObj = FacilityAttack.GenerateFacilityAttack(type);
-        }
-        else
-        {
-            facilityObj = Facility.GenerateFacility(type);
-        }
+        facilityObj = Facility.GenerateFacility(type);
         purchasingFacilityObj = facilityObj;
         var facility = facilityObj.GetComponent<Facility>();
         MoneyManager.Instance.Pay(facility.FacilityParameter.price);
@@ -118,33 +110,9 @@ public class FacilityManager :MonoBehaviour
         Facility.OnFacilityInstalled -= ReleasePurchasingFacility;
     }
 
-    public bool IsFacilityAttackExist(Facility.Type type)
-    {
-        foreach (var facility in attackParameterListEntity.lists)
-        {
-            if (facility.type == type)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public FacilityParameter GetFacilityParameter(Facility.Type type)
     {
         foreach (var parameter in facilityParameterListEntity.lists)
-        {
-            if (parameter.type == type)
-            {
-                return parameter;
-            }
-        }
-        return null;
-    }
-
-    public FacilityAttackParameter GetFacilityAttackParameter(Facility.Type type)
-    {
-        foreach (var parameter in attackParameterListEntity.lists)
         {
             if (parameter.type == type)
             {

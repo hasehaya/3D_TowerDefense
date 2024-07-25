@@ -14,34 +14,23 @@ public class FacilityAttack :Facility
 
     [SerializeField] Transform muzzlePos;
 
-    FacilityAttackParameter attackParameter;
-    float attackPower;
-    float attackSpeed;
-    float attackRate;
-    bool isAreaAttack;
-    float attackRange;
-    float attackArea;
-    Material material;
+    [SerializeField] float attackPower;
+    [SerializeField] float attackSpeed;
+    [SerializeField] float attackRate;
+    [SerializeField] bool isAreaAttack;
+    [SerializeField] float attackRange;
+    [SerializeField] float attackArea;
+    [SerializeField] Material material;
 
     EnemyDetector enemyDetector;
     List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
 
-    GameObject bulletPrefab;
+    protected GameObject bulletPrefab;
     float coolTimeCounter;
     Enemy targetEnemy;
 
     private void Awake()
     {
-        var parameter = FacilityManager.Instance.GetFacilityAttackParameter(type);
-        attackParameter = parameter;
-        attackPower = parameter.attackPower;
-        attackSpeed = parameter.attackSpeed;
-        attackRate = parameter.attackRate;
-        isAreaAttack = parameter.isAreaAttack;
-        attackRange = parameter.attackRange;
-        attackArea = parameter.attackArea;
-
-
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
         gameObject.layer = LayerMask.NameToLayer("Muzzle");
 
@@ -97,9 +86,6 @@ public class FacilityAttack :Facility
     public static GameObject GenerateFacilityAttack(Type type)
     {
         var facility = GenerateFacility(type);
-        var facilityAttack = facility.GetComponent<FacilityAttack>();
-        var facilityAttackParameter = FacilityManager.Instance.GetFacilityAttackParameter(type);
-        facilityAttack.attackParameter = facilityAttackParameter;
         return facility;
     }
 
@@ -179,33 +165,3 @@ public class FacilityAttack :Facility
         }
     }
 }
-
-
-[System.Serializable]
-public class FacilityAttackParameter
-{
-    public Facility.Type type;
-    public FacilityAttack.AttackType attackType;
-    public float attackPower;
-    public float attackSpeed;
-    public float attackRate;
-    public bool isAreaAttack;
-    public float attackRange;
-    public float attackArea;
-    public GameObject bullet;
-
-
-    public FacilityAttackParameter()
-    {
-        type = Facility.Type.Canon;
-        attackType = FacilityAttack.AttackType.None;
-        attackPower = 0;
-        attackSpeed = 0;
-        attackRate = 0;
-        isAreaAttack = false;
-        attackRange = 0;
-        attackArea = 0;
-        bullet = null;
-    }
-}
-
