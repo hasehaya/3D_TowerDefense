@@ -36,6 +36,8 @@ public class NoticeManager :MonoBehaviour
         OpenFacilityPurchase = 7,
         PurchaseCancel = 8,
         NextWave = 9,
+        CutTree = 10,
+        MoveRock = 11,
     }
     // 現在表示中のNotice
     List<NoticeType> currentNotices = new List<NoticeType>();
@@ -52,6 +54,8 @@ public class NoticeManager :MonoBehaviour
     UnityEvent openFacilityPurchase = new UnityEvent();
     UnityEvent purchaseCancel = new UnityEvent();
     UnityEvent nextWaveEvent = new UnityEvent();
+    UnityEvent cutTree = new UnityEvent();
+    UnityEvent moveRock = new UnityEvent();
     // Typeから呼び出せるよう紐づけ
     Dictionary<NoticeType, UnityEvent> noticeEvents = new Dictionary<NoticeType, UnityEvent>();
     Dictionary<NoticeType, UnityEvent<object>> noticeArgEvents = new Dictionary<NoticeType, UnityEvent<object>>();
@@ -75,6 +79,8 @@ public class NoticeManager :MonoBehaviour
         noticeEvents.Add(NoticeType.OpenFacilityPurchase, openFacilityPurchase);
         noticeEvents.Add(NoticeType.PurchaseCancel, purchaseCancel);
         noticeEvents.Add(NoticeType.NextWave, nextWaveEvent);
+        noticeEvents.Add(NoticeType.CutTree, cutTree);
+        noticeEvents.Add(NoticeType.MoveRock, moveRock);
         // 実行の際自動で削除しないNoticeを登録（明示的に削除する必要があるNoticeをここに記入）
         notNeedAutoDeleteNotices = new NoticeType[]
         {
@@ -97,7 +103,9 @@ public class NoticeManager :MonoBehaviour
         noticeKey.Add(NoticeType.Warp, KeyCode.F);
         noticeKey.Add(NoticeType.OpenFacilityPurchase, KeyCode.V);
         noticeKey.Add(NoticeType.PurchaseCancel, KeyCode.X);
-        noticeKey.Add(NoticeType.NextWave, KeyCode.F);
+        noticeKey.Add(NoticeType.NextWave, KeyCode.H);
+        noticeKey.Add(NoticeType.CutTree, KeyCode.G);
+        noticeKey.Add(NoticeType.MoveRock, KeyCode.J);
         // テキストの登録
         noticeText.Add(NoticeType.Synthesize, "水晶合成");
         noticeText.Add(NoticeType.Climb, "登る");
@@ -107,6 +115,8 @@ public class NoticeManager :MonoBehaviour
         noticeText.Add(NoticeType.OpenFacilityPurchase, "建物購入");
         noticeText.Add(NoticeType.PurchaseCancel, "購入キャンセル");
         noticeText.Add(NoticeType.NextWave, "次のWave");
+        noticeText.Add(NoticeType.CutTree, "木を切る");
+        noticeText.Add(NoticeType.MoveRock, "岩を動かす");
         // キー入力のフラグを初期化
         noticeInputFlags = noticeKey.ToDictionary(x => x.Key, x => false);
     }
