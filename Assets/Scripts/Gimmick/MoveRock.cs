@@ -14,11 +14,11 @@ public class MoveRock : MonoBehaviour
     void Update()
     {
         var playerPosition = Player.Instance.transform.position;
-        if (Vector3.Distance(transform.position, playerPosition) < 5.0f)
+        if (Vector3.Distance(transform.position, playerPosition) < 20.0f)
         {
             if (!isNearPlayer)
             {
-                NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.MoveRock, Cut);
+                NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.MoveRock, Move);
                 isNearPlayer = true;
             }
 
@@ -33,12 +33,17 @@ public class MoveRock : MonoBehaviour
         }
     }
 
-    private void MoveRock()
+    private void Move()
     {
         isMoving = true;
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.MoveRock);
         var anim = GetComponent<Animator>();
-        anim.Play("Move");
+        anim.Play("Move1");
+    }
+
+    public void finihMoveing()
+    {
+        isMoving = false;
     }
 
     void OnCollisionEnter(Collision collision)
@@ -47,6 +52,7 @@ public class MoveRock : MonoBehaviour
         {
             return;
         }
+        var collisionGameObj = collision.gameObject;
         // 衝突した相手にタグがEnemy付いているとき
         if (collision.gameObject.tag == "Enemy")
         {
