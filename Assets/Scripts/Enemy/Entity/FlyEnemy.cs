@@ -5,9 +5,13 @@ using UnityEngine;
 
 public class FlyEnemy :Enemy
 {
+    //飛行に必要な変数
     Vector3 basePosition;
     bool isNearBase = false;
     const float kBaseDistance = 20;
+    //撃ち落された
+    bool isShotDown = false;
+
     protected override void Start()
     {
         base.Start();
