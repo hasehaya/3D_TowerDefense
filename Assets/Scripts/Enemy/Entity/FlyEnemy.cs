@@ -5,44 +5,113 @@ using UnityEngine;
 
 public class FlyEnemy :Enemy
 {
+    enum FlyState
+    {
+        Fly,
+        NearBase,
+        ShotDown,
+        Falling,
+        Ground,
+        Floating,
+    }
+    FlyState flyState = FlyState.Fly;
     //飛行に必要な変数
     Vector3 basePosition;
-    bool isNearBase = false;
     const float kBaseDistance = 20;
-    //撃ち落された
-    bool isShotDown = false;
+    //撃墜関係
+    public bool isFly { get { return flyState == FlyState.Fly || flyState == FlyState.NearBase; } }
+    [SerializeField] float defaultShotDownHp;
+    float shotDownHp;
+    [SerializeField] float shotDownTime;
+    float shotDownCounter = 0;
+    Vector3 shotDownPos;
 
     protected override void Start()
     {
         base.Start();
+        shotDownHp = defaultShotDownHp;
         basePosition = StageManager.Instance.GetBase().transform.position;
     }
 
     protected override void Update()
     {
         base.Update();
-        if (isNearBase)
+
+        switch (flyState)
         {
-            if (Vector3.Distance(transform.position, basePosition) > 1.0f)
+            case FlyState.Fly:
             {
-                // ベースに向かって飛行
+                if (Vector3.Distance(transform.position, basePosition) <= kBaseDistance)
+                {
+                    nav.enabled = false;
+                }
+                break;
+            }
+
+            case FlyState.NearBase:
+            {
                 Vector3 direction = (basePosition - transform.position).normalized;
                 transform.position += direction * speed * Time.deltaTime;
+                break;
             }
-        }
-        else
-        {
-            if (Vector3.Distance(transform.position, basePosition) < kBaseDistance)
+
+            case FlyState.ShotDown:
             {
-                GoToBase();
+                shotDownPos = transform.position;
+                nav.enabled = false;
+                rb.isKinematic = false;
+                flyState = FlyState.Falling;
+                break;
+            }
+
+            case FlyState.Falling:
+            {
+                if (IsGrounded())
+                {
+                    flyState = FlyState.Ground;
+                    rb.isKinematic = true;
+                }
+                break;
+            }
+
+            case FlyState.Ground:
+            {
+                shotDownCounter += Time.deltaTime;
+                if (shotDownCounter > shotDownTime)
+                {
+                    shotDownCounter = 0;
+                    flyState = FlyState.Floating;
+                }
+                break;
+            }
+
+            case FlyState.Floating:
+            {
+                Vector3 direction = (shotDownPos - transform.position).normalized;
+                transform.position += direction * speed * Time.deltaTime;
+                if (Vector3.Distance(transform.position, shotDownPos) <= 0.1f)
+                {
+                    flyState = FlyState.Fly;
+                    shotDownHp = defaultShotDownHp;
+                    nav.enabled = true;
+                    rb.isKinematic = true;
+                }
+                break;
             }
         }
     }
 
-
-    void GoToBase()
+    public void TakeDamageFromShotDown(float damage, float shotDownDamage)
     {
-        isNearBase = true;
-        nav.enabled = false;
+        TakeDamage(damage);
+        if (!isFly)
+        {
+            return;
+        }
+        shotDownHp -= shotDownDamage;
+        if (shotDownHp <= 0)
+        {
+            flyState = FlyState.ShotDown;
+        }
     }
 }

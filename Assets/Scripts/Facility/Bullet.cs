@@ -2,10 +2,10 @@
 
 public class Bullet :MonoBehaviour
 {
-    Enemy enemy;
+    protected Enemy enemy;
     Rigidbody rb;
     MeshRenderer mr;
-    float damage;
+    protected float damage;
     float speed;
 
     const int maxTurnAngle = 50;
@@ -22,7 +22,11 @@ public class Bullet :MonoBehaviour
         speed = facilityAttack.GetAttackSpeed();
         mr.material = facilityAttack.GetMaterial();
         this.enemy = enemy;
-
+        if (enemy == null)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Vector3 direction = (enemy.transform.position - transform.position).normalized;
         transform.rotation = Quaternion.LookRotation(direction);
         rb.velocity = transform.forward * speed;
@@ -38,9 +42,16 @@ public class Bullet :MonoBehaviour
         {
             return;
         }
-        enemy = other.gameObject.GetComponent<Enemy>();
-        enemy.TakeDamage(damage);
+        var hitEnemy = other.gameObject.GetComponent<Enemy>();
+        if (hitEnemy != enemy)
+            return;
+        Attack();
         Destroy(gameObject);
+    }
+
+    protected virtual void Attack()
+    {
+        enemy.TakeDamage(damage);
     }
 
     void Update()

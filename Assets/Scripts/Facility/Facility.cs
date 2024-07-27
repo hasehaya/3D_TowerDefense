@@ -21,6 +21,7 @@ public class Facility :MonoBehaviour
         Mine = 3,
         Freeze = 4,
         Shield = 5,
+        ShotDown = 6,
     }
 
     public enum Category

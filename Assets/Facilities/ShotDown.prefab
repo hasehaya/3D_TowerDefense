@@ -42,7 +42,7 @@ GameObject:
   - component: {fileID: 3368862609000281496}
   - component: {fileID: 2770928471848445544}
   m_Layer: 0
-  m_Name: ShootDown
+  m_Name: ShotDown
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,18 +78,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 22994d36aee2e422fa438df10f32ae12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 0
+  type: 6
   isInstalled: 0
   canInstall: 0
   isSelected: 0
-  muzzlePos: {fileID: 0}
-  attackPower: 0
-  attackSpeed: 0
-  attackRate: 0
+  muzzlePos: {fileID: 4678242333709568835}
+  attackPower: 1
+  attackSpeed: 10
+  attackRate: 1
   isAreaAttack: 0
-  attackRange: 0
+  attackRange: 30
   attackArea: 0
+  attackType: 2
   material: {fileID: 0}
+  shotDownDamage: 1
 --- !u!1 &2232350812211061096
 GameObject:
   m_ObjectHideFlags: 0

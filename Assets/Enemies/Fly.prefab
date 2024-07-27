@@ -467,6 +467,8 @@ MonoBehaviour:
   attackPower: 1
   attackSpeed: 1
   attackRange: 1
+  defaultShotDownHp: 2
+  shotDownTime: 2
 --- !u!95 &95457531584545886
 Animator:
   serializedVersion: 5

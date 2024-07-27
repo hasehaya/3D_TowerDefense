@@ -68,6 +68,16 @@ public class Enemy :MonoBehaviour
         ExcuteAbilities();
     }
 
+    protected bool IsGrounded()
+    {
+        RaycastHit hit;
+        int layerToTarget = 8;
+        LayerMask layerMask = 1 << layerToTarget;
+        var position = transform.position + Vector3.up * 2;
+        Physics.Raycast(position, Vector3.down, out hit, 3.5f, layerMask);
+        return hit.collider != null;
+    }
+
     void Freeze()
     {
         if (freezeTimeCounter > 0)

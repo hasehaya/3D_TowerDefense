@@ -6,13 +6,12 @@ public class FacilityAttack :Facility
 {
     public enum AttackType
     {
-        None = 0,
         Ground = 1,
         Sky = 2,
         GroundAndSky = 3,
     }
 
-    [SerializeField] Transform muzzlePos;
+    [SerializeField] protected Transform muzzlePos;
 
     [SerializeField] float attackPower;
     [SerializeField] float attackSpeed;
@@ -20,16 +19,17 @@ public class FacilityAttack :Facility
     [SerializeField] bool isAreaAttack;
     [SerializeField] float attackRange;
     [SerializeField] float attackArea;
+    [SerializeField] AttackType attackType;
     [SerializeField] Material material;
 
     EnemyDetector enemyDetector;
-    List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
+    protected List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
 
     protected GameObject bulletPrefab;
     float coolTimeCounter;
-    Enemy targetEnemy;
+    protected Enemy targetEnemy;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
         gameObject.layer = LayerMask.NameToLayer("Muzzle");
@@ -67,16 +67,21 @@ public class FacilityAttack :Facility
             targetEnemy = GetMostNearEnemy();
         }
 
-        if (GetAttackRate() <= coolTimeCounter)
+        if (coolTimeCounter > GetAttackRate())
         {
             coolTimeCounter = 0;
-            var bullet = Instantiate(bulletPrefab, muzzlePos.position, Quaternion.identity);
-            bullet.GetComponent<Bullet>().Initialize(this, targetEnemy);
+            GenerateBullet();
         }
         else
         {
             coolTimeCounter += Time.deltaTime;
         }
+    }
+
+    protected virtual void GenerateBullet()
+    {
+        var bullet = Instantiate(bulletPrefab, muzzlePos.position, Quaternion.identity);
+        bullet.GetComponent<Bullet>().Initialize(this, targetEnemy);
     }
 
     /// <summary>
@@ -141,7 +146,7 @@ public class FacilityAttack :Facility
         return material;
     }
 
-    Enemy GetMostNearEnemy()
+    protected virtual Enemy GetMostNearEnemy()
     {
         Enemy mostNearEnemy = null;
         foreach (var enemy in enemies)

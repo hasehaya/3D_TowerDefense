@@ -16,8 +16,8 @@ MonoBehaviour:
   - stage: 1
     wave: 1
     spawnTime: 0
-    enemyType: 1
-    enemyBaseIndex: 0
+    enemyType: 8
+    enemyBaseIndex: 1
   - stage: 1
     wave: 1
     spawnTime: 5
@@ -91,18 +91,18 @@ MonoBehaviour:
   - stage: 1
     wave: 2
     spawnTime: 30
-    enemyType: 1
-    enemyBaseIndex: 0
+    enemyType: 8
+    enemyBaseIndex: 1
   - stage: 1
     wave: 2
     spawnTime: 35
-    enemyType: 1
-    enemyBaseIndex: 0
+    enemyType: 8
+    enemyBaseIndex: 1
   - stage: 1
     wave: 2
     spawnTime: 40
-    enemyType: 1
-    enemyBaseIndex: 0
+    enemyType: 8
+    enemyBaseIndex: 1
   - stage: 1
     wave: 3
     spawnTime: 0
