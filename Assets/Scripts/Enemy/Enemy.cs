@@ -50,22 +50,24 @@ public class Enemy :MonoBehaviour
     float freezeTimeCounter = 0;
     //フリーズの強度
     float freezeRate = 0;
+    //一度でもルートを外れたか
+    int enemyBaseIndex = 0;
+    int roadIndex = 0;
+    int pointIndex = 0;
+    bool isOut = false;
 
     protected virtual void Start()
     {
         damageable = gameObject.AddComponent<Damageable>();
         SetStatus();
-        SetNavigation();
         AddRigidBody();
         AddEnemyAttack();
         gameObject.tag = "Enemy";
         gameObject.layer = LayerMask.NameToLayer("Enemy");
-    }
 
-    protected virtual void Update()
-    {
-        Freeze();
-        ExcuteAbilities();
+        nav = GetComponent<NavMeshAgent>();
+        nav.speed = speed;
+        SetNextDestination();
     }
 
     protected bool IsGrounded()
@@ -76,6 +78,27 @@ public class Enemy :MonoBehaviour
         var position = transform.position + Vector3.up * 2;
         Physics.Raycast(position, Vector3.down, out hit, 3.5f, layerMask);
         return hit.collider != null;
+    }
+
+    protected virtual void Update()
+    {
+        Move();
+        Freeze();
+        ExcuteAbilities();
+    }
+
+    private void Move()
+    {
+        if (nav.remainingDistance < 0.1f && !nav.pathPending)
+        {
+            SetNextDestination();
+        }
+    }
+
+    private void SetNextDestination()
+    {
+        Vector3 nextPosition = EnemyBaseManager.Instance.GetNextDestination(enemyBaseIndex, ref roadIndex, ref pointIndex);
+        nav.SetDestination(nextPosition);
     }
 
     void Freeze()
@@ -121,13 +144,6 @@ public class Enemy :MonoBehaviour
         attackSpeed = status.attackSpeed;
         attackRange = status.attackRange;
         attribute = status.attribute;
-    }
-
-    void SetNavigation()
-    {
-        nav = GetComponent<NavMeshAgent>();
-        SetDestination(StageManager.Instance.GetBase().transform);
-        nav.speed = speed;
     }
 
     void AddRigidBody()

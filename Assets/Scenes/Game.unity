@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2003931976}
-  m_IndirectSpecularColor: {r: 0.3851593, g: 0.4724939, b: 0.6185859, a: 1}
+  m_IndirectSpecularColor: {r: 0.38515973, g: 0.47249496, b: 0.61858815, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2893,6 +2893,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 717990329}
+  - component: {fileID: 717990330}
   m_Layer: 0
   m_Name: EnemyBase1
   m_TagString: Untagged
@@ -2915,6 +2916,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1910230800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &717990330
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 717990328}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5ab08e637704e45af51287e58c778a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyBaseIndex: 0
+  isAir: 0
+  roads: []
 --- !u!1 &727304442
 GameObject:
   m_ObjectHideFlags: 0
@@ -3673,6 +3689,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 918800692}
+  - component: {fileID: 918800693}
   m_Layer: 0
   m_Name: EnemyBase0
   m_TagString: Untagged
@@ -3695,6 +3712,21 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1910230800}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &918800693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918800691}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b5ab08e637704e45af51287e58c778a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyBaseIndex: 0
+  isAir: 0
+  roads: []
 --- !u!1001 &929449791
 PrefabInstance:
   m_ObjectHideFlags: 0
