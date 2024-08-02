@@ -11,6 +11,7 @@ TagManager:
   - Home
   - Road
   - Shield
+  - Tree
   layers:
   - Default
   - TransparentFX

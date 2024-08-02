@@ -16,14 +16,14 @@ public class WaveManager :MonoBehaviour
             return instance;
         }
     }
-    [SerializeField] Transform[] enemyBases;
+
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] WaveDataListEntity waveDataListEntity;
     WaveData[] waveDataList;
     [SerializeField] WaveEnemyDataListEntity waveEnemyDataListEntity;
     WaveEnemyData[] waveEnemyList;
 
-    //　生成用
+    // 生成用
     float spwanTime = 0f;
     int enemyIndex = 0;
     int maxEnemyIndex { get { return waveEnemyList.Length; } }
@@ -37,7 +37,6 @@ public class WaveManager :MonoBehaviour
         var stage = StageManager.Instance.stageNum;
         waveDataList = waveDataListEntity.lists.Where(waveData => waveData.stage == stage).ToArray();
         ReloadWaveEnemyList();
-
     }
 
     private void Update()
@@ -54,7 +53,7 @@ public class WaveManager :MonoBehaviour
         while (enemyIndex < waveEnemyList.Length && waveEnemyList[enemyIndex].spawnTime <= spwanTime)
         {
             var waveData = waveEnemyList[enemyIndex];
-            EnemyManager.Instance.SpawnEnemy(waveData.enemyType, GetEnemyBase(waveData.enemyBaseIndex).position);
+            EnemyManager.Instance.SpawnEnemy(waveData.enemyType, waveData.enemyBaseIndex);
             enemyIndex++;
         }
     }
@@ -111,11 +110,6 @@ public class WaveManager :MonoBehaviour
     void ReloadWaveEnemyList()
     {
         waveEnemyList = waveEnemyDataListEntity.lists.Where(waveEnemyData => waveEnemyData.stage == StageManager.Instance.stageNum && waveEnemyData.wave == waveIndex).ToArray();
-    }
-
-    public Transform GetEnemyBase(int index)
-    {
-        return enemyBases[index];
     }
 
     public void NextWave()

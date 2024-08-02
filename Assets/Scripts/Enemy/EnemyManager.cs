@@ -50,6 +50,17 @@ public class EnemyManager :MonoBehaviour
         return null;
     }
 
+    public void SpawnEnemy(Enemy.EnemyType enemyType, int enemyBaseIndex)
+    {
+        var enemyPrefab = GetEnemyPrefab(enemyType);
+        var enemyObj = Instantiate(enemyPrefab, Vector3.zero, new Quaternion());
+        var enemy = enemyObj.GetComponent<Enemy>();
+        bool isFly = enemy is FlyEnemy;
+        var spawnPos = EnemyBaseManager.Instance.GetSpawnPosition(enemyBaseIndex, isFly);
+        enemyObj.transform.position = spawnPos;
+        enemyList.Add(enemy);
+    }
+
     public void SpawnEnemy(Enemy.EnemyType enemyType, Vector3 pos)
     {
         var enemyPrefab = GetEnemyPrefab(enemyType);

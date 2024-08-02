@@ -17,16 +17,16 @@ MonoBehaviour:
     wave: 1
     spawnTime: 0
     enemyType: 8
-    enemyBaseIndex: 1
+    enemyBaseIndex: 0
   - stage: 1
     wave: 1
     spawnTime: 5
-    enemyType: 1
+    enemyType: 8
     enemyBaseIndex: 0
   - stage: 1
     wave: 1
     spawnTime: 10
-    enemyType: 1
+    enemyType: 8
     enemyBaseIndex: 0
   - stage: 1
     wave: 1
@@ -92,17 +92,17 @@ MonoBehaviour:
     wave: 2
     spawnTime: 30
     enemyType: 8
-    enemyBaseIndex: 1
+    enemyBaseIndex: 0
   - stage: 1
     wave: 2
     spawnTime: 35
     enemyType: 8
-    enemyBaseIndex: 1
+    enemyBaseIndex: 0
   - stage: 1
     wave: 2
     spawnTime: 40
     enemyType: 8
-    enemyBaseIndex: 1
+    enemyBaseIndex: 0
   - stage: 1
     wave: 3
     spawnTime: 0

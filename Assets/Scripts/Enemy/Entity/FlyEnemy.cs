@@ -15,10 +15,10 @@ public class FlyEnemy :Enemy
         Floating,
     }
     FlyState flyState = FlyState.Fly;
-    //飛行に必要な変数
+    // 飛行に必要な変数
     Vector3 basePosition;
-    const float kBaseDistance = 20;
-    //撃墜関係
+    const float kBaseDistance = 20f;
+    // 撃墜関係
     public bool isFly { get { return flyState == FlyState.Fly || flyState == FlyState.NearBase; } }
     [SerializeField] float defaultShotDownHp;
     float shotDownHp;
@@ -29,6 +29,9 @@ public class FlyEnemy :Enemy
     protected override void Start()
     {
         base.Start();
+        nav.enabled = false;
+        rb.isKinematic = false;
+        rb.useGravity = false;
         shotDownHp = defaultShotDownHp;
         basePosition = StageManager.Instance.GetBase().transform.position;
     }
@@ -43,7 +46,11 @@ public class FlyEnemy :Enemy
             {
                 if (Vector3.Distance(transform.position, basePosition) <= kBaseDistance)
                 {
-                    nav.enabled = false;
+                    flyState = FlyState.NearBase;
+                }
+                else
+                {
+                    MoveTowards(basePosition);
                 }
                 break;
             }
@@ -58,9 +65,8 @@ public class FlyEnemy :Enemy
             case FlyState.ShotDown:
             {
                 shotDownPos = transform.position;
-                nav.enabled = false;
-                rb.isKinematic = false;
                 flyState = FlyState.Falling;
+                rb.useGravity = true;
                 break;
             }
 
@@ -69,7 +75,7 @@ public class FlyEnemy :Enemy
                 if (IsGrounded())
                 {
                     flyState = FlyState.Ground;
-                    rb.isKinematic = true;
+                    rb.useGravity = false;
                 }
                 break;
             }
@@ -93,12 +99,16 @@ public class FlyEnemy :Enemy
                 {
                     flyState = FlyState.Fly;
                     shotDownHp = defaultShotDownHp;
-                    nav.enabled = true;
-                    rb.isKinematic = true;
                 }
                 break;
             }
         }
+    }
+
+    void MoveTowards(Vector3 targetPosition)
+    {
+        Vector3 direction = (targetPosition - transform.position).normalized;
+        transform.position += direction * speed * Time.deltaTime;
     }
 
     public void TakeDamageFromShotDown(float damage, float shotDownDamage)
