@@ -24,9 +24,10 @@ public class EnemyBaseManager :MonoBehaviour
         enemyBases = enemyBaseParent.GetComponentsInChildren<EnemyBase>();
     }
 
-    public Vector3 GetNextDestination(int enemyBaseIndex, ref int roadIndex, ref int pointIndex)
+    public Vector3 GetNextDestination(int enemyBaseIndex, bool isFly, ref int roadIndex, ref int pointIndex)
     {
-        Road currentRoad = enemyBases[enemyBaseIndex].roads[roadIndex];
+        var enemyBase = GetEnemyBase(enemyBaseIndex, isFly);
+        Road currentRoad = enemyBase.roads[roadIndex];
         // 次のポイントがある場合
         if (pointIndex < currentRoad.points.Length)
         {
@@ -48,7 +49,7 @@ public class EnemyBaseManager :MonoBehaviour
             }
             else
             {
-                return Vector3.zero; // End of path
+                return Vector3.zero;
             }
         }
     }

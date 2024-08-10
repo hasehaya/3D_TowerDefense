@@ -16,6 +16,7 @@ public class FlyEnemy :Enemy
     }
     FlyState flyState = FlyState.Fly;
     // 飛行に必要な変数
+    Vector3 destination;
     Vector3 basePosition;
     const float kBaseDistance = 20f;
     // 撃墜関係
@@ -34,23 +35,23 @@ public class FlyEnemy :Enemy
         rb.useGravity = false;
         shotDownHp = defaultShotDownHp;
         basePosition = StageManager.Instance.GetBase().transform.position;
+        destination = GetNextDestination();
     }
 
     protected override void Update()
     {
-        base.Update();
+        Freeze();
+        ExcuteAbilities();
 
         switch (flyState)
         {
             case FlyState.Fly:
             {
+                MoveTowards();
+
                 if (Vector3.Distance(transform.position, basePosition) <= kBaseDistance)
                 {
                     flyState = FlyState.NearBase;
-                }
-                else
-                {
-                    MoveTowards(basePosition);
                 }
                 break;
             }
@@ -105,10 +106,14 @@ public class FlyEnemy :Enemy
         }
     }
 
-    void MoveTowards(Vector3 targetPosition)
+    void MoveTowards()
     {
-        Vector3 direction = (targetPosition - transform.position).normalized;
+        Vector3 direction = (destination - transform.position).normalized;
         transform.position += direction * speed * Time.deltaTime;
+        if (Vector3.Distance(transform.position, destination) < 0.1f)
+        {
+            destination = GetNextDestination();
+        }
     }
 
     public void TakeDamageFromShotDown(float damage, float shotDownDamage)

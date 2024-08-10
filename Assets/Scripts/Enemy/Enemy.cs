@@ -50,10 +50,12 @@ public class Enemy :MonoBehaviour
     float freezeTimeCounter = 0;
     //フリーズの強度
     float freezeRate = 0;
-    //一度でもルートを外れたか
+    //Base関連
     int enemyBaseIndex = 0;
     int roadIndex = 0;
     int pointIndex = 0;
+    bool isFly { get { return this is FlyEnemy; } }
+    //一度でもルートを外れたか
     bool isOut = false;
 
     protected virtual void Start()
@@ -95,13 +97,18 @@ public class Enemy :MonoBehaviour
         }
     }
 
+    protected Vector3 GetNextDestination()
+    {
+        return EnemyBaseManager.Instance.GetNextDestination(enemyBaseIndex, isFly, ref roadIndex, ref pointIndex);
+    }
+
     private void SetNextDestination()
     {
-        Vector3 nextPosition = EnemyBaseManager.Instance.GetNextDestination(enemyBaseIndex, ref roadIndex, ref pointIndex);
+        Vector3 nextPosition = GetNextDestination();
         nav.SetDestination(nextPosition);
     }
 
-    void Freeze()
+    protected void Freeze()
     {
         if (freezeTimeCounter > 0)
         {
@@ -113,7 +120,7 @@ public class Enemy :MonoBehaviour
         }
     }
 
-    void ExcuteAbilities()
+    protected void ExcuteAbilities()
     {
         foreach (var ability in abilityList)
         {
@@ -129,7 +136,10 @@ public class Enemy :MonoBehaviour
     protected virtual void OnDestroy()
     {
         OnEnemyDestroyed?.Invoke(this);
-        MoneyManager.Instance.AddMoney(money);
+        if (MoneyManager.Instance != null)
+        {
+            MoneyManager.Instance.AddMoney(money);
+        }
     }
 
     void SetStatus()
