@@ -16,7 +16,7 @@ public class ShootDown :FacilityAttack
     protected override void GenerateBullet()
     {
         var bullet = Instantiate(bulletPrefab, muzzlePos.position, Quaternion.identity);
-        var shotDownBulletComponent = bullet.GetComponent<ShotDownBullet>();
+        var shotDownBulletComponent = bullet.GetComponent<ShootDownBullet>();
         shotDownBulletComponent.Initialize(this, targetEnemy);
         shotDownBulletComponent.SetShotDownDamage(shotDownDamage);
     }
