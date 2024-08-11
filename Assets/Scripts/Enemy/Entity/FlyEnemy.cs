@@ -39,6 +39,10 @@ public class FlyEnemy :Enemy
         destination = enemyNavInfo.destination;
     }
 
+    protected override void SetNavMeshAgent()
+    {
+    }
+
     protected override void Update()
     {
         Freeze();

@@ -54,6 +54,8 @@ public class Enemy :MonoBehaviour
     protected EnemyNavInfo enemyNavInfo;
     //ルートを外れたか
     bool isOut = false;
+    const float kBlowedTime = 1.0f;
+    float blowedTimeCounter = 0;
 
     protected virtual void Start()
     {
@@ -63,8 +65,13 @@ public class Enemy :MonoBehaviour
         AddEnemyAttack();
         gameObject.tag = "Enemy";
         gameObject.layer = LayerMask.NameToLayer("Enemy");
-
         nav = GetComponent<NavMeshAgent>();
+
+        SetNavMeshAgent();
+    }
+
+    protected virtual void SetNavMeshAgent()
+    {
         nav.speed = speed;
         nav.Warp(EnemyBaseManager.Instance.GetSpawnPosition(enemyNavInfo));
         SetNextDestination();
@@ -86,10 +93,17 @@ public class Enemy :MonoBehaviour
         ExcuteAbilities();
         if (isOut)
         {
+            blowedTimeCounter -= Time.deltaTime;
+            if (blowedTimeCounter >= 0)
+            {
+                return;
+            }
             if (IsGrounded())
             {
                 isOut = false;
+                blowedTimeCounter = kBlowedTime;
                 nav.enabled = true;
+                rb.isKinematic = true;
                 EnemyBaseManager.Instance.SetMostNearRoad(ref enemyNavInfo, transform.position);
                 nav.SetDestination(enemyNavInfo.destination);
             }
@@ -225,6 +239,7 @@ public class Enemy :MonoBehaviour
     public void BlowedUp(Vector3 blowedDirection)
     {
         isOut = true;
+        blowedTimeCounter = kBlowedTime;
         nav.enabled = false;
         rb.isKinematic = false;
         rb.AddForce(blowedDirection, ForceMode.Impulse);
