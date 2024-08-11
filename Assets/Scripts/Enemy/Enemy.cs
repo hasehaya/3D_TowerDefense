@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.AI;
@@ -13,7 +14,6 @@ public class Enemy :MonoBehaviour
 
     // ナビゲーション
     protected NavMeshAgent nav;
-    Transform currentDestination = null;
     protected Rigidbody rb;
     // HP関係
     Damageable damageable;
@@ -51,11 +51,8 @@ public class Enemy :MonoBehaviour
     //フリーズの強度
     float freezeRate = 0;
     //Base関連
-    int enemyBaseIndex = 0;
-    int roadIndex = 0;
-    int pointIndex = 0;
-    bool isFly { get { return this is FlyEnemy; } }
-    //一度でもルートを外れたか
+    protected EnemyNavInfo enemyNavInfo;
+    //ルートを外れたか
     bool isOut = false;
 
     protected virtual void Start()
@@ -69,6 +66,7 @@ public class Enemy :MonoBehaviour
 
         nav = GetComponent<NavMeshAgent>();
         nav.speed = speed;
+        nav.Warp(EnemyBaseManager.Instance.GetSpawnPosition(enemyNavInfo));
         SetNextDestination();
     }
 
@@ -84,9 +82,22 @@ public class Enemy :MonoBehaviour
 
     protected virtual void Update()
     {
-        Move();
         Freeze();
         ExcuteAbilities();
+        if (isOut)
+        {
+            if (IsGrounded())
+            {
+                isOut = false;
+                nav.enabled = true;
+                EnemyBaseManager.Instance.SetMostNearRoad(ref enemyNavInfo, transform.position);
+                nav.SetDestination(enemyNavInfo.destination);
+            }
+        }
+        else
+        {
+            Move();
+        }
     }
 
     private void Move()
@@ -97,15 +108,20 @@ public class Enemy :MonoBehaviour
         }
     }
 
-    protected Vector3 GetNextDestination()
+    public EnemyNavInfo GetEnemyNavInfo()
     {
-        return EnemyBaseManager.Instance.GetNextDestination(enemyBaseIndex, isFly, ref roadIndex, ref pointIndex);
+        return enemyNavInfo;
+    }
+
+    public void SetEnemyNavInfo(EnemyNavInfo navInfo)
+    {
+        enemyNavInfo = navInfo;
     }
 
     private void SetNextDestination()
     {
-        Vector3 nextPosition = GetNextDestination();
-        nav.SetDestination(nextPosition);
+        EnemyBaseManager.Instance.GetNextDestination(ref enemyNavInfo);
+        nav.SetDestination(enemyNavInfo.destination);
     }
 
     protected void Freeze()
@@ -166,11 +182,6 @@ public class Enemy :MonoBehaviour
 
     public void SetDestination(Transform destination)
     {
-        if (currentDestination == destination)
-        {
-            return;
-        }
-        currentDestination = destination;
         nav.destination = destination.position;
     }
 
@@ -209,6 +220,14 @@ public class Enemy :MonoBehaviour
     public EnemyType GetEnemyType()
     {
         return enemyType;
+    }
+
+    public void BlowedUp(Vector3 blowedDirection)
+    {
+        isOut = true;
+        nav.enabled = false;
+        rb.isKinematic = false;
+        rb.AddForce(blowedDirection, ForceMode.Impulse);
     }
 }
 

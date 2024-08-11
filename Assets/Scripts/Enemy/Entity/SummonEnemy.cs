@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class SummonEnemy :Enemy
 {
-    [SerializeField] EnemyType summonedEnemyType;
-    [SerializeField] int summonedCount;
-    [SerializeField] float coolTime;
+    public EnemyType summonedEnemyType;
+    public int summonedCount;
+    public float coolTime;
 
     protected override void Start()
     {
         base.Start();
-        var summonAbility = new SummonAbility(summonedEnemyType, summonedCount, coolTime, this.gameObject);
+        var summonAbility = new SummonAbility(this, gameObject);
         abilityList.Add(summonAbility);
     }
 }

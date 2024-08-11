@@ -35,7 +35,8 @@ public class FlyEnemy :Enemy
         rb.useGravity = false;
         shotDownHp = defaultShotDownHp;
         basePosition = StageManager.Instance.GetBase().transform.position;
-        destination = GetNextDestination();
+        EnemyBaseManager.Instance.GetNextDestination(ref enemyNavInfo);
+        destination = enemyNavInfo.destination;
     }
 
     protected override void Update()
@@ -112,7 +113,8 @@ public class FlyEnemy :Enemy
         transform.position += direction * speed * Time.deltaTime;
         if (Vector3.Distance(transform.position, destination) < 0.1f)
         {
-            destination = GetNextDestination();
+            EnemyBaseManager.Instance.GetNextDestination(ref enemyNavInfo);
+            destination = enemyNavInfo.destination;
         }
     }
 

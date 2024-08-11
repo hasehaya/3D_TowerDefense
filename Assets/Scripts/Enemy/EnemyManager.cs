@@ -56,16 +56,17 @@ public class EnemyManager :MonoBehaviour
         var enemyObj = Instantiate(enemyPrefab, Vector3.zero, new Quaternion());
         var enemy = enemyObj.GetComponent<Enemy>();
         bool isFly = enemy is FlyEnemy;
-        var spawnPos = EnemyBaseManager.Instance.GetSpawnPosition(enemyBaseIndex, isFly);
-        enemyObj.transform.position = spawnPos;
+        var enemyNavInfo = new EnemyNavInfo(enemyBaseIndex, isFly);
+        enemy.SetEnemyNavInfo(enemyNavInfo);
         enemyList.Add(enemy);
     }
 
-    public void SpawnEnemy(Enemy.EnemyType enemyType, Vector3 pos)
+    public void SpawnEnemy(EnemyNavInfo navInfo, Enemy.EnemyType enemyType, Vector3 pos)
     {
         var enemyPrefab = GetEnemyPrefab(enemyType);
         var enemyObj = Instantiate(enemyPrefab, pos, new Quaternion());
         var enemy = enemyObj.GetComponent<Enemy>();
+        enemy.SetEnemyNavInfo(navInfo);
         enemyList.Add(enemy);
     }
 

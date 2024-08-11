@@ -484,8 +484,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c983d0ac0787a45a893a13d53f172e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  hpBar: {fileID: 7733529088918627409, guid: d544f208ac22f4a2197ccd9e26f8e1bd, type: 3}
   enemyType: 1
+  attackPower: 1
+  attackSpeed: 1
+  attackRange: 1
 --- !u!195 &2303850949419004532
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -523,7 +525,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3

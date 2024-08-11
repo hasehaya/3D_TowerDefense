@@ -20,6 +20,16 @@ MonoBehaviour:
     enemyBaseIndex: 0
   - stage: 1
     wave: 1
+    spawnTime: 1
+    enemyType: 1
+    enemyBaseIndex: 0
+  - stage: 1
+    wave: 1
+    spawnTime: 2
+    enemyType: 1
+    enemyBaseIndex: 0
+  - stage: 1
+    wave: 1
     spawnTime: 5
     enemyType: 8
     enemyBaseIndex: 0
@@ -141,5 +151,5 @@ MonoBehaviour:
   - stage: 1
     wave: 3
     spawnTime: 5
-    enemyType: 4
+    enemyType: 7
     enemyBaseIndex: 0
