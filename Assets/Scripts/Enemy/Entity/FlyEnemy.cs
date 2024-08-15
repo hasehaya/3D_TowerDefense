@@ -30,7 +30,6 @@ public class FlyEnemy :Enemy
     protected override void Start()
     {
         base.Start();
-        nav.enabled = false;
         rb.isKinematic = false;
         rb.useGravity = false;
         shotDownHp = defaultShotDownHp;

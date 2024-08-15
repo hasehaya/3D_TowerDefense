@@ -13,7 +13,7 @@ public class Enemy :MonoBehaviour
     public static event EnemyDestroyed OnEnemyDestroyed;
 
     // ナビゲーション
-    protected NavMeshAgent nav;
+    NavMeshAgent nav;
     protected Rigidbody rb;
     // HP関係
     Damageable damageable;
@@ -65,13 +65,13 @@ public class Enemy :MonoBehaviour
         AddEnemyAttack();
         gameObject.tag = "Enemy";
         gameObject.layer = LayerMask.NameToLayer("Enemy");
-        nav = GetComponent<NavMeshAgent>();
 
         SetNavMeshAgent();
     }
 
     protected virtual void SetNavMeshAgent()
     {
+        nav = GetComponent<NavMeshAgent>();
         nav.speed = speed;
         nav.Warp(EnemyBaseManager.Instance.GetSpawnPosition(enemyNavInfo));
         SetNextDestination();
