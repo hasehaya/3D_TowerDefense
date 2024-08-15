@@ -17,6 +17,7 @@ public class Player :MonoBehaviour
     [SerializeField] Transform cameraTransform;
     Animator animator;
     Quaternion targetRotation = Quaternion.identity;
+    bool canMove = true;
 
     void Start()
     {
@@ -31,6 +32,10 @@ public class Player :MonoBehaviour
 
     void Move()
     {
+        if(!canMove)
+        {
+            return;
+        }
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
         var horizontalRotation = Quaternion.AngleAxis(cameraTransform.eulerAngles.y, Vector3.up);
@@ -53,5 +58,10 @@ public class Player :MonoBehaviour
     public void WarpTo(Vector3 position)
     {
         transform.position = position;
+    }
+
+    public void setCanMove(bool b)
+    {
+        canMove = b;
     }
 }

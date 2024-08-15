@@ -2,38 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MoveRock : MonoBehaviour
+public class MoveRock :Gimmick
 {
     [SerializeField] int damage;
-    bool isNearPlayer = false;
     bool isMoving = false;
     void Start()
     {
-        
+
     }
-    void Update()
+    protected override void Update()
     {
-        var playerPosition = Player.Instance.transform.position;
-        if (Vector3.Distance(transform.position, playerPosition) < 20.0f)
-        {
-            if (!isNearPlayer)
-            {
-                NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.MoveRock, Move);
-                isNearPlayer = true;
-            }
-
-        }
-        else
-        {
-            if (isNearPlayer)
-            {
-                NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.MoveRock);
-                isNearPlayer = false;
-            }
-        }
+        base.Update();
     }
 
-    private void Move()
+    protected override void Excute()
     {
         isMoving = true;
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.MoveRock);
@@ -48,7 +30,7 @@ public class MoveRock : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if(!isMoving)
+        if (!isMoving)
         {
             return;
         }
@@ -59,5 +41,15 @@ public class MoveRock : MonoBehaviour
             Enemy enemy = collision.gameObject.GetComponent<Enemy>();
             enemy.TakeDamage(damage);
         }
+    }
+
+    protected override void ShowNotice()
+    {
+        NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.MoveRock, WaitPlayerExcute);
+    }
+
+    protected override void HideNotice()
+    {
+        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.MoveRock);
     }
 }

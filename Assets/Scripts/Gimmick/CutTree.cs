@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CutTree : MonoBehaviour,IDamageable
+public class CutTree :Gimmick, IDamageable
 {
     [SerializeField] int hp;
     [SerializeField] float range;
-    bool isNearPlayer = false;
     public Damageable damageable { get; set; }
     EnemyDetector enemyDetector;
     List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
@@ -16,40 +15,30 @@ public class CutTree : MonoBehaviour,IDamageable
        
     }
 
-    void Update()
+    protected override void Update()
     {
-        var playerPosition = Player.Instance.transform.position;
-        if (Vector3.Distance(transform.position, playerPosition) < 20.0f)
-        {
-            if(!isNearPlayer)
-            {
-                NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.CutTree, Cut);
-                isNearPlayer = true;
-            }
- 
-        }
-        else
-        {
-            if(isNearPlayer)
-            {
-                NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.CutTree);
-                isNearPlayer = false;
-            }
-        }
-
+        base.Update();
         if(isInstalled)
         {
             Provoke();
         }
 
     }
+    protected override void ShowNotice()
+    {
+        NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.CutTree, WaitPlayerExcute);
+    }
 
-    private void Cut()
+    protected override void HideNotice()
+    {
+        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.CutTree);
+    }
+
+    protected override void Excute()
     {
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.CutTree);
         var anim = GetComponent<Animator>();
         anim.Play("Cut");
-       
     }
 
     void BecomTarget()
