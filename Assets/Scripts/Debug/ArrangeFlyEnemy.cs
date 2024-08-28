@@ -1,7 +1,8 @@
 using UnityEngine;
 using UnityEditor;
+using UnityEngine.AI;
 
-public class ArrangeChildrenComponent :MonoBehaviour
+public class ArrangeFlyEnemy :MonoBehaviour
 {
     // Arrangeボタンを押した時に子オブジェクトを整列させるメソッド
     public void ArrangeChildren()
@@ -22,18 +23,20 @@ public class ArrangeChildrenComponent :MonoBehaviour
             // 整列させる
             child.localPosition = new Vector3(xOffset, child.localPosition.y, child.localPosition.z);
             xOffset -= 3f;
+
+            child.tag = "Enemy";
         }
     }
 }
 
-[CustomEditor(typeof(ArrangeChildrenComponent))]
+[CustomEditor(typeof(ArrangeFlyEnemy))]
 public class ArrangeChildrenComponentEditor :Editor
 {
     public override void OnInspectorGUI()
     {
         DrawDefaultInspector();
 
-        ArrangeChildrenComponent myScript = (ArrangeChildrenComponent)target;
+        ArrangeFlyEnemy myScript = (ArrangeFlyEnemy)target;
         if (GUILayout.Button("Arrange Children"))
         {
             myScript.ArrangeChildren();

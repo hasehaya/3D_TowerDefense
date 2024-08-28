@@ -7,19 +7,19 @@ using UnityEngine;
 
 public class SummonAbility :IAbility
 {
-    SummonEnemy summonEnemy;
+    Enemy summonEnemy;
     Enemy.EnemyType summonedEnemyType;
     int summonedCount;
     GameObject gameObject;
     float distance = 1.0f;
     public float counter { get; set; }
     public float coolTime { get; set; }
-    public SummonAbility(SummonEnemy summonEnemy, GameObject gameObject)
+    public SummonAbility(Enemy enemy, Enemy.EnemyType summonedEnemyType, int summonedCount, float coolTime, GameObject gameObject)
     {
-        this.summonEnemy = summonEnemy;
-        this.summonedEnemyType = summonEnemy.summonedEnemyType;
-        this.summonedCount = summonEnemy.summonedCount;
-        this.coolTime = summonEnemy.coolTime;
+        this.summonEnemy = enemy;
+        this.summonedEnemyType = summonedEnemyType;
+        this.summonedCount = summonedCount;
+        this.coolTime = coolTime;
         this.gameObject = gameObject;
     }
     public void Excute()

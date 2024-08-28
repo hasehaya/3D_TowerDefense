@@ -12,7 +12,7 @@ public class SummonEnemy :Enemy
     protected override void Start()
     {
         base.Start();
-        var summonAbility = new SummonAbility(this, gameObject);
+        var summonAbility = new SummonAbility(this, summonedEnemyType, summonedCount, coolTime, gameObject);
         abilityList.Add(summonAbility);
     }
 }
