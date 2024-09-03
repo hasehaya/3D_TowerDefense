@@ -14,43 +14,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lists:
   - enemyType: 1
-    enemyPrefab: {fileID: 1931298151966786, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
-    hp: 10
-    speed: 3
-    money: 10
-    attackPower: 1
-    attackSpeed: 3
-    attackRange: 1
-    attribute: 1
-  - enemyType: 2
-    enemyPrefab: {fileID: 1524411113276028, guid: e2aafa8770d34a9591b41bedf4e318ba, type: 3}
+    enemyPrefab: {fileID: 8927860377512861090, guid: 405bbcb90a1c94a609b2ffa77c2e2bce, type: 3}
     hp: 20
-    speed: 2
+    speed: 3
     money: 13
-    attackPower: 1
+    attackPower: 2
     attackSpeed: 3
     attackRange: 1
     attribute: 0
-  - enemyType: 3
-    enemyPrefab: {fileID: 1931298151966786, guid: 77fd34f4ce6f14fb4ba528616fd284ba, type: 3}
+  - enemyType: 2
+    enemyPrefab: {fileID: 3635607323523710353, guid: 8764ab8cd9eed2f4cb599a2f5d31676f, type: 3}
     hp: 8
-    speed: 8
+    speed: 7
     money: 8
     attackPower: 1
     attackSpeed: 3
     attackRange: 1
     attribute: 0
-  - enemyType: 4
-    enemyPrefab: {fileID: 1524411113276028, guid: d665ef4f535f54361861263a3ce009d1, type: 3}
+  - enemyType: 3
+    enemyPrefab: {fileID: 5424371904434404001, guid: c6efc3c9f90341643a11dd4798a0471e, type: 3}
     hp: 30
-    speed: 1
+    speed: 2
     money: 20
-    attackPower: 2
+    attackPower: 1
     attackSpeed: 3
     attackRange: 1
     attribute: 0
-  - enemyType: 5
-    enemyPrefab: {fileID: 1931298151966786, guid: 4d8697087ba794183b08defe7c8778e0, type: 3}
+  - enemyType: 4
+    enemyPrefab: {fileID: 0}
     hp: 80
     speed: 2
     money: 15
@@ -58,37 +49,244 @@ MonoBehaviour:
     attackSpeed: 2
     attackRange: 1
     attribute: 0
-  - enemyType: 6
-    enemyPrefab: {fileID: 1524411113276028, guid: 1d8b5e6a5634b42349d3cac9cb1f7b59, type: 3}
+  - enemyType: 5
+    enemyPrefab: {fileID: 5934694492603653359, guid: 82a453baf11ab0540b4173b8217e7e54, type: 3}
     hp: 25
-    speed: 1
+    speed: 2
     money: 25
     attackPower: 1
     attackSpeed: 3
     attackRange: 1
     attribute: 0
-  - enemyType: 7
-    enemyPrefab: {fileID: 1931298151966786, guid: 0ad89ae8b5343864a8d8ca82490c7677, type: 3}
+  - enemyType: 6
+    enemyPrefab: {fileID: 933327510813290224, guid: d7346b24f20689a498e461957902ad6d, type: 3}
     hp: 100
-    speed: 3
+    speed: 2
     money: 50
     attackPower: 3
     attackSpeed: 3
     attackRange: 3
     attribute: 0
-  - enemyType: 8
-    enemyPrefab: {fileID: 1931298151966786, guid: e472e13482344490193161b85e1627b7, type: 3}
+  - enemyType: 7
+    enemyPrefab: {fileID: 8834626776513823628, guid: c1b71f5010c1d2c479f4c289a83b32c3, type: 3}
     hp: 30
-    speed: 1
+    speed: 2
     money: 15
     attackPower: 1
     attackSpeed: 3
     attackRange: 1
     attribute: 0
+  - enemyType: 8
+    enemyPrefab: {fileID: 1279900663188299757, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
+    hp: 30
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
   - enemyType: 9
-    enemyPrefab: {fileID: 1931298151966786, guid: bed743a8eac5f1f4f868f4186776813c, type: 3}
+    enemyPrefab: {fileID: 8583892024359425608, guid: 99a246cf517a24644b810cf2d881f9f1, type: 3}
     hp: 50
-    speed: 1
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 10
+    enemyPrefab: {fileID: 5732191324510662964, guid: 20c3bb69dac39eb41b68b1868f53c0e8, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 11
+    enemyPrefab: {fileID: 9113455529696817762, guid: c8724c67e2e84d849980ce2e69498c79, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 12
+    enemyPrefab: {fileID: 7070315345321143577, guid: 16d9e806c30a6e4458888d4f97e4d14d, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 13
+    enemyPrefab: {fileID: 8000390512497909109, guid: 73ad8cedab07cbf4b941ede73e90b7fd, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 14
+    enemyPrefab: {fileID: 8563417415697718815, guid: 5af3e5847e770f647bd74256a0297c21, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 15
+    enemyPrefab: {fileID: 2908487919011493411, guid: 309bdc57483377548af1c4c75ddad908, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 16
+    enemyPrefab: {fileID: 3564326302854367093, guid: 2f7b0e22e539681419d100263b32349d, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 17
+    enemyPrefab: {fileID: 6381557727357636956, guid: 72a9be3a4571d954f996cc7aa9040585, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 18
+    enemyPrefab: {fileID: 6258725899266789990, guid: b70e5f00db9449545ad8b6afdf637f5a, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 19
+    enemyPrefab: {fileID: 8770704339381188763, guid: 9118c530ff3768941989c70e9628bc7d, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 20
+    enemyPrefab: {fileID: 8730171609024060825, guid: cc8439d8d80bea34a9660985ffd5ebe3, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 21
+    enemyPrefab: {fileID: 4835823031916188776, guid: 80ae57f919df1634a96990622b33fd3d, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 22
+    enemyPrefab: {fileID: 8209336930475039299, guid: 7942eb9d44202a645a2dbbe962432181, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 23
+    enemyPrefab: {fileID: 5448713738226494165, guid: 3a8eadaa97a193f41b41b3f9bb0bd1de, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 24
+    enemyPrefab: {fileID: 6264795037841078982, guid: 28a9579d97962c54f9146683ebfa0488, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 25
+    enemyPrefab: {fileID: 2483370702696984942, guid: 22299d26fee69854d9256c32c1b54b14, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 26
+    enemyPrefab: {fileID: 5890280848327960100, guid: 7e242eac317b0744e82851b777f7e814, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 27
+    enemyPrefab: {fileID: 1692005898649841531, guid: 2f6346e5c9ec95f47809698e05924ca9, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 28
+    enemyPrefab: {fileID: 4959443735944410828, guid: 1bb1ecbe14207964098f30a2bc6db1e0, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 29
+    enemyPrefab: {fileID: 8826673456992588145, guid: ce1edbe2ca834c447b878db039518778, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 30
+    enemyPrefab: {fileID: 3671873954508060965, guid: 4414c2d6df99f0b4fad847dea2b6e1a6, type: 3}
+    hp: 50
+    speed: 2
+    money: 10
+    attackPower: 1
+    attackSpeed: 1
+    attackRange: 1
+    attribute: 0
+  - enemyType: 31
+    enemyPrefab: {fileID: 7963471997253939705, guid: a1d8583543817df42bd0202055a75f36, type: 3}
+    hp: 50
+    speed: 2
     money: 10
     attackPower: 1
     attackSpeed: 1

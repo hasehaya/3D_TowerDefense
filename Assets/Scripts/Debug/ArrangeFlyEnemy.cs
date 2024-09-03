@@ -1,5 +1,6 @@
+﻿using UnityEditor;
+
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.AI;
 
 public class ArrangeFlyEnemy :MonoBehaviour
@@ -25,6 +26,20 @@ public class ArrangeFlyEnemy :MonoBehaviour
             xOffset -= 3f;
 
             child.tag = "Enemy";
+            child.gameObject.layer = LayerMask.NameToLayer("Enemy");
+
+            var damageable = child.gameObject.GetComponent<Damageable>();
+            if (!damageable)
+            {
+                damageable = child.gameObject.AddComponent<Damageable>();
+            }
+
+            var name = child.name;
+            var enemy = child.gameObject.GetComponent<Enemy>();
+            if (System.Enum.TryParse<EnemyType>(name, out var enemyType))
+            {
+                enemy.enemyType = enemyType;
+            }
         }
     }
 }

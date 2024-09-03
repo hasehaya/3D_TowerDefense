@@ -26,7 +26,7 @@ public class EnemyManager :MonoBehaviour
         Enemy.OnEnemyDestroyed += RemoveEnemy;
     }
 
-    public EnemyParameter GetEnemyStatus(Enemy.EnemyType enemyType)
+    public EnemyParameter GetEnemyStatus(EnemyType enemyType)
     {
         foreach (var enemyStatus in enemyStatusListEntity.lists)
         {
@@ -38,7 +38,7 @@ public class EnemyManager :MonoBehaviour
         return null;
     }
 
-    public GameObject GetEnemyPrefab(Enemy.EnemyType enemyType)
+    public GameObject GetEnemyPrefab(EnemyType enemyType)
     {
         foreach (var enemyStatus in enemyStatusListEntity.lists)
         {
@@ -50,7 +50,7 @@ public class EnemyManager :MonoBehaviour
         return null;
     }
 
-    public void SpawnEnemy(Enemy.EnemyType enemyType, int enemyBaseIndex)
+    public void SpawnEnemy(EnemyType enemyType, int enemyBaseIndex)
     {
         var enemyPrefab = GetEnemyPrefab(enemyType);
         var enemyObj = Instantiate(enemyPrefab, Vector3.zero, new Quaternion());
@@ -61,7 +61,7 @@ public class EnemyManager :MonoBehaviour
         enemyList.Add(enemy);
     }
 
-    public void SpawnEnemy(EnemyNavInfo navInfo, Enemy.EnemyType enemyType, Vector3 pos)
+    public void SpawnEnemy(EnemyNavInfo navInfo, EnemyType enemyType, Vector3 pos)
     {
         var enemyPrefab = GetEnemyPrefab(enemyType);
         var enemyObj = Instantiate(enemyPrefab, pos, new Quaternion());

@@ -1,5 +1,6 @@
+﻿using UnityEditor;
+
 using UnityEngine;
-using UnityEditor;
 using UnityEngine.AI;
 
 public class ArrangeGroundEnemy :MonoBehaviour
@@ -25,15 +26,29 @@ public class ArrangeGroundEnemy :MonoBehaviour
             xOffset -= 3f;
 
             child.tag = "Enemy";
+            child.gameObject.layer = LayerMask.NameToLayer("Enemy");
 
             var cylinder = child.gameObject.GetComponent<CylinderCollider>();
             var nav = child.GetComponent<NavMeshAgent>();
-            if(!nav)
+            if (!nav)
             {
                 nav = child.gameObject.AddComponent<NavMeshAgent>();
             }
             nav.height = cylinder.height;
             nav.radius = cylinder.radius;
+
+            var damageable = child.gameObject.GetComponent<Damageable>();
+            if (!damageable)
+            {
+                damageable = child.gameObject.AddComponent<Damageable>();
+            }
+
+            var name = child.name;
+            var enemy = child.gameObject.GetComponent<Enemy>();
+            if (System.Enum.TryParse<EnemyType>(name, out var enemyType))
+            {
+                enemy.enemyType = enemyType;
+            }
         }
     }
 }

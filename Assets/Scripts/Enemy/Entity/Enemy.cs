@@ -18,20 +18,7 @@ public class Enemy :MonoBehaviour
     // HP関係
     Damageable damageable;
     // 敵の種類
-    public enum EnemyType
-    {
-        None = 0,
-        Slime = 1,
-        Turtle = 2,
-        Quick = 3,
-        Healer = 4,
-        Tank = 5,
-        Summon = 6,
-        Boss = 7,
-        Fly = 8,
-        Multiply = 9,
-    }
-    [SerializeField] EnemyType enemyType;
+    public EnemyType enemyType;
     // ステータス
     GameObject enemyPrefab;
     protected float hp => damageable.CurrentHp;
@@ -41,7 +28,7 @@ public class Enemy :MonoBehaviour
     public float attackPower = 1.0f;
     public float attackSpeed = 1.0f;
     public float attackRange = 1.0f;
-    Attribute attribute = Attribute.None;
+    Attribute attribute = Attribute.Normal;
 
     //アビリティーリスト
     protected List<IAbility> abilityList = new List<IAbility>();
@@ -59,12 +46,10 @@ public class Enemy :MonoBehaviour
 
     protected virtual void Start()
     {
-        damageable = gameObject.AddComponent<Damageable>();
+        damageable = GetComponent<Damageable>();
         SetStatus();
         AddRigidBody();
         AddEnemyAttack();
-        gameObject.tag = "Enemy";
-        gameObject.layer = LayerMask.NameToLayer("Enemy");
 
         SetNavMeshAgent();
     }
@@ -250,7 +235,7 @@ public class Enemy :MonoBehaviour
 [System.Serializable]
 public class EnemyParameter
 {
-    public Enemy.EnemyType enemyType;
+    public EnemyType enemyType;
     public GameObject enemyPrefab;
     public float hp;
     public float speed;
@@ -262,7 +247,7 @@ public class EnemyParameter
 
     public EnemyParameter()
     {
-        enemyType = Enemy.EnemyType.None;
+        enemyType = EnemyType.None;
         enemyPrefab = null;
         hp = 0;
         speed = 0;
@@ -270,6 +255,6 @@ public class EnemyParameter
         attackPower = 0;
         attackSpeed = 0;
         attackRange = 0;
-        attribute = Attribute.None;
+        attribute = Attribute.Normal;
     }
 }

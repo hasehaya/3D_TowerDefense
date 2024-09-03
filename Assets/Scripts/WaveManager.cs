@@ -119,6 +119,7 @@ public class WaveManager :MonoBehaviour
         spwanTime = 0f;
         enemyIndex = 0;
         ReloadWaveEnemyList();
+        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.NextWave);
     }
 }
 
@@ -143,7 +144,7 @@ public class WaveEnemyData
     public int stage;
     public int wave;
     public float spawnTime;
-    public Enemy.EnemyType enemyType;
+    public EnemyType enemyType;
     public int enemyBaseIndex;
 
     public WaveEnemyData()
@@ -151,7 +152,7 @@ public class WaveEnemyData
         stage = 0;
         wave = 0;
         spawnTime = 0f;
-        enemyType = Enemy.EnemyType.None;
+        enemyType = EnemyType.None;
         enemyBaseIndex = 0;
     }
 }
