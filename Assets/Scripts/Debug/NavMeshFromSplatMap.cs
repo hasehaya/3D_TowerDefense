@@ -10,6 +10,7 @@ public class NavMeshFromSplatmap :MonoBehaviour
     public Terrain terrain;
     public Texture2D splatmap;
     public NavMeshSurface navMeshSurface;
+    const int roopPixelSize = 5;
 
     // NavMeshをベイクするメソッド
     public void BakeNavMesh()
@@ -32,13 +33,13 @@ public class NavMeshFromSplatmap :MonoBehaviour
         TerrainData terrainData = terrain.terrainData;
         float[,,] splatMapData = terrainData.GetAlphamaps(0, 0, terrainData.alphamapWidth, terrainData.alphamapHeight);
 
-        for (int x = 0; x < terrainData.alphamapWidth; x++)
+        // 3ピクセルごとにループを進める
+        for (int x = 0; x < terrainData.alphamapWidth; x += roopPixelSize)
         {
-            for (int y = 0; y < terrainData.alphamapHeight; y++)
+            for (int y = 0; y < terrainData.alphamapHeight; y += roopPixelSize)
             {
                 float r = splatMapData[x, y, 0]; // 赤のチャンネル
                 float g = splatMapData[x, y, 1]; // 緑のチャンネル
-                // 必要に応じて他のチャンネルも取得可能
 
                 Vector3 worldPosition = terrain.GetPosition() + new Vector3(
                     (x / (float)terrainData.alphamapWidth) * terrainData.size.x,
@@ -46,13 +47,7 @@ public class NavMeshFromSplatmap :MonoBehaviour
                     (y / (float)terrainData.alphamapHeight) * terrainData.size.z
                 );
 
-                // NavMeshエリアを設定
-                if (r > 0.5f)
-                {
-                    // 赤が多い場合、Groundエリアに設定
-                    SetNavMeshArea(worldPosition, NavMesh.GetAreaFromName("Ground"));
-                }
-                else if (g > 0.5f)
+                if (g > 0.5f)
                 {
                     // 緑が多い場合、Roadエリアに設定
                     SetNavMeshArea(worldPosition, NavMesh.GetAreaFromName("Road"));
@@ -65,9 +60,10 @@ public class NavMeshFromSplatmap :MonoBehaviour
 
     private void SetNavMeshArea(Vector3 position, int area)
     {
+        // 新しいオブジェクトを作成してNavMeshModifierVolumeを追加
         NavMeshModifierVolume modifier = new GameObject("NavMeshModifier").AddComponent<NavMeshModifierVolume>();
         modifier.center = position;
-        modifier.size = new Vector3(1, 1, 1); // 必要に応じてサイズを調整
+        modifier.size = new Vector3(roopPixelSize, 1, roopPixelSize); // サイズを3ピクセルに合わせて調整
         modifier.area = area;
     }
 }
