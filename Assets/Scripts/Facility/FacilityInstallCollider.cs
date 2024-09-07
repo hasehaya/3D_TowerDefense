@@ -50,6 +50,7 @@ public class FacilityInstallCollider :MonoBehaviour
             }
             break;
         }
+
         if (facility.canInstall)
         {
             facility.ChangeColorGreen();
