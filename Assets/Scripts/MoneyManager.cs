@@ -22,28 +22,29 @@ public class MoneyManager :MonoBehaviour
             return instance;
         }
     }
-    public int Money { get; private set; }
+    private int money;
+    public int Money => money;
 
     private void Start()
     {
-        Money = 300;
+        AddMoney(300);
     }
 
     public void Pay(int price)
     {
-        Money -= price;
-        OnMoneyChenged?.Invoke(Money);
+        money -= price;
+        OnMoneyChenged?.Invoke(money);
     }
 
     public void AddMoney(int plus)
     {
-        Money += plus;
-        OnMoneyChenged?.Invoke(Money);
+        money += plus;
+        OnMoneyChenged?.Invoke(money);
     }
 
     public bool CanPurchase(int price)
     {
-        return Money >= price;
+        return money >= price;
     }
 
 }
