@@ -1,126 +1,119 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UI;
 
 [System.Serializable]
+[DisallowMultipleComponent]
 public class Enemy :MonoBehaviour
 {
     // 破壊された際に呼ばれるイベント
-    public delegate void EnemyDestroyed(Enemy enemy);
-    public static event EnemyDestroyed OnEnemyDestroyed;
+    public static Action<Enemy> OnEnemyDestroyed;
 
     // ナビゲーション
-    NavMeshAgent nav;
-    protected Rigidbody rb;
+    public NavMeshAgent nav;
+    public Rigidbody rb;
     // HP関係
-    Damageable damageable;
+    private Damageable damageable;
     // 敵の種類
-    public EnemyType enemyType;
+    [SerializeField]
+    private EnemyType enemyType;
     // ステータス
-    GameObject enemyPrefab;
-    protected float hp => damageable.CurrentHp;
-    protected float maxHp = 10;
-    protected float speed = 2f;
-    int money = 0;
-    public float attackPower = 1.0f;
-    public float attackSpeed = 1.0f;
-    public float attackRange = 1.0f;
-    Attribute attribute = Attribute.Normal;
+    private float maxHp = 10;
+    private float speed = 2f;
+    private int money = 0;
+    private float attackPower = 1.0f;
+    private float attackSpeed = 1.0f;
+    private float attackRange = 1.0f;
+    private Attribute attribute = Attribute.Normal;
 
-    //アビリティーリスト
+    // アビリティーリスト
     protected List<IAbility> abilityList = new List<IAbility>();
-    //状態異常
-    //フリーズから抜けてから何秒間継続するか
-    float freezeTimeCounter = 0;
-    //フリーズの強度
-    float freezeRate = 0;
-    //Base関連
-    protected EnemyNavInfo enemyNavInfo;
-    //ルートを外れたか
-    bool isOut = false;
-    const float kBlowedTime = 1.0f;
-    float blowedTimeCounter = 0;
+    // 状態異常
+    // フリーズから抜けてから何秒間継続するか
+    private float freezeTimeCounter = 0;
+    // フリーズの強度
+    private float freezeRate = 0;
+
+    // StateMachineのための状態
+    private IEnemyState currentState;
+
+    // NavMeshエリアのインデックス
+    public int roadArea;
+    public int groundArea;
+
+    // プロパティ
+    public int RoadArea => roadArea;
+    public int GroundArea => groundArea;
+    //TODO: 後で修正
+    public EnemyType EnemyType { get { return enemyType; } set { enemyType = value; } }
+    public float Speed => speed;
+    public float AttackPower => attackPower;
+    public float AttackSpeed => attackSpeed;
+    public float AttackRange => attackRange;
+    public Attribute Attribute => attribute;
+
+    // 現在のHP（読み取り専用）
+    public float CurrentHp => damageable.CurrentHp;
 
     protected virtual void Start()
     {
+        rb = GetComponent<Rigidbody>();
         damageable = GetComponent<Damageable>();
         SetStatus();
-        AddRigidBody();
         AddEnemyAttack();
-
         SetNavMeshAgent();
+
+        // NavMeshエリアのインデックスを取得
+        roadArea = NavMesh.GetAreaFromName("Road");
+        groundArea = NavMesh.GetAreaFromName("Ground");
+
+        // 初期状態を設定
+        StartState();
     }
 
-    protected virtual void SetNavMeshAgent()
+    protected virtual void StartState()
+    {
+        TransitionToState(new WalkingOnRoadState(this));
+    }
+
+    private void SetNavMeshAgent()
     {
         nav = GetComponent<NavMeshAgent>();
         nav.speed = speed;
-        nav.Warp(EnemyBaseManager.Instance.GetSpawnPosition(enemyNavInfo));
-        SetNextDestination();
     }
 
-    protected bool IsGrounded()
+    public bool IsGrounded()
     {
         RaycastHit hit;
-        int layerToTarget = 8;
+        int layerToTarget = LayerMask.NameToLayer("Ground"); // レイヤー名を使用
         LayerMask layerMask = 1 << layerToTarget;
         var position = transform.position + Vector3.up * 2;
-        Physics.Raycast(position, Vector3.down, out hit, 3.5f, layerMask);
-        return hit.collider != null;
+        if (Physics.Raycast(position, Vector3.down, out hit, 3.5f, layerMask))
+        {
+            return hit.collider != null;
+        }
+        return false;
     }
 
     protected virtual void Update()
     {
         Freeze();
-        ExcuteAbilities();
-        if (isOut)
-        {
-            blowedTimeCounter -= Time.deltaTime;
-            if (blowedTimeCounter >= 0)
-            {
-                return;
-            }
-            if (IsGrounded())
-            {
-                isOut = false;
-                blowedTimeCounter = kBlowedTime;
-                nav.enabled = true;
-                rb.isKinematic = true;
-                EnemyBaseManager.Instance.SetMostNearRoad(ref enemyNavInfo, transform.position);
-                nav.SetDestination(enemyNavInfo.destination);
-            }
-        }
-        else
-        {
-            Move();
-        }
+        ExecuteAbilities();
+        UpdateState();
     }
 
-    private void Move()
+    protected virtual void UpdateState()
     {
-        if (nav.remainingDistance < 0.1f && !nav.pathPending)
-        {
-            SetNextDestination();
-        }
+        currentState.UpdateState();
     }
 
-    public EnemyNavInfo GetEnemyNavInfo()
+    public void TransitionToState(IEnemyState newState)
     {
-        return enemyNavInfo;
-    }
-
-    public void SetEnemyNavInfo(EnemyNavInfo navInfo)
-    {
-        enemyNavInfo = navInfo;
-    }
-
-    private void SetNextDestination()
-    {
-        EnemyBaseManager.Instance.GetNextDestination(ref enemyNavInfo);
-        nav.SetDestination(enemyNavInfo.destination);
+        currentState?.ExitState();
+        currentState = newState;
+        currentState.EnterState();
     }
 
     protected void Freeze()
@@ -135,7 +128,7 @@ public class Enemy :MonoBehaviour
         }
     }
 
-    protected void ExcuteAbilities()
+    protected void ExecuteAbilities()
     {
         foreach (var ability in abilityList)
         {
@@ -157,12 +150,11 @@ public class Enemy :MonoBehaviour
         }
     }
 
-    void SetStatus()
+    private void SetStatus()
     {
         var status = EnemyManager.Instance.GetEnemyStatus(enemyType);
-        enemyPrefab = status.enemyPrefab;
         damageable.Initialize(status.hp);
-        maxHp = hp;
+        maxHp = status.hp;
         speed = status.speed;
         money = status.money;
         attackPower = status.attackPower;
@@ -171,25 +163,17 @@ public class Enemy :MonoBehaviour
         attribute = status.attribute;
     }
 
-    void AddRigidBody()
-    {
-        rb = gameObject.AddComponent<Rigidbody>();
-        rb.isKinematic = true;
-        rb.useGravity = true;
-        rb.freezeRotation = true;
-    }
-
     public void SetDestination(Transform destination)
     {
         nav.destination = destination.position;
     }
 
-    public void setNavPosition(Vector3 pos)
+    public void SetNavPosition(Vector3 pos)
     {
         nav.destination = pos;
     }
 
-    void AddEnemyAttack()
+    private void AddEnemyAttack()
     {
         var children = new GameObject("EnemyAttack");
         children.transform.parent = transform;
@@ -216,18 +200,10 @@ public class Enemy :MonoBehaviour
         }
     }
 
-    public EnemyType GetEnemyType()
+    public void BlownOff(Vector3 blowedDirection)
     {
-        return enemyType;
-    }
-
-    public void BlowedUp(Vector3 blowedDirection)
-    {
-        isOut = true;
-        blowedTimeCounter = kBlowedTime;
-        nav.enabled = false;
-        rb.isKinematic = false;
-        rb.AddForce(blowedDirection, ForceMode.Impulse);
+        // 吹き飛ばされた際の処理を状態遷移で管理
+        TransitionToState(new BlownOffState(this, blowedDirection));
     }
 }
 

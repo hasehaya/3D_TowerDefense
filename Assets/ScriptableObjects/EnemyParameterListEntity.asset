@@ -41,7 +41,7 @@ MonoBehaviour:
     attackRange: 1
     attribute: 0
   - enemyType: 4
-    enemyPrefab: {fileID: 0}
+    enemyPrefab: {fileID: 1790463025293280566, guid: 22aaaa81e059da84793f5c8d2ae3d7c4, type: 3}
     hp: 80
     speed: 2
     money: 15

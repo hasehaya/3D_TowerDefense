@@ -16,8 +16,6 @@ public class FacilityManager :MonoBehaviour
             return instance;
         }
     }
-
-    [SerializeField] GameObject facilityPrefab;
     [SerializeField] FacilityParameterListEntity facilityParameterListEntity;
 
     List<Facility> facilities = new List<Facility>();

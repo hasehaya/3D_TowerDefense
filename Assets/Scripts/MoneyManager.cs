@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -7,8 +8,7 @@ using UnityEngine.UI;
 public class MoneyManager :MonoBehaviour
 {
     // 合成された際に呼ばれるイベント
-    public delegate void MoneyChenged(int money);
-    public static event MoneyChenged OnMoneyChenged;
+    public static Action<int> OnMoneyChenged;
 
     private static MoneyManager instance;
     public static MoneyManager Instance

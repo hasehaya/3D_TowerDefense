@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class Spring :Facility
 {
+    [SerializeField] float blowOffPower;
     [SerializeField] float coolTime;
-    float coolCounter;
-    BoxCollider boxCollider;
+    float coolTimeCounter;
     protected List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
     EnemyDetector enemyDetector;
 
@@ -20,7 +20,7 @@ public class Spring :Facility
     protected override void Start()
     {
         base.Start();
-        coolCounter = coolTime;
+        coolTimeCounter = coolTime;
     }
 
     protected override void Update()
@@ -30,9 +30,9 @@ public class Spring :Facility
         {
             return;
         }
-        if (coolCounter > 0)
+        if (coolTimeCounter > 0)
         {
-            coolCounter -= Time.deltaTime;
+            coolTimeCounter -= Time.deltaTime;
             return;
         }
         if (enemies.Count == 0)
@@ -40,15 +40,17 @@ public class Spring :Facility
             return;
         }
 
-        BlowUp();
+        BlowOff();
     }
 
-    void BlowUp()
+    void BlowOff()
     {
-        var blowedDirection = Vector3.up * 0.2f + Vector3.forward * 0.2f;
+        coolTimeCounter = coolTime;
+
+        var blowedDirection = Vector3.up * blowOffPower + Vector3.forward * blowOffPower;
         foreach (var enemy in enemies)
         {
-            enemy.BlowedUp(blowedDirection);
+            enemy.BlownOff(blowedDirection);
         }
     }
 }

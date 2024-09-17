@@ -25,7 +25,7 @@ public class MultiplyEnemy :Enemy
             direction = Quaternion.LookRotation(forward) * direction;
             // ポジションを計算
             Vector3 summonedPos = gameObject.transform.position + direction * kDistance + Vector3.up;
-            EnemyManager.Instance.SpawnEnemy(enemyNavInfo, multiplyEnemyType, summonedPos);
+            EnemyManager.Instance.SpawnEnemy(multiplyEnemyType, summonedPos);
         }
     }
 }

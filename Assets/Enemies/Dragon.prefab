@@ -626,6 +626,8 @@ GameObject:
   - component: {fileID: 1979334128132216910}
   - component: {fileID: 5097875475864225686}
   - component: {fileID: 7356240795296825092}
+  - component: {fileID: 4077253380866398496}
+  - component: {fileID: 3872083285762480785}
   m_Layer: 13
   m_Name: Dragon
   m_TagString: Enemy
@@ -662,12 +664,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8cc5c0ba07a245841b786a643d4da0d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nav: {fileID: 0}
+  rb: {fileID: 0}
   enemyType: 2
-  attackPower: 1
-  attackSpeed: 1
-  attackRange: 1
-  defaultShotDownHp: 0
-  shotDownTime: 0
+  roadArea: 0
+  groundArea: 0
+  defaultShootDownHp: 100
+  shootDownTime: 5
 --- !u!95 &1979334128132216910
 Animator:
   serializedVersion: 5
@@ -720,10 +723,59 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1.01
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 1, z: 0.27}
+--- !u!195 &4077253380866398496
+NavMeshAgent:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3635607323523710353}
+  m_Enabled: 1
+  m_AgentTypeID: -1372625422
+  m_Radius: 0.5
+  m_Speed: 3.5
+  m_Acceleration: 8
+  avoidancePriority: 50
+  m_AngularSpeed: 120
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 1
+  m_AutoBraking: 1
+  m_AutoRepath: 1
+  m_Height: 2
+  m_BaseOffset: 0
+  m_WalkableMask: 16
+  m_ObstacleAvoidanceType: 4
+--- !u!54 &3872083285762480785
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3635607323523710353}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &3738144058681825586
 GameObject:
   m_ObjectHideFlags: 0

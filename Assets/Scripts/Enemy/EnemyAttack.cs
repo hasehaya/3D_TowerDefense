@@ -14,11 +14,11 @@ public class EnemyAttack :MonoBehaviour
     public void Initialize(Enemy enemy)
     {
         this.enemy = enemy;
-        damage = (int)enemy.attackPower;
-        ct = enemy.attackSpeed;
+        damage = (int)enemy.AttackPower;
+        ct = enemy.AttackSpeed;
 
         var cylinderCol = gameObject.AddComponent<CylinderCollider>();
-        cylinderCol.Initialize(enemy.attackRange);
+        cylinderCol.Initialize(enemy.AttackRange);
     }
 
     private void OnTriggerStay(Collider other)

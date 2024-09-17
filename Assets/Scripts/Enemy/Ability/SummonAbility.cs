@@ -36,8 +36,7 @@ public class SummonAbility :IAbility
             direction = Quaternion.LookRotation(forward) * direction;
             // ポジションを計算
             Vector3 summonedPos = gameObject.transform.position + direction * distance + Vector3.up;
-            var enemyNavInfo = summonEnemy.GetEnemyNavInfo();
-            EnemyManager.Instance.SpawnEnemy(enemyNavInfo, summonedEnemyType, summonedPos);
+            EnemyManager.Instance.SpawnEnemy(summonedEnemyType, summonedPos);
         }
     }
 }

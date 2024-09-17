@@ -1,8 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-public class CutTree : MonoBehaviour,IDamageable
+public class CutTree :MonoBehaviour, IDamageable
 {
     [SerializeField] int hp;
     [SerializeField] float range;
@@ -13,7 +14,7 @@ public class CutTree : MonoBehaviour,IDamageable
     bool isInstalled = false;
     private void Start()
     {
-       
+
     }
 
     void Update()
@@ -21,23 +22,23 @@ public class CutTree : MonoBehaviour,IDamageable
         var playerPosition = Player.Instance.transform.position;
         if (Vector3.Distance(transform.position, playerPosition) < 20.0f)
         {
-            if(!isNearPlayer)
+            if (!isNearPlayer)
             {
                 NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.CutTree, Cut);
                 isNearPlayer = true;
             }
- 
+
         }
         else
         {
-            if(isNearPlayer)
+            if (isNearPlayer)
             {
                 NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.CutTree);
                 isNearPlayer = false;
             }
         }
 
-        if(isInstalled)
+        if (isInstalled)
         {
             Provoke();
         }
@@ -49,7 +50,7 @@ public class CutTree : MonoBehaviour,IDamageable
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.CutTree);
         var anim = GetComponent<Animator>();
         anim.Play("Cut");
-       
+
     }
 
     void BecomTarget()
@@ -102,10 +103,9 @@ public class CutTree : MonoBehaviour,IDamageable
                 if (distanceToTree < distanceToBase)
                 {
                     var child = transform.Find("Child").gameObject;
-                    var destinationPos = child.gameObject.transform.position;
-        
-                    enemy.SetDestination(transform);
-                    enemy.setNavPosition(destinationPos);
+                    var destinationPos = child.gameObject.transform;
+
+                    enemy.SetDestination(destinationPos);
                 }
             }
         }

@@ -1105,6 +1105,7 @@ GameObject:
   - component: {fileID: 7468772235552012092}
   - component: {fileID: 1430447704255422664}
   - component: {fileID: 909311252611896738}
+  - component: {fileID: 7790936916949296001}
   m_Layer: 0
   m_Name: MonsterPlant
   m_TagString: Enemy
@@ -1141,10 +1142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c983d0ac0787a45a893a13d53f172e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nav: {fileID: 0}
+  rb: {fileID: 0}
   enemyType: 12
-  attackPower: 1
-  attackSpeed: 1
-  attackRange: 1
+  roadArea: 0
+  groundArea: 0
 --- !u!95 &3199281832971287188
 Animator:
   serializedVersion: 5
@@ -1186,7 +1188,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 16
   m_ObstacleAvoidanceType: 4
 --- !u!114 &1430447704255422664
 MonoBehaviour:
@@ -1219,10 +1221,37 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 1
+  m_Radius: 0.72
+  m_Height: 1.63
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0.83, z: 0}
+--- !u!54 &7790936916949296001
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7070315345321143577}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &7287224369395992567
 GameObject:
   m_ObjectHideFlags: 0

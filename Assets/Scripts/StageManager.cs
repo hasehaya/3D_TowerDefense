@@ -22,6 +22,11 @@ public class StageManager :MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
     }
 
+    public Vector3 GetPlayerBasePosition()
+    {
+        return playerBase.transform.position;
+    }
+
     public Base GetBase()
     {
         return playerBase;

@@ -21,7 +21,7 @@ public class Facility :MonoBehaviour
         Mine = 3,
         Freeze = 4,
         Shield = 5,
-        ShotDown = 6,
+        ShootDown = 6,
         Spring = 7,
     }
 

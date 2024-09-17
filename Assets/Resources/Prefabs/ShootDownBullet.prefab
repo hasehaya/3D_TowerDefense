@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 9126732909669664336}
   - component: {fileID: 8324068442035833764}
   m_Layer: 0
-  m_Name: ShotDownBullet
+  m_Name: ShootDownBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -95,7 +95,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1138023148519172529}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 806ea548cec80475dacd6389a85122e9, type: 3}
+  m_Script: {fileID: 11500000, guid: 365d0ae4854f1134e9d89b1936289d24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!135 &9126732909669664336

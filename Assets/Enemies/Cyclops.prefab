@@ -202,6 +202,7 @@ GameObject:
   - component: {fileID: 3404799091634769213}
   - component: {fileID: 833797425689450548}
   - component: {fileID: 6821560307465870578}
+  - component: {fileID: 2981485364678423523}
   m_Layer: 0
   m_Name: Cyclops
   m_TagString: Enemy
@@ -238,10 +239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c983d0ac0787a45a893a13d53f172e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nav: {fileID: 0}
+  rb: {fileID: 0}
   enemyType: 25
-  attackPower: 1
-  attackSpeed: 1
-  attackRange: 1
+  roadArea: 0
+  groundArea: 0
 --- !u!95 &6254127598138295226
 Animator:
   serializedVersion: 5
@@ -283,7 +285,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 16
   m_ObstacleAvoidanceType: 4
 --- !u!114 &833797425689450548
 MonoBehaviour:
@@ -320,6 +322,33 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &2981485364678423523
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2483370702696984942}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &2604286675229649415
 GameObject:
   m_ObjectHideFlags: 0

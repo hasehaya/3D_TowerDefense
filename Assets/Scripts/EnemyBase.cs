@@ -7,5 +7,4 @@ public class EnemyBase :MonoBehaviour
 {
     public int enemyBaseIndex;
     public bool isAir;
-    public Road[] roads;
 }

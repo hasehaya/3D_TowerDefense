@@ -666,6 +666,7 @@ GameObject:
   - component: {fileID: 4967875033255229972}
   - component: {fileID: 3301105031290172072}
   - component: {fileID: 4724296555241179108}
+  - component: {fileID: 3097794493117831282}
   m_Layer: 0
   m_Name: BlackKnight
   m_TagString: Enemy
@@ -702,10 +703,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75c983d0ac0787a45a893a13d53f172e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nav: {fileID: 0}
+  rb: {fileID: 0}
   enemyType: 16
-  attackPower: 1
-  attackSpeed: 1
-  attackRange: 1
+  roadArea: 0
+  groundArea: 0
 --- !u!95 &795391124833015768
 Animator:
   serializedVersion: 5
@@ -747,7 +749,7 @@ NavMeshAgent:
   m_AutoRepath: 1
   m_Height: 2
   m_BaseOffset: 0
-  m_WalkableMask: 4294967295
+  m_WalkableMask: 16
   m_ObstacleAvoidanceType: 4
 --- !u!114 &3301105031290172072
 MonoBehaviour:
@@ -784,6 +786,33 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!54 &3097794493117831282
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3564326302854367093}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 112
+  m_CollisionDetection: 0
 --- !u!1 &3684925727534355164
 GameObject:
   m_ObjectHideFlags: 0

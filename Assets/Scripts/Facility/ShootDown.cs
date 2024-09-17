@@ -5,20 +5,36 @@ using UnityEngine;
 
 public class ShootDown :FacilityAttack
 {
-    [SerializeField] float shotDownDamage;
+    [SerializeField] float shootDownDamage;
 
     protected override void Awake()
     {
         base.Awake();
-        bulletPrefab = Resources.Load<GameObject>("Prefabs/ShotDownBullet");
+        bulletPrefab = Resources.Load<GameObject>("Prefabs/ShootDownBullet");
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        FlyEnemy.OnEnemyShootDown += HandleEnemyShootDown;
+    }
+
+    private void OnDestroy()
+    {
+        FlyEnemy.OnEnemyShootDown -= HandleEnemyShootDown;
+    }
+
+    void HandleEnemyShootDown(FlyEnemy enemy)
+    {
+        targetEnemy = GetMostNearEnemy();
     }
 
     protected override void GenerateBullet()
     {
         var bullet = Instantiate(bulletPrefab, muzzlePos.position, Quaternion.identity);
-        var shotDownBulletComponent = bullet.GetComponent<ShootDownBullet>();
-        shotDownBulletComponent.Initialize(this, targetEnemy);
-        shotDownBulletComponent.SetShotDownDamage(shotDownDamage);
+        var shootDownBulletComponent = bullet.GetComponent<ShootDownBullet>();
+        shootDownBulletComponent.Initialize(this, targetEnemy);
+        shootDownBulletComponent.SetShootDownDamage(shootDownDamage);
     }
 
     protected override Enemy GetMostNearEnemy()
@@ -32,7 +48,7 @@ public class ShootDown :FacilityAttack
                 continue;
             }
             var flyEnemy = enemy as FlyEnemy;
-            if (!flyEnemy.isFly)
+            if (!flyEnemy.IsFlying)
             {
                 continue;
             }

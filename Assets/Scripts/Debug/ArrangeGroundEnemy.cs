@@ -47,7 +47,7 @@ public class ArrangeGroundEnemy :MonoBehaviour
             var enemy = child.gameObject.GetComponent<Enemy>();
             if (System.Enum.TryParse<EnemyType>(name, out var enemyType))
             {
-                enemy.enemyType = enemyType;
+                enemy.EnemyType = enemyType;
             }
         }
     }

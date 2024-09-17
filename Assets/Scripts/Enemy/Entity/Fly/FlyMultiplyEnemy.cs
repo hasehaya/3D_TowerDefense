@@ -1,6 +1,6 @@
-using UnityEngine;
+﻿using UnityEngine;
 
-public class FlyMultiplyEnemy : FlyEnemy
+public class FlyMultiplyEnemy :FlyEnemy
 {
     [SerializeField] EnemyType multiplyEnemyType;
     [SerializeField] int count;
@@ -25,7 +25,7 @@ public class FlyMultiplyEnemy : FlyEnemy
             direction = Quaternion.LookRotation(forward) * direction;
             // ポジションを計算
             Vector3 summonedPos = gameObject.transform.position + direction * kDistance + Vector3.up;
-            EnemyManager.Instance.SpawnEnemy(enemyNavInfo, multiplyEnemyType, summonedPos);
+            EnemyManager.Instance.SpawnEnemy(multiplyEnemyType, summonedPos);
         }
     }
 }

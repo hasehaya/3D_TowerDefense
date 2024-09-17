@@ -16,11 +16,11 @@ public class ShootDownBullet :Bullet
             return;
         }
         var flyEnemy = enemy as FlyEnemy;
-        flyEnemy.TakeDamageFromShotDown(damage, shootDownDamage);
+        flyEnemy.TakeDamageFromShootDown(damage, shootDownDamage);
     }
 
-    public void SetShotDownDamage(float shotDownDamage)
+    public void SetShootDownDamage(float shootDownDamage)
     {
-        this.shootDownDamage = shotDownDamage;
+        this.shootDownDamage = shootDownDamage;
     }
 }

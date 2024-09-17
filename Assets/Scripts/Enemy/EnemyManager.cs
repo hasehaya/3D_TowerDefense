@@ -1,7 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyManager :MonoBehaviour
 {
@@ -52,21 +54,17 @@ public class EnemyManager :MonoBehaviour
 
     public void SpawnEnemy(EnemyType enemyType, int enemyBaseIndex)
     {
-        var enemyPrefab = GetEnemyPrefab(enemyType);
-        var enemyObj = Instantiate(enemyPrefab, Vector3.zero, new Quaternion());
-        var enemy = enemyObj.GetComponent<Enemy>();
-        bool isFly = enemy is FlyEnemy;
-        var enemyNavInfo = new EnemyNavInfo(enemyBaseIndex, isFly);
-        enemy.SetEnemyNavInfo(enemyNavInfo);
-        enemyList.Add(enemy);
+        var isFly = IsFlyEnemy(enemyType);
+        var enemyBase = EnemyBaseManager.Instance.GetEnemyBase(enemyBaseIndex, isFly);
+        var spawnPos = enemyBase.transform.position;
+        SpawnEnemy(enemyType, spawnPos);
     }
 
-    public void SpawnEnemy(EnemyNavInfo navInfo, EnemyType enemyType, Vector3 pos)
+    public void SpawnEnemy(EnemyType enemyType, Vector3 pos)
     {
         var enemyPrefab = GetEnemyPrefab(enemyType);
         var enemyObj = Instantiate(enemyPrefab, pos, new Quaternion());
         var enemy = enemyObj.GetComponent<Enemy>();
-        enemy.SetEnemyNavInfo(navInfo);
         enemyList.Add(enemy);
     }
 
@@ -83,5 +81,12 @@ public class EnemyManager :MonoBehaviour
     public int GetEnemyCount()
     {
         return enemyList.Count;
+    }
+
+    bool IsFlyEnemy(EnemyType enemyType)
+    {
+        var enemyStatus = enemyStatusListEntity.lists.FirstOrDefault(enemyStatus => enemyStatus.enemyType == enemyType);
+        var enemy = enemyStatus.enemyPrefab.GetComponent<Enemy>();
+        return enemy is FlyEnemy;
     }
 }

@@ -9,10 +9,10 @@ using UnityEngine.AI;
 
 public class GenerateNavMeshVolumeModifier :MonoBehaviour
 {
-    public Terrain terrain;
-    public Texture2D splatmap;
+    [SerializeField] Terrain terrain;
+    [SerializeField] Texture2D splatmap;
     [SerializeField] GameObject roadParent;
-    const int ROOP_PIXEL_SIZE = 1;
+    const int ROOP_PIXEL_SIZE = 2;
 
     public void BakeNavMesh()
     {
@@ -67,7 +67,7 @@ public class GenerateNavMeshVolumeModifier :MonoBehaviour
         // 道路エリアを設定
         SetNavMeshArea(roadPositions, NavMesh.GetAreaFromName("Road"));
         // 地面エリアを設定
-        SetNavMeshArea(groundPositions, NavMesh.GetAreaFromName("Ground"));
+        //SetNavMeshArea(groundPositions, NavMesh.GetAreaFromName("Ground"));
     }
 
     private void SetNavMeshArea(List<Vector3> positions, int area)
@@ -78,7 +78,7 @@ public class GenerateNavMeshVolumeModifier :MonoBehaviour
             modifier.transform.parent = roadParent.transform;
             // X180度回転,Y-90度回転
             modifier.transform.position = new Vector3(position.z, 0, position.x);
-            modifier.size = new Vector3(ROOP_PIXEL_SIZE, 15, ROOP_PIXEL_SIZE);
+            modifier.size = new Vector3(ROOP_PIXEL_SIZE, 80, ROOP_PIXEL_SIZE);
             modifier.area = area;
         }
     }
@@ -89,13 +89,13 @@ public class NavMeshFromSplatmapEditor :Editor
 {
     public override void OnInspectorGUI()
     {
-        DrawDefaultInspector(); // Draw default Inspector
+        DrawDefaultInspector();
 
         GenerateNavMeshVolumeModifier script = (GenerateNavMeshVolumeModifier)target;
 
-        if (GUILayout.Button("Bake NavMesh")) // When the button is clicked
+        if (GUILayout.Button("Bake NavMesh"))
         {
-            script.BakeNavMesh(); // Call the BakeNavMesh method
+            script.BakeNavMesh();
         }
     }
 }
