@@ -119,7 +119,7 @@ public class Facility :MonoBehaviour
         {
             mr.Key.material.color = mr.Value;
         }
-        faciltyInstallCol.InstallFacility();
+        faciltyInstallCol.DestroyInstallCollider();
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
         OnFacilityInstalled?.Invoke(this);

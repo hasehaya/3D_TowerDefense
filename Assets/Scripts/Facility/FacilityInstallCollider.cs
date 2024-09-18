@@ -1,10 +1,14 @@
 ﻿using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.AI;
 
 // layerのInstallについてDefaultとRoadのみにあたるようにしている
 public class FacilityInstallCollider :MonoBehaviour
 {
+    int groundArea;
+    int roadArea;
+
     Facility facility;
     Collider installCol;
     Rigidbody rb;
@@ -22,34 +26,33 @@ public class FacilityInstallCollider :MonoBehaviour
         rb.mass = 0.00001f;
         rb.useGravity = false;
         rb.constraints = RigidbodyConstraints.FreezeAll;
+
+        roadArea = NavMesh.GetAreaFromName("Road");
+        groundArea = NavMesh.GetAreaFromName("Ground");
     }
+
     private void Update()
     {
         if (facility.isInstalled)
+        {
+            DestroyInstallCollider();
             return;
+        }
+
+        bool canInstall = false;
+
         switch (facility.GetInstallType())
         {
             case Facility.InstallType.Side:
-            if (touchingObjs.Count == 0)
-            {
-                facility.canInstall = true;
-            }
-            else
-            {
-                facility.canInstall = false;
-            }
+            canInstall = IsNavMeshAreaBelow(groundArea);
             break;
+
             case Facility.InstallType.Road:
-            if (IsTouchingObj("Road"))
-            {
-                facility.canInstall = true;
-            }
-            else
-            {
-                facility.canInstall = false;
-            }
+            canInstall = IsNavMeshAreaBelow(roadArea);
             break;
         }
+
+        facility.canInstall = canInstall;
 
         if (facility.canInstall)
         {
@@ -61,22 +64,30 @@ public class FacilityInstallCollider :MonoBehaviour
         }
     }
 
-    bool IsTouchingObj(string tag)
+    /// <summary>
+    /// 指定されたNavMeshエリアが現在の位置の下に存在するかを判定します。
+    /// </summary>
+    /// <param name="area">判定するNavMeshエリアのインデックス</param>
+    /// <returns>指定されたエリアが存在する場合はtrue、それ以外はfalse</returns>
+    bool IsNavMeshAreaBelow(int area)
     {
-        foreach (var touchingObj in touchingObjs)
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, 10))
         {
-            if (touchingObj.CompareTag(tag))
+            NavMeshHit navHit;
+            if (NavMesh.SamplePosition(hit.point, out navHit, 1f, NavMesh.AllAreas))
             {
-                return true;
+                return navHit.mask == (1 << area);
             }
         }
+
         return false;
     }
 
     /// <summary>
     /// 設置後RigidBodyとColliderを削除
     /// </summary>
-    public void InstallFacility()
+    public void DestroyInstallCollider()
     {
         Destroy(rb);
         Destroy(installCol);
