@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using System.Collections; // コルーチンを使用するために必要
+
+using UnityEngine;
 
 public class Player :MonoBehaviour
 {
@@ -15,13 +17,31 @@ public class Player :MonoBehaviour
         }
     }
     [SerializeField] Transform cameraTransform;
+    Rigidbody rb;
     Animator animator;
     Quaternion targetRotation = Quaternion.identity;
 
     void Start()
     {
         animator = GetComponent<Animator>();
+        rb = GetComponent<Rigidbody>();
+        rb.velocity = Vector3.zero;
         targetRotation = transform.rotation;
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            StartCoroutine(Jump());
+        }
+    }
+
+    IEnumerator Jump()
+    {
+        animator.SetBool("isJump", true);
+        yield return new WaitForSeconds(2);
+        animator.SetBool("isJump", false);
     }
 
     void FixedUpdate()
@@ -34,10 +54,9 @@ public class Player :MonoBehaviour
         var horizontal = Input.GetAxis("Horizontal");
         var vertical = Input.GetAxis("Vertical");
         var horizontalRotation = Quaternion.AngleAxis(cameraTransform.eulerAngles.y, Vector3.up);
-        var velocity = horizontalRotation * new Vector3(-vertical, 0, horizontal).normalized;
+        var velocity = horizontalRotation * new Vector3(horizontal, 0, vertical).normalized;
 
-
-        var speed = Input.GetKey(KeyCode.LeftShift) ? 2 : 1;
+        var speed = Input.GetKey(KeyCode.LeftShift) ? 1 : 0.5f;
         var rotationSpeed = 600 * Time.deltaTime;
 
         if (velocity.magnitude > 0.5f)
