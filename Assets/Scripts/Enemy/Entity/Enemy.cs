@@ -12,13 +12,12 @@ public class Enemy :MonoBehaviour
     public static Action<Enemy> OnEnemyDestroyed;
 
     // ナビゲーション
-    public NavMeshAgent nav;
-    public Rigidbody rb;
+    [HideInInspector] public NavMeshAgent nav;
+    [HideInInspector] public Rigidbody rb;
     // HP関係
     private Damageable damageable;
     // 敵の種類
-    [SerializeField]
-    private EnemyType enemyType;
+    [SerializeField] EnemyType enemyType;
     // ステータス
     private float maxHp = 10;
     private float speed = 2f;
@@ -40,8 +39,8 @@ public class Enemy :MonoBehaviour
     private IEnemyState currentState;
 
     // NavMeshエリアのインデックス
-    public int roadArea;
-    public int groundArea;
+    [HideInInspector] public int roadArea;
+    [HideInInspector] public int groundArea;
 
     // プロパティ
     public int RoadArea => roadArea;
@@ -61,6 +60,7 @@ public class Enemy :MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         damageable = GetComponent<Damageable>();
+        Damageable.OnDestroyDamageableObject += Die;
         SetStatus();
         AddEnemyAttack();
         SetNavMeshAgent();
@@ -143,11 +143,8 @@ public class Enemy :MonoBehaviour
 
     protected virtual void OnDestroy()
     {
+        Damageable.OnDestroyDamageableObject -= Die;
         OnEnemyDestroyed?.Invoke(this);
-        if (MoneyManager.Instance != null)
-        {
-            MoneyManager.Instance.AddMoney(money);
-        }
     }
 
     private void SetStatus()
@@ -168,7 +165,7 @@ public class Enemy :MonoBehaviour
         nav.destination = destination.position;
     }
 
-    public void SetNavPosition(Vector3 pos)
+    public void SetDestination(Vector3 pos)
     {
         nav.destination = pos;
     }
@@ -185,6 +182,25 @@ public class Enemy :MonoBehaviour
     public void TakeDamage(float damage)
     {
         damageable.TakeDamage(damage);
+    }
+
+    public void Die(Damageable damageable)
+    {
+        if (damageable != this.damageable)
+        {
+            return;
+        }
+
+        Destroy(gameObject);
+        if (MoneyManager.Instance != null)
+        {
+            MoneyManager.Instance.AddMoney(money);
+        }
+    }
+
+    public void EnterBase()
+    {
+        Destroy(gameObject);
     }
 
     /// <summary>

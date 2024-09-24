@@ -14,7 +14,7 @@ public class CutTree :MonoBehaviour, IDamageable
     bool isInstalled = false;
     private void Start()
     {
-
+        Damageable.OnDestroyDamageableObject += HandleDestroyObject;
     }
 
     void Update()
@@ -73,12 +73,20 @@ public class CutTree :MonoBehaviour, IDamageable
 
     private void OnDestroy()
     {
+        Damageable.OnDestroyDamageableObject -= HandleDestroyObject;
         foreach (var enemy in enemies)
         {
-            enemy.SetDestination(StageManager.Instance.GetBase().transform);
+            enemy.SetDestination(StageManager.Instance.GetPlayerBasePosition());
         }
     }
 
+    void HandleDestroyObject(Damageable damageable)
+    {
+        if (damageable == this.damageable)
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Provoke()
     {
@@ -97,7 +105,7 @@ public class CutTree :MonoBehaviour, IDamageable
             // 敵が盾の方向を向いている場合（内積が正）
             if (dotProduct > 0)
             {
-                var basePos = StageManager.Instance.GetBase().transform.position;
+                var basePos = StageManager.Instance.GetPlayerBasePosition();
                 float distanceToTree = Vector3.Distance(enemy.transform.position, transform.position);
                 float distanceToBase = Vector3.Distance(enemy.transform.position, basePos);
                 if (distanceToTree < distanceToBase)

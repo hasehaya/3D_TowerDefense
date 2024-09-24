@@ -28,7 +28,7 @@ public class Road :MonoBehaviour
         {
             if (isLastRoad)
             {
-                return StageManager.Instance.GetBase().transform.position;
+                return StageManager.Instance.GetPlayerBasePosition();
             }
             else
             {

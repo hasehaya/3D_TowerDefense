@@ -14,7 +14,7 @@ public class StageManager :MonoBehaviour
             return instance;
         }
     }
-    [SerializeField] Base playerBase;
+    [SerializeField] PlayerBase playerBase;
     public int stageNum { get; private set; } = 1;
 
     private void Start()
@@ -25,11 +25,6 @@ public class StageManager :MonoBehaviour
     public Vector3 GetPlayerBasePosition()
     {
         return playerBase.transform.position;
-    }
-
-    public Base GetBase()
-    {
-        return playerBase;
     }
 
     public void SpeedDown()
@@ -54,5 +49,15 @@ public class StageManager :MonoBehaviour
     {
         UIManager.Instance.ShowStageClearText();
         Time.timeScale = 0.1f;
+    }
+
+    public void NextStage()
+    {
+        stageNum++;
+        Time.timeScale = 1.0f;
+    }
+
+    public void GameOver()
+    {
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -7,6 +8,9 @@ using UnityEngine.UI;
 
 public class Damageable :MonoBehaviour
 {
+    // ダメージを受けるオブジェクトが破壊されたときに呼ばれるイベント
+    public static Action<Damageable> OnDestroyDamageableObject;
+
     HPBar hpBar;
     public float CurrentHp { get; private set; }
     public float MaxHp { get; private set; }
@@ -45,7 +49,7 @@ public class Damageable :MonoBehaviour
         hpBar.SetHp(CurrentHp);
         if (CurrentHp <= 0)
         {
-            Destroy(gameObject);
+            OnDestroyDamageableObject?.Invoke(this);
         }
     }
 

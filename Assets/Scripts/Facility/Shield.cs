@@ -10,7 +10,7 @@ public class Shield :Facility, IDamageable
     public Damageable damageable { get; set; }
     EnemyDetector enemyDetector;
     List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
-    Vector3 BasePos { get { return StageManager.Instance.GetBase().transform.position; } }
+    Vector3 BasePos { get { return StageManager.Instance.GetPlayerBasePosition(); } }
 
     protected override void Start()
     {
@@ -19,6 +19,8 @@ public class Shield :Facility, IDamageable
         damageable.Initialize(hp);
         enemyDetector = gameObject.AddComponent<EnemyDetector>();
         enemyDetector.Initialize(Form.Sphere, range);
+
+        Damageable.OnDestroyDamageableObject += HandleDestroyObject;
     }
 
     protected override void Update()
@@ -29,9 +31,18 @@ public class Shield :Facility, IDamageable
 
     private void OnDestroy()
     {
+        Damageable.OnDestroyDamageableObject -= HandleDestroyObject;
         foreach (var enemy in enemies)
         {
-            enemy.SetDestination(StageManager.Instance.GetBase().transform);
+            enemy.SetDestination(StageManager.Instance.GetPlayerBasePosition());
+        }
+    }
+
+    void HandleDestroyObject(Damageable damageable)
+    {
+        if (damageable == this.damageable)
+        {
+            Destroy(gameObject);
         }
     }
 

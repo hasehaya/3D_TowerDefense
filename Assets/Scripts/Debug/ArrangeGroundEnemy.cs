@@ -28,14 +28,14 @@ public class ArrangeGroundEnemy :MonoBehaviour
             child.tag = "Enemy";
             child.gameObject.layer = LayerMask.NameToLayer("Enemy");
 
-            var cylinder = child.gameObject.GetComponent<CylinderCollider>();
+            var col = child.gameObject.GetComponent<CapsuleCollider>();
             var nav = child.GetComponent<NavMeshAgent>();
             if (!nav)
             {
                 nav = child.gameObject.AddComponent<NavMeshAgent>();
             }
-            nav.height = cylinder.height;
-            nav.radius = cylinder.radius;
+            nav.height = col.height;
+            nav.radius = col.radius;
 
             var damageable = child.gameObject.GetComponent<Damageable>();
             if (!damageable)
