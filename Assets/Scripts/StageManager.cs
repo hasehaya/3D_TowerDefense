@@ -47,17 +47,23 @@ public class StageManager :MonoBehaviour
 
     public void StageClear()
     {
-        UIManager.Instance.ShowStageClearText();
-        Time.timeScale = 0.1f;
-    }
-
-    public void NextStage()
-    {
-        stageNum++;
-        Time.timeScale = 1.0f;
+        UIManager.Instance.ShowStageClearPanel();
     }
 
     public void GameOver()
     {
+        UIManager.Instance.ShowGameOverPanel();
+    }
+
+    public void NextStage()
+    {
+        SceneLoader.Instance.LoadNextStage();
+        Time.timeScale = 1.0f;
+    }
+
+    public void RestartStage()
+    {
+        SceneLoader.Instance.RestartStage();
+        Time.timeScale = 1.0f;
     }
 }

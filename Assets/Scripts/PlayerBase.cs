@@ -18,13 +18,13 @@ public class PlayerBase :MonoBehaviour, IDamageable
         damageable.TakeDamage(damage);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-        if (collision.gameObject.tag != "Enemy")
+        if (other.gameObject.tag != "Enemy")
         {
             return;
         }
-        var enemy = collision.gameObject.GetComponent<Enemy>();
+        var enemy = other.gameObject.GetComponent<Enemy>();
         enemy.EnterBase();
     }
 }

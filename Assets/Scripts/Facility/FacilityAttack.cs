@@ -38,11 +38,13 @@ public class FacilityAttack :Facility
         enemyDetector.Initialize(Form.Capsule, attackRange);
 
         Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
+        ZombieEnemy.OnZombieDowned += HandleEnemyDestroyed;
     }
 
     private void OnDestroy()
     {
         Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
+        ZombieEnemy.OnZombieDowned -= HandleEnemyDestroyed;
     }
 
     protected override void Update()

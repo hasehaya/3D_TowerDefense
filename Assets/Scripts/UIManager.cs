@@ -17,10 +17,16 @@ public class UIManager :MonoBehaviour
     }
 
     public FacilityPurchasePresenter facilityPurchasePresenter;
-    [SerializeField] Text stageClearText;
+    [SerializeField] StageClearPanelPresneter stageClearPanelPresneter;
+    [SerializeField] GameOverPanelPresenter gameOverPanelPresenter;
 
-    public void ShowStageClearText()
+    public void ShowStageClearPanel()
     {
-        stageClearText.gameObject.SetActive(true);
+        stageClearPanelPresneter.gameObject.SetActive(true);
+    }
+
+    public void ShowGameOverPanel()
+    {
+        gameOverPanelPresenter.gameObject.SetActive(true);
     }
 }

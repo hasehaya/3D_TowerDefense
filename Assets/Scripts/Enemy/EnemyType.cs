@@ -31,5 +31,7 @@
     MushroomAngry = 28,
     MushroomSmile = 29,
     NagaWizard = 30,
-    Salamander = 31
+    Salamander = 31,
+    MiddleSlime = 32,
+    LargeSlime = 33,
 }

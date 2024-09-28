@@ -27,7 +27,7 @@ public class MoneyManager :MonoBehaviour
 
     private void Start()
     {
-        AddMoney(300);
+        AddMoney(100);
     }
 
     public void Pay(int price)

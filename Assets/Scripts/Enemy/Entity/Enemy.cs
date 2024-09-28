@@ -14,18 +14,19 @@ public class Enemy :MonoBehaviour
     // ナビゲーション
     [HideInInspector] public NavMeshAgent nav;
     [HideInInspector] public Rigidbody rb;
+    [HideInInspector] public Animator anim;
     // HP関係
-    private Damageable damageable;
+    protected Damageable damageable;
     // 敵の種類
     [SerializeField] EnemyType enemyType;
     // ステータス
-    private float maxHp = 10;
-    private float speed = 2f;
-    private int money = 0;
-    private float attackPower = 1.0f;
-    private float attackSpeed = 1.0f;
-    private float attackRange = 1.0f;
-    private Attribute attribute = Attribute.Normal;
+    protected float maxHp = 10;
+    protected float speed = 2f;
+    protected int money = 0;
+    protected float attackPower = 1.0f;
+    protected float attackSpeed = 1.0f;
+    protected float attackRange = 1.0f;
+    protected Attribute attribute = Attribute.Normal;
 
     // アビリティーリスト
     protected List<IAbility> abilityList = new List<IAbility>();
@@ -60,6 +61,7 @@ public class Enemy :MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         damageable = GetComponent<Damageable>();
+        anim = GetComponent<Animator>();
         Damageable.OnDestroyDamageableObject += Die;
         SetStatus();
         AddEnemyAttack();
@@ -152,7 +154,7 @@ public class Enemy :MonoBehaviour
         var status = EnemyManager.Instance.GetEnemyStatus(enemyType);
         damageable.Initialize(status.hp);
         maxHp = status.hp;
-        speed = status.speed;
+        speed = status.speed * 30 / 100;
         money = status.money;
         attackPower = status.attackPower;
         attackSpeed = status.attackSpeed;
@@ -179,12 +181,23 @@ public class Enemy :MonoBehaviour
         enemyAttack.Initialize(this);
     }
 
-    public void TakeDamage(float damage)
+    /// <summary>
+    /// ダメージ処理のみ、ヒールのためには使わない
+    /// </summary>
+    public virtual void TakeDamage(float damage)
     {
         damageable.TakeDamage(damage);
     }
 
-    public void Die(Damageable damageable)
+    /// <summary>
+    /// 中身でマイナスに変換しているため引数は正の値でよい
+    /// </summary>
+    public void Heal(float healAmount)
+    {
+        damageable.TakeDamage(-healAmount);
+    }
+
+    public virtual void Die(Damageable damageable)
     {
         if (damageable != this.damageable)
         {
