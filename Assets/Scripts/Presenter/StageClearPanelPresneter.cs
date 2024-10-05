@@ -2,15 +2,25 @@
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageClearPanelPresneter :MonoBehaviour
 {
-    public void OnClickNextStageButton()
+    [SerializeField] Button restartBtn;
+    [SerializeField] Button nextStageBtn;
+
+    private void Start()
+    {
+        restartBtn.onClick.AddListener(OnClickRetryButton);
+        nextStageBtn.onClick.AddListener(OnClickNextStageButton);
+    }
+
+    private void OnClickNextStageButton()
     {
         StageManager.Instance.NextStage();
     }
 
-    public void OnClickRetryButton()
+    private void OnClickRetryButton()
     {
         StageManager.Instance.RestartStage();
     }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class MoneyViewPresenter :MonoBehaviour
+public class MoneyPresenter :MonoBehaviour
 {
     [SerializeField] MoneyView moneyView;
 

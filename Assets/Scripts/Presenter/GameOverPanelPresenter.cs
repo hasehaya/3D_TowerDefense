@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameOverPanelPresenter :MonoBehaviour
 {
-    public void OnClickRestartButton()
+    [SerializeField] Button restartBtn;
+
+    private void Start()
+    {
+        restartBtn.onClick.AddListener(OnClickRestartButton);
+    }
+    private void OnClickRestartButton()
     {
         StageManager.Instance.RestartStage();
     }

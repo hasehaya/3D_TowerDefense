@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 
 using UnityEngine;
 
@@ -16,6 +17,8 @@ public class WaveManager :MonoBehaviour
             return instance;
         }
     }
+
+    public static Action<int, int> OnWaveChanged;
 
     [SerializeField] GameObject enemyPrefab;
     [SerializeField] WaveDataListEntity waveDataListEntity;
@@ -37,6 +40,7 @@ public class WaveManager :MonoBehaviour
         var stage = StageManager.Instance.stageNum;
         waveDataList = waveDataListEntity.lists.Where(waveData => waveData.stage == stage).ToArray();
         ReloadWaveEnemyList();
+        OnWaveChanged?.Invoke(waveIndex, maxWaveIndex);
     }
 
     private void Update()
@@ -119,6 +123,7 @@ public class WaveManager :MonoBehaviour
         spwanTime = 0f;
         enemyIndex = 0;
         ReloadWaveEnemyList();
+        OnWaveChanged?.Invoke(waveIndex, maxWaveIndex);
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.NextWave);
     }
 }

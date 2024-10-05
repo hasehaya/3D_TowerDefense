@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class Damageable :MonoBehaviour
 {
@@ -47,10 +42,20 @@ public class Damageable :MonoBehaviour
             CurrentHp = MaxHp;
         }
         hpBar.SetHp(CurrentHp);
+
+        ShowDamageCount(damage);
+
         if (CurrentHp <= 0)
         {
             OnDestroyDamageableObject?.Invoke(this);
         }
+    }
+
+    void ShowDamageCount(float damage)
+    {
+        DamageText damageText = ObjectPool<DamageText>.Instance.GetObject();
+        damageText.transform.position = transform.position + Vector3.up * 1f;
+        damageText.SetDamage(damage);
     }
 
     public void SetHpBarPosition(Vector3 pos)
