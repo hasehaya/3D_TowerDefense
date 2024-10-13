@@ -15,6 +15,8 @@ public class Enemy :MonoBehaviour
     [HideInInspector] public NavMeshAgent nav;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public Animator anim;
+    [HideInInspector] public AnimatorOverrideController baseOverrideController;
+
     // HP関係
     protected Damageable damageable;
     // 敵の種類
@@ -76,6 +78,7 @@ public class Enemy :MonoBehaviour
         SetStatus();
         AddEnemyAttack();
         SetNavMeshAgent();
+        OverrideAnimator();
 
         // NavMeshエリアのインデックスを取得
         roadArea = NavMesh.GetAreaFromName("Road");
@@ -93,6 +96,43 @@ public class Enemy :MonoBehaviour
     private void SetNavMeshAgent()
     {
         nav.speed = speed;
+    }
+
+    private void OverrideAnimator()
+    {
+        AnimatorOverrideController animatorOverrideController = new AnimatorOverrideController(baseOverrideController);
+
+        // Load animations from Resources
+        string objectName = gameObject.name;
+        string folderPath = "Enemy/Animation/" + objectName;
+
+        // Get the list of animations to override
+        List<KeyValuePair<AnimationClip, AnimationClip>> overrides = new List<KeyValuePair<AnimationClip, AnimationClip>>();
+        animatorOverrideController.GetOverrides(overrides);
+
+        foreach (var clipPair in overrides)
+        {
+            AnimationClip defaultClip = clipPair.Key;
+
+            // Build the animation file name according to your naming convention
+            string animFileName = defaultClip.name + "_" + objectName + "_Anim";
+
+            // Load the animation clip
+            AnimationClip newClip = Resources.Load<AnimationClip>(folderPath + "/" + animFileName);
+
+            if (newClip != null)
+            {
+                // Override the clip
+                animatorOverrideController[defaultClip] = newClip;
+            }
+            else
+            {
+                Debug.LogWarning("Animation clip not found: " + folderPath + "/" + animFileName);
+            }
+        }
+
+        // Apply the new override controller to the Animator
+        anim.runtimeAnimatorController = animatorOverrideController;
     }
 
     public bool IsGrounded()
