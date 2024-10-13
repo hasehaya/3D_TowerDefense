@@ -11,7 +11,7 @@ public class FloatingState :IFlyEnemyState
 
     public void EnterState()
     {
-        // 初期化処理（必要なら追加）
+        enemy.anim.SetBool("isFloating", true);
     }
 
     public void UpdateState()
@@ -27,6 +27,6 @@ public class FloatingState :IFlyEnemyState
 
     public void ExitState()
     {
-        // 終了処理（必要なら追加）
+        enemy.anim.SetBool("isFloating", false);
     }
 }

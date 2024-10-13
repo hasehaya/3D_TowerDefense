@@ -1525,6 +1525,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nav: {fileID: 0}
   rb: {fileID: 0}
+  anim: {fileID: 0}
   enemyType: 7
   roadArea: 0
   groundArea: 0
@@ -1540,7 +1541,7 @@ Animator:
   m_GameObject: {fileID: 8834626776513823628}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 5fab215e18584731b9b61359399412aa, type: 3}
-  m_Controller: {fileID: 9100000, guid: fdcd7a880e8241e2bb8934c55d27912a, type: 2}
+  m_Controller: {fileID: 22100000, guid: 463869151a4764042906199ce1dd0ba0, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0

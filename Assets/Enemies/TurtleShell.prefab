@@ -1026,7 +1026,7 @@ GameObject:
   - component: {fileID: 2676817086232231160}
   - component: {fileID: 1701985210547249097}
   - component: {fileID: 7894706678474553158}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: TurtleShell
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -1064,6 +1064,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nav: {fileID: 0}
   rb: {fileID: 0}
+  anim: {fileID: 0}
   enemyType: 9
   roadArea: 0
   groundArea: 0
@@ -1077,7 +1078,7 @@ Animator:
   m_GameObject: {fileID: 8583892024359425608}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: e4ca1a4776be40ea8cccb39bafa3eb7d, type: 3}
-  m_Controller: {fileID: 9100000, guid: 0f31f809fb564e5a9c75b4e00b833fb9, type: 2}
+  m_Controller: {fileID: 22100000, guid: 1d58f718846e286479779268b2193bba, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1097,7 +1098,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 8583892024359425608}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.56
+  m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1106,7 +1107,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1.15
+  m_Height: 1
   m_BaseOffset: 0
   m_WalkableMask: 16
   m_ObstacleAvoidanceType: 4

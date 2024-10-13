@@ -1,14 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
 public class EnemyDetector :MonoBehaviour
 {
     List<Enemy> enemies = new List<Enemy>();
+    Action<Enemy> onEnemyExit;
 
-    public void Initialize(Form form, float range)
+    public void Initialize(Form form, float range, Action<Enemy> onEnemyExit = null)
     {
-        Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
+        Enemy.OnEnemyDead += HandleEnemyDead;
+        this.onEnemyExit = onEnemyExit;
         switch (form)
         {
             case Form.Sphere:
@@ -32,10 +35,10 @@ public class EnemyDetector :MonoBehaviour
 
     private void OnDestroy()
     {
-        Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
+        Enemy.OnEnemyDead -= HandleEnemyDead;
     }
 
-    void HandleEnemyDestroyed(Enemy destroyedEnemy)
+    void HandleEnemyDead(Enemy destroyedEnemy)
     {
         if (!enemies.Contains(destroyedEnemy))
         {
@@ -89,5 +92,6 @@ public class EnemyDetector :MonoBehaviour
             return;
         }
         enemies.Remove(enemy);
+        onEnemyExit?.Invoke(enemy);
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+
 using UnityEngine;
 
 public class Damageable :MonoBehaviour
@@ -36,6 +37,11 @@ public class Damageable :MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (CurrentHp <= 0)
+        {
+            return;
+        }
+
         CurrentHp -= damage;
         if (CurrentHp > MaxHp)
         {
@@ -62,5 +68,10 @@ public class Damageable :MonoBehaviour
     {
         pos.y += 1;
         hpBarInstance.transform.position = pos;
+    }
+
+    public void HideHpBar()
+    {
+        hpBarInstance.SetActive(false);
     }
 }

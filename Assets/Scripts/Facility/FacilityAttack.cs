@@ -36,17 +36,15 @@ public class FacilityAttack :Facility
         gameObject.layer = LayerMask.NameToLayer("Muzzle");
 
         enemyDetector = gameObject.AddComponent<EnemyDetector>();
-        enemyDetector.Initialize(Form.Capsule, attackRange);
+        enemyDetector.Initialize(Form.Capsule, attackRange, DeleteEnemyFromTargetEnemy);
 
-        Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
-        ZombieEnemy.OnZombieDowned += HandleEnemyDestroyed;
+        Enemy.OnEnemyDead += DeleteEnemyFromTargetEnemy;
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
-        ZombieEnemy.OnZombieDowned -= HandleEnemyDestroyed;
+        Enemy.OnEnemyDead -= DeleteEnemyFromTargetEnemy;
     }
 
     protected override void Update()
@@ -63,6 +61,9 @@ public class FacilityAttack :Facility
         {
             return;
         }
+
+        coolTimeCounter += Time.deltaTime;
+
         if (enemies.Count == 0)
         {
             return;
@@ -71,16 +72,16 @@ public class FacilityAttack :Facility
         if (targetEnemy == null)
         {
             targetEnemy = GetMostNearEnemy();
+            if (targetEnemy == null)
+            {
+                return;
+            }
         }
 
         if (coolTimeCounter > GetAttackRate())
         {
             coolTimeCounter = 0;
             GenerateBullet();
-        }
-        else
-        {
-            coolTimeCounter += Time.deltaTime;
         }
     }
 
@@ -157,7 +158,23 @@ public class FacilityAttack :Facility
         Enemy mostNearEnemy = null;
         foreach (var enemy in enemies)
         {
-            if (mostNearEnemy == null || Vector3.Distance(transform.position, enemy.transform.position) < Vector3.Distance(transform.position, mostNearEnemy.transform.position))
+            if (!enemy)
+            {
+                continue;
+            }
+            if (enemy.IsDead)
+            {
+                continue;
+            }
+
+            if (!mostNearEnemy)
+            {
+                mostNearEnemy = enemy;
+            }
+
+            var mostNearEnemyDistance = Vector3.Distance(transform.position, mostNearEnemy.transform.position);
+            var enemyDistance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (mostNearEnemyDistance < enemyDistance)
             {
                 mostNearEnemy = enemy;
             }
@@ -165,14 +182,11 @@ public class FacilityAttack :Facility
         return mostNearEnemy;
     }
 
-    void HandleEnemyDestroyed(Enemy destroyedEnemy)
+    void DeleteEnemyFromTargetEnemy(Enemy destroyedEnemy)
     {
-        if (enemies.Contains(destroyedEnemy))
+        if (destroyedEnemy == targetEnemy)
         {
-            if (destroyedEnemy == targetEnemy)
-            {
-                targetEnemy = null;
-            }
+            targetEnemy = null;
         }
     }
 }

@@ -17,6 +17,8 @@ public class FallingState :IFlyEnemyState
         enemy.rb.velocity = Vector3.zero;
 
         FlyEnemy.OnEnemyShootDown.Invoke(enemy);
+
+        enemy.anim.SetBool("isShootDown", true);
     }
 
     public void UpdateState()
@@ -32,5 +34,6 @@ public class FallingState :IFlyEnemyState
         enemy.rb.useGravity = false;
         enemy.rb.isKinematic = true;
         enemy.rb.velocity = Vector3.zero;
+        enemy.anim.SetBool("isShootDown", false);
     }
 }

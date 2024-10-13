@@ -6,10 +6,8 @@ using UnityEngine;
 
 public class ZombieEnemy :Enemy
 {
-    public static Action<ZombieEnemy> OnZombieDowned;
-
     [SerializeField] float downTime = 2f;
-    bool isDown = false;
+    float downTimeCounter = 0;
 
     public override void Die(Damageable damageable)
     {
@@ -17,19 +15,22 @@ public class ZombieEnemy :Enemy
         {
             return;
         }
+        anim.SetBool("isDead", true);
 
-        if (isDown)
+        nav.isStopped = true;
+        rb.isKinematic = true;
+        rb.velocity = Vector3.zero;
+
+        isDead = true;
+        OnEnemyDead?.Invoke(this);
+
+        if (isDead)
         {
-            Destroy(gameObject);
-            if (MoneyManager.Instance != null)
-            {
-                MoneyManager.Instance.AddMoney(money);
-            }
+            Destroy();
         }
         else
         {
-            isDown = true;
-            OnZombieDowned?.Invoke(this);
+            isDead = true;
         }
     }
 }

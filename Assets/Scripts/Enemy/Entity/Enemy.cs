@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -10,12 +11,14 @@ public class Enemy :MonoBehaviour
 {
     // 破壊された際に呼ばれるイベント
     public static Action<Enemy> OnEnemyDestroyed;
+    public static Action<Enemy> OnEnemyDead;
 
     // ナビゲーション
     [HideInInspector] public NavMeshAgent nav;
     [HideInInspector] public Rigidbody rb;
     [HideInInspector] public Animator anim;
-    [HideInInspector] public AnimatorOverrideController baseOverrideController;
+
+    protected bool isDead = false;
 
     // HP関係
     protected Damageable damageable;
@@ -50,6 +53,7 @@ public class Enemy :MonoBehaviour
     public int GroundArea => groundArea;
     //TODO: 後で修正
     public EnemyType EnemyType { get { return enemyType; } set { enemyType = value; } }
+    public bool IsDead => isDead;
     public float Speed => speed;
     public float AttackPower => attackPower;
     public float AttackSpeed => attackSpeed;
@@ -73,12 +77,11 @@ public class Enemy :MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         damageable = GetComponent<Damageable>();
-        anim = GetComponent<Animator>();
         nav = GetComponent<NavMeshAgent>();
         SetStatus();
         AddEnemyAttack();
         SetNavMeshAgent();
-        OverrideAnimator();
+        SetAnimator();
 
         // NavMeshエリアのインデックスを取得
         roadArea = NavMesh.GetAreaFromName("Road");
@@ -98,15 +101,14 @@ public class Enemy :MonoBehaviour
         nav.speed = speed;
     }
 
-    private void OverrideAnimator()
+    private void SetAnimator()
     {
-        AnimatorOverrideController animatorOverrideController = new AnimatorOverrideController(baseOverrideController);
+        anim = GetComponent<Animator>();
+        AnimatorOverrideController animatorOverrideController = new AnimatorOverrideController(anim.runtimeAnimatorController);
 
-        // Load animations from Resources
         string objectName = gameObject.name;
         string folderPath = "Enemy/Animation/" + objectName;
 
-        // Get the list of animations to override
         List<KeyValuePair<AnimationClip, AnimationClip>> overrides = new List<KeyValuePair<AnimationClip, AnimationClip>>();
         animatorOverrideController.GetOverrides(overrides);
 
@@ -114,15 +116,12 @@ public class Enemy :MonoBehaviour
         {
             AnimationClip defaultClip = clipPair.Key;
 
-            // Build the animation file name according to your naming convention
-            string animFileName = defaultClip.name + "_" + objectName + "_Anim";
+            string animFileName = defaultClip.name;
 
-            // Load the animation clip
             AnimationClip newClip = Resources.Load<AnimationClip>(folderPath + "/" + animFileName);
 
             if (newClip != null)
             {
-                // Override the clip
                 animatorOverrideController[defaultClip] = newClip;
             }
             else
@@ -131,8 +130,8 @@ public class Enemy :MonoBehaviour
             }
         }
 
-        // Apply the new override controller to the Animator
         anim.runtimeAnimatorController = animatorOverrideController;
+        anim.SetBool("isRun", true);
     }
 
     public bool IsGrounded()
@@ -160,7 +159,7 @@ public class Enemy :MonoBehaviour
 
     protected virtual void UpdateState()
     {
-        currentState.UpdateState();
+        currentState?.UpdateState();
     }
 
     public void TransitionToState(IEnemyState newState)
@@ -257,8 +256,28 @@ public class Enemy :MonoBehaviour
         {
             return;
         }
+        anim.SetBool("isDead", true);
 
+        nav.isStopped = true;
+        rb.isKinematic = true;
+        rb.velocity = Vector3.zero;
+
+        isDead = true;
+        damageable.HideHpBar();
+        OnEnemyDead?.Invoke(this);
+        StartCoroutine(WaitForAnimationToEnd());
+    }
+
+    private IEnumerator WaitForAnimationToEnd()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Destroy();
+    }
+
+    protected void Destroy()
+    {
         Destroy(gameObject);
+        // お金の処理
         if (MoneyManager.Instance != null)
         {
             MoneyManager.Instance.AddMoney(money);

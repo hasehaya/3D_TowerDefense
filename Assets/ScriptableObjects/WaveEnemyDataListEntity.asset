@@ -21,12 +21,12 @@ MonoBehaviour:
   - stage: 1
     wave: 1
     spawnTime: 5
-    enemyType: 8
+    enemyType: 1
     enemyBaseIndex: 0
   - stage: 1
     wave: 1
     spawnTime: 10
-    enemyType: 8
+    enemyType: 2
     enemyBaseIndex: 0
   - stage: 1
     wave: 1

@@ -1790,13 +1790,13 @@ GameObject:
   - component: {fileID: 4474162970634751317}
   - component: {fileID: 3651697714873014225}
   - component: {fileID: 3738154223717908815}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Salamander
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &334902039171156848
 Transform:
   m_ObjectHideFlags: 0
@@ -1828,6 +1828,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nav: {fileID: 0}
   rb: {fileID: 0}
+  anim: {fileID: 0}
   enemyType: 31
   roadArea: 0
   groundArea: 0
@@ -1841,7 +1842,7 @@ Animator:
   m_GameObject: {fileID: 7963471997253939705}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: f06668778d544f588247b42a2cdc1124, type: 3}
-  m_Controller: {fileID: 9100000, guid: af1df1d9b15846d483d4424516bbfbcb, type: 2}
+  m_Controller: {fileID: 22100000, guid: 1d58f718846e286479779268b2193bba, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1861,7 +1862,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 7963471997253939705}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.89
+  m_Radius: 0.5
   m_Speed: 3.5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -1870,7 +1871,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 2
+  m_Height: 1
   m_BaseOffset: 0
   m_WalkableMask: 16
   m_ObstacleAvoidanceType: 4

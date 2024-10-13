@@ -44,6 +44,7 @@ public class FacilityManager :MonoBehaviour
             targetFacility.HandleSelection(true);
         }
 
+        /*
         if (CrystalBox.Instance.selectedCrystal == null)
         {
             NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Synthesize);
@@ -52,6 +53,7 @@ public class FacilityManager :MonoBehaviour
         {
             NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Synthesize, targetFacility.Synthesize, CrystalBox.Instance.selectedCrystal);
         }
+        */
     }
 
     public GameObject GetPurchasingFacility()

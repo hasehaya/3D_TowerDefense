@@ -5,6 +5,10 @@ using UnityEngine.AI;
 
 public class ArrangeFlyEnemy :MonoBehaviour
 {
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
     // Arrangeボタンを押した時に子オブジェクトを整列させるメソッド
     public void ArrangeChildren()
     {

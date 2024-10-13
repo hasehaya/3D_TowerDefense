@@ -9,7 +9,7 @@ public class Bullet :MonoBehaviour
     float speed;
     private bool isPaused = false;
 
-    const int MAX_TURN_ANGLE = 50;
+    const int MAX_TURN_ANGLE = 60;
 
     private void Awake()
     {

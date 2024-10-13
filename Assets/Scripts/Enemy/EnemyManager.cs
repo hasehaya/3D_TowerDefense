@@ -64,6 +64,7 @@ public class EnemyManager :MonoBehaviour
     {
         var enemyPrefab = GetEnemyPrefab(enemyType);
         var enemyObj = Instantiate(enemyPrefab, pos, new Quaternion());
+        enemyObj.name = enemyPrefab.name;
         var enemy = enemyObj.GetComponent<Enemy>();
         enemyList.Add(enemy);
     }
