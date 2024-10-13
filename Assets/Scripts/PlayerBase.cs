@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class PlayerBase :MonoBehaviour, IDamageable
 {
-    public static Action<int, int> OnEnemyEnterBase;
+    public static Action<int, int> OnChangeBaseHp;
 
     int maxHp;
     int currentHp;
@@ -19,6 +19,7 @@ public class PlayerBase :MonoBehaviour, IDamageable
 
         maxHp = 20;
         currentHp = maxHp;
+        OnChangeBaseHp?.Invoke(currentHp, maxHp);
     }
 
     public void TakeDamage(int damage)
@@ -40,6 +41,6 @@ public class PlayerBase :MonoBehaviour, IDamageable
         {
             StageManager.Instance.GameOver();
         }
-        OnEnemyEnterBase?.Invoke(currentHp, maxHp);
+        OnChangeBaseHp?.Invoke(currentHp, maxHp);
     }
 }

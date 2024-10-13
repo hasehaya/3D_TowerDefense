@@ -57,12 +57,22 @@ public class Enemy :MonoBehaviour
     // 現在のHP（読み取り専用）
     public float CurrentHp => damageable.CurrentHp;
 
+    // Pause state
+    private bool isPaused = false;
+
+    private void Awake()
+    {
+        Damageable.OnDestroyDamageableObject += Die;
+        StageManager.OnPause += Pause;
+        StageManager.OnResume += Resume;
+    }
+
     protected virtual void Start()
     {
         rb = GetComponent<Rigidbody>();
         damageable = GetComponent<Damageable>();
         anim = GetComponent<Animator>();
-        Damageable.OnDestroyDamageableObject += Die;
+        nav = GetComponent<NavMeshAgent>();
         SetStatus();
         AddEnemyAttack();
         SetNavMeshAgent();
@@ -82,7 +92,6 @@ public class Enemy :MonoBehaviour
 
     private void SetNavMeshAgent()
     {
-        nav = GetComponent<NavMeshAgent>();
         nav.speed = speed;
     }
 
@@ -101,6 +110,9 @@ public class Enemy :MonoBehaviour
 
     protected virtual void Update()
     {
+        if (isPaused)
+            return; // Pause中はUpdateを停止
+
         Freeze();
         ExecuteAbilities();
         UpdateState();
@@ -146,6 +158,8 @@ public class Enemy :MonoBehaviour
     protected virtual void OnDestroy()
     {
         Damageable.OnDestroyDamageableObject -= Die;
+        StageManager.OnPause -= Pause;
+        StageManager.OnResume -= Resume;
         OnEnemyDestroyed?.Invoke(this);
     }
 
@@ -216,6 +230,57 @@ public class Enemy :MonoBehaviour
         Destroy(gameObject);
     }
 
+
+    // 保存用変数
+    private bool wasNavStopped;
+    private Vector3 savedRbVelocity;
+    private bool wasRbKinematic;
+
+    /// <summary>
+    /// ゲームの一時停止時に呼ばれるメソッド
+    /// </summary>
+    void Pause()
+    {
+        if (isPaused)
+            return; // 既にPause中の場合は何もしない
+
+        isPaused = true;
+
+        // NavMeshAgentの状態を保存
+        wasNavStopped = nav.isStopped;
+        nav.isStopped = true;
+
+        // Rigidbodyの状態を保存
+        savedRbVelocity = rb.velocity;
+        wasRbKinematic = rb.isKinematic;
+        rb.isKinematic = true;
+        rb.velocity = Vector3.zero;
+
+        // Animatorの状態を保存
+        anim.speed = 0;
+    }
+
+    /// <summary>
+    /// ゲームの再開時に呼ばれるメソッド
+    /// </summary>
+    void Resume()
+    {
+        if (!isPaused)
+            return; // Pauseされていない場合は何もしない
+
+        isPaused = false;
+
+        // NavMeshAgentの状態を復元
+        nav.isStopped = wasNavStopped;
+
+        // Rigidbodyの状態を復元
+        rb.isKinematic = wasRbKinematic;
+        rb.velocity = savedRbVelocity;
+
+        // Animatorの状態を復元
+        anim.speed = 1;
+    }
+
     /// <summary>
     /// フリーズさせる関数
     /// </summary>
@@ -235,7 +300,6 @@ public class Enemy :MonoBehaviour
         TransitionToState(new BlownOffState(this, blowedDirection));
     }
 }
-
 
 [System.Serializable]
 public class EnemyParameter

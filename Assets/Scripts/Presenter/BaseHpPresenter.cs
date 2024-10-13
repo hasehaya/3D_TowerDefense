@@ -6,14 +6,14 @@ using UnityEngine;
 public class BaseHpPresenter :MonoBehaviour
 {
     [SerializeField] BaseHpView baseHpView;
-    void Start()
+    void Awake()
     {
-        PlayerBase.OnEnemyEnterBase += UpdateHp;
+        PlayerBase.OnChangeBaseHp += UpdateHp;
     }
 
     void OnDestroy()
     {
-        PlayerBase.OnEnemyEnterBase -= UpdateHp;
+        PlayerBase.OnChangeBaseHp -= UpdateHp;
     }
 
     void UpdateHp(int currentHp, int maxHp)

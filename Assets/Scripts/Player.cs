@@ -28,6 +28,16 @@ public class Player :MonoBehaviour
     private bool isGrounded = true; // 現在の地面との接地状態
     private bool isJumping = false; // ジャンプ中かどうかのフラグ
 
+    // Pause state
+    private bool isPaused = false;
+
+    private void Awake()
+    {
+        // StageManagerのPauseとResumeイベントに登録
+        StageManager.OnPause += Pause;
+        StageManager.OnResume += Resume;
+    }
+
     void Start()
     {
         animator = GetComponent<Animator>();
@@ -36,6 +46,9 @@ public class Player :MonoBehaviour
 
     void Update()
     {
+        if (isPaused)
+            return; // Pause中はUpdateを停止
+
         // ジャンプ入力
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isJumping)
         {
@@ -48,6 +61,9 @@ public class Player :MonoBehaviour
 
     void FixedUpdate()
     {
+        if (isPaused)
+            return; // Pause中はFixedUpdateを停止
+
         Move();
         Rotate();
         GroundCheck();
@@ -120,6 +136,7 @@ public class Player :MonoBehaviour
     {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         animator.SetBool("isJump", true);
+        isJumping = true;
     }
 
     void GroundCheck()
@@ -170,5 +187,53 @@ public class Player :MonoBehaviour
     {
         transform.position = position;
         rb.velocity = Vector3.zero; // 速度をリセット
+    }
+
+    // 保存用変数
+    private Vector3 savedRbVelocity;
+    private bool wasRbKinematic;
+    private float savedAnimSpeed;
+
+    /// <summary>
+    /// ゲームの一時停止時に呼ばれるメソッド
+    /// </summary>
+    void Pause()
+    {
+        if (isPaused)
+            return; // 既にPause中の場合は何もしない
+
+        isPaused = true;
+
+        // Rigidbodyの状態を保存
+        savedRbVelocity = rb.velocity;
+        wasRbKinematic = rb.isKinematic;
+        rb.isKinematic = true;
+        rb.velocity = Vector3.zero;
+
+        // Animatorの状態を保存
+        savedAnimSpeed = animator.speed;
+        animator.speed = 0;
+
+        // その他のコンポーネントや状態異常があれば必要に応じて保存・停止
+    }
+
+    /// <summary>
+    /// ゲームの再開時に呼ばれるメソッド
+    /// </summary>
+    void Resume()
+    {
+        if (!isPaused)
+            return; // Pauseされていない場合は何もしない
+
+        isPaused = false;
+
+        // Rigidbodyの状態を復元
+        rb.isKinematic = wasRbKinematic;
+        rb.velocity = savedRbVelocity;
+
+        // Animatorの状態を復元
+        animator.speed = savedAnimSpeed;
+
+        // その他のコンポーネントや状態異常があれば必要に応じて復元
     }
 }

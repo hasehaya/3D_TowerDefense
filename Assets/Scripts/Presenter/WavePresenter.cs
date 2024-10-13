@@ -7,7 +7,7 @@ public class WavePresenter :MonoBehaviour
 {
     [SerializeField] WaveView waveView;
 
-    private void Start()
+    private void Awake()
     {
         WaveManager.OnWaveChanged += UpdateWaveText;
     }

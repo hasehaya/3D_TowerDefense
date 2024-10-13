@@ -1,7 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+
+using UnityEngine;
 
 public class StageManager :MonoBehaviour
 {
+    public static Action OnPause;
+    public static Action OnResume;
+
     private static StageManager instance;
     public static StageManager Instance
     {
@@ -48,11 +53,13 @@ public class StageManager :MonoBehaviour
     public void StageClear()
     {
         UIManager.Instance.ShowStageClearPanel();
+        OnPause?.Invoke();
     }
 
     public void GameOver()
     {
         UIManager.Instance.ShowGameOverPanel();
+        OnPause?.Invoke();
     }
 
     public void NextStage()

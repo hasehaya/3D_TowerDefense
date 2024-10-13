@@ -29,8 +29,9 @@ public class FacilityAttack :Facility
     float coolTimeCounter;
     protected Enemy targetEnemy;
 
-    protected virtual void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
         gameObject.layer = LayerMask.NameToLayer("Muzzle");
 
@@ -41,14 +42,17 @@ public class FacilityAttack :Facility
         ZombieEnemy.OnZombieDowned += HandleEnemyDestroyed;
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
+        base.OnDestroy();
         Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
         ZombieEnemy.OnZombieDowned -= HandleEnemyDestroyed;
     }
 
     protected override void Update()
     {
+        if (isPaused)
+            return;
         base.Update();
         Attack();
     }
