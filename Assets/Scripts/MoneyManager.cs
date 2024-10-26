@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class MoneyManager :MonoBehaviour
+public class MoneyManager
 {
     // 合成された際に呼ばれるイベント
     public static Action<int> OnMoneyChenged;
@@ -17,7 +17,7 @@ public class MoneyManager :MonoBehaviour
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<MoneyManager>();
+                instance = new MoneyManager();
             }
             return instance;
         }
@@ -25,7 +25,7 @@ public class MoneyManager :MonoBehaviour
     private int money;
     public int Money => money;
 
-    private void Start()
+    private MoneyManager()
     {
         AddMoney(100);
     }

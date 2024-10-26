@@ -10,8 +10,11 @@ public class Audio :MonoBehaviour
     public Sound[] sounds;
     //[SerializeField] Slider slider;
     //public bool isSoundOn = true;
+
+
     protected virtual void Start()
     {
+        DontDestroyOnLoad(gameObject);
         //slider.value = 1;
         foreach (var sound in sounds)
         {

@@ -12,7 +12,7 @@ public class GenerateNavMeshVolumeModifier :MonoBehaviour
     [SerializeField] Terrain terrain;
     [SerializeField] Texture2D splatmap;
     [SerializeField] GameObject roadParent;
-    const int ROOP_PIXEL_SIZE = 2;
+    const int ROOP_PIXEL_SIZE = 1;
 
     public void BakeNavMesh()
     {

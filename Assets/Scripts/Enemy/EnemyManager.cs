@@ -5,7 +5,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyManager :MonoBehaviour
+public class EnemyManager
 {
     private static EnemyManager instance;
     public static EnemyManager Instance
@@ -14,18 +14,24 @@ public class EnemyManager :MonoBehaviour
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<EnemyManager>();
+                instance = new EnemyManager();
             }
             return instance;
         }
     }
-    [SerializeField] EnemyParameterListEntity enemyStatusListEntity;
+    EnemyParameterListEntity enemyStatusListEntity;
 
     private List<Enemy> enemyList = new List<Enemy>();
 
-    private void Start()
+    EnemyManager()
     {
+        enemyStatusListEntity = ScriptableObjectManager.Instance.GetEnemyParameterListEntity();
         Enemy.OnEnemyDestroyed += RemoveEnemy;
+    }
+
+    ~EnemyManager()
+    {
+        Enemy.OnEnemyDestroyed -= RemoveEnemy;
     }
 
     public EnemyParameter GetEnemyStatus(EnemyType enemyType)
@@ -63,7 +69,7 @@ public class EnemyManager :MonoBehaviour
     public void SpawnEnemy(EnemyType enemyType, Vector3 pos)
     {
         var enemyPrefab = GetEnemyPrefab(enemyType);
-        var enemyObj = Instantiate(enemyPrefab, pos, new Quaternion());
+        var enemyObj = Object.Instantiate(enemyPrefab, pos, new Quaternion());
         enemyObj.name = enemyPrefab.name;
         var enemy = enemyObj.GetComponent<Enemy>();
         enemyList.Add(enemy);

@@ -97,6 +97,11 @@ public class Facility :MonoBehaviour
         StageManager.OnResume -= Resume;
     }
 
+    public void DestroyThisFacility()
+    {
+        Destroy(gameObject);
+    }
+
     /// <summary>
     /// FacilityのGameObjectをParameterを付けて返す関数
     /// </summary>

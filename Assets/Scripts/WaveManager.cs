@@ -3,7 +3,7 @@ using System.Linq;
 
 using UnityEngine;
 
-public class WaveManager :MonoBehaviour
+public class WaveManager
 {
     private static WaveManager instance;
     public static WaveManager Instance
@@ -12,7 +12,7 @@ public class WaveManager :MonoBehaviour
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<WaveManager>();
+                instance = new WaveManager();
             }
             return instance;
         }
@@ -20,10 +20,9 @@ public class WaveManager :MonoBehaviour
 
     public static Action<int, int> OnWaveChanged;
 
-    [SerializeField] GameObject enemyPrefab;
-    [SerializeField] WaveDataListEntity waveDataListEntity;
+    WaveDataListEntity waveDataListEntity;
     WaveData[] waveDataList;
-    [SerializeField] WaveEnemyDataListEntity waveEnemyDataListEntity;
+    WaveEnemyDataListEntity waveEnemyDataListEntity;
     WaveEnemyData[] waveEnemyList;
 
     // 生成用
@@ -35,12 +34,15 @@ public class WaveManager :MonoBehaviour
     int maxWaveIndex { get { return waveDataList.Length; } }
     bool isWaveEnd = false;
 
-    private void Start()
+    public WaveManager()
     {
+        waveDataListEntity = ScriptableObjectManager.Instance.GetWaveDataListEntity();
+        waveEnemyDataListEntity = ScriptableObjectManager.Instance.GetWaveEnemyDataListEntity();
         var stage = StageManager.Instance.stageNum;
         waveDataList = waveDataListEntity.lists.Where(waveData => waveData.stage == stage).ToArray();
         ReloadWaveEnemyList();
         OnWaveChanged?.Invoke(waveIndex, maxWaveIndex);
+        UpdateCaller.AddUpdateCallback(Update);
     }
 
     private void Update()

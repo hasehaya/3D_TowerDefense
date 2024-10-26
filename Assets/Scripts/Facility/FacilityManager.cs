@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public class FacilityManager :MonoBehaviour
+public class FacilityManager
 {
     private static FacilityManager instance;
     public static FacilityManager Instance
@@ -11,16 +11,22 @@ public class FacilityManager :MonoBehaviour
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<FacilityManager>();
+                instance = new FacilityManager();
             }
             return instance;
         }
     }
-    [SerializeField] FacilityParameterListEntity facilityParameterListEntity;
+    FacilityParameterListEntity facilityParameterListEntity;
 
     List<Facility> facilities = new List<Facility>();
     Facility previousTargetFacility;
     GameObject purchasingFacilityObj;
+
+    public FacilityManager()
+    {
+        facilityParameterListEntity = ScriptableObjectManager.Instance.GetFacilityParameterListEntity();
+        UpdateCaller.AddUpdateCallback(Update);
+    }
 
     private void Update()
     {
@@ -102,7 +108,7 @@ public class FacilityManager :MonoBehaviour
         var facility = purchasingFacilityObj.GetComponent<Facility>();
         MoneyManager.Instance.AddMoney(facility.FacilityParameter.price);
         RemoveFacility(facility);
-        Destroy(purchasingFacilityObj);
+        facility.DestroyThisFacility();
         purchasingFacilityObj = null;
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
         facility.HideNotice();

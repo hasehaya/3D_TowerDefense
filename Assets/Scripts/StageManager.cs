@@ -24,7 +24,15 @@ public class StageManager :MonoBehaviour
 
     private void Start()
     {
+        SingletonInitialize();
         Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    void SingletonInitialize()
+    {
+        var waveManager = WaveManager.Instance;
+        var facilityManager = FacilityManager.Instance;
+        var enemyManager = EnemyManager.Instance;
     }
 
     public Vector3 GetPlayerBasePosition()
