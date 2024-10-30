@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 
 using UnityEngine;
-using UnityEngine.Events;
-using UnityEngine.UI;
 
 public class Damageable :MonoBehaviour
 {
+    // ダメージを受けるオブジェクトが破壊されたときに呼ばれるイベント
+    public static Action<Damageable> OnDestroyDamageableObject;
+
     HPBar hpBar;
     public float CurrentHp { get; private set; }
     public float MaxHp { get; private set; }
@@ -37,21 +37,41 @@ public class Damageable :MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+        if (CurrentHp <= 0)
+        {
+            return;
+        }
+
         CurrentHp -= damage;
         if (CurrentHp > MaxHp)
         {
             CurrentHp = MaxHp;
         }
         hpBar.SetHp(CurrentHp);
+
+        ShowDamageCount(damage);
+
         if (CurrentHp <= 0)
         {
-            Destroy(gameObject);
+            OnDestroyDamageableObject?.Invoke(this);
         }
+    }
+
+    void ShowDamageCount(float damage)
+    {
+        DamageText damageText = ObjectPool<DamageText>.Instance.GetObject();
+        damageText.transform.position = transform.position + Vector3.up * 1f;
+        damageText.SetDamage(damage);
     }
 
     public void SetHpBarPosition(Vector3 pos)
     {
         pos.y += 1;
         hpBarInstance.transform.position = pos;
+    }
+
+    public void HideHpBar()
+    {
+        hpBarInstance.SetActive(false);
     }
 }

@@ -21,6 +21,8 @@ public class Facility :MonoBehaviour
         Mine = 3,
         Freeze = 4,
         Shield = 5,
+        ShootDown = 6,
+        Spring = 7,
     }
 
     public enum Category
@@ -40,10 +42,11 @@ public class Facility :MonoBehaviour
     public FacilityParameter FacilityParameter { get; private set; }
     public int Level { get; private set; }
 
-
     public bool isInstalled = false;
     public bool canInstall = false;
     public bool isSelected = false;
+
+    protected bool isPaused = false;
 
 
     //メッシュ
@@ -57,6 +60,11 @@ public class Facility :MonoBehaviour
     Crystal attachedCrystal;
     protected List<NoticeManager.NoticeType> noticeTypes = new List<NoticeManager.NoticeType>();
 
+    protected virtual void Awake()
+    {
+        StageManager.OnPause += Pause;
+        StageManager.OnResume += Resume;
+    }
 
     protected virtual void Start()
     {
@@ -78,7 +86,20 @@ public class Facility :MonoBehaviour
 
     protected virtual void Update()
     {
+        if (isPaused)
+            return;
         InstallingFacility();
+    }
+
+    protected virtual void OnDestroy()
+    {
+        StageManager.OnPause -= Pause;
+        StageManager.OnResume -= Resume;
+    }
+
+    public void DestroyThisFacility()
+    {
+        Destroy(gameObject);
     }
 
     /// <summary>
@@ -117,7 +138,7 @@ public class Facility :MonoBehaviour
         {
             mr.Key.material.color = mr.Value;
         }
-        faciltyInstallCol.InstallFacility();
+        faciltyInstallCol.DestroyInstallCollider();
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
         OnFacilityInstalled?.Invoke(this);
@@ -182,6 +203,20 @@ public class Facility :MonoBehaviour
     public InstallType GetInstallType()
     {
         return FacilityParameter.installType;
+    }
+
+    protected void Pause()
+    {
+        if (isPaused)
+            return;
+        isPaused = true;
+    }
+
+    protected void Resume()
+    {
+        if (!isPaused)
+            return;
+        isPaused = false;
     }
 }
 

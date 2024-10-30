@@ -120,6 +120,14 @@ MonoBehaviour:
   canInstall: 0
   isSelected: 0
   muzzlePos: {fileID: 1388407240358758779}
+  attackPower: 80
+  attackSpeed: 20
+  attackRate: 2
+  isAreaAttack: 0
+  attackRange: 30
+  attackArea: 0
+  attackType: 0
+  material: {fileID: 0}
 --- !u!1 &6798824829025071593
 GameObject:
   m_ObjectHideFlags: 0

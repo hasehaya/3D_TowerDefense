@@ -7,6 +7,7 @@ using UnityEngine;
 public class SE :Audio
 {
     private static SE instance;
+
     public static SE Instance
     {
         get
@@ -14,10 +15,30 @@ public class SE :Audio
             if (instance == null)
             {
                 instance = FindObjectOfType<SE>();
+                if (instance == null)
+                {
+                    GameObject singletonObject = new GameObject("SE_Singleton");
+                    instance = singletonObject.AddComponent<SE>();
+                    DontDestroyOnLoad(singletonObject);
+                }
             }
             return instance;
         }
     }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     protected override void Start()
     {
         //isSoundOn = DataManager.Instance.Flag.isSeOn;

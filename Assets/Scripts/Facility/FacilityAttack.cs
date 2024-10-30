@@ -6,58 +6,51 @@ public class FacilityAttack :Facility
 {
     public enum AttackType
     {
-        None = 0,
         Ground = 1,
         Sky = 2,
         GroundAndSky = 3,
     }
 
-    [SerializeField] Transform muzzlePos;
+    [SerializeField] protected Transform muzzlePos;
 
-    FacilityAttackParameter attackParameter;
-    float attackPower;
-    float attackSpeed;
-    float attackRate;
-    bool isAreaAttack;
-    float attackRange;
-    float attackArea;
-    Material material;
+    [SerializeField] float attackPower;
+    [SerializeField] float attackSpeed;
+    [SerializeField] float attackRate;
+    [SerializeField] bool isAreaAttack;
+    [SerializeField] float attackRange;
+    [SerializeField] float attackArea;
+    [SerializeField] AttackType attackType;
+    [SerializeField] Material material;
 
     EnemyDetector enemyDetector;
-    List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
+    protected List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
 
-    GameObject bulletPrefab;
+    protected GameObject bulletPrefab;
     float coolTimeCounter;
-    Enemy targetEnemy;
+    protected Enemy targetEnemy;
 
-    private void Awake()
+    protected override void Awake()
     {
-        var parameter = FacilityManager.Instance.GetFacilityAttackParameter(type);
-        attackParameter = parameter;
-        attackPower = parameter.attackPower;
-        attackSpeed = parameter.attackSpeed;
-        attackRate = parameter.attackRate;
-        isAreaAttack = parameter.isAreaAttack;
-        attackRange = parameter.attackRange;
-        attackArea = parameter.attackArea;
-
-
+        base.Awake();
         bulletPrefab = Resources.Load<GameObject>("Prefabs/Bullet");
         gameObject.layer = LayerMask.NameToLayer("Muzzle");
 
         enemyDetector = gameObject.AddComponent<EnemyDetector>();
-        enemyDetector.Initialize(Form.Capsule, attackRange);
+        enemyDetector.Initialize(Form.Capsule, attackRange, DeleteEnemyFromTargetEnemy);
 
-        Enemy.OnEnemyDestroyed += HandleEnemyDestroyed;
+        Enemy.OnEnemyDead += DeleteEnemyFromTargetEnemy;
     }
 
-    private void OnDestroy()
+    protected override void OnDestroy()
     {
-        Enemy.OnEnemyDestroyed -= HandleEnemyDestroyed;
+        base.OnDestroy();
+        Enemy.OnEnemyDead -= DeleteEnemyFromTargetEnemy;
     }
 
     protected override void Update()
     {
+        if (isPaused)
+            return;
         base.Update();
         Attack();
     }
@@ -68,6 +61,9 @@ public class FacilityAttack :Facility
         {
             return;
         }
+
+        coolTimeCounter += Time.deltaTime;
+
         if (enemies.Count == 0)
         {
             return;
@@ -76,18 +72,23 @@ public class FacilityAttack :Facility
         if (targetEnemy == null)
         {
             targetEnemy = GetMostNearEnemy();
+            if (targetEnemy == null)
+            {
+                return;
+            }
         }
 
-        if (GetAttackRate() <= coolTimeCounter)
+        if (coolTimeCounter > GetAttackRate())
         {
             coolTimeCounter = 0;
-            var bullet = Instantiate(bulletPrefab, muzzlePos.position, Quaternion.identity);
-            bullet.GetComponent<Bullet>().Initialize(this, targetEnemy);
+            GenerateBullet();
         }
-        else
-        {
-            coolTimeCounter += Time.deltaTime;
-        }
+    }
+
+    protected virtual void GenerateBullet()
+    {
+        var bullet = Instantiate(bulletPrefab, muzzlePos.position, Quaternion.identity);
+        bullet.GetComponent<Bullet>().Initialize(this, targetEnemy);
     }
 
     /// <summary>
@@ -97,9 +98,6 @@ public class FacilityAttack :Facility
     public static GameObject GenerateFacilityAttack(Type type)
     {
         var facility = GenerateFacility(type);
-        var facilityAttack = facility.GetComponent<FacilityAttack>();
-        var facilityAttackParameter = FacilityManager.Instance.GetFacilityAttackParameter(type);
-        facilityAttack.attackParameter = facilityAttackParameter;
         return facility;
     }
 
@@ -155,12 +153,28 @@ public class FacilityAttack :Facility
         return material;
     }
 
-    Enemy GetMostNearEnemy()
+    protected virtual Enemy GetMostNearEnemy()
     {
         Enemy mostNearEnemy = null;
         foreach (var enemy in enemies)
         {
-            if (mostNearEnemy == null || Vector3.Distance(transform.position, enemy.transform.position) < Vector3.Distance(transform.position, mostNearEnemy.transform.position))
+            if (!enemy)
+            {
+                continue;
+            }
+            if (enemy.IsDead)
+            {
+                continue;
+            }
+
+            if (!mostNearEnemy)
+            {
+                mostNearEnemy = enemy;
+            }
+
+            var mostNearEnemyDistance = Vector3.Distance(transform.position, mostNearEnemy.transform.position);
+            var enemyDistance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (mostNearEnemyDistance < enemyDistance)
             {
                 mostNearEnemy = enemy;
             }
@@ -168,44 +182,11 @@ public class FacilityAttack :Facility
         return mostNearEnemy;
     }
 
-    void HandleEnemyDestroyed(Enemy destroyedEnemy)
+    void DeleteEnemyFromTargetEnemy(Enemy destroyedEnemy)
     {
-        if (enemies.Contains(destroyedEnemy))
+        if (destroyedEnemy == targetEnemy)
         {
-            if (destroyedEnemy == targetEnemy)
-            {
-                targetEnemy = null;
-            }
+            targetEnemy = null;
         }
     }
 }
-
-
-[System.Serializable]
-public class FacilityAttackParameter
-{
-    public Facility.Type type;
-    public FacilityAttack.AttackType attackType;
-    public float attackPower;
-    public float attackSpeed;
-    public float attackRate;
-    public bool isAreaAttack;
-    public float attackRange;
-    public float attackArea;
-    public GameObject bullet;
-
-
-    public FacilityAttackParameter()
-    {
-        type = Facility.Type.Canon;
-        attackType = FacilityAttack.AttackType.None;
-        attackPower = 0;
-        attackSpeed = 0;
-        attackRate = 0;
-        isAreaAttack = false;
-        attackRange = 0;
-        attackArea = 0;
-        bullet = null;
-    }
-}
-

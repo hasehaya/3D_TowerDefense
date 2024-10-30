@@ -2,7 +2,7 @@
 
 using UnityEngine;
 
-public class FacilityManager :MonoBehaviour
+public class FacilityManager
 {
     private static FacilityManager instance;
     public static FacilityManager Instance
@@ -11,19 +11,22 @@ public class FacilityManager :MonoBehaviour
         {
             if (instance == null)
             {
-                instance = FindObjectOfType<FacilityManager>();
+                instance = new FacilityManager();
             }
             return instance;
         }
     }
-
-    [SerializeField] GameObject facilityPrefab;
-    [SerializeField] FacilityAttackParameterListEntity attackParameterListEntity;
-    [SerializeField] FacilityParameterListEntity facilityParameterListEntity;
+    FacilityParameterListEntity facilityParameterListEntity;
 
     List<Facility> facilities = new List<Facility>();
     Facility previousTargetFacility;
     GameObject purchasingFacilityObj;
+
+    public FacilityManager()
+    {
+        facilityParameterListEntity = ScriptableObjectManager.Instance.GetFacilityParameterListEntity();
+        UpdateCaller.AddUpdateCallback(Update);
+    }
 
     private void Update()
     {
@@ -47,6 +50,7 @@ public class FacilityManager :MonoBehaviour
             targetFacility.HandleSelection(true);
         }
 
+        /*
         if (CrystalBox.Instance.selectedCrystal == null)
         {
             NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Synthesize);
@@ -55,6 +59,7 @@ public class FacilityManager :MonoBehaviour
         {
             NoticeManager.Instance.ShowArgNotice(NoticeManager.NoticeType.Synthesize, targetFacility.Synthesize, CrystalBox.Instance.selectedCrystal);
         }
+        */
     }
 
     public GameObject GetPurchasingFacility()
@@ -88,14 +93,7 @@ public class FacilityManager :MonoBehaviour
     public void PurchaseFacility(Facility.Type type)
     {
         GameObject facilityObj;
-        if (IsFacilityAttackExist(type))
-        {
-            facilityObj = FacilityAttack.GenerateFacilityAttack(type);
-        }
-        else
-        {
-            facilityObj = Facility.GenerateFacility(type);
-        }
+        facilityObj = Facility.GenerateFacility(type);
         purchasingFacilityObj = facilityObj;
         var facility = facilityObj.GetComponent<Facility>();
         MoneyManager.Instance.Pay(facility.FacilityParameter.price);
@@ -110,7 +108,7 @@ public class FacilityManager :MonoBehaviour
         var facility = purchasingFacilityObj.GetComponent<Facility>();
         MoneyManager.Instance.AddMoney(facility.FacilityParameter.price);
         RemoveFacility(facility);
-        Destroy(purchasingFacilityObj);
+        facility.DestroyThisFacility();
         purchasingFacilityObj = null;
         NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
         facility.HideNotice();
@@ -118,33 +116,9 @@ public class FacilityManager :MonoBehaviour
         Facility.OnFacilityInstalled -= ReleasePurchasingFacility;
     }
 
-    public bool IsFacilityAttackExist(Facility.Type type)
-    {
-        foreach (var facility in attackParameterListEntity.lists)
-        {
-            if (facility.type == type)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
     public FacilityParameter GetFacilityParameter(Facility.Type type)
     {
         foreach (var parameter in facilityParameterListEntity.lists)
-        {
-            if (parameter.type == type)
-            {
-                return parameter;
-            }
-        }
-        return null;
-    }
-
-    public FacilityAttackParameter GetFacilityAttackParameter(Facility.Type type)
-    {
-        foreach (var parameter in attackParameterListEntity.lists)
         {
             if (parameter.type == type)
             {

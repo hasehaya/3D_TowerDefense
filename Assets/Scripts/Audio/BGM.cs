@@ -14,10 +14,30 @@ public class BGM :Audio
             if (instance == null)
             {
                 instance = FindObjectOfType<BGM>();
+                if (instance == null)
+                {
+                    GameObject singletonObject = new GameObject("BGM_Singleton");
+                    instance = singletonObject.AddComponent<BGM>();
+                    DontDestroyOnLoad(singletonObject);
+                }
             }
             return instance;
         }
     }
+
+    private void Awake()
+    {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+    }
+
     protected override void Start()
     {
         //isSoundOn = DataManager.Instance.Flag.isBgmOn;

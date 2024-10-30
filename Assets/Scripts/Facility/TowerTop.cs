@@ -33,7 +33,6 @@ public class TowerTop :MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        NoticeManager.Instance.HideAllNotice();
         currentTower?.WarpSelection(false);
         currentTower = null;
     }
