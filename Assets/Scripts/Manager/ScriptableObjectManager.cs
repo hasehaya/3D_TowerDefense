@@ -23,6 +23,7 @@ public class ScriptableObjectManager :MonoBehaviour
     [SerializeField] StageDataListEntity stageDataListEntity;
     [SerializeField] WaveDataListEntity waveDataListEntity;
     [SerializeField] WaveEnemyDataListEntity waveEnemyDataListEntity;
+    [SerializeField] MessageDataListEntity messageDataListEntity;
 
     public EnemyParameterListEntity GetEnemyParameterListEntity()
     {
@@ -47,5 +48,10 @@ public class ScriptableObjectManager :MonoBehaviour
     public WaveEnemyDataListEntity GetWaveEnemyDataListEntity()
     {
         return waveEnemyDataListEntity;
+    }
+
+    public MessageDataListEntity GetMessageDataListEntity()
+    {
+        return messageDataListEntity;
     }
 }
