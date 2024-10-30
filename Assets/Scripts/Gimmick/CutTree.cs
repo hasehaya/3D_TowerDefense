@@ -1,11 +1,13 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
 public class CutTree :Gimmick, IDamageable
 {
     [SerializeField] int hp;
     [SerializeField] float range;
+    [SerializeField] Animator anim;
     public Damageable damageable { get; set; }
     EnemyDetector enemyDetector;
     List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
@@ -34,11 +36,26 @@ public class CutTree :Gimmick, IDamageable
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.CutTree);
     }
 
+
     protected override void Excute()
     {
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.CutTree);
-        var anim = GetComponent<Animator>();
         anim.Play("Cut");
+
+        RuntimeAnimatorController ac = anim.runtimeAnimatorController;
+        string methodName = "BecomTarget";
+
+        foreach (var clip in ac.animationClips)
+        {
+            if (clip.name == "Cut")
+            {
+                var finishEvent = new AnimationEvent();
+                finishEvent.functionName = methodName;
+                finishEvent.time = clip.length;
+                clip.AddEvent(finishEvent);
+                break; // Exit the loop after adding the event to the "Cut" clip
+            }
+        }
     }
 
     void BecomTarget()
@@ -47,7 +64,6 @@ public class CutTree :Gimmick, IDamageable
         damageable.Initialize(hp);
         var child = transform.Find("Child").gameObject;
         var worldPos = child.gameObject.transform.position;
-        ;
         damageable.SetHpBarPosition(worldPos);
         enemyDetector = gameObject.AddComponent<EnemyDetector>();
         enemyDetector.Initialize(Form.Sphere, range);

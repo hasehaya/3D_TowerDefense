@@ -110,7 +110,7 @@ public class NoticeManager :MonoBehaviour
         noticeKey.Add(NoticeType.NextWave, KeyCode.H);
         noticeKey.Add(NoticeType.CutTree, KeyCode.G);
         noticeKey.Add(NoticeType.MoveRock, KeyCode.J);
-        noticeKey.Add(NoticeType.Fairy, KeyCode.D);
+        noticeKey.Add(NoticeType.Fairy, KeyCode.I);
         // テキストの登録
         noticeText.Add(NoticeType.Synthesize, "水晶合成");
         noticeText.Add(NoticeType.Climb, "登る");

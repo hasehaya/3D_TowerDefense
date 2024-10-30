@@ -22,7 +22,7 @@ public class Fairy :MonoBehaviour
     }
 
     bool canUse = true;
-    float nearDistance = 10.0f;
+    float nearDistance = 5.0f;
     float speed = 3;
     UnityAction doAction;
     Vector3 targetPosition;

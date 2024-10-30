@@ -5,9 +5,10 @@ using UnityEngine;
 public class Gimmick : MonoBehaviour
 {
 
-    private float nearDistance = 20.0f;
+    private float nearDistance = 10.0f;
     private float waitTime = 10.0f;
     bool waiting = false;
+    bool isShowNotice = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -48,28 +49,33 @@ public class Gimmick : MonoBehaviour
     {
         if(waiting)
         {
+            NoticeManager.Instance.HideAllNotice();
             return;
         }
         var playerPosition = Player.Instance.transform.position;
         if (Vector3.Distance(transform.position, playerPosition) < nearDistance)
         {
+            isShowNotice = true;
             ShowNotice();
-            if(Fairy.Instance.getCanUse())
+            if (Fairy.Instance.getCanUse())
             {
                 NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Fairy, useFairy);
             }
-           
+
         }
         else
         {
-            HideNotice();
-            NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Fairy);
+            if (isShowNotice)
+            {
+                HideNotice();
+                NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Fairy);
+            }
         }
     }
 
     void  useFairy()
     {
-        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Fairy);
+        waiting = true;
         Fairy.Instance.setCanUse(false);
         Fairy.Instance.setTargetPosition(this.gameObject.transform.position);
         Invoke(nameof(Excute), waitTime);
