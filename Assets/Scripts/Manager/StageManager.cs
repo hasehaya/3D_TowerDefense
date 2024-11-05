@@ -20,7 +20,8 @@ public class StageManager :MonoBehaviour
         }
     }
     [SerializeField] PlayerBase playerBase;
-    public int stageNum { get; private set; } = 1;
+    public int StageNum { get; private set; } = 1;
+
 
     private void Awake()
     {
