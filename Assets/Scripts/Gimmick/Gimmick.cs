@@ -25,7 +25,7 @@ public class Gimmick : MonoBehaviour
     {
         waiting = true;
         HideNotice();
-        Player.Instance.setCanMove(false);
+        Player.Instance.SetCanMove(false);
         Invoke(nameof(Excute), waitTime);
         Invoke(nameof(FinishPlayerAction), waitTime);
     }
@@ -89,7 +89,7 @@ public class Gimmick : MonoBehaviour
 
     void FinishPlayerAction()
     {
-        Player.Instance.setCanMove(true);
+        Player.Instance.SetCanMove(true);
     }
 
 }

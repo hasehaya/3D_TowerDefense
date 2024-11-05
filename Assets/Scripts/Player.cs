@@ -48,7 +48,7 @@ public class Player :MonoBehaviour
             return; // Pause中はUpdateを停止
 
         // ジャンプ入力
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded && !isJumping)
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             Jump();
         }
@@ -70,7 +70,7 @@ public class Player :MonoBehaviour
 
     void Move()
     {
-        if(!canMove)
+        if (!canMove)
         {
             return;
         }
@@ -137,32 +137,43 @@ public class Player :MonoBehaviour
     void Jump()
     {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        animator.SetBool("isJump", true);
-        isJumping = true;
+        // Removed animator and isJumping updates from here
     }
 
     void GroundCheck()
     {
         // プレイヤーの足元にレイを飛ばして地面をチェック
         RaycastHit hit;
-        int layerToTarget = LayerMask.NameToLayer("Ground"); // レイヤー名を使用
+        int layerToTarget = LayerMask.NameToLayer("Ground");
         LayerMask layerMask = 1 << layerToTarget;
         var position = transform.position + Vector3.up * 2;
 
+        bool wasGrounded = isGrounded;
+
         if (Physics.Raycast(position, Vector3.down, out hit, 2.01f, layerMask))
         {
-            if (isJumping)
-            {
-                isGrounded = true;
-                isJumping = false;
-
-                animator.SetBool("isJump", false);
-            }
+            isGrounded = true;
         }
         else
         {
             isGrounded = false;
-            isJumping = true;
+        }
+
+        // Check if the grounded state has changed
+        if (isGrounded != wasGrounded)
+        {
+            if (isGrounded)
+            {
+                // Player has landed
+                isJumping = false;
+                animator.SetBool("isJump", false);
+            }
+            else
+            {
+                // Player has left the ground
+                isJumping = true;
+                animator.SetBool("isJump", true);
+            }
         }
     }
 
@@ -235,7 +246,7 @@ public class Player :MonoBehaviour
         animator.speed = savedAnimSpeed;
     }
 
-    public void setCanMove(bool b)
+    public void SetCanMove(bool b)
     {
         canMove = b;
     }
