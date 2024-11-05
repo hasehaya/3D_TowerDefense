@@ -19,10 +19,10 @@ public class MessageWindowManager :MonoBehaviour
         }
     }
 
-    [SerializeField] GameObject messageWindow;
-    [SerializeField] Text messageText;
+    [SerializeField] GameObject messageWindow; // メッセージウィンドウ
+    [SerializeField] Text messageText; // メッセージテキスト
 
-    [SerializeField] float charInterval = 0.05f;
+    [SerializeField] float charInterval = 0.05f; // 文字表示間隔
     private Coroutine writingCoroutine;
     private bool isWriting = false;
     private string fullMessage = string.Empty;
@@ -32,15 +32,38 @@ public class MessageWindowManager :MonoBehaviour
         ' ', '　', ',', '、', '。', '「', '」', '!', '?', '.', ':', ';'
     };
 
-    [SerializeField] MessageData[] messageList;
+    MessageData[] messageList;
+    private bool isWaitingForNextMessage = false;
 
     void Start()
     {
         messageList = ScriptableObjectManager.Instance.GetMessageDataListEntity().lists;
         messageText.text = "";
         messageWindow.SetActive(false);
+        ShowMessagesWithId(1); // 初期メッセージ表示
     }
 
+    void Update()
+    {
+        if (messageWindow.activeSelf)
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (isWriting)
+                {
+                    // 表示中にクリックされたら全文表示
+                    SkipWriting();
+                }
+                else if (isWaitingForNextMessage)
+                {
+                    // 全文表示後にクリックされたら次のメッセージへ
+                    isWaitingForNextMessage = false;
+                }
+            }
+        }
+    }
+
+    // メッセージを表示
     public void ShowMessage(string message)
     {
         messageWindow.SetActive(true);
@@ -55,6 +78,7 @@ public class MessageWindowManager :MonoBehaviour
         writingCoroutine = StartCoroutine(TypeWriteMessage(fullMessage));
     }
 
+    // タイプライター風に文字を表示
     private IEnumerator TypeWriteMessage(string message)
     {
         isWriting = true;
@@ -63,13 +87,14 @@ public class MessageWindowManager :MonoBehaviour
             messageText.text += c;
             if (!muteChars.Contains(c))
             {
-                SE.Play("TypeWriteMessage");
+                //SE.Play("TypeWriteMessage");
             }
             yield return new WaitForSeconds(charInterval);
         }
         isWriting = false;
     }
 
+    // 表示中の文字をスキップして全文表示
     public void SkipWriting()
     {
         if (isWriting)
@@ -77,10 +102,11 @@ public class MessageWindowManager :MonoBehaviour
             StopCoroutine(writingCoroutine);
             messageText.text = fullMessage;
             isWriting = false;
-            messageWindow.SetActive(false);
+            // ウィンドウは閉じない
         }
     }
 
+    // メッセージをクリア
     public void ClearMessage()
     {
         if (isWriting)
@@ -92,15 +118,17 @@ public class MessageWindowManager :MonoBehaviour
         messageWindow.SetActive(false);
     }
 
-    // Function to display messages based on MessageId
+    // 指定IDのメッセージを表示
     public void ShowMessagesWithId(int messageId)
     {
         StartCoroutine(ShowMessagesCoroutine(messageId));
     }
 
+    // メッセージ表示のコルーチン
     private IEnumerator ShowMessagesCoroutine(int messageId)
     {
-        // Find all messages with the given MessageId and sort them by InternalNo
+        StageManager.Instance.Pause();
+        // 指定IDのメッセージを取得して内部番号順にソート
         List<MessageData> targetMessages = new List<MessageData>();
         foreach (MessageData m in messageList)
         {
@@ -113,15 +141,33 @@ public class MessageWindowManager :MonoBehaviour
 
         messageWindow.SetActive(true);
 
-        // Display each message sequentially
+        // 各メッセージを順に表示
         foreach (MessageData messageData in targetMessages)
         {
+            // メッセージ間でテキストをクリア
+            messageText.text = "";
+
+            // メッセージを表示
             yield return StartCoroutine(TypeWriteMessage(messageData.text));
-            yield return new WaitForSeconds(1f); // Optional delay between messages
+
+            // クリックを待つ
+            yield return StartCoroutine(WaitForClick());
         }
 
-        // Close the MessageWindow after displaying all messages
+        // 全メッセージ表示後にウィンドウを閉じる
         messageWindow.SetActive(false);
+        StageManager.Instance.Resume();
+    }
+
+    // クリックを待つコルーチン
+    private IEnumerator WaitForClick()
+    {
+        isWaitingForNextMessage = true;
+        while (isWaitingForNextMessage)
+        {
+            yield return null;
+        }
+        // 次のメッセージへ
     }
 }
 

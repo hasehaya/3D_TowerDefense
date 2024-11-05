@@ -34,19 +34,40 @@ public class WaveManager
     int maxWaveIndex { get { return waveDataList.Length; } }
     bool isWaveEnd = false;
 
+    bool isPaused = false;
+
+
     public WaveManager()
     {
         waveDataListEntity = ScriptableObjectManager.Instance.GetWaveDataListEntity();
         waveEnemyDataListEntity = ScriptableObjectManager.Instance.GetWaveEnemyDataListEntity();
+
         var stage = StageManager.Instance.stageNum;
         waveDataList = waveDataListEntity.lists.Where(waveData => waveData.stage == stage).ToArray();
         ReloadWaveEnemyList();
         OnWaveChanged?.Invoke(waveIndex, maxWaveIndex);
+
         UpdateCaller.AddUpdateCallback(Update);
+
+        StageManager.OnPause += Pause;
+        StageManager.OnResume += Resume;
+    }
+
+    ~WaveManager()
+    {
+        UpdateCaller.RemoveUpdateCallback(Update);
+
+        StageManager.OnPause -= Pause;
+        StageManager.OnResume -= Resume;
     }
 
     private void Update()
     {
+        if (isPaused)
+        {
+            return;
+        }
+
         EnemySpawn();
         WaveEndProcess();
         EnemyEliminatedProcess();
@@ -127,6 +148,16 @@ public class WaveManager
         ReloadWaveEnemyList();
         OnWaveChanged?.Invoke(waveIndex, maxWaveIndex);
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.NextWave);
+    }
+
+    void Pause()
+    {
+        isPaused = true;
+    }
+
+    void Resume()
+    {
+        isPaused = false;
     }
 }
 

@@ -22,4 +22,13 @@ public class UpdateCaller :MonoBehaviour
     {
         updateCallback?.Invoke();
     }
+
+    public static void RemoveUpdateCallback(Action updateMethod)
+    {
+        if (instance == null)
+        {
+            instance = FindObjectOfType<UpdateCaller>();
+        }
+        instance.updateCallback -= updateMethod;
+    }
 }
