@@ -1,7 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
-using System;
 
 public class CutTree :Gimmick, IDamageable
 {
@@ -12,15 +13,11 @@ public class CutTree :Gimmick, IDamageable
     EnemyDetector enemyDetector;
     List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
     bool isInstalled = false;
-    private void Start()
-    {
-       
-    }
 
     protected override void Update()
     {
         base.Update();
-        if(isInstalled)
+        if (isInstalled)
         {
             Provoke();
         }
@@ -35,7 +32,6 @@ public class CutTree :Gimmick, IDamageable
     {
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.CutTree);
     }
-
 
     protected override void Excute()
     {
@@ -79,10 +75,9 @@ public class CutTree :Gimmick, IDamageable
     {
         foreach (var enemy in enemies)
         {
-            enemy.SetDestination(StageManager.Instance.GetBase().transform);
+            enemy.SetDestination(StageManager.Instance.GetPlayerBasePosition());
         }
     }
-
 
     void Provoke()
     {
@@ -101,16 +96,15 @@ public class CutTree :Gimmick, IDamageable
             // 敵が盾の方向を向いている場合（内積が正）
             if (dotProduct > 0)
             {
-                var basePos = StageManager.Instance.GetBase().transform.position;
+                var basePos = StageManager.Instance.GetPlayerBasePosition();
                 float distanceToTree = Vector3.Distance(enemy.transform.position, transform.position);
                 float distanceToBase = Vector3.Distance(enemy.transform.position, basePos);
                 if (distanceToTree < distanceToBase)
                 {
                     var child = transform.Find("Child").gameObject;
                     var destinationPos = child.gameObject.transform.position;
-        
-                    enemy.SetDestination(transform);
-                    enemy.setNavPosition(destinationPos);
+
+                    enemy.SetDestination(destinationPos);
                 }
             }
         }
