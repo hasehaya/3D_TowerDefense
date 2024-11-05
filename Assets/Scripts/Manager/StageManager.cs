@@ -22,9 +22,13 @@ public class StageManager :MonoBehaviour
     [SerializeField] PlayerBase playerBase;
     public int stageNum { get; private set; } = 1;
 
-    private void Start()
+    private void Awake()
     {
         SingletonInitialize();
+    }
+
+    private void Start()
+    {
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -58,16 +62,26 @@ public class StageManager :MonoBehaviour
         Time.timeScale += 0.3f;
     }
 
+    public void Pause()
+    {
+        OnPause?.Invoke();
+    }
+
+    public void Resume()
+    {
+        OnResume?.Invoke();
+    }
+
     public void StageClear()
     {
         UIManager.Instance.ShowStageClearPanel();
-        OnPause?.Invoke();
+        Pause();
     }
 
     public void GameOver()
     {
         UIManager.Instance.ShowGameOverPanel();
-        OnPause?.Invoke();
+        Pause();
     }
 
     public void NextStage()

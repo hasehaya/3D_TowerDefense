@@ -38,10 +38,6 @@ public class Player :MonoBehaviour
         // StageManagerのPauseとResumeイベントに登録
         StageManager.OnPause += Pause;
         StageManager.OnResume += Resume;
-    }
-
-    void Start()
-    {
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
     }
@@ -219,8 +215,6 @@ public class Player :MonoBehaviour
         // Animatorの状態を保存
         savedAnimSpeed = animator.speed;
         animator.speed = 0;
-
-        // その他のコンポーネントや状態異常があれば必要に応じて保存・停止
     }
 
     /// <summary>
@@ -239,8 +233,6 @@ public class Player :MonoBehaviour
 
         // Animatorの状態を復元
         animator.speed = savedAnimSpeed;
-
-        // その他のコンポーネントや状態異常があれば必要に応じて復元
     }
 
     public void setCanMove(bool b)
