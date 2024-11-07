@@ -1,71 +1,84 @@
-﻿using DG.Tweening;
-
-using System.Collections;
-using System.Collections.Generic;
-
-using Unity.VisualScripting;
+﻿using System.Collections.Generic;
 
 using UnityEngine;
 
 public class FacilityPurchasePresenter :MonoBehaviour
 {
-    [SerializeField] GameObject content;
-    [SerializeField] GameObject facilityPurchaseViewPrefab;
-    List<FacilityPurchaseView> facilityPurchaseViews = new List<FacilityPurchaseView>();
+    [SerializeField] private GameObject facilityPurchaseViewPrefab;
+
+    private List<FacilityPurchaseItem> facilityPurchaseItems = new List<FacilityPurchaseItem>();
 
     private void Start()
     {
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
+        var availableFacilityParameterList = FacilityManager.Instance.GetAvailableFacilityParameterList();
 
-        var facilityParameters = FacilityManager.Instance.GetFacilityParameters();
-        foreach (var facilityParameter in facilityParameters)
+        int index = 1;
+        foreach (var facilityParameter in availableFacilityParameterList)
         {
-            var purchaseObj = Instantiate(facilityPurchaseViewPrefab, content.transform);
+            var purchaseObj = Instantiate(facilityPurchaseViewPrefab, gameObject.transform);
             var facilityPurchaseView = purchaseObj.GetComponent<FacilityPurchaseView>();
-            facilityPurchaseView.SetFacilityParameter(facilityParameter);
-            facilityPurchaseView.SetButtonAction(() => OnClickPurchaseButton(facilityParameter));
-            facilityPurchaseViews.Add(facilityPurchaseView);
+            var facilityPurchaseModel = new FacilityPurchaseModel(index, facilityParameter);
+
+            // Initialize the view
+            facilityPurchaseView.Initialize(index, facilityPurchaseModel.Icon, facilityPurchaseModel.Price);
+
+            // Subscribe to view events
+            facilityPurchaseView.OnNumberKeyPressed += OnNumberKeyPressed;
+
+            var item = new FacilityPurchaseItem
+            {
+                View = facilityPurchaseView,
+                Model = facilityPurchaseModel,
+            };
+            facilityPurchaseItems.Add(item);
+
+            index++;
         }
+
         MoneyManager.OnMoneyChenged += ReloadPriceColor;
         ReloadPriceColor(MoneyManager.Instance.Money);
     }
 
-    private void OnClickPurchaseButton(FacilityParameter facilityParameter)
+    private void OnNumberKeyPressed(int index)
     {
-        var canPurchase = MoneyManager.Instance.CanPurchase(facilityParameter.price);
+        var item = facilityPurchaseItems.Find(x => x.Model.Index == index);
+        if (item != null)
+        {
+            AttemptPurchase(item.Model);
+        }
+    }
+
+    private void AttemptPurchase(FacilityPurchaseModel model)
+    {
+        var canPurchase = MoneyManager.Instance.CanPurchase(model.Price);
         if (!canPurchase)
         {
+            // Provide feedback to the user that purchase is not possible
             return;
         }
         var purchasingFacility = FacilityManager.Instance.GetPurchasingFacility();
         if (purchasingFacility != null)
         {
+            // Handle case when a purchase is already in progress
             return;
         }
-        FacilityManager.Instance.PurchaseFacility(facilityParameter.type);
+        FacilityManager.Instance.PurchaseFacility(model.Parameter.type);
     }
 
-    void ReloadPriceColor(int money)
+    private void ReloadPriceColor(int money)
     {
-        var facilityParameters = FacilityManager.Instance.GetFacilityParameters();
-        for (int i = 0; i < facilityParameters.Length; i++)
+        foreach (var item in facilityPurchaseItems)
         {
-            var price = facilityParameters[i].price;
+            var price = item.Model.Price;
             var canPurchase = price <= money;
-            facilityPurchaseViews[i].SetPriceColor(canPurchase);
+            item.View.SetPriceColor(canPurchase);
         }
     }
+}
 
-    public void OnClickCloseBtn()
-    {
-        transform.DOMoveX(680, 1);
-        Cursor.lockState = CursorLockMode.Locked;
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
-    }
 
-    public void OpenFacilityPurchase()
-    {
-        transform.DOMoveX(0, 1);
-        Cursor.lockState = CursorLockMode.None;
-    }
+public class FacilityPurchaseItem
+{
+    public FacilityPurchaseView View;
+    public FacilityPurchaseModel Model;
 }

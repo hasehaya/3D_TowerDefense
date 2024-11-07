@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 
+using Unity.VisualScripting;
+
 using UnityEngine;
 
 public class FacilityManager
@@ -18,7 +20,8 @@ public class FacilityManager
     }
     FacilityParameterListEntity facilityParameterListEntity;
 
-    List<Facility> facilities = new List<Facility>();
+    public List<Facility.Type> AvailableFacilityTypeList { get; private set; }
+    List<Facility> installedFacilityList = new List<Facility>();
     Facility previousTargetFacility;
     GameObject purchasingFacilityObj;
 
@@ -26,6 +29,11 @@ public class FacilityManager
     {
         facilityParameterListEntity = ScriptableObjectManager.Instance.GetFacilityParameterListEntity();
         UpdateCaller.AddUpdateCallback(Update);
+    }
+
+    public void SetAvailableFacilityTypes(List<Facility.Type> availableFacilityTypeList)
+    {
+        AvailableFacilityTypeList = availableFacilityTypeList;
     }
 
     private void Update()
@@ -79,12 +87,12 @@ public class FacilityManager
 
     public void AddFacility(Facility facility)
     {
-        facilities.Add(facility);
+        installedFacilityList.Add(facility);
     }
 
     public void RemoveFacility(Facility facility)
     {
-        facilities.Remove(facility);
+        installedFacilityList.Remove(facility);
     }
 
     /// <summary>
@@ -110,7 +118,6 @@ public class FacilityManager
         RemoveFacility(facility);
         facility.DestroyThisFacility();
         purchasingFacilityObj = null;
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
         facility.HideNotice();
 
         Facility.OnFacilityInstalled -= ReleasePurchasingFacility;
@@ -126,6 +133,19 @@ public class FacilityManager
             }
         }
         return null;
+    }
+
+    public List<FacilityParameter> GetAvailableFacilityParameterList()
+    {
+        var ret = new List<FacilityParameter>();
+        foreach (var parameter in facilityParameterListEntity.lists)
+        {
+            if (AvailableFacilityTypeList.Contains(parameter.type))
+            {
+                ret.Add(parameter);
+            }
+        }
+        return ret;
     }
 
     public FacilityParameter[] GetFacilityParameters()

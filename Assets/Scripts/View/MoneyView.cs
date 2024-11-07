@@ -13,4 +13,9 @@ public class MoneyView :MonoBehaviour
     {
         moneyText.text = money.ToString();
     }
+
+    public void SetPriceColor(bool canPurchase)
+    {
+        moneyText.color = canPurchase ? Color.black : Color.red;
+    }
 }

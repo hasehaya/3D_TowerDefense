@@ -33,7 +33,6 @@ public class NoticeManager :MonoBehaviour
         Install = 4,
         CancelInstall = 5,
         Warp = 6,
-        OpenFacilityPurchase = 7,
         PurchaseCancel = 8,
         NextWave = 9,
         CutTree = 10,
@@ -52,7 +51,6 @@ public class NoticeManager :MonoBehaviour
     UnityEvent descendEvent = new UnityEvent();
     UnityEvent installEvent = new UnityEvent();
     UnityEvent warpEvent = new UnityEvent();
-    UnityEvent openFacilityPurchase = new UnityEvent();
     UnityEvent purchaseCancel = new UnityEvent();
     UnityEvent nextWaveEvent = new UnityEvent();
     UnityEvent cutTree = new UnityEvent();
@@ -79,7 +77,6 @@ public class NoticeManager :MonoBehaviour
         noticeEvents.Add(NoticeType.Descend, descendEvent);
         noticeEvents.Add(NoticeType.Install, installEvent);
         noticeEvents.Add(NoticeType.Warp, warpEvent);
-        noticeEvents.Add(NoticeType.OpenFacilityPurchase, openFacilityPurchase);
         noticeEvents.Add(NoticeType.PurchaseCancel, purchaseCancel);
         noticeEvents.Add(NoticeType.NextWave, nextWaveEvent);
         noticeEvents.Add(NoticeType.CutTree, cutTree);
@@ -93,11 +90,9 @@ public class NoticeManager :MonoBehaviour
         // 関数が決まっているNoticeを登録
         fixedNotices = new NoticeType[]
         {
-            NoticeType.OpenFacilityPurchase,
             NoticeType.NextWave,
         };
         // 関数が決まっている関数を登録
-        openFacilityPurchase.AddListener(() => UIManager.Instance.facilityPurchasePresenter.OpenFacilityPurchase());
         nextWaveEvent.AddListener(() => WaveManager.Instance.NextWave());
         // キーの登録
         noticeKey.Add(NoticeType.Synthesize, KeyCode.Z);
@@ -105,7 +100,6 @@ public class NoticeManager :MonoBehaviour
         noticeKey.Add(NoticeType.Descend, KeyCode.Tab);
         noticeKey.Add(NoticeType.Install, KeyCode.E);
         noticeKey.Add(NoticeType.Warp, KeyCode.F);
-        noticeKey.Add(NoticeType.OpenFacilityPurchase, KeyCode.V);
         noticeKey.Add(NoticeType.PurchaseCancel, KeyCode.X);
         noticeKey.Add(NoticeType.NextWave, KeyCode.H);
         noticeKey.Add(NoticeType.CutTree, KeyCode.G);
@@ -117,7 +111,6 @@ public class NoticeManager :MonoBehaviour
         noticeText.Add(NoticeType.Descend, "降りる");
         noticeText.Add(NoticeType.Install, "設置");
         noticeText.Add(NoticeType.Warp, "ワープ");
-        noticeText.Add(NoticeType.OpenFacilityPurchase, "建物購入");
         noticeText.Add(NoticeType.PurchaseCancel, "購入キャンセル");
         noticeText.Add(NoticeType.NextWave, "次のWave");
         noticeText.Add(NoticeType.CutTree, "木を切る");

@@ -140,7 +140,6 @@ public class Facility :MonoBehaviour
         }
         faciltyInstallCol.DestroyInstallCollider();
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.PurchaseCancel);
-        NoticeManager.Instance.ShowNotice(NoticeManager.NoticeType.OpenFacilityPurchase);
         OnFacilityInstalled?.Invoke(this);
     }
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 using UnityEngine;
 
@@ -36,8 +37,9 @@ public class StageManager :MonoBehaviour
     void SingletonInitialize()
     {
         var waveManager = WaveManager.Instance;
-        var facilityManager = FacilityManager.Instance;
         var enemyManager = EnemyManager.Instance;
+        var facilityManager = FacilityManager.Instance;
+        facilityManager.SetAvailableFacilityTypes(new List<Facility.Type> { Facility.Type.Magic, Facility.Type.Mine });
     }
 
     public Vector3 GetPlayerBasePosition()

@@ -1,48 +1,49 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class FacilityPurchaseView :MonoBehaviour
 {
-    [SerializeField] Image icon;
-    [SerializeField] Text nameText;
-    [SerializeField] Text priceText;
-    [SerializeField] Button parchaseButton;
+    [SerializeField] private Image icon;
+    [SerializeField] private Text indexText;
+    [SerializeField] private MoneyView moneyView;
 
-    public void SetFacilityParameter(FacilityParameter facilityParameter)
+    public event System.Action<int> OnNumberKeyPressed;
+
+    private int facilityIndex;
+
+    public void Initialize(int index, Sprite sprite, int price)
     {
-        SetIcon(facilityParameter.icon);
-        SetName(facilityParameter.name);
-        SetPrice(facilityParameter.price);
+        facilityIndex = index;
+        SetIndex(index);
+        SetIcon(sprite);
+        SetPrice(price);
     }
 
-    void SetIcon(Sprite sprite)
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Alpha0 + facilityIndex))
+        {
+            OnNumberKeyPressed?.Invoke(facilityIndex);
+        }
+    }
+
+    private void SetIcon(Sprite sprite)
     {
         icon.sprite = sprite;
     }
 
-    void SetName(string name)
+    private void SetIndex(int index)
     {
-        nameText.text = name;
+        indexText.text = index.ToString();
     }
 
-    public void SetPrice(int price)
+    private void SetPrice(int price)
     {
-        priceText.text = price.ToString();
+        moneyView.SetMoney(price);
     }
 
-    /// <summary>
-    /// True：白色、False：赤色
-    /// </summary>
     public void SetPriceColor(bool canPurchase)
     {
-        priceText.color = canPurchase ? Color.black : Color.red;
-    }
-
-    public void SetButtonAction(System.Action action)
-    {
-        parchaseButton.onClick.AddListener(() => action());
+        moneyView.SetPriceColor(canPurchase);
     }
 }
