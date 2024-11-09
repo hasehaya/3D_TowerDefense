@@ -9,7 +9,7 @@ public class MoneyPresenter :MonoBehaviour
 
     private void Awake()
     {
-        MoneyManager.OnMoneyChenged += SetMoney;
+        MoneyManager.OnMoneyChanged += SetMoney;
     }
 
     public void SetMoney(int money)

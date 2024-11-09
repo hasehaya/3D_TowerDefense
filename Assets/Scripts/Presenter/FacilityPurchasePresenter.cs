@@ -35,7 +35,7 @@ public class FacilityPurchasePresenter :MonoBehaviour
             index++;
         }
 
-        MoneyManager.OnMoneyChenged += ReloadPriceColor;
+        MoneyManager.OnMoneyChanged += ReloadPriceColor;
         ReloadPriceColor(MoneyManager.Instance.Money);
     }
 

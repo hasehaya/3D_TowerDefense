@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class MoneyManager
 {
     // 合成された際に呼ばれるイベント
-    public static Action<int> OnMoneyChenged;
+    public static Action<int> OnMoneyChanged;
 
     private static MoneyManager instance;
     public static MoneyManager Instance
@@ -33,13 +33,13 @@ public class MoneyManager
     public void Pay(int price)
     {
         money -= price;
-        OnMoneyChenged?.Invoke(money);
+        OnMoneyChanged?.Invoke(money);
     }
 
     public void AddMoney(int plus)
     {
         money += plus;
-        OnMoneyChenged?.Invoke(money);
+        OnMoneyChanged?.Invoke(money);
     }
 
     public bool CanPurchase(int price)
