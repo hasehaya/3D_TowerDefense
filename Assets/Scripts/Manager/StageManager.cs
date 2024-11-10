@@ -39,7 +39,7 @@ public class StageManager :MonoBehaviour
         var waveManager = WaveManager.Instance;
         var enemyManager = EnemyManager.Instance;
         var facilityManager = FacilityManager.Instance;
-        facilityManager.SetAvailableFacilityTypes(new List<Facility.Type> { Facility.Type.Magic, Facility.Type.Mine });
+        facilityManager.SetAvailableFacilityTypes(new List<Facility.Type> { Facility.Type.Canon, Facility.Type.Magic });
     }
 
     public Vector3 GetPlayerBasePosition()
