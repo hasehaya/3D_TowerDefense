@@ -1,24 +1,19 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
+
 using UnityEngine;
 
-public class Gimmick : MonoBehaviour
+public class Gimmick :MonoBehaviour
 {
 
     private float nearDistance = 10.0f;
     private float waitTime = 10.0f;
     bool waiting = false;
     bool isShowNotice = false;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     protected virtual void Update()
     {
-        checkDistance();
+        CheckDistance();
     }
 
     public void WaitPlayerExcute()
@@ -45,11 +40,10 @@ public class Gimmick : MonoBehaviour
 
     }
 
-    void checkDistance()
+    void CheckDistance()
     {
-        if(waiting)
+        if (waiting)
         {
-            NoticeManager.Instance.HideAllNotice();
             return;
         }
         var playerPosition = Player.Instance.transform.position;
@@ -59,7 +53,7 @@ public class Gimmick : MonoBehaviour
             ShowNotice();
             if (Fairy.Instance.getCanUse())
             {
-                NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Fairy, useFairy);
+                NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Fairy, UseFairy);
             }
 
         }
@@ -73,7 +67,7 @@ public class Gimmick : MonoBehaviour
         }
     }
 
-    void  useFairy()
+    void UseFairy()
     {
         waiting = true;
         Fairy.Instance.setCanUse(false);

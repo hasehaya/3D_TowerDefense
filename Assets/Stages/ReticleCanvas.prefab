@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4930279187281346316}
   - component: {fileID: 7613959648734249428}
   m_Layer: 5
-  m_Name: Canvas-Camera
+  m_Name: ReticleCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

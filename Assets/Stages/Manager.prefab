@@ -93,6 +93,7 @@ MonoBehaviour:
   stageDataListEntity: {fileID: 11400000, guid: 0074cb5d967f7e240bac99fbb1ad6413, type: 2}
   waveDataListEntity: {fileID: 11400000, guid: 9977047a73ad1564fb77791ab965a978, type: 2}
   waveEnemyDataListEntity: {fileID: 11400000, guid: fd19b61689340ce418f0377871d3251e, type: 2}
+  messageDataListEntity: {fileID: 11400000, guid: fe131ee1c00be448ca51c20cbf09e2ad, type: 2}
 --- !u!1 &4947590370161735010
 GameObject:
   m_ObjectHideFlags: 0
@@ -127,6 +128,7 @@ Transform:
   - {fileID: 3438235487233578016}
   - {fileID: 1989437321676293221}
   - {fileID: 3213183888251183379}
+  - {fileID: 1953002019215959970}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5504348021373037207
@@ -174,6 +176,53 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBase: {fileID: 0}
+--- !u!1 &7403533457012049655
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1953002019215959970}
+  - component: {fileID: 2540679775100366762}
+  m_Layer: 0
+  m_Name: MessageWindow
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1953002019215959970
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7403533457012049655}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1639073644988438702}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2540679775100366762
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7403533457012049655}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce563e724c0ac37498b5ef2171579268, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  messageWindow: {fileID: 0}
+  messageText: {fileID: 0}
+  charInterval: 0.07
 --- !u!1 &8838870696936177634
 GameObject:
   m_ObjectHideFlags: 0

@@ -13,6 +13,10 @@ public class SceneLoader
     {
         get
         {
+            if (instance == null)
+            {
+                instance = new SceneLoader();
+            }
             return instance;
         }
     }

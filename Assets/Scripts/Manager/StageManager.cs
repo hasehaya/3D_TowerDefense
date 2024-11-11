@@ -31,7 +31,10 @@ public class StageManager :MonoBehaviour
 
     private void Start()
     {
+#if UNITY_EDITOR == false
         Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
+#endif
     }
 
     void SingletonInitialize()
