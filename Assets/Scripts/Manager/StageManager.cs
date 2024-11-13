@@ -20,6 +20,9 @@ public class StageManager :MonoBehaviour
             return instance;
         }
     }
+
+    const float CHANGE_TIME_SCALE = 0.5f;
+
     [SerializeField] PlayerBase playerBase;
     public int StageNum { get; private set; } = 1;
 
@@ -52,9 +55,9 @@ public class StageManager :MonoBehaviour
 
     public void SpeedDown()
     {
-        if (Time.timeScale > 0.3f)
+        if (Time.timeScale > CHANGE_TIME_SCALE)
         {
-            Time.timeScale -= 0.3f;
+            Time.timeScale -= CHANGE_TIME_SCALE;
         }
     }
 
@@ -65,7 +68,7 @@ public class StageManager :MonoBehaviour
 
     public void SpeedUp()
     {
-        Time.timeScale += 0.3f;
+        Time.timeScale += CHANGE_TIME_SCALE;
     }
 
     public void Pause()
