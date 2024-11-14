@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e82a17018eebdaf4dba81743d0ed790d, type: 3}
-  m_Name: WaveEnemyDataListEntity
+  m_Script: {fileID: 11500000, guid: d0e8c5f6fc96a9b44ba33b928178ed10, type: 3}
+  m_Name: WaveEnemyDataArrayEntity
   m_EditorClassIdentifier: 
-  lists:
+  array:
   - stage: 1
     wave: 1
     spawnTime: 0
@@ -79,34 +79,34 @@ MonoBehaviour:
     enemyType: 8
     enemyBaseIndex: 0
   - stage: 2
+    wave: 1
+    spawnTime: 0
+    enemyType: 8
+    enemyBaseIndex: 0
+  - stage: 2
+    wave: 1
+    spawnTime: 3
+    enemyType: 9
+    enemyBaseIndex: 0
+  - stage: 2
+    wave: 1
+    spawnTime: 6
+    enemyType: 8
+    enemyBaseIndex: 0
+  - stage: 2
     wave: 2
     spawnTime: 0
     enemyType: 9
     enemyBaseIndex: 0
   - stage: 2
     wave: 2
-    spawnTime: 3
-    enemyType: 8
-    enemyBaseIndex: 0
-  - stage: 2
-    wave: 2
-    spawnTime: 6
+    spawnTime: 0
     enemyType: 9
-    enemyBaseIndex: 0
-  - stage: 2
-    wave: 2
-    spawnTime: 9
-    enemyType: 8
     enemyBaseIndex: 0
   - stage: 2
     wave: 2
     spawnTime: 12
     enemyType: 9
-    enemyBaseIndex: 0
-  - stage: 2
-    wave: 2
-    spawnTime: 15
-    enemyType: 8
     enemyBaseIndex: 0
   - stage: 2
     wave: 2
@@ -230,11 +230,6 @@ MonoBehaviour:
     enemyBaseIndex: 1
   - stage: 2
     wave: 3
-    spawnTime: 0
-    enemyType: 9
-    enemyBaseIndex: 0
-  - stage: 2
-    wave: 3
     spawnTime: 2.8
     enemyType: 9
     enemyBaseIndex: 0
@@ -246,6 +241,11 @@ MonoBehaviour:
   - stage: 2
     wave: 3
     spawnTime: 8.4
+    enemyType: 8
+    enemyBaseIndex: 0
+  - stage: 2
+    wave: 3
+    spawnTime: 9
     enemyType: 8
     enemyBaseIndex: 0
   - stage: 2

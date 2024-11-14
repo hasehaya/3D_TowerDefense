@@ -32,12 +32,12 @@ public class MessageWindowManager :MonoBehaviour
         ' ', '　', ',', '、', '。', '「', '」', '!', '?', '.', ':', ';'
     };
 
-    MessageData[] messageList;
+    MessageData[] messageArray;
     private bool isWaitingForNextMessage = false;
 
     void Start()
     {
-        messageList = ScriptableObjectManager.Instance.GetMessageDataListEntity().lists;
+        messageArray = ScriptableObjectManager.Instance.GetMessageDataArray();
         messageText.text = "";
         messageWindow.SetActive(false);
         ShowMessagesWithId(1); // 初期メッセージ表示
@@ -130,7 +130,7 @@ public class MessageWindowManager :MonoBehaviour
         StageManager.Instance.Pause();
         // 指定IDのメッセージを取得して内部番号順にソート
         List<MessageData> targetMessages = new List<MessageData>();
-        foreach (MessageData m in messageList)
+        foreach (MessageData m in messageArray)
         {
             if (m.messageId == messageId)
             {

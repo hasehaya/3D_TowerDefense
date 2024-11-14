@@ -9,10 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0556563f5c52cdd43ae1991d8204922f, type: 3}
-  m_Name: FacilityParameterListEntity
+  m_Script: {fileID: 11500000, guid: b987fde5090ecfe4586bd006173cc47a, type: 3}
+  m_Name: FacilityParameterArrayEntity
   m_EditorClassIdentifier: 
-  lists:
+  array:
   - type: 0
     category: 0
     installType: 0
@@ -44,7 +44,7 @@ MonoBehaviour:
     name: "\u5730\u96F7"
     icon: {fileID: 21300000, guid: ce727e1102f378e408c138fb1191adcd, type: 3}
     price: 100
-    canAttachCrystal: 0
+    canAttachCrystal: 1
   - type: 4
     category: 0
     installType: 0
@@ -52,7 +52,7 @@ MonoBehaviour:
     name: "\u30D5\u30EA\u30FC\u30BA"
     icon: {fileID: 21300000, guid: 4c96f742852e1e44c8050df42646eaf6, type: 3}
     price: 200
-    canAttachCrystal: 0
+    canAttachCrystal: 1
   - type: 5
     category: 0
     installType: 1
@@ -60,7 +60,7 @@ MonoBehaviour:
     name: "\u30B7\u30FC\u30EB\u30C9"
     icon: {fileID: 21300000, guid: cdb3949c677608e40b7ec38be816ac40, type: 3}
     price: 150
-    canAttachCrystal: 0
+    canAttachCrystal: 1
   - type: 6
     category: 0
     installType: 0
@@ -68,7 +68,7 @@ MonoBehaviour:
     name: "\u6295\u7DB2\u6A5F"
     icon: {fileID: 21300000, guid: 33a9384956ccb234da9cd957373ef43a, type: 3}
     price: 50
-    canAttachCrystal: 0
+    canAttachCrystal: 1
   - type: 7
     category: 0
     installType: 0
@@ -76,4 +76,4 @@ MonoBehaviour:
     name: "\u30D0\u30CD"
     icon: {fileID: 21300000, guid: cdb3949c677608e40b7ec38be816ac40, type: 3}
     price: 50
-    canAttachCrystal: 0
+    canAttachCrystal: 1

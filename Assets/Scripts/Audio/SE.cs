@@ -19,7 +19,6 @@ public class SE :Audio
                 {
                     GameObject singletonObject = new GameObject("SE_Singleton");
                     instance = singletonObject.AddComponent<SE>();
-                    DontDestroyOnLoad(singletonObject);
                 }
             }
             return instance;

@@ -18,7 +18,7 @@ public class FacilityManager
             return instance;
         }
     }
-    FacilityParameterListEntity facilityParameterListEntity;
+    FacilityParameter[] facilityParameterArray;
 
     public List<Facility.Type> AvailableFacilityTypeList { get; private set; }
     List<Facility> installedFacilityList = new List<Facility>();
@@ -27,7 +27,7 @@ public class FacilityManager
 
     public FacilityManager()
     {
-        facilityParameterListEntity = ScriptableObjectManager.Instance.GetFacilityParameterListEntity();
+        facilityParameterArray = ScriptableObjectManager.Instance.GetFacilityParameterArray();
         UpdateCaller.AddUpdateCallback(Update);
     }
 
@@ -125,7 +125,7 @@ public class FacilityManager
 
     public FacilityParameter GetFacilityParameter(Facility.Type type)
     {
-        foreach (var parameter in facilityParameterListEntity.lists)
+        foreach (var parameter in facilityParameterArray)
         {
             if (parameter.type == type)
             {
@@ -138,7 +138,7 @@ public class FacilityManager
     public List<FacilityParameter> GetAvailableFacilityParameterList()
     {
         var ret = new List<FacilityParameter>();
-        foreach (var parameter in facilityParameterListEntity.lists)
+        foreach (var parameter in facilityParameterArray)
         {
             if (AvailableFacilityTypeList.Contains(parameter.type))
             {
@@ -146,10 +146,5 @@ public class FacilityManager
             }
         }
         return ret;
-    }
-
-    public FacilityParameter[] GetFacilityParameters()
-    {
-        return facilityParameterListEntity.lists;
     }
 }

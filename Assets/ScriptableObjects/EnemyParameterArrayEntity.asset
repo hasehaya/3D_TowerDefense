@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 06ea37d683a65b14484614069c0f4347, type: 3}
-  m_Name: EnemyParameterListEntity
+  m_Name: EnemyParameterArrayEntity
   m_EditorClassIdentifier: 
-  lists:
+  array:
   - enemyType: 8
     enemyPrefab: {fileID: 1279900663188299757, guid: 928a1377c1cd4515b208fef3a396b8ea, type: 3}
     hp: 100

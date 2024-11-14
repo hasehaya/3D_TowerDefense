@@ -6,11 +6,11 @@ using UnityEngine;
 public class StageSelectPresenter :MonoBehaviour
 {
     [SerializeField] GameObject stageSelectViewObj;
-    [SerializeField] StageDataListEntity stageDataListEntity;
-    List<StageData> stages { get { return stageDataListEntity.stages; } }
+    StageData[] stages;
 
     void Start()
     {
+        stages = ScriptableObjectManager.Instance.GetStageDataArray();
         foreach (var stage in stages)
         {
             var viewObj = Instantiate(stageSelectViewObj, transform);

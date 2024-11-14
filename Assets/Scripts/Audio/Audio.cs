@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Audio :MonoBehaviour
 {
-    public Sound[] sounds;
+    protected Sound[] sounds;
     //[SerializeField] Slider slider;
     //public bool isSoundOn = true;
 

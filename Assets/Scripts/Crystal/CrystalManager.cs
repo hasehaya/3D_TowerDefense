@@ -1,7 +1,8 @@
-﻿using UnityEngine;
-using System.Linq;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+
+using UnityEngine;
 
 public class CrystalManager :MonoBehaviour
 {
@@ -33,7 +34,7 @@ public class CrystalManager :MonoBehaviour
         for (int i = 0; i < count; i++)
         {
             int index = UnityEngine.Random.Range(0, max);
-            int crystalType = UnityEngine.Random.Range(1, crystalListEntity.lists.Count());
+            int crystalType = UnityEngine.Random.Range(1, crystalListEntity.array.Count());
 
             Spawn((Crystal.Type)crystalType, crystalPositions[index].position);
 
@@ -42,7 +43,7 @@ public class CrystalManager :MonoBehaviour
 
     public Crystal Init(Crystal.Type type)
     {
-        foreach (var crystal in crystalListEntity.lists)
+        foreach (var crystal in crystalListEntity.array)
         {
             if (crystal.type == type)
             {
@@ -54,7 +55,7 @@ public class CrystalManager :MonoBehaviour
 
     public void Spawn(Crystal.Type type, Vector3 position)
     {
-        foreach (var crystal in crystalListEntity.lists)
+        foreach (var crystal in crystalListEntity.array)
         {
             if (crystal.type == type)
             {
@@ -66,7 +67,7 @@ public class CrystalManager :MonoBehaviour
 
     public Sprite GetSprite(Crystal.Type type)
     {
-        foreach (var crystal in crystalListEntity.lists)
+        foreach (var crystal in crystalListEntity.array)
         {
             if (crystal.type == type)
             {
@@ -107,7 +108,7 @@ public class CrystalManager :MonoBehaviour
 
     public CrystalAttack GetCrystalAttack(Crystal.Type type)
     {
-        foreach (var attack in crystalAttackList.lists)
+        foreach (var attack in crystalAttackList.array)
         {
             if (attack.type == type)
             {

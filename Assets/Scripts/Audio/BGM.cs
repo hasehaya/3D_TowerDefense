@@ -18,7 +18,6 @@ public class BGM :Audio
                 {
                     GameObject singletonObject = new GameObject("BGM_Singleton");
                     instance = singletonObject.AddComponent<BGM>();
-                    DontDestroyOnLoad(singletonObject);
                 }
             }
             return instance;
@@ -35,6 +34,8 @@ public class BGM :Audio
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
+
+            
         }
     }
 

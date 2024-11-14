@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -9,10 +9,11 @@ using UnityEditor;
 #endif
 
 [CreateAssetMenu]
-public class MessageDataListEntity :ScriptableObject
+public class CrystalAttackListEntity :ScriptableObject
 {
-    public MessageData[] lists;
-    string spreadSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?gid=1214234816&single=true&output=csv";
+    public CrystalAttack[] array;
+    string spreadSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?gid=281634285&single=true&output=csv";
+
 
 #if UNITY_EDITOR
     //スプレットシートの情報をsheetDataRecordに反映させるメソッド
@@ -30,7 +31,7 @@ public class MessageDataListEntity :ScriptableObject
         }
 
         // ダウンロードしたCSVをデシリアライズ(SerializeFieldに入力)する
-        lists = CSVSerializer.Deserialize<MessageData>(request.downloadHandler.text);
+        array = CSVSerializer.Deserialize<CrystalAttack>(request.downloadHandler.text);
 
         // データの更新が完了したら、ScriptableObjectを保存する
         EditorUtility.SetDirty(this);
@@ -43,8 +44,8 @@ public class MessageDataListEntity :ScriptableObject
 
 #if UNITY_EDITOR
 // CrystalListEntity のインスペクタにデータ更新ボタンを表示するクラス
-[CustomEditor(typeof(MessageDataListEntity))]
-public class MessageDataListEntityEditor :Editor
+[CustomEditor(typeof(CrystalAttackListEntity))]
+public class CrystalAttackListEntityEditor :Editor
 {
     public override void OnInspectorGUI()
     {
@@ -54,7 +55,7 @@ public class MessageDataListEntityEditor :Editor
         // データ更新ボタンを表示
         if (GUILayout.Button("データ更新"))
         {
-            ((MessageDataListEntity)target).LoadSheetData();
+            ((CrystalAttackListEntity)target).LoadSheetData();
         }
     }
 }

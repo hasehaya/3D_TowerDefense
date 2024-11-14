@@ -20,9 +20,7 @@ public class WaveManager
 
     public static Action<int, int> OnWaveChanged;
 
-    WaveDataListEntity waveDataListEntity;
     WaveData[] waveDataList;
-    WaveEnemyDataListEntity waveEnemyDataListEntity;
     WaveEnemyData[] waveEnemyList;
 
     // 生成用
@@ -39,11 +37,8 @@ public class WaveManager
 
     public WaveManager()
     {
-        waveDataListEntity = ScriptableObjectManager.Instance.GetWaveDataListEntity();
-        waveEnemyDataListEntity = ScriptableObjectManager.Instance.GetWaveEnemyDataListEntity();
-
         var stage = StageManager.Instance.StageNum;
-        waveDataList = waveDataListEntity.lists.Where(waveData => waveData.stage == stage).ToArray();
+        waveDataList = ScriptableObjectManager.Instance.GetWaveDataArray().Where(waveData => waveData.stage == stage).ToArray();
         ReloadWaveEnemyList();
         OnWaveChanged?.Invoke(waveIndex, maxWaveIndex);
 
@@ -136,7 +131,7 @@ public class WaveManager
 
     void ReloadWaveEnemyList()
     {
-        waveEnemyList = waveEnemyDataListEntity.lists.Where(waveEnemyData => waveEnemyData.stage == StageManager.Instance.StageNum && waveEnemyData.wave == waveIndex).ToArray();
+        waveEnemyList = ScriptableObjectManager.Instance.GetWaveEnemyDataArray().Where(waveEnemyData => waveEnemyData.stage == StageManager.Instance.StageNum && waveEnemyData.wave == waveIndex).ToArray();
     }
 
     public void NextWave()

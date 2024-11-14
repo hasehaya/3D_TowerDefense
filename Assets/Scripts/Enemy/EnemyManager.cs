@@ -19,13 +19,13 @@ public class EnemyManager
             return instance;
         }
     }
-    EnemyParameterListEntity enemyStatusListEntity;
+    EnemyParameter[] enemyParameterArray;
 
-    private List<Enemy> enemyList = new List<Enemy>();
+    private List<Enemy> livingEnemyList = new List<Enemy>();
 
     EnemyManager()
     {
-        enemyStatusListEntity = ScriptableObjectManager.Instance.GetEnemyParameterListEntity();
+        enemyParameterArray = ScriptableObjectManager.Instance.GetEnemyParameterArray();
         Enemy.OnEnemyDestroyed += RemoveEnemy;
     }
 
@@ -36,11 +36,11 @@ public class EnemyManager
 
     public EnemyParameter GetEnemyStatus(EnemyType enemyType)
     {
-        foreach (var enemyStatus in enemyStatusListEntity.lists)
+        foreach (var enemyParameter in enemyParameterArray)
         {
-            if (enemyStatus.enemyType == enemyType)
+            if (enemyParameter.enemyType == enemyType)
             {
-                return enemyStatus;
+                return enemyParameter;
             }
         }
         return null;
@@ -48,11 +48,11 @@ public class EnemyManager
 
     public GameObject GetEnemyPrefab(EnemyType enemyType)
     {
-        foreach (var enemyStatus in enemyStatusListEntity.lists)
+        foreach (var enemyParameter in enemyParameterArray)
         {
-            if (enemyStatus.enemyType == enemyType)
+            if (enemyParameter.enemyType == enemyType)
             {
-                return enemyStatus.enemyPrefab;
+                return enemyParameter.enemyPrefab;
             }
         }
         return null;
@@ -72,28 +72,28 @@ public class EnemyManager
         var enemyObj = Object.Instantiate(enemyPrefab, pos, new Quaternion());
         enemyObj.name = enemyPrefab.name;
         var enemy = enemyObj.GetComponent<Enemy>();
-        enemyList.Add(enemy);
+        livingEnemyList.Add(enemy);
     }
 
     void RemoveEnemy(Enemy enemy)
     {
-        enemyList.Remove(enemy);
+        livingEnemyList.Remove(enemy);
     }
 
     public List<Enemy> GetEnemyList()
     {
-        return enemyList;
+        return livingEnemyList;
     }
 
     public int GetEnemyCount()
     {
-        return enemyList.Count;
+        return livingEnemyList.Count;
     }
 
     bool IsFlyEnemy(EnemyType enemyType)
     {
-        var enemyStatus = enemyStatusListEntity.lists.FirstOrDefault(enemyStatus => enemyStatus.enemyType == enemyType);
-        var enemy = enemyStatus.enemyPrefab.GetComponent<Enemy>();
+        var enemyParameter = enemyParameterArray.FirstOrDefault(enemyParameter => enemyParameter.enemyType == enemyType);
+        var enemy = enemyParameter.enemyPrefab.GetComponent<Enemy>();
         return enemy is FlyEnemy;
     }
 }

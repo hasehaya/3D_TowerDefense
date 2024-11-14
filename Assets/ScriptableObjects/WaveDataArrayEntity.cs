@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 
 using UnityEngine;
@@ -9,11 +9,10 @@ using UnityEditor;
 #endif
 
 [CreateAssetMenu]
-public class CrystalListEntity :ScriptableObject
+public class WaveDataArrayEntity :ScriptableObject
 {
-    public Crystal[] lists;
-    string spreadSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?gid=0&single=true&output=csv";
-
+    public WaveData[] array;
+    string spreadSheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSiKrcuetoqEFCe4BjJBB3U9V6WNiQXGiYa-vNdG1OWwfd78kXXfEVFHBDX5yKB7zQ1d1orVLzlWvIa/pub?gid=2109222210&single=true&output=csv";
 
 #if UNITY_EDITOR
     //スプレットシートの情報をsheetDataRecordに反映させるメソッド
@@ -31,7 +30,7 @@ public class CrystalListEntity :ScriptableObject
         }
 
         // ダウンロードしたCSVをデシリアライズ(SerializeFieldに入力)する
-        lists = CSVSerializer.Deserialize<Crystal>(request.downloadHandler.text);
+        array = CSVSerializer.Deserialize<WaveData>(request.downloadHandler.text);
 
         // データの更新が完了したら、ScriptableObjectを保存する
         EditorUtility.SetDirty(this);
@@ -44,8 +43,8 @@ public class CrystalListEntity :ScriptableObject
 
 #if UNITY_EDITOR
 // CrystalListEntity のインスペクタにデータ更新ボタンを表示するクラス
-[CustomEditor(typeof(CrystalListEntity))]
-public class CrystalListEntityEditor :Editor
+[CustomEditor(typeof(WaveDataArrayEntity))]
+public class WaveDataListEntityEditor :Editor
 {
     public override void OnInspectorGUI()
     {
@@ -55,7 +54,7 @@ public class CrystalListEntityEditor :Editor
         // データ更新ボタンを表示
         if (GUILayout.Button("データ更新"))
         {
-            ((CrystalListEntity)target).LoadSheetData();
+            ((WaveDataArrayEntity)target).LoadSheetData();
         }
     }
 }

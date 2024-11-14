@@ -18,40 +18,21 @@ public class ScriptableObjectManager :MonoBehaviour
         }
     }
 
-    [SerializeField] EnemyParameterListEntity enemyParameterListEntity;
-    [SerializeField] FacilityParameterListEntity facilityParameterListEntity;
-    [SerializeField] StageDataListEntity stageDataListEntity;
-    [SerializeField] WaveDataListEntity waveDataListEntity;
-    [SerializeField] WaveEnemyDataListEntity waveEnemyDataListEntity;
-    [SerializeField] MessageDataListEntity messageDataListEntity;
+    [SerializeField] EnemyParameterArrayEntity enemyParameterListEntity;
+    [SerializeField] FacilityParameterArrayEntity facilityParameterListEntity;
+    [SerializeField] StageDataArrayEntity stageDataListEntity;
+    [SerializeField] WaveDataArrayEntity waveDataListEntity;
+    [SerializeField] WaveEnemyDataArrayEntity waveEnemyDataListEntity;
+    [SerializeField] MessageDataArrayEntity messageDataListEntity;
+    [SerializeField] SoundDataArrayEntity seDataListEntity;
+    [SerializeField] SoundDataArrayEntity bgmDataListEntity;
 
-    public EnemyParameterListEntity GetEnemyParameterListEntity()
-    {
-        return enemyParameterListEntity;
-    }
-
-    public FacilityParameterListEntity GetFacilityParameterListEntity()
-    {
-        return facilityParameterListEntity;
-    }
-
-    public StageDataListEntity GetStageDataListEntity()
-    {
-        return stageDataListEntity;
-    }
-
-    public WaveDataListEntity GetWaveDataListEntity()
-    {
-        return waveDataListEntity;
-    }
-
-    public WaveEnemyDataListEntity GetWaveEnemyDataListEntity()
-    {
-        return waveEnemyDataListEntity;
-    }
-
-    public MessageDataListEntity GetMessageDataListEntity()
-    {
-        return messageDataListEntity;
-    }
+    public EnemyParameter[] GetEnemyParameterArray() => enemyParameterListEntity.array;
+    public FacilityParameter[] GetFacilityParameterArray() => facilityParameterListEntity.array;
+    public StageData[] GetStageDataArray() => stageDataListEntity.array;
+    public WaveData[] GetWaveDataArray() => waveDataListEntity.array;
+    public WaveEnemyData[] GetWaveEnemyDataArray() => waveEnemyDataListEntity.array;
+    public MessageData[] GetMessageDataArray() => messageDataListEntity.array;
+    public Sound[] GetSoundDataArray() => seDataListEntity.array;
+    public Sound[] GetBGMDataArray() => bgmDataListEntity.array;
 }

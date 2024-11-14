@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu]
-public class StageDataListEntity :ScriptableObject
+public class StageDataArrayEntity :ScriptableObject
 {
-    public List<StageData> stages = new List<StageData>();
+    public StageData[] array;
 }
 
 [System.Serializable]
