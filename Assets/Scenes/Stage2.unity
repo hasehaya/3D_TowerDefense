@@ -6847,7 +6847,7 @@ GameObject:
   - component: {fileID: 402471237}
   - component: {fileID: 402471236}
   m_Layer: 0
-  m_Name: NavMesh Surface_Ground
+  m_Name: Stage2_NavMesh Surface_Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6882,7 +6882,7 @@ MonoBehaviour:
   m_OverrideVoxelSize: 0
   m_VoxelSize: 0.16666667
   m_MinRegionArea: 0.4
-  m_NavMeshData: {fileID: 23800000, guid: 49aedc627ce77aa4ab61ce68b9c34d98, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: c388a7d74e481044a9cbeaa060c212a2, type: 2}
   m_BuildHeightMesh: 0
 --- !u!4 &402471237
 Transform:
@@ -27477,7 +27477,7 @@ GameObject:
   - component: {fileID: 1729339915}
   - component: {fileID: 1729339914}
   m_Layer: 0
-  m_Name: NavMesh Surface_Air
+  m_Name: Stage2_NavMesh Surface_Air
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
