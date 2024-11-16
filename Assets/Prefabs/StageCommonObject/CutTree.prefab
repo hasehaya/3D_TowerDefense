@@ -49,6 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 30
   range: 30
+  anim: {fileID: 4248220629786629996}
 --- !u!136 &6313595880862375722
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -191,7 +192,7 @@ Animator:
   m_GameObject: {fileID: 2104577410169378194}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: cd92df7fd0a794c16a06593b68330fd1, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -212,7 +213,7 @@ GameObject:
   m_Component:
   - component: {fileID: 945132974469065604}
   m_Layer: 0
-  m_Name: Child
+  m_Name: Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

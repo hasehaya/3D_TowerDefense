@@ -70,7 +70,7 @@ public class Gimmick :MonoBehaviour
     void UseFairy()
     {
         waiting = true;
-        Fairy.Instance.setCanUse(false);
+        Fairy.Instance.SetCanUse(false);
         Fairy.Instance.setTargetPosition(this.gameObject.transform.position);
         Invoke(nameof(Excute), waitTime);
         Invoke(nameof(FinishFairy), waitTime);
@@ -78,7 +78,7 @@ public class Gimmick :MonoBehaviour
 
     void FinishFairy()
     {
-        Fairy.Instance.setCanUse(true);
+        Fairy.Instance.SetCanUse(true);
     }
 
     void FinishPlayerAction()

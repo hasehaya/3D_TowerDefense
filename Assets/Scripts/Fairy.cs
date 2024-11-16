@@ -71,7 +71,7 @@ public class Fairy :MonoBehaviour
         return canUse;
     }
 
-    public void setCanUse(bool c)
+    public void SetCanUse(bool c)
     {
         canUse = c;
     }

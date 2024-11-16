@@ -49,7 +49,7 @@ public class CutTree :Gimmick, IDamageable
                 finishEvent.functionName = methodName;
                 finishEvent.time = clip.length;
                 clip.AddEvent(finishEvent);
-                break; // Exit the loop after adding the event to the "Cut" clip
+                break;
             }
         }
     }

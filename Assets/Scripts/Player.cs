@@ -28,10 +28,14 @@ public class Player :MonoBehaviour
     bool canMove = true;
 
     private bool isGrounded = true; // 現在の地面との接地状態
-    private bool isJumping = false; // ジャンプ中かどうかのフラグ
 
     // Pause state
     private bool isPaused = false;
+
+    // 保存用変数
+    private Vector3 savedRbVelocity;
+    private bool wasRbKinematic;
+    private float savedAnimSpeed;
 
     private void Awake()
     {
@@ -137,20 +141,20 @@ public class Player :MonoBehaviour
     void Jump()
     {
         rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-        // Removed animator and isJumping updates from here
+
+        // ジャンプボタンを押したときにのみアニメーションを開始
+        animator.SetBool("isJump", true);
     }
 
     void GroundCheck()
     {
         // プレイヤーの足元にレイを飛ばして地面をチェック
         RaycastHit hit;
-        int layerToTarget = LayerMask.NameToLayer("Ground");
-        LayerMask layerMask = 1 << layerToTarget;
         var position = transform.position + Vector3.up * 2;
 
         bool wasGrounded = isGrounded;
 
-        if (Physics.Raycast(position, Vector3.down, out hit, 2.01f, layerMask))
+        if (Physics.Raycast(position, Vector3.down, out hit, 2.01f))
         {
             isGrounded = true;
         }
@@ -159,21 +163,11 @@ public class Player :MonoBehaviour
             isGrounded = false;
         }
 
-        // Check if the grounded state has changed
-        if (isGrounded != wasGrounded)
+        // 着地したタイミングでアニメーションを終了
+        if (isGrounded && !wasGrounded)
         {
-            if (isGrounded)
-            {
-                // Player has landed
-                isJumping = false;
-                animator.SetBool("isJump", false);
-            }
-            else
-            {
-                // Player has left the ground
-                isJumping = true;
-                animator.SetBool("isJump", true);
-            }
+            // プレイヤーが着地した
+            animator.SetBool("isJump", false);
         }
     }
 
@@ -201,11 +195,6 @@ public class Player :MonoBehaviour
         transform.position = position;
         rb.velocity = Vector3.zero; // 速度をリセット
     }
-
-    // 保存用変数
-    private Vector3 savedRbVelocity;
-    private bool wasRbKinematic;
-    private float savedAnimSpeed;
 
     /// <summary>
     /// ゲームの一時停止時に呼ばれるメソッド
