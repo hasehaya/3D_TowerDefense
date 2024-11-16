@@ -27,7 +27,7 @@ public class MoneyManager
 
     private MoneyManager()
     {
-        AddMoney(100);
+        AddMoney(300);
     }
 
     public void Pay(int price)

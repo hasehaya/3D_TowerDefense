@@ -53,6 +53,7 @@ public class FacilityInstallCollider :MonoBehaviour
         }
 
         facility.canInstall = canInstall;
+        print(canInstall);
 
         if (facility.canInstall)
         {
@@ -72,12 +73,15 @@ public class FacilityInstallCollider :MonoBehaviour
     bool IsNavMeshAreaBelow(int area)
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 10))
+        int groundLayerMask = LayerMask.GetMask("Ground");
+
+        var upperPos = transform.position + Vector3.up * 10;
+        if (Physics.Raycast(upperPos, Vector3.down, out hit, 20, groundLayerMask))
         {
             NavMeshHit navHit;
             if (NavMesh.SamplePosition(hit.point, out navHit, 1f, NavMesh.AllAreas))
             {
-                return navHit.mask == (1 << area);
+                return (navHit.mask & (1 << area)) != 0;
             }
         }
 
