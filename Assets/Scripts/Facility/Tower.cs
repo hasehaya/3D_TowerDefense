@@ -41,6 +41,7 @@ public class Tower :Facility
     public void WarpToTop()
     {
         Player.Instance.WarpTo(topPos.position);
+        NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.Descend);
     }
 
     public void WarpToLower()
