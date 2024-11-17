@@ -44,6 +44,8 @@ public class Player :MonoBehaviour
         StageManager.OnResume += Resume;
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
+
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
     void Update()
@@ -131,11 +133,7 @@ public class Player :MonoBehaviour
             Quaternion newRotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             rb.MoveRotation(newRotation);
         }
-        else
-        {
-            // 入力がない場合、回転速度をゼロにする
-            rb.angularVelocity = Vector3.zero;
-        }
+        rb.angularVelocity = Vector3.zero;
     }
 
     void Jump()
@@ -154,7 +152,7 @@ public class Player :MonoBehaviour
 
         bool wasGrounded = isGrounded;
 
-        if (Physics.Raycast(position, Vector3.down, out hit, 2.01f))
+        if (Physics.Raycast(position, Vector3.down, out hit, 2.1f))
         {
             isGrounded = true;
         }
