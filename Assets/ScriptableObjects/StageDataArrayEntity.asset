@@ -13,6 +13,22 @@ MonoBehaviour:
   m_Name: StageDataArrayEntity
   m_EditorClassIdentifier: 
   array:
+  - stageNum: 1
+    sceneName: 11
+    stageName: 
+    stageIcon: {fileID: 0}
+  - stageNum: 2
+    sceneName: 0
+    stageName: 
+    stageIcon: {fileID: 0}
+  - stageNum: 0
+    sceneName: 0
+    stageName: 
+    stageIcon: {fileID: 0}
+  - stageNum: 0
+    sceneName: 0
+    stageName: 
+    stageIcon: {fileID: 0}
   - stageNum: 0
     sceneName: 0
     stageName: 
