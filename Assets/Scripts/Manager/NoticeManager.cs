@@ -38,6 +38,7 @@ public class NoticeManager :MonoBehaviour
         CutTree = 10,
         MoveRock = 11,
         Fairy = 12,
+        FacilitySell = 13,
     }
     // 現在表示中のNotice
     List<NoticeType> currentNotices = new List<NoticeType>();
@@ -56,6 +57,7 @@ public class NoticeManager :MonoBehaviour
     UnityEvent cutTree = new UnityEvent();
     UnityEvent moveRock = new UnityEvent();
     UnityEvent useFairy = new UnityEvent();
+    UnityEvent facilitySell = new UnityEvent();
 
     // Typeから呼び出せるよう紐づけ
     Dictionary<NoticeType, UnityEvent> noticeEvents = new Dictionary<NoticeType, UnityEvent>();
@@ -82,6 +84,7 @@ public class NoticeManager :MonoBehaviour
         noticeEvents.Add(NoticeType.CutTree, cutTree);
         noticeEvents.Add(NoticeType.MoveRock, moveRock);
         noticeEvents.Add(NoticeType.Fairy, useFairy);
+        noticeEvents.Add(NoticeType.FacilitySell, facilitySell);
         // 実行の際自動で削除しないNoticeを登録（明示的に削除する必要があるNoticeをここに記入）
         notNeedAutoDeleteNotices = new NoticeType[]
         {
@@ -105,6 +108,7 @@ public class NoticeManager :MonoBehaviour
         noticeKey.Add(NoticeType.CutTree, KeyCode.G);
         noticeKey.Add(NoticeType.MoveRock, KeyCode.J);
         noticeKey.Add(NoticeType.Fairy, KeyCode.I);
+        noticeKey.Add(NoticeType.FacilitySell, KeyCode.C);
         // テキストの登録
         noticeText.Add(NoticeType.Synthesize, "水晶合成");
         noticeText.Add(NoticeType.Climb, "登る");
@@ -116,6 +120,7 @@ public class NoticeManager :MonoBehaviour
         noticeText.Add(NoticeType.CutTree, "木を切る");
         noticeText.Add(NoticeType.MoveRock, "岩を動かす");
         noticeText.Add(NoticeType.Fairy, "妖精を使う");
+        noticeText.Add(NoticeType.FacilitySell, "施設を売却する");
         // キー入力のフラグを初期化
         noticeInputFlags = noticeKey.ToDictionary(x => x.Key, x => false);
     }

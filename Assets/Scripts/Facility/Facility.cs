@@ -146,6 +146,7 @@ public class Facility :MonoBehaviour
     {
         noticeTypes.Add(NoticeManager.NoticeType.Install);
         noticeTypes.Add(NoticeManager.NoticeType.Synthesize);
+        noticeTypes.Add(NoticeManager.NoticeType.FacilitySell);
     }
 
     public void HideNotice()
@@ -183,16 +184,28 @@ public class Facility :MonoBehaviour
     /// <param name="isSelected"></param>
     public virtual void HandleSelection(bool isSelected)
     {
-        if (!isSelected)
+        outline.enabled = isSelected;
+        if (isSelected)
+        {
+            if (!isInstalled)
+            {
+                return;
+            }
+            NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.FacilitySell, FacilitySell);
+        }
+        else
         {
             HideNotice();
         }
-        outline.enabled = isSelected;
     }
 
-    public GameObject GetPrefab()
+    void FacilitySell()
     {
-        return FacilityParameter.prefab;
+        Destroy(gameObject);
+        FacilityManager.Instance.RemoveFacility(this);
+
+        int earnMoney = (int)(FacilityParameter.price * 0.7f);
+        MoneyManager.Instance.AddMoney(earnMoney);
     }
 
     public InstallType GetInstallType()
