@@ -17,19 +17,77 @@ MonoBehaviour:
     sceneName: 11
     stageName: 
     stageIcon: {fileID: 0}
+    mustFacility: 0
+    firstMoney: 0
   - stageNum: 2
-    sceneName: 0
+    sceneName: 12
     stageName: 
     stageIcon: {fileID: 0}
-  - stageNum: 0
-    sceneName: 0
+    mustFacility: 99
+    firstMoney: 0
+  - stageNum: 3
+    sceneName: 13
     stageName: 
     stageIcon: {fileID: 0}
-  - stageNum: 0
-    sceneName: 0
+    mustFacility: 99
+    firstMoney: 0
+  - stageNum: 4
+    sceneName: 14
     stageName: 
     stageIcon: {fileID: 0}
-  - stageNum: 0
-    sceneName: 0
+    mustFacility: 2
+    firstMoney: 0
+  - stageNum: 5
+    sceneName: 15
     stageName: 
     stageIcon: {fileID: 0}
+    mustFacility: 3
+    firstMoney: 0
+  - stageNum: 6
+    sceneName: 16
+    stageName: 
+    stageIcon: {fileID: 0}
+    mustFacility: 5
+    firstMoney: 0
+  - stageNum: 7
+    sceneName: 17
+    stageName: 
+    stageIcon: {fileID: 0}
+    mustFacility: 0
+    firstMoney: 0
+  - stageNum: 8
+    sceneName: 18
+    stageName: 
+    stageIcon: {fileID: 0}
+    mustFacility: 0
+    firstMoney: 0
+  - stageNum: 9
+    sceneName: 19
+    stageName: 
+    stageIcon: {fileID: 0}
+    mustFacility: 0
+    firstMoney: 0
+  - stageNum: 10
+    sceneName: 20
+    stageName: 
+    stageIcon: {fileID: 0}
+    mustFacility: 0
+    firstMoney: 0
+  - stageNum: 11
+    sceneName: 21
+    stageName: 
+    stageIcon: {fileID: 0}
+    mustFacility: 0
+    firstMoney: 0
+  - stageNum: 12
+    sceneName: 22
+    stageName: 
+    stageIcon: {fileID: 0}
+    mustFacility: 0
+    firstMoney: 0
+  - stageNum: 13
+    sceneName: 23
+    stageName: 
+    stageIcon: {fileID: 0}
+    mustFacility: 0
+    firstMoney: 0

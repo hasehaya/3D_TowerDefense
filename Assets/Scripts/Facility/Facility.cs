@@ -23,13 +23,9 @@ public class Facility :MonoBehaviour
         Shield = 5,
         ShootDown = 6,
         Spring = 7,
-    }
 
-    public enum Category
-    {
-        Attack = 0,
-        Weather = 1,
-        Mine = 2,
+        //ステージに必ず持っていくTypeの選択の際に使用
+        None = 99,
     }
 
     public enum InstallType
@@ -223,23 +219,19 @@ public class Facility :MonoBehaviour
 public class FacilityParameter
 {
     public Facility.Type type;
-    public Facility.Category category;
     public Facility.InstallType installType;
     public GameObject prefab;
     public string name;
     public Sprite icon;
     public int price;
-    public bool canAttachCrystal;
 
     public FacilityParameter()
     {
         type = Facility.Type.Canon;
-        category = Facility.Category.Attack;
         installType = Facility.InstallType.Side;
         prefab = null;
         name = "";
         icon = null;
         price = 0;
-        canAttachCrystal = true;
     }
 }

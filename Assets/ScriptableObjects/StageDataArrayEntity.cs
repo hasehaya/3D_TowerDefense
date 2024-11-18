@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 
+using Unity.VisualScripting.Antlr3.Runtime.Tree;
+
 using UnityEngine;
 
 [CreateAssetMenu]
@@ -16,4 +18,6 @@ public class StageData
     public SceneLoader.SceneName sceneName;
     public string stageName;
     public Sprite stageIcon;
+    public Facility.Type mustFacility;
+    public int firstMoney;
 }
