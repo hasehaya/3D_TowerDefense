@@ -1342,10 +1342,10 @@ MonoBehaviour:
   active: 1
   enabled:
     overrideState: 1
-    value: 1
+    value: 0
   intensity:
     overrideState: 1
-    value: 6.16
+    value: 6.9
   threshold:
     overrideState: 1
     value: 1
@@ -1360,7 +1360,7 @@ MonoBehaviour:
     value: 7
   anamorphicRatio:
     overrideState: 0
-    value: 0
+    value: 0.5
   color:
     overrideState: 0
     value: {r: 1, g: 1, b: 1, a: 1}

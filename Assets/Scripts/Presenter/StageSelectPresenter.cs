@@ -6,6 +6,7 @@ using UnityEngine;
 public class StageSelectPresenter :MonoBehaviour
 {
     [SerializeField] GameObject stageSelectViewObj;
+    [SerializeField] GameObject stageSelectContent;
     StageData[] stages;
 
     void Start()
