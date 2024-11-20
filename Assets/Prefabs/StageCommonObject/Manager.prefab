@@ -94,6 +94,8 @@ MonoBehaviour:
   waveDataListEntity: {fileID: 11400000, guid: 9977047a73ad1564fb77791ab965a978, type: 2}
   waveEnemyDataListEntity: {fileID: 11400000, guid: fd19b61689340ce418f0377871d3251e, type: 2}
   messageDataListEntity: {fileID: 11400000, guid: fe131ee1c00be448ca51c20cbf09e2ad, type: 2}
+  seDataListEntity: {fileID: 11400000, guid: 5c529e85ec6692e4da754ee8c84c55ff, type: 2}
+  bgmDataListEntity: {fileID: 11400000, guid: d58e4fea950fdbe47ac2e4273b36e3fb, type: 2}
 --- !u!1 &4947590370161735010
 GameObject:
   m_ObjectHideFlags: 0

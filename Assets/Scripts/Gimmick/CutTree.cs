@@ -9,10 +9,16 @@ public class CutTree :Gimmick, IDamageable
     [SerializeField] int hp;
     [SerializeField] float range;
     [SerializeField] Animator anim;
+    [SerializeField] Transform target;
     public Damageable damageable { get; set; }
     EnemyDetector enemyDetector;
     List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
     bool isInstalled = false;
+
+    void OnDestroy()
+    {
+        Damageable.OnDestroyDamageableObject -= Destroy;
+    }
 
     protected override void Update()
     {
@@ -37,30 +43,30 @@ public class CutTree :Gimmick, IDamageable
     {
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.CutTree);
         anim.Play("Cut");
+        StartCoroutine(WaitForAnimation("Cut"));
+    }
 
-        RuntimeAnimatorController ac = anim.runtimeAnimatorController;
-        string methodName = "BecomTarget";
+    private IEnumerator WaitForAnimation(string animationName)
+    {
+        yield return null;
 
-        foreach (var clip in ac.animationClips)
+        AnimatorStateInfo stateInfo = anim.GetCurrentAnimatorStateInfo(0);
+
+        while (stateInfo.IsName(animationName) && stateInfo.normalizedTime < 1.0f)
         {
-            if (clip.name == "Cut")
-            {
-                var finishEvent = new AnimationEvent();
-                finishEvent.functionName = methodName;
-                finishEvent.time = clip.length;
-                clip.AddEvent(finishEvent);
-                break;
-            }
+            yield return null;
+            stateInfo = anim.GetCurrentAnimatorStateInfo(0);
         }
+
+        BecomTarget();
     }
 
     void BecomTarget()
     {
         damageable = gameObject.AddComponent<Damageable>();
         damageable.Initialize(hp);
-        var child = transform.Find("Child").gameObject;
-        var worldPos = child.gameObject.transform.position;
-        damageable.SetHpBarPosition(worldPos);
+        damageable.SetHpBarPosition(target.position);
+        Damageable.OnDestroyDamageableObject += Destroy;
         enemyDetector = gameObject.AddComponent<EnemyDetector>();
         enemyDetector.Initialize(Form.Sphere, range);
         isInstalled = true;
@@ -71,12 +77,13 @@ public class CutTree :Gimmick, IDamageable
         damageable.TakeDamage(damage);
     }
 
-    private void OnDestroy()
+    private void Destroy()
     {
         foreach (var enemy in enemies)
         {
             enemy.SetDestination(StageManager.Instance.GetPlayerBasePosition());
         }
+        Destroy(gameObject);
     }
 
     void Provoke()
@@ -91,18 +98,17 @@ public class CutTree :Gimmick, IDamageable
             {
                 continue;
             }
-            Vector3 directionToTree = (transform.position - enemy.transform.position).normalized;
+            Vector3 directionToTree = (target.position - enemy.transform.position).normalized;
             float dotProduct = Vector3.Dot(directionToTree, enemy.transform.forward);
             // 敵が盾の方向を向いている場合（内積が正）
             if (dotProduct > 0)
             {
                 var basePos = StageManager.Instance.GetPlayerBasePosition();
-                float distanceToTree = Vector3.Distance(enemy.transform.position, transform.position);
+                float distanceToTree = Vector3.Distance(enemy.transform.position, target.position);
                 float distanceToBase = Vector3.Distance(enemy.transform.position, basePos);
                 if (distanceToTree < distanceToBase)
                 {
-                    var child = transform.Find("Child").gameObject;
-                    var destinationPos = child.gameObject.transform.position;
+                    var destinationPos = target.position;
 
                     enemy.SetDestination(destinationPos);
                 }

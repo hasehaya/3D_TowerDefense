@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+#if UNITY_EDITOR
 public class ArrangeGroundEnemy :MonoBehaviour
 {
     private void Awake()
@@ -71,3 +72,4 @@ public class ArrangeGroundEnemyEditor :Editor
         }
     }
 }
+#endif

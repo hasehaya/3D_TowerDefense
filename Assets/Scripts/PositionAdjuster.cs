@@ -1,4 +1,5 @@
-using UnityEditor;
+﻿using UnityEditor;
+
 using UnityEngine;
 
 public class PositionAdjuster :MonoBehaviour
@@ -12,7 +13,7 @@ public class PositionAdjuster :MonoBehaviour
     {
         foreach (Transform child in transform)
         {
-            foreach(Transform grandChild in child)
+            foreach (Transform grandChild in child)
             {
                 AdjustPosition(grandChild);
             }
@@ -45,6 +46,7 @@ public class PositionAdjuster :MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(PositionAdjuster))]
 public class PositionAdjusterEditor :Editor
 {
@@ -62,3 +64,4 @@ public class PositionAdjusterEditor :Editor
         }
     }
 }
+#endif

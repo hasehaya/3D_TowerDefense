@@ -50,6 +50,7 @@ MonoBehaviour:
   hp: 30
   range: 30
   anim: {fileID: 4248220629786629996}
+  target: {fileID: 945132974469065604}
 --- !u!136 &6313595880862375722
 CapsuleCollider:
   m_ObjectHideFlags: 0

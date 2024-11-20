@@ -7,7 +7,7 @@ public class Gimmick :MonoBehaviour
 {
 
     private float nearDistance = 10.0f;
-    private float waitTime = 10.0f;
+    private float waitTime = 3.0f;
     bool waiting = false;
     bool isShowNotice = false;
 

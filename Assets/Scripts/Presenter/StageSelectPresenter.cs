@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class StageSelectPresenter :MonoBehaviour
 {
-    [SerializeField] GameObject stageSelectViewObj;
-    [SerializeField] GameObject stageSelectContent;
+    [SerializeField] GameObject stageSelectViewPrefab;
+    [SerializeField] Transform stageSelectContent;
+    [SerializeField] FacilitySelectPresenter facilitySelectPresenter;
     StageData[] stages;
 
     void Start()
@@ -14,7 +15,7 @@ public class StageSelectPresenter :MonoBehaviour
         stages = ScriptableObjectManager.Instance.GetStageDataArray();
         foreach (var stage in stages)
         {
-            var viewObj = Instantiate(stageSelectViewObj, transform);
+            var viewObj = Instantiate(stageSelectViewPrefab, stageSelectContent);
             var view = viewObj.GetComponent<StageSelectView>();
             view.AddStageButton(stage.stageNum, stage.stageName, stage.stageIcon, () => OnClickStageButton(stage.sceneName));
         }
@@ -22,6 +23,6 @@ public class StageSelectPresenter :MonoBehaviour
 
     void OnClickStageButton(SceneLoader.SceneName sceneName)
     {
-        StartCoroutine(SceneLoader.Instance.LoadScene(sceneName));
+        facilitySelectPresenter.Initialize(sceneName);
     }
 }

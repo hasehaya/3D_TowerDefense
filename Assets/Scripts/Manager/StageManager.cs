@@ -24,7 +24,7 @@ public class StageManager :MonoBehaviour
     const float CHANGE_TIME_SCALE = 0.5f;
 
     [SerializeField] PlayerBase playerBase;
-    public int StageNum { get; private set; } = 1;
+    public int StageNum { get; private set; } = 5;
 
 
     private void Awake()
@@ -45,7 +45,15 @@ public class StageManager :MonoBehaviour
         var waveManager = WaveManager.Instance;
         var enemyManager = EnemyManager.Instance;
         var facilityManager = FacilityManager.Instance;
-        facilityManager.SetAvailableFacilityTypes(new List<Facility.Type> { Facility.Type.Canon, Facility.Type.Magic });
+        facilityManager.SetAvailableFacilityTypes(new List<Facility.Type> {
+            Facility.Type.Canon,
+            Facility.Type.Magic,
+            Facility.Type.Freeze,
+            Facility.Type.Spring,
+            Facility.Type.Tower,
+            Facility.Type.Freeze,
+            Facility.Type.Shield,
+            });
     }
 
     public Vector3 GetPlayerBasePosition()

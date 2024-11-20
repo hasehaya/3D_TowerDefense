@@ -21,10 +21,6 @@ public class Tower :Facility
         }
     }
 
-    /// <summary>
-    /// ワープの対象を選んだ時輪郭を黄色にするよう
-    /// </summary>
-    /// <param name="isSelected"></param>
     public void WarpSelection(bool isSelected)
     {
         outline.enabled = isSelected;
@@ -46,6 +42,24 @@ public class Tower :Facility
 
     public void WarpToLower()
     {
-        Player.Instance.WarpTo(lowerPos.position);
+        RaycastHit hit;
+        Vector3 origin = lowerPos.position;
+        int layerToTarget = LayerMask.NameToLayer("Ground");
+        LayerMask layerMask = 1 << layerToTarget;
+
+        if (Physics.Raycast(origin, Vector3.down, out hit, Mathf.Infinity, layerMask))
+        {
+            Vector3 targetPosition = hit.point + Vector3.up * 1f;
+            Player.Instance.WarpTo(targetPosition);
+        }
+        else if (Physics.Raycast(origin, Vector3.up, out hit, Mathf.Infinity, layerMask))
+        {
+            Vector3 targetPosition = hit.point + Vector3.up * 1f;
+            Player.Instance.WarpTo(targetPosition);
+        }
+        else
+        {
+            Player.Instance.WarpTo(lowerPos.position);
+        }
     }
 }

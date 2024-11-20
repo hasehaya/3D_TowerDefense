@@ -84,6 +84,7 @@ public class GenerateNavMeshVolumeModifier :MonoBehaviour
     }
 }
 
+#if UNITY_EDITOR
 [CustomEditor(typeof(GenerateNavMeshVolumeModifier))]
 public class NavMeshFromSplatmapEditor :Editor
 {
@@ -99,3 +100,4 @@ public class NavMeshFromSplatmapEditor :Editor
         }
     }
 }
+#endif

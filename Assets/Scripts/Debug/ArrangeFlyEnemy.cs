@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.AI;
 
+#if UNITY_EDITOR
 public class ArrangeFlyEnemy :MonoBehaviour
 {
     private void Awake()
@@ -62,3 +63,4 @@ public class ArrangeChildrenComponentEditor :Editor
         }
     }
 }
+#endif
