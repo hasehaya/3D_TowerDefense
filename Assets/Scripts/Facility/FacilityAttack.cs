@@ -174,7 +174,7 @@ public class FacilityAttack :Facility
 
             var mostNearEnemyDistance = Vector3.Distance(transform.position, mostNearEnemy.transform.position);
             var enemyDistance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (mostNearEnemyDistance < enemyDistance)
+            if (enemyDistance < mostNearEnemyDistance)
             {
                 mostNearEnemy = enemy;
             }

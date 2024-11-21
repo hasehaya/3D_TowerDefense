@@ -43,16 +43,9 @@ public class Tower :Facility
     public void WarpToLower()
     {
         RaycastHit hit;
-        Vector3 origin = lowerPos.position;
-        int layerToTarget = LayerMask.NameToLayer("Ground");
-        LayerMask layerMask = 1 << layerToTarget;
+        Vector3 pos = lowerPos.position + Vector3.up * 20;
 
-        if (Physics.Raycast(origin, Vector3.down, out hit, Mathf.Infinity, layerMask))
-        {
-            Vector3 targetPosition = hit.point + Vector3.up * 1f;
-            Player.Instance.WarpTo(targetPosition);
-        }
-        else if (Physics.Raycast(origin, Vector3.up, out hit, Mathf.Infinity, layerMask))
+        if (Physics.Raycast(pos, Vector3.down, out hit, Mathf.Infinity))
         {
             Vector3 targetPosition = hit.point + Vector3.up * 1f;
             Player.Instance.WarpTo(targetPosition);
