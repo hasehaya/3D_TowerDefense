@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2003931976}
-  m_IndirectSpecularColor: {r: 0.38515973, g: 0.47249496, b: 0.61858815, a: 1}
+  m_IndirectSpecularColor: {r: 0.3851593, g: 0.4724939, b: 0.6185859, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -414,7 +414,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 94.3, y: -32.1}
-  m_SizeDelta: {x: 1186.56, y: 619.1}
+  m_SizeDelta: {x: 1000, y: 265}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &97598101
 MonoBehaviour:
@@ -433,13 +433,13 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 0
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 150, y: 150}
   m_Spacing: {x: 61.2, y: 19.9}
-  m_Constraint: 0
-  m_ConstraintCount: 2
+  m_Constraint: 1
+  m_ConstraintCount: 5
 --- !u!1001 &116944170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1263,7 +1263,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 79.9, y: 200}
-  m_SizeDelta: {x: 970, y: 0}
+  m_SizeDelta: {x: 1000, y: 228}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &317869893
 MonoBehaviour:
@@ -1282,7 +1282,7 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
+  m_ChildAlignment: 3
   m_Spacing: 50
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
@@ -3582,7 +3582,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   availableFacilityParent: {fileID: 97598100}
-  selectedFacilityParent: {fileID: 603226648}
+  selectedFacilityParent: {fileID: 1142390230}
   facilityCellPrefab: {fileID: 4490340054621335849, guid: 74be7777b2e5f3246a0ee1e27e67e92a, type: 3}
   popupObj: {fileID: 709483556}
   playBtn: {fileID: 1038044037}
@@ -4393,8 +4393,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 79.9, y: 200}
-  m_SizeDelta: {x: 970, y: 0}
+  m_AnchoredPosition: {x: -414, y: 200}
+  m_SizeDelta: {x: 0, y: 231.09}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1142390231
 MonoBehaviour:
@@ -4413,8 +4413,8 @@ MonoBehaviour:
     m_Right: 0
     m_Top: 0
     m_Bottom: 0
-  m_ChildAlignment: 4
-  m_Spacing: 61.2
+  m_ChildAlignment: 3
+  m_Spacing: 59.56
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
