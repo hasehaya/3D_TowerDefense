@@ -22,7 +22,7 @@ public class MessageWindowManager :MonoBehaviour
     [SerializeField] GameObject messageWindow; // メッセージウィンドウ
     [SerializeField] Text messageText; // メッセージテキスト
 
-    [SerializeField] float charInterval = 0.05f; // 文字表示間隔
+    [SerializeField] float charInterval = 0.037f; // 文字表示間隔
     private Coroutine writingCoroutine;
     private bool isWriting = false;
     private string fullMessage = string.Empty;
@@ -45,20 +45,16 @@ public class MessageWindowManager :MonoBehaviour
 
     void Update()
     {
-        if (messageWindow.activeSelf)
+        if (!messageWindow.activeSelf)
         {
-            if (Input.GetMouseButtonDown(0))
+            return;
+        }
+        if (Input.GetMouseButtonUp(0))
+        {
+            if (isWaitingForNextMessage)
             {
-                if (isWriting)
-                {
-                    // 表示中にクリックされたら全文表示
-                    SkipWriting();
-                }
-                else if (isWaitingForNextMessage)
-                {
-                    // 全文表示後にクリックされたら次のメッセージへ
-                    isWaitingForNextMessage = false;
-                }
+                // 全文表示後にクリックされたら次のメッセージへ
+                isWaitingForNextMessage = false;
             }
         }
     }
@@ -92,18 +88,6 @@ public class MessageWindowManager :MonoBehaviour
             yield return new WaitForSeconds(charInterval);
         }
         isWriting = false;
-    }
-
-    // 表示中の文字をスキップして全文表示
-    public void SkipWriting()
-    {
-        if (isWriting)
-        {
-            StopCoroutine(writingCoroutine);
-            messageText.text = fullMessage;
-            isWriting = false;
-            // ウィンドウは閉じない
-        }
     }
 
     // メッセージをクリア

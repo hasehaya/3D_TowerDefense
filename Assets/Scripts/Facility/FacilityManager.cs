@@ -28,6 +28,7 @@ public class FacilityManager
     public FacilityManager()
     {
         facilityParameterArray = ScriptableObjectManager.Instance.GetFacilityParameterArray();
+        AvailableFacilityTypeList = SharedSceneData.AvailableFacilityTypes;
         UpdateCaller.AddUpdateCallback(Update);
     }
 

@@ -1,5 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
+
+using Unity.VisualScripting;
 
 using UnityEngine;
 
@@ -17,12 +20,21 @@ public class StageSelectPresenter :MonoBehaviour
         {
             var viewObj = Instantiate(stageSelectViewPrefab, stageSelectContent);
             var view = viewObj.GetComponent<StageSelectView>();
-            view.AddStageButton(stage.stageNum, stage.stageName, stage.stageIcon, () => OnClickStageButton(stage.sceneName));
+            view.AddStageButton(stage.stageNum, stage.stageName, stage.stageIcon, () => OnClickStageButton(stage));
         }
     }
 
-    void OnClickStageButton(SceneLoader.SceneName sceneName)
+    void OnClickStageButton(StageData stageData)
     {
-        facilitySelectPresenter.Initialize(sceneName);
+        var availableFacilities = SaveDataManager.Instance.SaveData.AvailableFacilityTypes();
+        if (availableFacilities.Count <= 5)
+        {
+            StartCoroutine(SceneLoader.Instance.LoadScene(stageData.sceneName));
+            SharedSceneData.AvailableFacilityTypes = availableFacilities.ToListPooled();
+        }
+        else
+        {
+            facilitySelectPresenter.Initialize(stageData);
+        }
     }
 }

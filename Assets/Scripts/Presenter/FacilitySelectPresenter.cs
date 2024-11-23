@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,8 +12,10 @@ public class FacilitySelectPresenter :MonoBehaviour
     [SerializeField] Button playBtn;
     [SerializeField] Button backBtn;
     SceneLoader.SceneName selectedSceneName;
+    Facility.Type mustFacility;
 
     private List<FacilityParameter> selectedFacilities = new List<FacilityParameter>();
+    private Dictionary<FacilityParameter, GameObject> facilityToViewMap = new Dictionary<FacilityParameter, GameObject>();
 
     private void Start()
     {
@@ -25,6 +26,8 @@ public class FacilitySelectPresenter :MonoBehaviour
             var view = viewObj.GetComponent<FacilityCellView>();
             view.SetIcon(facility.icon);
             view.SetButtonAction(() => OnClickFacilityButton(facility, viewObj));
+
+            facilityToViewMap.Add(facility, viewObj);
         }
 
         popupObj.SetActive(false);
@@ -33,14 +36,52 @@ public class FacilitySelectPresenter :MonoBehaviour
         playBtn.onClick.AddListener(() => StartCoroutine(SceneLoader.Instance.LoadScene(selectedSceneName)));
     }
 
-    public void Initialize(SceneLoader.SceneName sceneName)
+    public void Initialize(StageData stageData)
     {
-        selectedSceneName = sceneName;
+        selectedSceneName = stageData.sceneName;
+        mustFacility = stageData.mustFacility;
+
+        for (int i = selectedFacilityParent.childCount - 1; i >= 0; i--)
+        {
+            var child = selectedFacilityParent.GetChild(i);
+            child.SetParent(availableFacilityParent);
+        }
+
+        selectedFacilities.Clear();
+
+        FacilityParameter mustFacilityParameter = null;
+
+        foreach (var facilityParam in facilityToViewMap.Keys)
+        {
+            if (facilityParam.type == mustFacility)
+            {
+                mustFacilityParameter = facilityParam;
+                break;
+            }
+        }
+
+        if (mustFacilityParameter != null)
+        {
+            var mustFacilityViewObj = facilityToViewMap[mustFacilityParameter];
+
+            mustFacilityViewObj.transform.SetParent(selectedFacilityParent);
+            selectedFacilities.Add(mustFacilityParameter);
+
+            var view = mustFacilityViewObj.GetComponent<FacilityCellView>();
+            view.SetInteractable(false);
+        }
+
         popupObj.SetActive(true);
     }
 
     void OnClickFacilityButton(FacilityParameter facility, GameObject viewObj)
     {
+        if (facility.type == mustFacility)
+        {
+            Debug.Log("Must facility cannot be moved.");
+            return;
+        }
+
         if (viewObj.transform.parent == availableFacilityParent)
         {
             if (selectedFacilities.Count < 5)
@@ -50,7 +91,7 @@ public class FacilitySelectPresenter :MonoBehaviour
             }
             else
             {
-                Debug.Log("選択可能な施設は5つまでです。");
+                Debug.Log("You can select up to 5 facilities.");
             }
         }
         else if (viewObj.transform.parent == selectedFacilityParent)

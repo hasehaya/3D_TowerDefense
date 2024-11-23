@@ -18,4 +18,10 @@ public class FacilityCellView :MonoBehaviour
     {
         button.onClick.AddListener(() => action());
     }
+
+    public void SetInteractable(bool isInteractable)
+    {
+        button.interactable = isInteractable;
+    }
+
 }

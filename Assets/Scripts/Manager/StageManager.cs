@@ -16,6 +16,7 @@ public class StageManager :MonoBehaviour
             if (instance == null)
             {
                 instance = FindObjectOfType<StageManager>();
+                instance.StageNum = SharedSceneData.StageNum;
             }
             return instance;
         }
@@ -24,8 +25,7 @@ public class StageManager :MonoBehaviour
     const float CHANGE_TIME_SCALE = 0.5f;
 
     [SerializeField] PlayerBase playerBase;
-    public int StageNum { get; private set; } = 5;
-
+    public int StageNum { get; private set; }
 
     private void Awake()
     {
@@ -45,15 +45,6 @@ public class StageManager :MonoBehaviour
         var waveManager = WaveManager.Instance;
         var enemyManager = EnemyManager.Instance;
         var facilityManager = FacilityManager.Instance;
-        facilityManager.SetAvailableFacilityTypes(new List<Facility.Type> {
-            Facility.Type.Canon,
-            Facility.Type.Magic,
-            Facility.Type.Freeze,
-            Facility.Type.Spring,
-            Facility.Type.Tower,
-            Facility.Type.Freeze,
-            Facility.Type.Shield,
-            });
     }
 
     public Vector3 GetPlayerBasePosition()

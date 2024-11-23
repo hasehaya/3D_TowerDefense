@@ -57,6 +57,7 @@ public class SceneLoader
             nextScene = (SceneName)SceneManager.GetActiveScene().buildIndex + 1;
         }
         SceneManager.LoadScene(nextScene.ToString());
+        SharedSceneData.StageNum = (int)nextScene;
     }
 
     public IEnumerator LoadScene(SceneName sceneName)

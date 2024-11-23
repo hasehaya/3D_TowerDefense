@@ -23,7 +23,7 @@ MonoBehaviour:
     sceneName: 12
     stageName: 
     stageIcon: {fileID: 0}
-    mustFacility: 99
+    mustFacility: 1
     firstMoney: 0
   - stageNum: 3
     sceneName: 13
