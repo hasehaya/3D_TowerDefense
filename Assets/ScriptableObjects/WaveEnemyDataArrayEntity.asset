@@ -509,142 +509,182 @@ MonoBehaviour:
     enemyType: 9
     enemyBaseIndex: 2
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
     enemyBaseIndex: 0
   - stage: 5
-    wave: 0
+    wave: 1
     spawnTime: 0
-    enemyType: 0
+    enemyType: 9
+    enemyBaseIndex: 0
+  - stage: 6
+    wave: 1
+    spawnTime: 0
+    enemyType: 9
+    enemyBaseIndex: 0
+  - stage: 7
+    wave: 1
+    spawnTime: 0
+    enemyType: 8
+    enemyBaseIndex: 0
+  - stage: 8
+    wave: 1
+    spawnTime: 0
+    enemyType: 8
+    enemyBaseIndex: 0
+  - stage: 9
+    wave: 1
+    spawnTime: 0
+    enemyType: 8
+    enemyBaseIndex: 0
+  - stage: 10
+    wave: 1
+    spawnTime: 0
+    enemyType: 8
+    enemyBaseIndex: 0
+  - stage: 11
+    wave: 1
+    spawnTime: 0
+    enemyType: 8
+    enemyBaseIndex: 0
+  - stage: 12
+    wave: 1
+    spawnTime: 0
+    enemyType: 8
+    enemyBaseIndex: 0
+  - stage: 13
+    wave: 1
+    spawnTime: 0
+    enemyType: 8
     enemyBaseIndex: 0

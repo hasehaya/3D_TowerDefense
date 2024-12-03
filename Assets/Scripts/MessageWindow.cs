@@ -40,7 +40,7 @@ public class MessageWindowManager :MonoBehaviour
         messageArray = ScriptableObjectManager.Instance.GetMessageDataArray();
         messageText.text = "";
         messageWindow.SetActive(false);
-        ShowMessagesWithId(1); // 初期メッセージ表示
+        //ShowMessagesWithId(1);
     }
 
     void Update()

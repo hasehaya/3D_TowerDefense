@@ -39,13 +39,19 @@ public class Player :MonoBehaviour
 
     private void Awake()
     {
-        // StageManagerのPauseとResumeイベントに登録
         StageManager.OnPause += Pause;
         StageManager.OnResume += Resume;
+
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
 
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
+    }
+
+    private void OnDestroy()
+    {
+        StageManager.OnPause -= Pause;
+        StageManager.OnResume -= Resume;
     }
 
     void Update()
