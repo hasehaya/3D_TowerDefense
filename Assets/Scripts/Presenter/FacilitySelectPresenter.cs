@@ -33,7 +33,13 @@ public class FacilitySelectPresenter :MonoBehaviour
         popupObj.SetActive(false);
 
         backBtn.onClick.AddListener(() => popupObj.SetActive(false));
-        playBtn.onClick.AddListener(() => StartCoroutine(SceneLoader.Instance.LoadScene(selectedSceneName)));
+        playBtn.onClick.AddListener(LoadStage);
+    }
+
+    void LoadStage()
+    {
+        SharedSceneData.AvailableFacilityTypes = selectedFacilities.ConvertAll(facility => facility.type);
+        StartCoroutine(SceneLoader.Instance.LoadScene(selectedSceneName));
     }
 
     public void Initialize(StageData stageData)
@@ -78,7 +84,6 @@ public class FacilitySelectPresenter :MonoBehaviour
     {
         if (facility.type == mustFacility)
         {
-            Debug.Log("Must facility cannot be moved.");
             return;
         }
 
@@ -88,10 +93,6 @@ public class FacilitySelectPresenter :MonoBehaviour
             {
                 viewObj.transform.SetParent(selectedFacilityParent);
                 selectedFacilities.Add(facility);
-            }
-            else
-            {
-                Debug.Log("You can select up to 5 facilities.");
             }
         }
         else if (viewObj.transform.parent == selectedFacilityParent)

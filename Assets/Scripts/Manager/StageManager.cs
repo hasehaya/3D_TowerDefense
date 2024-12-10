@@ -16,7 +16,6 @@ public class StageManager :MonoBehaviour
             if (instance == null)
             {
                 instance = FindObjectOfType<StageManager>();
-                instance.StageNum = SharedSceneData.StageNum;
             }
             return instance;
         }
@@ -25,7 +24,6 @@ public class StageManager :MonoBehaviour
     const float CHANGE_TIME_SCALE = 0.5f;
 
     [SerializeField] PlayerBase playerBase;
-    public int StageNum { get; private set; }
 
     private void Awake()
     {
@@ -84,6 +82,14 @@ public class StageManager :MonoBehaviour
     {
         UIManager.Instance.ShowStageClearPanel();
         Pause();
+
+        var clearStageNum = SaveDataManager.Instance.SaveData.ClearStageNum;
+        var currentStageNum = SharedSceneData.StageNum;
+        if (clearStageNum < currentStageNum)
+        {
+            SaveDataManager.Instance.SaveData.ClearStageNum = currentStageNum;
+            SaveDataManager.Instance.Save();
+        }
     }
 
     public void GameOver()

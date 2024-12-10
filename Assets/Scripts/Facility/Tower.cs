@@ -17,6 +17,10 @@ public class Tower :Facility
         base.HandleSelection(isSelected);
         if (isSelected)
         {
+            if (!isInstalled)
+            {
+                return;
+            }
             NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Climb, WarpToTop);
         }
     }

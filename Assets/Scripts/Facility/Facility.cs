@@ -162,6 +162,7 @@ public class Facility :MonoBehaviour
         CrystalBox.Instance.SynthesizeCrystal(crystal);
         OnFaicilitySynthesized?.Invoke(this);
     }
+
     public void ChangeColorRed()
     {
         foreach (var mr in mrAndColors)
@@ -201,11 +202,14 @@ public class Facility :MonoBehaviour
 
     void FacilitySell()
     {
-        Destroy(gameObject);
-        FacilityManager.Instance.RemoveFacility(this);
-
         int earnMoney = (int)(FacilityParameter.price * 0.7f);
         MoneyManager.Instance.AddMoney(earnMoney);
+
+        FacilityManager.Instance.RemoveFacility(this);
+
+        HideNotice();
+
+        Destroy(gameObject);
     }
 
     public InstallType GetInstallType()

@@ -23,21 +23,23 @@ public class SceneLoader
 
     public enum SceneName
     {
-        Home = 1,
-        StageSelect = 2,
-        Stage1 = 11,
-        Stage2 = 12,
-        Stage3 = 13,
-        Stage4 = 14,
-        Stage5 = 15,
-        Stage6 = 16,
-        Stage7 = 17,
-        Stage8 = 18,
-        Stage9 = 19,
-        Stage10 = 20,
-        Stage11 = 21,
-        Stage12 = 22,
-        Stage13 = 23,
+        Stage1 = 1,
+        Stage2 = 2,
+        Stage3 = 3,
+        Stage4 = 4,
+        Stage5 = 5,
+        Stage6 = 6,
+        Stage7 = 7,
+        Stage8 = 8,
+        Stage9 = 9,
+        Stage10 = 10,
+        Stage11 = 11,
+        Stage12 = 12,
+        Stage13 = 13,
+
+
+        Home = 101,
+        StageSelect = 102,
     }
 
     public void RestartStage()

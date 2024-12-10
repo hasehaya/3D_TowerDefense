@@ -19,5 +19,4 @@ public class StageData
     public string stageName;
     public Sprite stageIcon;
     public Facility.Type mustFacility;
-    public int firstMoney;
 }

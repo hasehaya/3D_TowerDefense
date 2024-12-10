@@ -11,7 +11,7 @@ public class SaveData
 
     public int ClearStageNum
     {
-        get { return clearStageNum; }
+        get { return 11; }
         set { clearStageNum = value; }
     }
 
@@ -21,7 +21,7 @@ public class SaveData
         var stageData = ScriptableObjectManager.Instance.GetStageDataArray();
         foreach (var stage in stageData)
         {
-            if (stage.stageNum <= clearStageNum + 1)
+            if (stage.stageNum <= ClearStageNum + 1)
             {
                 availableFacilityTypes.Add(stage.mustFacility);
             }

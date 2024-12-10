@@ -1,10 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 using Unity.VisualScripting;
 
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StageSelectPresenter :MonoBehaviour
 {
@@ -15,7 +17,8 @@ public class StageSelectPresenter :MonoBehaviour
 
     void Start()
     {
-        stages = ScriptableObjectManager.Instance.GetStageDataArray();
+        var clearStagehNum = SaveDataManager.Instance.SaveData.ClearStageNum;
+        stages = ScriptableObjectManager.Instance.GetStageDataArray().Where(stage => stage.stageNum <= clearStagehNum + 1).ToArray();
         foreach (var stage in stages)
         {
             var viewObj = Instantiate(stageSelectViewPrefab, stageSelectContent);
@@ -26,6 +29,8 @@ public class StageSelectPresenter :MonoBehaviour
 
     void OnClickStageButton(StageData stageData)
     {
+        SharedSceneData.StageNum = stageData.stageNum;
+
         var availableFacilities = SaveDataManager.Instance.SaveData.AvailableFacilityTypes();
         if (availableFacilities.Count <= 5)
         {

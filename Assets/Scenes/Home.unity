@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2003931976}
-  m_IndirectSpecularColor: {r: 0.3851593, g: 0.4724939, b: 0.6185859, a: 1}
+  m_IndirectSpecularColor: {r: 0.38515973, g: 0.47249496, b: 0.61858815, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6710,14 +6710,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2fecbb3f26525604dbed04557100c9dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyParameterListEntity: {fileID: 11400000, guid: b04c83cf12995f94bae66734c17c7ac8, type: 2}
-  facilityParameterListEntity: {fileID: 11400000, guid: 33873e17c097c504ca064afe6b314edc, type: 2}
-  stageDataListEntity: {fileID: 11400000, guid: 0074cb5d967f7e240bac99fbb1ad6413, type: 2}
-  waveDataListEntity: {fileID: 11400000, guid: 9977047a73ad1564fb77791ab965a978, type: 2}
-  waveEnemyDataListEntity: {fileID: 11400000, guid: fd19b61689340ce418f0377871d3251e, type: 2}
-  messageDataListEntity: {fileID: 11400000, guid: fe131ee1c00be448ca51c20cbf09e2ad, type: 2}
-  seDataListEntity: {fileID: 11400000, guid: 5c529e85ec6692e4da754ee8c84c55ff, type: 2}
-  bgmDataListEntity: {fileID: 11400000, guid: d58e4fea950fdbe47ac2e4273b36e3fb, type: 2}
+  enemyParameterArrayEntity: {fileID: 11400000, guid: b04c83cf12995f94bae66734c17c7ac8, type: 2}
+  facilityParameterArrayEntity: {fileID: 11400000, guid: 33873e17c097c504ca064afe6b314edc, type: 2}
+  stageDataArrayEntity: {fileID: 11400000, guid: 0074cb5d967f7e240bac99fbb1ad6413, type: 2}
+  waveDataArrayEntity: {fileID: 11400000, guid: 9977047a73ad1564fb77791ab965a978, type: 2}
+  waveEnemyDataArrayEntity: {fileID: 11400000, guid: fd19b61689340ce418f0377871d3251e, type: 2}
+  messageDataArrayEntity: {fileID: 11400000, guid: fe131ee1c00be448ca51c20cbf09e2ad, type: 2}
+  seDataArrayEntity: {fileID: 11400000, guid: 5c529e85ec6692e4da754ee8c84c55ff, type: 2}
+  bgmDataArrayEntity: {fileID: 11400000, guid: d58e4fea950fdbe47ac2e4273b36e3fb, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

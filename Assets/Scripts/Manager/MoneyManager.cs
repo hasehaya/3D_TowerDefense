@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 using UnityEngine;
 using UnityEngine.UI;
@@ -27,7 +28,8 @@ public class MoneyManager
 
     private MoneyManager()
     {
-        AddMoney(700);
+        //TODO: WaveDataより初期値を取得
+        AddMoney(1000);
     }
 
     public void Pay(int price)

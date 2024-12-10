@@ -37,7 +37,7 @@ public class WaveManager
 
     public WaveManager()
     {
-        var stage = StageManager.Instance.StageNum;
+        var stage = SharedSceneData.StageNum;
         waveDataList = ScriptableObjectManager.Instance.GetWaveDataArray().Where(waveData => waveData.stage == stage).ToArray();
         ReloadWaveEnemyList();
         OnWaveChanged?.Invoke(waveIndex, maxWaveIndex);
@@ -131,7 +131,7 @@ public class WaveManager
 
     void ReloadWaveEnemyList()
     {
-        waveEnemyList = ScriptableObjectManager.Instance.GetWaveEnemyDataArray().Where(waveEnemyData => waveEnemyData.stage == StageManager.Instance.StageNum && waveEnemyData.wave == waveIndex).ToArray();
+        waveEnemyList = ScriptableObjectManager.Instance.GetWaveEnemyDataArray().Where(waveEnemyData => waveEnemyData.stage == SharedSceneData.StageNum && waveEnemyData.wave == waveIndex).ToArray();
     }
 
     public void NextWave()

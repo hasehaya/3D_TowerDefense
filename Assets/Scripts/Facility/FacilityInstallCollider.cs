@@ -53,7 +53,6 @@ public class FacilityInstallCollider :MonoBehaviour
         }
 
         facility.canInstall = canInstall;
-        print(canInstall);
 
         if (facility.canInstall)
         {

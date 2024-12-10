@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SharedSceneData
 {
-    static int stageNum = 11;
+    static int stageNum = 1;
     public static int StageNum
     {
         get { return stageNum; }

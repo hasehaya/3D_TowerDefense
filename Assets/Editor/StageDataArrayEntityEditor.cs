@@ -46,7 +46,7 @@ public class StageDataArrayEntityEditor :Editor
             SerializedProperty sceneNameProp = element.FindPropertyRelative("sceneName");
             int stageNum = index + 1;
             stageNumProp.intValue = stageNum;
-            sceneNameProp.enumValueIndex = stageNum + 1;
+            sceneNameProp.enumValueIndex = stageNum - 1;
 
             // フォールドアウト（展開用三角）の描画
             element.isExpanded = EditorGUI.Foldout(

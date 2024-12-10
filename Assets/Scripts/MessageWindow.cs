@@ -40,7 +40,8 @@ public class MessageWindowManager :MonoBehaviour
         messageArray = ScriptableObjectManager.Instance.GetMessageDataArray();
         messageText.text = "";
         messageWindow.SetActive(false);
-        //ShowMessagesWithId(1);
+        var stageNum = SharedSceneData.StageNum;
+        ShowMessagesWithId(stageNum, 1);
     }
 
     void Update()
@@ -102,21 +103,21 @@ public class MessageWindowManager :MonoBehaviour
         messageWindow.SetActive(false);
     }
 
-    // 指定IDのメッセージを表示
-    public void ShowMessagesWithId(int messageId)
+    // 指定のStageIdとMessageIdのメッセージを表示
+    public void ShowMessagesWithId(int stageId, int messageId)
     {
-        StartCoroutine(ShowMessagesCoroutine(messageId));
+        StartCoroutine(ShowMessagesCoroutine(stageId, messageId));
     }
 
     // メッセージ表示のコルーチン
-    private IEnumerator ShowMessagesCoroutine(int messageId)
+    private IEnumerator ShowMessagesCoroutine(int stageId, int messageId)
     {
         StageManager.Instance.Pause();
-        // 指定IDのメッセージを取得して内部番号順にソート
+        // 指定StageIdとMessageIdのメッセージを取得して内部番号順にソート
         List<MessageData> targetMessages = new List<MessageData>();
         foreach (MessageData m in messageArray)
         {
-            if (m.messageId == messageId)
+            if (m.stageId == stageId && m.messageId == messageId)
             {
                 targetMessages.Add(m);
             }
@@ -158,12 +159,14 @@ public class MessageWindowManager :MonoBehaviour
 [System.Serializable]
 public class MessageData
 {
+    public int stageId;
     public int messageId;
     public int internalNo;
     public string text;
 
     public MessageData()
     {
+        stageId = 0;
         messageId = 0;
         internalNo = 0;
         text = "";

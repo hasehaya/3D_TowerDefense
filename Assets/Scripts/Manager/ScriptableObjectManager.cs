@@ -18,21 +18,21 @@ public class ScriptableObjectManager :MonoBehaviour
         }
     }
 
-    [SerializeField] EnemyParameterArrayEntity enemyParameterListEntity;
-    [SerializeField] FacilityParameterArrayEntity facilityParameterListEntity;
-    [SerializeField] StageDataArrayEntity stageDataListEntity;
-    [SerializeField] WaveDataArrayEntity waveDataListEntity;
-    [SerializeField] WaveEnemyDataArrayEntity waveEnemyDataListEntity;
-    [SerializeField] MessageDataArrayEntity messageDataListEntity;
-    [SerializeField] SoundDataArrayEntity seDataListEntity;
-    [SerializeField] SoundDataArrayEntity bgmDataListEntity;
+    [SerializeField] EnemyParameterArrayEntity enemyParameterArrayEntity;
+    [SerializeField] FacilityParameterArrayEntity facilityParameterArrayEntity;
+    [SerializeField] StageDataArrayEntity stageDataArrayEntity;
+    [SerializeField] WaveDataArrayEntity waveDataArrayEntity;
+    [SerializeField] WaveEnemyDataArrayEntity waveEnemyDataArrayEntity;
+    [SerializeField] MessageDataArrayEntity messageDataArrayEntity;
+    [SerializeField] SoundDataArrayEntity seDataArrayEntity;
+    [SerializeField] SoundDataArrayEntity bgmDataArrayEntity;
 
-    public EnemyParameter[] GetEnemyParameterArray() => enemyParameterListEntity.array;
-    public FacilityParameter[] GetFacilityParameterArray() => facilityParameterListEntity.array;
-    public StageData[] GetStageDataArray() => stageDataListEntity.array;
-    public WaveData[] GetWaveDataArray() => waveDataListEntity.array;
-    public WaveEnemyData[] GetWaveEnemyDataArray() => waveEnemyDataListEntity.array;
-    public MessageData[] GetMessageDataArray() => messageDataListEntity.array;
-    public Sound[] GetSoundDataArray() => seDataListEntity.array;
-    public Sound[] GetBGMDataArray() => bgmDataListEntity.array;
+    public EnemyParameter[] GetEnemyParameterArray() => enemyParameterArrayEntity.array;
+    public FacilityParameter[] GetFacilityParameterArray() => facilityParameterArrayEntity.array;
+    public StageData[] GetStageDataArray() => stageDataArrayEntity.array;
+    public WaveData[] GetWaveDataArray() => waveDataArrayEntity.array;
+    public WaveEnemyData[] GetWaveEnemyDataArray() => waveEnemyDataArrayEntity.array;
+    public MessageData[] GetMessageDataArray() => messageDataArrayEntity.array;
+    public Sound[] GetSoundDataArray() => seDataArrayEntity.array;
+    public Sound[] GetBGMDataArray() => bgmDataArrayEntity.array;
 }
