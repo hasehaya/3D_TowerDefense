@@ -14,6 +14,7 @@ public class MessageWindowManager :MonoBehaviour
             if (instance == null)
             {
                 instance = FindObjectOfType<MessageWindowManager>();
+                instance.Initialize();
             }
             return instance;
         }
@@ -35,13 +36,11 @@ public class MessageWindowManager :MonoBehaviour
     MessageData[] messageArray;
     private bool isWaitingForNextMessage = false;
 
-    void Start()
+    void Initialize()
     {
         messageArray = ScriptableObjectManager.Instance.GetMessageDataArray();
         messageText.text = "";
         messageWindow.SetActive(false);
-        var stageNum = SharedSceneData.StageNum;
-        ShowMessagesWithId(stageNum, 1);
     }
 
     void Update()

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 using UnityEngine;
@@ -19,6 +20,8 @@ public class NoticeManager :MonoBehaviour
             return instance;
         }
     }
+    public static Action<NoticeType> OnNotice;
+
     // NoticeのPrefab
     [SerializeField] GameObject noticePrefab;
     // Noticeの親
@@ -161,15 +164,14 @@ public class NoticeManager :MonoBehaviour
             {
                 continue;
             }
+
+            // Observerパターンで通知
+            OnNotice?.Invoke(noticeType);
+
             // 引数なしのイベントを実行
             if (tempEvents.ContainsKey(noticeType))
             {
                 tempEvents[noticeType]?.Invoke();
-                // 通知を自動で削除
-                if (!notNeedAutoDeleteNotices.Contains(noticeType))
-                {
-                    HideNotice(noticeType);
-                }
             }
             // 引数ありのイベントを実行
             else if (tempArgEvents.ContainsKey(noticeType))
@@ -180,11 +182,12 @@ public class NoticeManager :MonoBehaviour
                     continue;
                 }
                 tempArgEvents[noticeType]?.Invoke(tempArgments[noticeType]);
-                // 通知を自動で削除
-                if (!notNeedAutoDeleteNotices.Contains(noticeType))
-                {
-                    HideNotice(noticeType);
-                }
+            }
+
+            // 通知を自動で削除
+            if (!notNeedAutoDeleteNotices.Contains(noticeType))
+            {
+                HideNotice(noticeType);
             }
         }
     }

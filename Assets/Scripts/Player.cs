@@ -102,8 +102,7 @@ public class Player :MonoBehaviour
             Vector3 moveDirection = cameraRotation * inputDirection;
 
             // 移動速度の計算
-            float speedModifier = Input.GetKey(KeyCode.LeftShift) ? 1f : 0.5f;
-            Vector3 velocity = moveDirection * moveSpeed * speedModifier;
+            Vector3 velocity = moveDirection * moveSpeed;
 
             // Rigidbodyに速度を適用（垂直方向の速度は維持）
             rb.velocity = new Vector3(velocity.x, rb.velocity.y, velocity.z);
@@ -188,10 +187,9 @@ public class Player :MonoBehaviour
 
         // スピードの計算
         float speed = new Vector2(horizontal, vertical).magnitude;
-        float speedModifier = Input.GetKey(KeyCode.LeftShift) ? 1f : 0.5f;
 
         // アニメーションの速度を設定
-        animator.SetFloat("Speed", speed * speedModifier, 0.1f, Time.deltaTime);
+        animator.SetFloat("Speed", speed, 0.1f, Time.deltaTime);
     }
 
     public void WarpTo(Vector3 position)

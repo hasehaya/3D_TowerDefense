@@ -43,6 +43,7 @@ public class StageManager :MonoBehaviour
         var waveManager = WaveManager.Instance;
         var enemyManager = EnemyManager.Instance;
         var facilityManager = FacilityManager.Instance;
+        var tutorialManager = TutorialManager.Instance;
     }
 
     public Vector3 GetPlayerBasePosition()

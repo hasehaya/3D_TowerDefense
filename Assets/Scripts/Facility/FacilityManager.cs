@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 using Unity.VisualScripting;
 
@@ -18,6 +19,9 @@ public class FacilityManager
             return instance;
         }
     }
+
+    public static Action OnPurchase;
+
     FacilityParameter[] facilityParameterArray;
 
     public List<Facility.Type> AvailableFacilityTypeList { get; private set; }
@@ -105,10 +109,13 @@ public class FacilityManager
         facilityObj = Facility.GenerateFacility(type);
         purchasingFacilityObj = facilityObj;
         var facility = facilityObj.GetComponent<Facility>();
-        MoneyManager.Instance.Pay(facility.FacilityParameter.price);
         AddFacility(facility);
+
         NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
 
+        MoneyManager.Instance.Pay(facility.FacilityParameter.price);
+
+        OnPurchase?.Invoke();
         Facility.OnFacilityInstalled += ReleasePurchasingFacility;
     }
 
