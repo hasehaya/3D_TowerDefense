@@ -51,10 +51,12 @@ public class Gimmick :MonoBehaviour
         {
             isShowNotice = true;
             ShowNotice();
+            /*
             if (Fairy.Instance.getCanUse())
             {
                 NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Fairy, UseFairy);
             }
+            */
 
         }
         else

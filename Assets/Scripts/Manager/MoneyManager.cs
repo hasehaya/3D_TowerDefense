@@ -28,8 +28,6 @@ public class MoneyManager
 
     private MoneyManager()
     {
-        //TODO: WaveDataより初期値を取得
-        AddMoney(1000);
     }
 
     public void Pay(int price)

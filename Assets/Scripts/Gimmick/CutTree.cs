@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class CutTree :Gimmick, IDamageable
+public class CutTree :Gimmick, IDamageable, IObstacle
 {
     [SerializeField] int hp;
     [SerializeField] float range;
@@ -12,23 +12,15 @@ public class CutTree :Gimmick, IDamageable
     [SerializeField] Transform target;
     public Damageable damageable { get; set; }
     EnemyDetector enemyDetector;
-    List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
-    bool isInstalled = false;
+
+    public Vector3 Position => target.position;
+    public bool IsDestroyed { get; private set; } = false;
 
     void OnDestroy()
     {
-        Damageable.OnDestroyDamageableObject -= Destroy;
+        Damageable.OnDestroyDamageableObject -= DestroyObstacle;
     }
 
-    protected override void Update()
-    {
-        base.Update();
-        if (isInstalled)
-        {
-            Provoke();
-        }
-
-    }
     protected override void ShowNotice()
     {
         NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.CutTree, WaitPlayerExcute);
@@ -66,10 +58,11 @@ public class CutTree :Gimmick, IDamageable
         damageable = gameObject.AddComponent<Damageable>();
         damageable.Initialize(hp);
         damageable.SetHpBarPosition(target.position);
-        Damageable.OnDestroyDamageableObject += Destroy;
+        Damageable.OnDestroyDamageableObject += DestroyObstacle;
         enemyDetector = gameObject.AddComponent<EnemyDetector>();
         enemyDetector.Initialize(Form.Sphere, range);
-        isInstalled = true;
+
+        EnemyManager.Instance.RegisterObstacle(this);
     }
 
     public void TakeDamage(int damage)
@@ -77,42 +70,15 @@ public class CutTree :Gimmick, IDamageable
         damageable.TakeDamage(damage);
     }
 
-    private void Destroy()
+    private void DestroyObstacle(Damageable damageable)
     {
-        foreach (var enemy in enemies)
-        {
-            enemy.SetDestination(StageManager.Instance.GetPlayerBasePosition());
-        }
-        Destroy(gameObject);
-    }
-
-    void Provoke()
-    {
-        if (!isInstalled)
+        if (damageable != this.damageable)
         {
             return;
         }
-        foreach (var enemy in enemies)
-        {
-            if (enemy is FlyEnemy)
-            {
-                continue;
-            }
-            Vector3 directionToTree = (target.position - enemy.transform.position).normalized;
-            float dotProduct = Vector3.Dot(directionToTree, enemy.transform.forward);
-            // 敵が盾の方向を向いている場合（内積が正）
-            if (dotProduct > 0)
-            {
-                var basePos = StageManager.Instance.GetPlayerBasePosition();
-                float distanceToTree = Vector3.Distance(enemy.transform.position, target.position);
-                float distanceToBase = Vector3.Distance(enemy.transform.position, basePos);
-                if (distanceToTree < distanceToBase)
-                {
-                    var destinationPos = target.position;
-
-                    enemy.SetDestination(destinationPos);
-                }
-            }
-        }
+        IsDestroyed = true;
+        // 障害物をEnemyManagerから削除
+        EnemyManager.Instance.OnObstacleDestroyed(this);
+        Destroy(gameObject);
     }
 }

@@ -89,11 +89,59 @@ public class Enemy :MonoBehaviour
 
         // 初期状態を設定
         StartState();
+        UpdateTarget();
     }
 
     protected virtual void StartState()
     {
         TransitionToState(new WalkingOnRoadState(this));
+    }
+
+    // 障害物/ベースを再計算するメソッド
+    public void UpdateTarget()
+    {
+        // ベースの位置取得
+        Vector3 basePos = StageManager.Instance.GetPlayerBasePosition();
+        Vector3 enemyPos = transform.position;
+        Vector3 directionToBase = (basePos - enemyPos).normalized;
+        float distanceToBase = Vector3.Distance(enemyPos, basePos);
+        Vector3 enemyForward = transform.forward;
+
+        // EnemyManagerから障害物リストを取得
+        var obstacles = EnemyManager.Instance.GetObstacles();
+
+        IObstacle bestObstacle = null;
+        float bestDistance = float.MaxValue;
+
+        foreach (var obstacle in obstacles)
+        {
+            if (obstacle.IsDestroyed)
+                continue;
+            Vector3 directionToObstacle = (obstacle.Position - enemyPos).normalized;
+            float dot = Vector3.Dot(directionToObstacle, enemyForward);
+            if (dot > 0) // 正面にある
+            {
+                float distanceToObstacle = Vector3.Distance(enemyPos, obstacle.Position);
+                if (distanceToObstacle < distanceToBase) // ベースより近い
+                {
+                    // 最も近い障害物を選択
+                    if (distanceToObstacle < bestDistance)
+                    {
+                        bestDistance = distanceToObstacle;
+                        bestObstacle = obstacle;
+                    }
+                }
+            }
+        }
+
+        if (bestObstacle != null)
+        {
+            SetDestination(bestObstacle.Position);
+        }
+        else
+        {
+            SetDestination(basePos);
+        }
     }
 
     private void SetNavMeshAgent()

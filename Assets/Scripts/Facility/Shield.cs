@@ -3,14 +3,15 @@ using System.Collections.Generic;
 
 using UnityEngine;
 
-public class Shield :Facility, IDamageable
+public class Shield :Facility, IDamageable, IObstacle
 {
     [SerializeField] int hp;
     [SerializeField] float range;
     public Damageable damageable { get; set; }
     EnemyDetector enemyDetector;
-    List<Enemy> enemies { get { return enemyDetector.GetEnemies(); } }
-    Vector3 BasePos { get { return StageManager.Instance.GetPlayerBasePosition(); } }
+
+    public Vector3 Position => transform.position;
+    public bool IsDestroyed { get; private set; } = false;
 
     protected override void Start()
     {
@@ -21,20 +22,19 @@ public class Shield :Facility, IDamageable
         enemyDetector.Initialize(Form.Sphere, range);
 
         Damageable.OnDestroyDamageableObject += HandleDestroyObject;
-    }
 
-    protected override void Update()
-    {
-        base.Update();
-        Provoke();
+        // EnemyManagerに登録
+        EnemyManager.Instance.RegisterObstacle(this);
     }
 
     private void OnDestroy()
     {
         Damageable.OnDestroyDamageableObject -= HandleDestroyObject;
-        foreach (var enemy in enemies)
+        if (!IsDestroyed)
         {
-            enemy.SetDestination(StageManager.Instance.GetPlayerBasePosition());
+            // 破壊として扱う
+            IsDestroyed = true;
+            EnemyManager.Instance.OnObstacleDestroyed(this);
         }
     }
 
@@ -42,34 +42,9 @@ public class Shield :Facility, IDamageable
     {
         if (damageable == this.damageable)
         {
+            IsDestroyed = true;
+            EnemyManager.Instance.OnObstacleDestroyed(this);
             Destroy(gameObject);
-        }
-    }
-
-    void Provoke()
-    {
-        if (!isInstalled)
-        {
-            return;
-        }
-        foreach (var enemy in enemies)
-        {
-            if (enemy is FlyEnemy)
-            {
-                continue;
-            }
-            Vector3 directionToShield = (transform.position - enemy.transform.position).normalized;
-            float dotProduct = Vector3.Dot(directionToShield, enemy.transform.forward);
-            // 敵が盾の方向を向いている場合（内積が正）
-            if (dotProduct > 0)
-            {
-                float distanceToShield = Vector3.Distance(enemy.transform.position, transform.position);
-                float distanceToBase = Vector3.Distance(enemy.transform.position, BasePos);
-                if (distanceToShield < distanceToBase)
-                {
-                    enemy.SetDestination(transform);
-                }
-            }
         }
     }
 
@@ -78,3 +53,4 @@ public class Shield :Facility, IDamageable
         damageable.TakeDamage(damage);
     }
 }
+

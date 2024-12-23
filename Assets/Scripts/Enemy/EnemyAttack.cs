@@ -5,7 +5,6 @@ using UnityEngine;
 
 public class EnemyAttack :MonoBehaviour
 {
-    Enemy enemy;
     int damage;
     float ct;
 
@@ -13,12 +12,13 @@ public class EnemyAttack :MonoBehaviour
 
     public void Initialize(Enemy enemy)
     {
-        this.enemy = enemy;
         damage = (int)enemy.AttackPower;
         ct = enemy.AttackSpeed;
 
-        var cylinderCol = gameObject.AddComponent<CylinderCollider>();
-        cylinderCol.Initialize(enemy.AttackRange);
+        var col = gameObject.AddComponent<CapsuleCollider>();
+        col.isTrigger = true;
+        col.height = 10;
+        col.radius = enemy.AttackRange;
     }
 
     private void OnTriggerStay(Collider other)

@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using Unity.VisualScripting.FullSerializer;
+
 using UnityEngine;
 
 public class WaveManager
@@ -129,9 +131,12 @@ public class WaveManager
 
     void WaveInitialize()
     {
-        waveEnemyList = ScriptableObjectManager.Instance.GetWaveEnemyDataArray().Where(waveEnemyData => waveEnemyData.stage == SharedSceneData.StageNum && waveEnemyData.wave == waveIndex).ToArray();
+        waveEnemyList = ScriptableObjectManager.Instance.GetWaveEnemyDataArray()
+            .Where(waveEnemyData => waveEnemyData.stage == SharedSceneData.StageNum && waveEnemyData.wave == waveIndex)
+            .OrderBy(waveEnemyData => waveEnemyData.spawnTime)
+            .ToArray();
 
-        MoneyManager.Instance.AddMoney(waveDataList[waveIndex].money);
+        MoneyManager.Instance.AddMoney(waveDataList.Where(waveData => waveData.stage == SharedSceneData.StageNum && waveData.wave == waveIndex).FirstOrDefault().money);
 
         OnWaveChanged?.Invoke(waveIndex, maxWaveIndex);
     }
@@ -177,16 +182,16 @@ public class WaveEnemyData
 {
     public int stage;
     public int wave;
+    public int enemyBaseIndex;
     public float spawnTime;
     public EnemyType enemyType;
-    public int enemyBaseIndex;
 
     public WaveEnemyData()
     {
         stage = 0;
         wave = 0;
+        enemyBaseIndex = 0;
         spawnTime = 0f;
         enemyType = EnemyType.None;
-        enemyBaseIndex = 0;
     }
 }
