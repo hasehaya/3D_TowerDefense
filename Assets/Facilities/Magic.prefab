@@ -121,7 +121,7 @@ MonoBehaviour:
   isSelected: 0
   muzzlePos: {fileID: 1388407240358758779}
   attackPower: 80
-  attackSpeed: 20
+  attackSpeed: 30
   attackRate: 2
   isAreaAttack: 0
   attackRange: 30

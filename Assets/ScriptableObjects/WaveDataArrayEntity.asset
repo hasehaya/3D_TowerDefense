@@ -31,6 +31,15 @@ MonoBehaviour:
   - stage: 3
     wave: 3
     money: 200
+  - stage: 4
+    wave: 1
+    money: 300
+  - stage: 4
+    wave: 2
+    money: 200
+  - stage: 4
+    wave: 3
+    money: 200
   - stage: 5
     wave: 1
     money: 200
