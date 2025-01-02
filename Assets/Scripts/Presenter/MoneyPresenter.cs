@@ -12,6 +12,11 @@ public class MoneyPresenter :MonoBehaviour
         MoneyManager.OnMoneyChanged += SetMoney;
     }
 
+    private void OnDestroy()
+    {
+        MoneyManager.OnMoneyChanged -= SetMoney;
+    }
+
     public void SetMoney(int money)
     {
         moneyView.SetMoney(money);

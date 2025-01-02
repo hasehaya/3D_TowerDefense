@@ -41,7 +41,7 @@ public class WaveManager
     {
         var stage = SharedSceneData.StageNum;
         waveDataList = ScriptableObjectManager.Instance.GetWaveDataArray().Where(waveData => waveData.stage == stage).ToArray();
-        WaveInitialize();
+        SetupWave();
 
         UpdateCaller.AddUpdateCallback(Update);
 
@@ -55,6 +55,11 @@ public class WaveManager
 
         StageManager.OnPause -= Pause;
         StageManager.OnResume -= Resume;
+    }
+
+    public static void DestroyInstance()
+    {
+        instance = null;
     }
 
     private void Update()
@@ -120,7 +125,7 @@ public class WaveManager
         // 道中
         if (waveIndex < maxWaveIndex)
         {
-            NextWave();
+            ProceedToNextWave();
         }
         // 最終Wave
         else
@@ -129,7 +134,7 @@ public class WaveManager
         }
     }
 
-    void WaveInitialize()
+    void SetupWave()
     {
         waveEnemyList = ScriptableObjectManager.Instance.GetWaveEnemyDataArray()
             .Where(waveEnemyData => waveEnemyData.stage == SharedSceneData.StageNum && waveEnemyData.wave == waveIndex)
@@ -141,13 +146,13 @@ public class WaveManager
         OnWaveChanged?.Invoke(waveIndex, maxWaveIndex);
     }
 
-    public void NextWave()
+    public void ProceedToNextWave()
     {
         isWaveEnd = false;
         waveIndex++;
         spwanTime = 0f;
         enemyIndex = 0;
-        WaveInitialize();
+        SetupWave();
         NoticeManager.Instance.HideNotice(NoticeManager.NoticeType.NextWave);
     }
 

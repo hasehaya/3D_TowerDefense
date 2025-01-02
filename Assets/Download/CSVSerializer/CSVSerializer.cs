@@ -36,6 +36,7 @@ public class CSVSerializer
         Array array_value = Array.CreateInstance(type, rows.Count - 1);
         Dictionary<string, int> table = new Dictionary<string, int>();
 
+        // 先頭行(ヘッダ)の列名からDictionary作成
         for (int i = 0; i < rows[0].Length; i++)
         {
             string id = rows[0][i];
@@ -43,16 +44,20 @@ public class CSVSerializer
             for (int j = 0; j < id.Length; j++)
             {
                 if ((id[j] >= 'a' && id[j] <= 'z') || (id[j] >= '0' && id[j] <= '9'))
-                    id2 += ((char)id[j]).ToString();
+                    id2 += id[j];
                 else if (id[j] >= 'A' && id[j] <= 'Z')
-                    id2 += ((char)(id[j] - 'A' + 'a')).ToString();
+                    id2 += char.ToLower(id[j]);
             }
 
-            table.Add(id, i);
+            // すでに同じキーがある場合は追加しない or 上書き
+            if (!table.ContainsKey(id))
+                table.Add(id, i);
+
             if (!table.ContainsKey(id2))
                 table.Add(id2, i);
         }
 
+        // 2行目以降を各データに変換
         for (int i = 1; i < rows.Count; i++)
         {
             object rowdata = Create(rows[i], table, type);

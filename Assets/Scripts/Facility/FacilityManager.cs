@@ -36,6 +36,11 @@ public class FacilityManager
         UpdateCaller.AddUpdateCallback(Update);
     }
 
+    public static void DestroyInstance()
+    {
+        instance = null;
+    }
+
     public void SetAvailableFacilityTypes(List<Facility.Type> availableFacilityTypeList)
     {
         AvailableFacilityTypeList = availableFacilityTypeList;

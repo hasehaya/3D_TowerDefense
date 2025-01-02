@@ -115,12 +115,31 @@ public class Facility :MonoBehaviour
     {
         if (isInstalled)
             return;
+
+        //方向を定める
+        var cameraDirection = new Vector3(Camera.main.transform.forward.x, 0, Camera.main.transform.forward.z) * 10;
+        var playerForwardPos = Player.Instance.transform.position + cameraDirection;
+
         var groundPos = Reticle.Instance.GetTansform();
         if (groundPos != default)
         {
             transform.position = groundPos;
-            NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Install, InstallFacility);
         }
+        else
+        {
+            transform.position = playerForwardPos;
+        }
+
+        //高さを定める
+        RaycastHit hit;
+        Vector3 pos = transform.position + Vector3.up * 2;
+        if (Physics.Raycast(pos, Vector3.down, out hit, Mathf.Infinity))
+        {
+            transform.position = hit.point;
+        }
+
+        //設置用の通知
+        NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.Install, InstallFacility);
     }
 
     public void InstallFacility()

@@ -38,6 +38,11 @@ public class EnemyManager
         Enemy.OnEnemyDestroyed -= RemoveEnemy;
     }
 
+    public static void DestroyInstance()
+    {
+        instance = null;
+    }
+
     public void RegisterObstacle(IObstacle obstacle)
     {
         if (!obstacles.Contains(obstacle))

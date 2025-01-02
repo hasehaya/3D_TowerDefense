@@ -15,79 +15,56 @@ MonoBehaviour:
   array:
   - stageNum: 1
     sceneName: 1
-    stageName: 
+    stageName: "\u30B9\u30C6\u30FC\u30B81"
     stageIcon: {fileID: 0}
     mustFacility: 0
-    firstMoney: 200
   - stageNum: 2
     sceneName: 2
-    stageName: 
-    stageIcon: {fileID: 0}
-    mustFacility: 1
-    firstMoney: 200
-  - stageNum: 3
-    sceneName: 3
-    stageName: 
+    stageName: "\u30B9\u30C6\u30FC\u30B82"
     stageIcon: {fileID: 0}
     mustFacility: 99
-    firstMoney: 200
+  - stageNum: 3
+    sceneName: 3
+    stageName: "\u30B9\u30C6\u30FC\u30B83"
+    stageIcon: {fileID: 0}
+    mustFacility: 99
   - stageNum: 4
     sceneName: 4
-    stageName: 
+    stageName: "\u30B9\u30C6\u30FC\u30B84"
     stageIcon: {fileID: 0}
     mustFacility: 2
-    firstMoney: 200
   - stageNum: 5
     sceneName: 5
-    stageName: 
+    stageName: "\u30B9\u30C6\u30FC\u30B85"
     stageIcon: {fileID: 0}
-    mustFacility: 3
-    firstMoney: 200
+    mustFacility: 1
   - stageNum: 6
     sceneName: 6
-    stageName: 
+    stageName: "\u30B9\u30C6\u30FC\u30B86"
     stageIcon: {fileID: 0}
-    mustFacility: 5
-    firstMoney: 200
+    mustFacility: 3
   - stageNum: 7
     sceneName: 7
-    stageName: 
+    stageName: "\u30B9\u30C6\u30FC\u30B87"
     stageIcon: {fileID: 0}
-    mustFacility: 0
-    firstMoney: 200
+    mustFacility: 5
   - stageNum: 8
     sceneName: 8
-    stageName: 
+    stageName: "\u30B9\u30C6\u30FC\u30B88"
     stageIcon: {fileID: 0}
-    mustFacility: 0
-    firstMoney: 200
+    mustFacility: 99
   - stageNum: 9
     sceneName: 9
-    stageName: 
+    stageName: "\u30B9\u30C6\u30FC\u30B89"
     stageIcon: {fileID: 0}
-    mustFacility: 0
-    firstMoney: 200
+    mustFacility: 6
   - stageNum: 10
     sceneName: 10
-    stageName: 
+    stageName: "\u30B9\u30C6\u30FC\u30B810"
     stageIcon: {fileID: 0}
-    mustFacility: 0
-    firstMoney: 200
+    mustFacility: 4
   - stageNum: 11
     sceneName: 11
-    stageName: 
+    stageName: "\u30B9\u30C6\u30FC\u30B811"
     stageIcon: {fileID: 0}
-    mustFacility: 0
-    firstMoney: 200
-  - stageNum: 12
-    sceneName: 12
-    stageName: 
-    stageIcon: {fileID: 0}
-    mustFacility: 0
-    firstMoney: 0
-  - stageNum: 13
-    sceneName: 13
-    stageName: 
-    stageIcon: {fileID: 0}
-    mustFacility: 0
-    firstMoney: 0
+    mustFacility: 7

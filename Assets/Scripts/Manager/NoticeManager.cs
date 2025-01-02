@@ -99,7 +99,7 @@ public class NoticeManager :MonoBehaviour
             NoticeType.NextWave,
         };
         // 関数が決まっている関数を登録
-        nextWaveEvent.AddListener(() => WaveManager.Instance.NextWave());
+        nextWaveEvent.AddListener(() => WaveManager.Instance.ProceedToNextWave());
         // キーの登録
         noticeKey.Add(NoticeType.Synthesize, KeyCode.Z);
         noticeKey.Add(NoticeType.Climb, KeyCode.Q);

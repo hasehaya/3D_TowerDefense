@@ -11,7 +11,7 @@ public class SaveData
 
     public int ClearStageNum
     {
-        get { return 11; }
+        get { return clearStageNum; }
         set { clearStageNum = value; }
     }
 

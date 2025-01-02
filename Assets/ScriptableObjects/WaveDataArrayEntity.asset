@@ -42,28 +42,64 @@ MonoBehaviour:
     money: 200
   - stage: 5
     wave: 1
+    money: 300
+  - stage: 5
+    wave: 2
+    money: 200
+  - stage: 5
+    wave: 3
     money: 200
   - stage: 6
     wave: 1
+    money: 300
+  - stage: 6
+    wave: 2
+    money: 200
+  - stage: 6
+    wave: 3
     money: 200
   - stage: 7
     wave: 1
+    money: 300
+  - stage: 7
+    wave: 2
+    money: 200
+  - stage: 7
+    wave: 3
     money: 200
   - stage: 8
     wave: 1
+    money: 300
+  - stage: 8
+    wave: 2
+    money: 200
+  - stage: 8
+    wave: 3
     money: 200
   - stage: 9
     wave: 1
+    money: 300
+  - stage: 9
+    wave: 2
+    money: 200
+  - stage: 9
+    wave: 3
     money: 200
   - stage: 10
     wave: 1
+    money: 300
+  - stage: 10
+    wave: 2
+    money: 200
+  - stage: 10
+    wave: 3
     money: 200
   - stage: 11
     wave: 1
+    money: 300
+  - stage: 11
+    wave: 2
     money: 200
-  - stage: 12
-    wave: 1
-    money: 200
-  - stage: 13
-    wave: 1
+  - stage: 11
+    wave: 3
     money: 200

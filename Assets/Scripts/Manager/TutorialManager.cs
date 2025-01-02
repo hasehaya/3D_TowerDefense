@@ -35,6 +35,11 @@ public class TutorialManager
         FacilityManager.OnPurchase -= ShowMessageByPurchase;
     }
 
+    public static void DestroyInstance()
+    {
+        instance = null;
+    }
+
     private void ShowMessage()
     {
         MessageWindowManager.Instance.ShowMessagesWithId(SharedSceneData.StageNum, messageIndex);

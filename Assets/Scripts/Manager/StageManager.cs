@@ -38,6 +38,25 @@ public class StageManager :MonoBehaviour
 #endif
     }
 
+    private void OnDestroy()
+    {
+        // イベントハンドラを解除
+        OnPause = null;
+        OnResume = null;
+
+        // シングルトンインスタンスを削除
+        if (instance == this)
+        {
+            instance = null;
+        }
+
+        // 各マネージャーのインスタンスを明示的に削除
+        WaveManager.DestroyInstance();
+        EnemyManager.DestroyInstance();
+        FacilityManager.DestroyInstance();
+        TutorialManager.DestroyInstance();
+    }
+
     void SingletonInitialize()
     {
         var waveManager = WaveManager.Instance;
