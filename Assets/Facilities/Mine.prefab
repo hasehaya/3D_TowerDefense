@@ -50,6 +50,7 @@ MonoBehaviour:
   isInstalled: 0
   canInstall: 0
   isSelected: 0
+  damage: 100
 --- !u!1 &3481789260439006869
 GameObject:
   m_ObjectHideFlags: 0

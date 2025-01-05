@@ -15,16 +15,21 @@ public class SaveData
         set { clearStageNum = value; }
     }
 
-    public List<Facility.Type> AvailableFacilityTypes()
+    public List<Facility.Type> GetAvailableFacilityTypeList()
     {
         List<Facility.Type> availableFacilityTypes = new List<Facility.Type>();
         var stageData = ScriptableObjectManager.Instance.GetStageDataArray();
         foreach (var stage in stageData)
         {
-            if (stage.stageNum <= ClearStageNum + 1)
+            if (stage.stageNum > ClearStageNum + 1)
             {
-                availableFacilityTypes.Add(stage.mustFacility);
+                break;
             }
+            if (stage.mustFacilityType == Facility.Type.None)
+            {
+                continue;
+            }
+            availableFacilityTypes.Add(stage.mustFacilityType);
         }
         return availableFacilityTypes;
     }

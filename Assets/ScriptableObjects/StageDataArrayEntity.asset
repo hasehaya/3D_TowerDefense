@@ -17,54 +17,54 @@ MonoBehaviour:
     sceneName: 1
     stageName: "\u30B9\u30C6\u30FC\u30B81"
     stageIcon: {fileID: 0}
-    mustFacility: 0
+    mustFacilityType: 0
   - stageNum: 2
     sceneName: 2
     stageName: "\u30B9\u30C6\u30FC\u30B82"
     stageIcon: {fileID: 0}
-    mustFacility: 99
+    mustFacilityType: 99
   - stageNum: 3
     sceneName: 3
     stageName: "\u30B9\u30C6\u30FC\u30B83"
     stageIcon: {fileID: 0}
-    mustFacility: 99
+    mustFacilityType: 99
   - stageNum: 4
     sceneName: 4
     stageName: "\u30B9\u30C6\u30FC\u30B84"
     stageIcon: {fileID: 0}
-    mustFacility: 2
+    mustFacilityType: 2
   - stageNum: 5
     sceneName: 5
     stageName: "\u30B9\u30C6\u30FC\u30B85"
     stageIcon: {fileID: 0}
-    mustFacility: 1
+    mustFacilityType: 1
   - stageNum: 6
     sceneName: 6
     stageName: "\u30B9\u30C6\u30FC\u30B86"
     stageIcon: {fileID: 0}
-    mustFacility: 3
+    mustFacilityType: 3
   - stageNum: 7
     sceneName: 7
     stageName: "\u30B9\u30C6\u30FC\u30B87"
     stageIcon: {fileID: 0}
-    mustFacility: 5
+    mustFacilityType: 5
   - stageNum: 8
     sceneName: 8
     stageName: "\u30B9\u30C6\u30FC\u30B88"
     stageIcon: {fileID: 0}
-    mustFacility: 99
+    mustFacilityType: 99
   - stageNum: 9
     sceneName: 9
     stageName: "\u30B9\u30C6\u30FC\u30B89"
     stageIcon: {fileID: 0}
-    mustFacility: 6
+    mustFacilityType: 6
   - stageNum: 10
     sceneName: 10
     stageName: "\u30B9\u30C6\u30FC\u30B810"
     stageIcon: {fileID: 0}
-    mustFacility: 4
+    mustFacilityType: 4
   - stageNum: 11
     sceneName: 11
     stageName: "\u30B9\u30C6\u30FC\u30B811"
     stageIcon: {fileID: 0}
-    mustFacility: 7
+    mustFacilityType: 7

@@ -19,9 +19,24 @@ public class FacilitySelectPresenter :MonoBehaviour
 
     private void Start()
     {
-        var availableFacilities = ScriptableObjectManager.Instance.GetFacilityParameterArray();
-        foreach (var facility in availableFacilities)
+        SetAvailableFacilityList();
+
+        popupObj.SetActive(false);
+
+        backBtn.onClick.AddListener(() => popupObj.SetActive(false));
+        playBtn.onClick.AddListener(LoadStage);
+    }
+
+    void SetAvailableFacilityList()
+    {
+        var availableFacilities = SaveDataManager.Instance.SaveData.GetAvailableFacilityTypeList();
+        var facilityies = ScriptableObjectManager.Instance.GetFacilityParameterArray();
+        foreach (var facility in facilityies)
         {
+            if (!availableFacilities.Contains(facility.type))
+            {
+                continue;
+            }
             var viewObj = Instantiate(facilityCellPrefab, availableFacilityParent);
             var view = viewObj.GetComponent<FacilityCellView>();
             view.SetIcon(facility.icon);
@@ -29,11 +44,6 @@ public class FacilitySelectPresenter :MonoBehaviour
 
             facilityToViewMap.Add(facility, viewObj);
         }
-
-        popupObj.SetActive(false);
-
-        backBtn.onClick.AddListener(() => popupObj.SetActive(false));
-        playBtn.onClick.AddListener(LoadStage);
     }
 
     void LoadStage()
@@ -45,7 +55,7 @@ public class FacilitySelectPresenter :MonoBehaviour
     public void Initialize(StageData stageData)
     {
         selectedSceneName = stageData.sceneName;
-        mustFacility = stageData.mustFacility;
+        mustFacility = stageData.mustFacilityType;
 
         for (int i = selectedFacilityParent.childCount - 1; i >= 0; i--)
         {

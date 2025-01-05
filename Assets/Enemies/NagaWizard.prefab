@@ -699,7 +699,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6708177107184148671}
-  - component: {fileID: 476876375872936558}
+  - component: {fileID: 6586385159991682825}
   - component: {fileID: 1546490188430224680}
   - component: {fileID: 6122884745152710502}
   - component: {fileID: 1121212399601173424}
@@ -729,7 +729,7 @@ Transform:
   - {fileID: 5647996529960180708}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &476876375872936558
+--- !u!114 &6586385159991682825
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -738,7 +738,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3671873954508060965}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75c983d0ac0787a45a893a13d53f172e, type: 3}
+  m_Script: {fileID: 11500000, guid: 5b8cf457bfff34f279f73ee4f83efd79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nav: {fileID: 0}
@@ -747,6 +747,9 @@ MonoBehaviour:
   enemyType: 30
   roadArea: 0
   groundArea: 0
+  healValue: 50
+  healRange: 4
+  coolTime: 5
 --- !u!95 &1546490188430224680
 Animator:
   serializedVersion: 5

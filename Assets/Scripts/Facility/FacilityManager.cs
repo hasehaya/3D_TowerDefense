@@ -160,4 +160,17 @@ public class FacilityManager
         }
         return ret;
     }
+
+    const int kNearDistance = 5;
+    public bool IsExistNearFacility(Vector3 currentPos)
+    {
+        foreach (var facility in installedFacilityList)
+        {
+            if (Vector3.Distance(facility.transform.position, currentPos) <= kNearDistance)
+            {
+                return false;
+            }
+        }
+        return true;
+    }
 }

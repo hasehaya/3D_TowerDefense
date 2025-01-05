@@ -54,7 +54,7 @@ public class AreaDamage :MonoBehaviour
     {
         foreach (var enemy in enemyDetector.GetEnemies())
         {
-            enemy.TakeDamage(damage);
+            enemy?.TakeDamage(damage);
         }
     }
 }

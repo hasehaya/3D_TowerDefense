@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Mine :Facility
 {
+    [SerializeField] int damage;
     ParticleSystem explosionEffect;
     CapsuleCollider capsuleCollider;
     bool isExploded = false;
@@ -39,7 +40,7 @@ public class Mine :Facility
             return;
         }
         isExploded = true;
-        AreaDamage.Create(transform.position, Form.Sphere, 8, 10, 1, 0);
+        AreaDamage.Create(transform.position, Form.Sphere, damage, 10, 1, 0);
         Instantiate(explosionEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

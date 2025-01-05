@@ -31,11 +31,11 @@ public class StageSelectPresenter :MonoBehaviour
     {
         SharedSceneData.StageNum = stageData.stageNum;
 
-        var availableFacilities = SaveDataManager.Instance.SaveData.AvailableFacilityTypes();
+        var availableFacilities = SaveDataManager.Instance.SaveData.GetAvailableFacilityTypeList();
         if (availableFacilities.Count <= 5)
         {
             StartCoroutine(SceneLoader.Instance.LoadScene(stageData.sceneName));
-            SharedSceneData.AvailableFacilityTypes = availableFacilities.ToListPooled();
+            SharedSceneData.AvailableFacilityTypes = availableFacilities;
         }
         else
         {

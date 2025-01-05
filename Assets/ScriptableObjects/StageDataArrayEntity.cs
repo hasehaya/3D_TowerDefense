@@ -18,5 +18,5 @@ public class StageData
     public SceneLoader.SceneName sceneName;
     public string stageName;
     public Sprite stageIcon;
-    public Facility.Type mustFacility;
+    public Facility.Type mustFacilityType;
 }

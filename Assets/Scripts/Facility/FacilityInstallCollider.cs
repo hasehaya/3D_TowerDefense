@@ -39,20 +39,7 @@ public class FacilityInstallCollider :MonoBehaviour
             return;
         }
 
-        bool canInstall = false;
-
-        switch (facility.GetInstallType())
-        {
-            case Facility.InstallType.Side:
-            canInstall = IsNavMeshAreaBelow(groundArea);
-            break;
-
-            case Facility.InstallType.Road:
-            canInstall = IsNavMeshAreaBelow(roadArea);
-            break;
-        }
-
-        facility.canInstall = canInstall;
+        facility.canInstall = CanInstall();
 
         if (facility.canInstall)
         {
@@ -62,6 +49,23 @@ public class FacilityInstallCollider :MonoBehaviour
         {
             facility.ChangeColorRed();
         }
+    }
+
+    bool CanInstall()
+    {
+        switch (facility.GetInstallType())
+        {
+            case Facility.InstallType.Side:
+            if (FacilityManager.Instance.IsExistNearFacility(transform.position))
+            {
+                return false;
+            }
+            return IsNavMeshAreaBelow(groundArea);
+
+            case Facility.InstallType.Road:
+            return IsNavMeshAreaBelow(roadArea);
+        }
+        return false;
     }
 
     /// <summary>
