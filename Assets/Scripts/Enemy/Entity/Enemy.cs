@@ -100,6 +100,10 @@ public class Enemy :MonoBehaviour
     // 障害物/ベースを再計算するメソッド
     public void UpdateTarget()
     {
+        if (this is FlyEnemy)
+        {
+            return;
+        }
         // ベースの位置取得
         Vector3 basePos = StageManager.Instance.GetPlayerBasePosition();
         Vector3 enemyPos = transform.position;

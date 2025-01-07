@@ -126,7 +126,7 @@ MonoBehaviour:
   isAreaAttack: 0
   attackRange: 30
   attackArea: 0
-  attackType: 0
+  attackType: 1
   material: {fileID: 0}
 --- !u!1 &6798824829025071593
 GameObject:

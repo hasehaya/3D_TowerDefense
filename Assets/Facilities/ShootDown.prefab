@@ -83,8 +83,8 @@ MonoBehaviour:
   canInstall: 0
   isSelected: 0
   muzzlePos: {fileID: 4678242333709568835}
-  attackPower: 1
-  attackSpeed: 25
+  attackPower: 20
+  attackSpeed: 30
   attackRate: 1
   isAreaAttack: 0
   attackRange: 30

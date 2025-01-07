@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 
 using Unity.VisualScripting;
 
@@ -25,7 +26,13 @@ public class FacilityManager
     FacilityParameter[] facilityParameterArray;
 
     public List<Facility.Type> AvailableFacilityTypeList { get; private set; }
-    List<Facility> installedFacilityList = new List<Facility>();
+    List<Facility> installedFacilityList
+    {
+        get
+        {
+            return GameObject.FindObjectsOfType<Facility>().Where(x => x.isInstalled).ToList();
+        }
+    }
     Facility previousTargetFacility;
     GameObject purchasingFacilityObj;
 
@@ -95,16 +102,6 @@ public class FacilityManager
         }
     }
 
-    public void AddFacility(Facility facility)
-    {
-        installedFacilityList.Add(facility);
-    }
-
-    public void RemoveFacility(Facility facility)
-    {
-        installedFacilityList.Remove(facility);
-    }
-
     /// <summary>
     /// 建物を購入する関数、各FacilityクラスのParameterも自動で設定する
     /// </summary>
@@ -114,7 +111,6 @@ public class FacilityManager
         facilityObj = Facility.GenerateFacility(type);
         purchasingFacilityObj = facilityObj;
         var facility = facilityObj.GetComponent<Facility>();
-        AddFacility(facility);
 
         NoticeManager.Instance.ShowFuncNotice(NoticeManager.NoticeType.PurchaseCancel, PurchaseCancel);
 
@@ -128,7 +124,6 @@ public class FacilityManager
     {
         var facility = purchasingFacilityObj.GetComponent<Facility>();
         MoneyManager.Instance.AddMoney(facility.FacilityParameter.price);
-        RemoveFacility(facility);
         facility.DestroyThisFacility();
         purchasingFacilityObj = null;
         facility.HideNotice();
@@ -161,16 +156,16 @@ public class FacilityManager
         return ret;
     }
 
-    const int kNearDistance = 5;
+    const int kNearDistance = 10;
     public bool IsExistNearFacility(Vector3 currentPos)
     {
         foreach (var facility in installedFacilityList)
         {
             if (Vector3.Distance(facility.transform.position, currentPos) <= kNearDistance)
             {
-                return false;
+                return true;
             }
         }
-        return true;
+        return false;
     }
 }

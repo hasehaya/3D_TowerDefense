@@ -132,7 +132,7 @@ public class Facility :MonoBehaviour
 
         //高さを定める
         RaycastHit hit;
-        Vector3 pos = transform.position + Vector3.up * 2;
+        Vector3 pos = transform.position + Vector3.up * 0.8f;
         if (Physics.Raycast(pos, Vector3.down, out hit, Mathf.Infinity))
         {
             transform.position = hit.point;
@@ -221,10 +221,8 @@ public class Facility :MonoBehaviour
 
     void FacilitySell()
     {
-        int earnMoney = (int)(FacilityParameter.price * 0.7f);
+        int earnMoney = (int)(FacilityParameter.price * 0.8f);
         MoneyManager.Instance.AddMoney(earnMoney);
-
-        FacilityManager.Instance.RemoveFacility(this);
 
         HideNotice();
 

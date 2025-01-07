@@ -663,7 +663,7 @@ Transform:
   m_GameObject: {fileID: 2205094487946998236}
   serializedVersion: 2
   m_LocalRotation: {x: -0.49565932, y: 0.5294138, z: -0.47056216, w: 0.50260746}
-  m_LocalPosition: {x: -0.0034128816, y: 1.362617, z: -0.19552387}
+  m_LocalPosition: {x: -0.0034128816, y: -0.018, z: -0.19552387}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1339,7 +1339,7 @@ CapsuleCollider:
   m_Radius: 0.5
   m_Height: 1
   m_Direction: 1
-  m_Center: {x: 0, y: 1.66, z: 0}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!195 &8367216994165452805
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -1447,7 +1447,7 @@ Transform:
   m_GameObject: {fileID: 6192551818313885789}
   serializedVersion: 2
   m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: -0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -1.380617, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

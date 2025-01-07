@@ -1468,7 +1468,6 @@ GameObject:
   - component: {fileID: 7222432852503057211}
   - component: {fileID: 7063515741363911233}
   - component: {fileID: 4036781008533265728}
-  - component: {fileID: 6254300140530378365}
   - component: {fileID: 5105701904038710354}
   - component: {fileID: 8128847259261977105}
   - component: {fileID: 8761759612558051078}
@@ -1539,27 +1538,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &6254300140530378365
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5732191324510662964}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b034aea4730dd5c47b5819d3f46619be, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nav: {fileID: 0}
-  rb: {fileID: 0}
-  anim: {fileID: 0}
-  enemyType: 6
-  roadArea: 0
-  groundArea: 0
-  summonedEnemyType: 1
-  summonedCount: 1
-  coolTime: 10
 --- !u!195 &5105701904038710354
 NavMeshAgent:
   m_ObjectHideFlags: 0
