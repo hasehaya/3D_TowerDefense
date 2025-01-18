@@ -50,7 +50,7 @@ public class TutorialManager
     {
         switch (SharedSceneData.StageNum)
         {
-            case 4:
+            case 2:
             if (messageIndex == 1 && noticeType == NoticeManager.NoticeType.Climb)
             {
                 ShowMessage();

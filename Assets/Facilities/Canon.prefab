@@ -142,7 +142,7 @@ MonoBehaviour:
   attackRange: 20
   attackArea: 0
   attackType: 1
-  material: {fileID: 0}
+  material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
 --- !u!1 &3885138386865043329
 GameObject:
   m_ObjectHideFlags: 0

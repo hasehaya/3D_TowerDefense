@@ -7,17 +7,17 @@ using UnityEngine.UI;
 public class StageClearPanelPresneter :MonoBehaviour
 {
     [SerializeField] Button restartBtn;
-    [SerializeField] Button nextStageBtn;
+    [SerializeField] Button homeBtn;
 
     private void Start()
     {
         restartBtn.onClick.AddListener(OnClickRetryButton);
-        nextStageBtn.onClick.AddListener(OnClickNextStageButton);
+        homeBtn.onClick.AddListener(OnClickHomeButton);
     }
 
-    private void OnClickNextStageButton()
+    private void OnClickHomeButton()
     {
-        StageManager.Instance.NextStage();
+        StageManager.Instance.GoToHome();
     }
 
     private void OnClickRetryButton()

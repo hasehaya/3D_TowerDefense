@@ -90,7 +90,7 @@ MonoBehaviour:
   attackRange: 30
   attackArea: 0
   attackType: 2
-  material: {fileID: 0}
+  material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   shootDownDamage: 50
 --- !u!1 &2232350812211061096
 GameObject:

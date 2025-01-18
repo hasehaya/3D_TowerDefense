@@ -118,9 +118,9 @@ public class StageManager :MonoBehaviour
         Pause();
     }
 
-    public void NextStage()
+    public void GoToHome()
     {
-        SceneLoader.Instance.LoadNextStage();
+        SceneLoader.Instance.LoadScene(SceneLoader.SceneName.Home);
         Time.timeScale = 1.0f;
     }
 

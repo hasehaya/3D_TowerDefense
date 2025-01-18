@@ -12,34 +12,34 @@ EditorBuildSettings:
     path: Assets/Scenes/Stage1.unity
     guid: 015bc75c57126ad4f894a75f161d07b2
   - enabled: 1
-    path: Assets/Scenes/Stage2.unity
+    path: Assets/Scenes/Stage2_old.unity
     guid: d5d4d6963520f8644af9f71c995a079f
   - enabled: 1
-    path: Assets/Scenes/Stage3.unity
+    path: Assets/Scenes/Stage2.unity
     guid: 9084642e6ab250a49abecb718ab146fa
   - enabled: 1
-    path: Assets/Scenes/Stage4.unity
+    path: Assets/Scenes/Stage3.unity
     guid: 993ec4f75854fe641a629caa675ea604
   - enabled: 1
-    path: Assets/Scenes/Stage5.unity
+    path: Assets/Scenes/Stage4.unity
     guid: 8bb3cb597aff98e48b6eae6105bdd4e5
   - enabled: 1
-    path: Assets/Scenes/Stage6.unity
+    path: Assets/Scenes/Stage5.unity
     guid: 7ea4979c60c0f1f46ac14cc0b9ef55c8
   - enabled: 1
-    path: Assets/Scenes/Stage7.unity
+    path: Assets/Scenes/Stage6.unity
     guid: fc2d5613dc63fca4fb5ac0b7ed8071e5
   - enabled: 1
-    path: Assets/Scenes/Stage8.unity
+    path: Assets/Scenes/Stage7.unity
     guid: bba18808897d7fa41a1273c532c7c82e
   - enabled: 1
-    path: Assets/Scenes/Stage9.unity
+    path: Assets/Scenes/Stage8.unity
     guid: 83f4602cb6b9c4640b3c882a19f74a29
   - enabled: 1
-    path: Assets/Scenes/Stage10.unity
+    path: Assets/Scenes/Stage9.unity
     guid: 805dc72c02b0b9e4e990e2b1dc95bbad
   - enabled: 1
-    path: Assets/Scenes/Stage11.unity
+    path: Assets/Scenes/Stage10.unity
     guid: e19d22b3f5633504585cf8f2c5975711
   - enabled: 1
     path: Assets/Scenes/Stage12.unity
